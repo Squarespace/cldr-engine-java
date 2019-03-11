@@ -1,0 +1,30 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-eslint-rules",
+    "tslint-react"
+  ],
+  "rules": {
+    "interface-name": {
+      "options": ["never-prefix"]
+    },
+    "quotemark": {
+      "options": ["single", "jsx-double"]
+    },
+    "jsx-no-multiline-js": {
+      "severity": "off"
+    },
+    "jsx-no-lambda": {
+      "severity": "off"
+    },
+    "jsx-alignment": {
+      "severity": "off"
+    },
+    "no-empty": false,
+    "no-console": {
+      "severity": "off"
+    }
+  }
+}
+

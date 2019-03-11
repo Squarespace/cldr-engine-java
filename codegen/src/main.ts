@@ -1,5 +1,5 @@
 import { ORIGIN } from '@phensley/cldr-schema';
-import { join } from 'path';
+import { dirname, join } from 'path';
 import * as fs from 'fs';
 import * as glob from 'fast-glob';
 import * as ts from 'typescript';
@@ -39,6 +39,14 @@ const loadSources = (pattern: string): ts.SourceFile[] =>
     })
     .map(([p, data]) => tsquery.ast(data, p));
 
+const makedirs = (p: string) => {
+  if (fs.existsSync(p)) {
+    return;
+  }
+  makedirs(dirname(p));
+  fs.mkdirSync(p);
+};
+
 export const main = () => {
   const root = join(__dirname, '../node_modules/@phensley/cldr-schema/lib/**/*.d.ts');
   const sources = loadSources(root);
@@ -53,7 +61,8 @@ export const main = () => {
       .forEach(e => enums.push(decode(e)));
   }
 
-  const dest = join(__dirname, '../../src/generated/java/com/squarespace/cldr2/internal');
+  let dest = join(__dirname, '../../src/generated/java/com/squarespace/cldr2/internal');
+  makedirs(dest);
 
   // Generate the schema
   const types = interfaces.reduce((p, c) => {
@@ -87,6 +96,17 @@ export const main = () => {
     code += tojava(o);
     fs.writeFileSync(join(dest, `${o.name}.java`), code, { encoding: 'utf-8' });
   }
+
+  // Copy packs
+  dest = join(__dirname, '../../src/generated/resources/com/squarespace/cldr2/internal');
+  makedirs(dest);
+
+  const packroot = join(__dirname, '../node_modules/@phensley/cldr/packs');
+  fs.readdirSync(packroot).filter(p => p.endsWith('.json')).forEach(p => {
+    const src = join(packroot, p);
+    const dst = join(dest, p);
+    fs.copyFileSync(src, dst);
+  });
 };
 
 main();

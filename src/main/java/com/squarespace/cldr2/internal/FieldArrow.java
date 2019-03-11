@@ -8,7 +8,7 @@ public class FieldArrow {
     this.offset = offset;
   }
 
-  String get(PrimitiveBundle bundle) {
+  public String get(PrimitiveBundle bundle) {
     return bundle.get(this.offset);
   }
 

@@ -35,7 +35,7 @@ public class Vector2Arrow<R, S> {
     return "";
   }
 
-  // TODO: implement mapping
+  // TODO: implement 2-d mapping
 
   //mapping(bundle: PrimitiveBundle): { [P in T]: { [Q in S]: string }} {
   //  const offset = this.offset;

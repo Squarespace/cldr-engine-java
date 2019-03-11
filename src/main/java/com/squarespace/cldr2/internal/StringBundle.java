@@ -2,7 +2,7 @@ package com.squarespace.cldr2.internal;
 
 import java.util.Map;
 
-public class StringBundle {
+public class StringBundle implements Bundle {
 
   private String _languageRegion;
   private String _languageScript;
@@ -44,35 +44,35 @@ public class StringBundle {
 
   }
 
-  String id() {
+  public String id() {
     return _id;
   }
 
-  String language() {
+  public String language() {
     return this._tag.language();
   }
 
-  String region() {
+  public String region() {
     return this._tag.region();
   }
 
-  String languageScript() {
+  public String languageScript() {
     return this._languageScript;
   }
 
-  String languageRegion() {
+  public String languageRegion() {
     return this._languageRegion;
   }
 
-  String calendarSystem() {
+  public String calendarSystem() {
     return this._calendarSystem;
   }
 
-  String numberSystem() {
+  public String numberSystem() {
     return this._numberSystem;
   }
 
-  String get(int offset) {
+  public String get(int offset) {
     // If there is an exception index, attempt to resolve it.
     if (this.index != null) {
       Integer i = this.index.get(offset);

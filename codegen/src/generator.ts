@@ -72,6 +72,7 @@ export class Builder {
   current: any;
   stack: any[] = [];
   indextypes: any = {};
+  suppress = 0;
 
   constructor(readonly types: any) {
     this.current = this.members(types.Schema);
@@ -90,13 +91,19 @@ export class Builder {
     return r;
   }
 
-  append(s: string) {
-    this.indent();
-    this.buf.push(s);
+  append(s: string, noindent: boolean = false) {
+    if (!this.suppress) {
+      if (!noindent) {
+        this.indent();
+      }
+      this.buf.push(s);
+    }
   }
 
   indent() {
-    this.buf.push('  '.repeat(this.depth));
+    if (!this.suppress) {
+      this.buf.push('  '.repeat(this.depth));
+    }
   }
 
   lookupType(name: string): any {
@@ -211,7 +218,7 @@ export class Builder {
     const len = inst.block.length;
     for (let i = 0; i < len; i++) {
       if (i > 0) {
-        this.buf.push(',\n');
+        this.append(',\n', true);
       }
       this.construct(inst.block[i]);
     }
@@ -232,7 +239,7 @@ export class Builder {
     const len = inst.block.length;
     for (let i = 0; i < len; i++) {
       if (i > 0) {
-        this.buf.push(',\n');
+        this.append(',\n', true);
       }
       this.construct(inst.block[i]);
     }
@@ -258,7 +265,7 @@ export class Builder {
       const len = inst.block.length;
       for (let i = 0; i < len; i++) {
         if (i > 0) {
-          this.buf.push(',\n');
+          this.append(',\n', true);
         }
         this.construct(inst.block[i]);
       }
@@ -267,6 +274,15 @@ export class Builder {
       this.append('));\n');
       this.pop();
     }
+
+    this.suppress = 1;
+    for (const i of inst.block) {
+      this.push(type.typeargs[1].name);
+      this.construct(i);
+      this.pop();
+    }
+    this.suppress = 0;
+
     this.append('\n');
     this.exit();
     this.append('}}');
@@ -279,7 +295,7 @@ export class Builder {
 
     const dim0 = `KEY_${keyToField(inst.dim0)}`;
     const _dim0 = this.origin.getIndex(inst.dim0);
-    const offset = this.generator.field();
+    const offset = this.generator.field(); // header
     this.generator.vector1(_dim0.size);
     this.append(`/* ${fix(inst.name)} = */ new Vector1Arrow<String>(${offset}, ${dim0})`);
   }
@@ -295,7 +311,7 @@ export class Builder {
     const dim1 = `KEY_${keyToField(inst.dim1)}`;
     const _dim0 = this.origin.getIndex(inst.dim0);
     const _dim1 = this.origin.getIndex(inst.dim1);
-    const offset = this.generator.field();
+    const offset = this.generator.field(); // header
     this.generator.vector2(_dim0.size, _dim1.size);
     this.append(`/* ${fix(inst.name)} = */ new Vector2Arrow<String, String>(${offset}, ${dim0}, ${dim1})`);
   }

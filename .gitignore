@@ -1,0 +1,12 @@
+/.settings/
+/.classpath
+/.project
+
+.gradle/
+/gradlew.bat
+
+/bin/
+/build/
+/src/generated
+
+

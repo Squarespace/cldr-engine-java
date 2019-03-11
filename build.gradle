@@ -1,0 +1,77 @@
+plugins {
+  id 'me.champeau.gradle.jmh' version '0.3.0'
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+apply plugin: 'me.champeau.gradle.jmh'
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'jacoco'
+
+group = 'com.squarespace.cldr2'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+project.ext {
+	ccVersion = '1.0.6'
+ 	testngVersion = '6.11'
+}
+
+dependencies {
+  compile "com.squarespace.compiler:compiler-core:${ccVersion}"
+
+  testCompile "org.testng:testng:${testngVersion}"
+	testCompile 'org.hamcrest:java-hamcrest:2.0.0.0'
+}
+
+jmh {
+  jmhVersion '1.19'
+  forceGC = true
+  includeTests = false
+  zip64 = true
+  //include = '.*LanguageMatcher.*'
+}
+
+sourceSets.main.java.srcDirs = ['src/main/java', 'src/generated/java']
+
+eclipse {
+	project {
+		name = 'cldr2'
+	}
+}
+
+wrapper {
+	gradleVersion = '4.9'
+}
+
+clean {
+	delete 'src/generated'
+}
+
+test {
+	useTestNG()
+	jacoco {
+		append = false
+	}
+}
+
+jacoco {
+	toolVersion = '0.7.9'
+}
+
+jacocoTestReport {
+	group = 'Reporting'
+	additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
+	reports {
+		xml.enabled = true
+		html.enabled = true
+		html.destination = "${buildDir}/jacoco-report"
+	}
+}
+

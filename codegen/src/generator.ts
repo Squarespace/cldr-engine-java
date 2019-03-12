@@ -190,7 +190,7 @@ export class Builder {
     this.origin = inst;
 
     // setup class
-    this.append('package com.squarespace.cldr2.internal;\n\n');
+    this.append('package com.squarespace.cldrengine.internal;\n\n');
     this.append('/** AUTO-GENERATED DO NOT EDIT */\n\n');
     for (const imp of IMPORTS) {
       this.append(`import ${imp};\n`);
@@ -226,13 +226,13 @@ export class Builder {
         continue;
       }
       type = type === 'string' ? 'String' : type;
-      this.append(`static final KeyIndex<${type}> KEY_${keyToField(key)} = new KeyIndex<${type}>(new ${type}[] {\n`);
+      this.append(`  public static final KeyIndex<${type}> KEY_${keyToField(key)} = new KeyIndex<${type}>(new ${type}[] {\n`);
       this.enter();
 
       const len = vals.length;
       for (let i = 0; i < len; i++) {
         if (i > 0) {
-          this.append(',\n');
+          this.append(',\n', true);
         }
         if (type === 'String') {
           this.append(`  "${vals[i]}"`);
@@ -245,16 +245,16 @@ export class Builder {
         }
       }
       this.exit();
-      this.append('});\n\n');
+      this.append('\n  });\n\n');
     }
 
     for (const key of Object.keys(this.origin.values)) {
       const vals = this.origin.values[key];
-      this.append(`static final String[] VAL_${keyToField(key)} = new String[] {\n`);
+      this.append(`  public static final String[] VAL_${keyToField(key)} = new String[] {\n`);
       this.enter();
-      this.array(vals);
+      this.array(vals, '  ');
       this.exit();
-      this.append('};\n\n');
+      this.append('  };\n\n');
     }
 
     const fields = this.buf;
@@ -350,11 +350,11 @@ export class Builder {
     this.append(`/* ${fix(inst.name)} = */ new Vector2Arrow<${fix(typ0)}, ${fix(typ1)}>(${offset}, ${dim0}, ${dim1})`);
   }
 
-  private array(vals: string[]): void {
+  private array(vals: string[], prefix: string): void {
     const len = vals.length;
     for (let i = 0; i < len; i++) {
       const end = i < (len - 1) ? ',\n' : '\n';
-      this.append(`"${vals[i]}"${end}`);
+      this.append(`${prefix}"${vals[i]}"${end}`);
     }
   }
 

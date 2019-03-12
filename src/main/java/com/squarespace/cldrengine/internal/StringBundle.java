@@ -1,4 +1,4 @@
-package com.squarespace.cldr2.internal;
+package com.squarespace.cldrengine.internal;
 
 import java.util.Map;
 

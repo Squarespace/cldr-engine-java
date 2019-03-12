@@ -9,7 +9,7 @@ import { decode } from './parser';
 import { Builder } from './generator';
 import { tojava } from './java';
 
-const PACKAGE = 'package com.squarespace.cldr2.internal;\n\n';
+const PACKAGE = 'package com.squarespace.cldrengine.internal;\n\n';
 
 const IGNORE = new Set<string>([
   'DateFieldSymbol',
@@ -61,7 +61,7 @@ export const main = () => {
       .forEach(e => enums.push(decode(e)));
   }
 
-  let dest = join(__dirname, '../../src/generated/java/com/squarespace/cldr2/internal');
+  let dest = join(__dirname, '../../src/generated/java/com/squarespace/cldrengine/internal');
   makedirs(dest);
 
   // Generate the schema
@@ -98,7 +98,7 @@ export const main = () => {
   }
 
   // Copy packs
-  dest = join(__dirname, '../../src/generated/resources/com/squarespace/cldr2/internal');
+  dest = join(__dirname, '../../src/generated/resources/com/squarespace/cldrengine/internal');
   makedirs(dest);
 
   const packroot = join(__dirname, '../node_modules/@phensley/cldr/packs');

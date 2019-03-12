@@ -1,4 +1,4 @@
-package com.squarespace.cldr2.core;
+package com.squarespace.cldrengine;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,26 +7,26 @@ import java.util.HashMap;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.squarespace.cldr2.internal.AltType;
-import com.squarespace.cldr2.internal.Bundle;
-import com.squarespace.cldr2.internal.CurrencyType;
-import com.squarespace.cldr2.internal.DateFieldType;
-import com.squarespace.cldr2.internal.EraWidthType;
-import com.squarespace.cldr2.internal.FormatWidthType;
-import com.squarespace.cldr2.internal.LanguageTag;
-import com.squarespace.cldr2.internal.ListPatternPositionType;
-import com.squarespace.cldr2.internal.Meta;
-import com.squarespace.cldr2.internal.MetaZoneType;
-import com.squarespace.cldr2.internal.NumberSystemCategory;
-import com.squarespace.cldr2.internal.Pair;
-import com.squarespace.cldr2.internal.PluralType;
-import com.squarespace.cldr2.internal.RegionIdType;
-import com.squarespace.cldr2.internal.RelativeTimeFieldType;
-import com.squarespace.cldr2.internal.ScriptIdType;
-import com.squarespace.cldr2.internal.StringBundle;
-import com.squarespace.cldr2.internal.TimeZoneNameType;
-import com.squarespace.cldr2.internal.TimeZoneType;
-import com.squarespace.cldr2.internal.UnitType;
+import com.squarespace.cldrengine.internal.AltType;
+import com.squarespace.cldrengine.internal.Bundle;
+import com.squarespace.cldrengine.internal.CurrencyType;
+import com.squarespace.cldrengine.internal.DateFieldType;
+import com.squarespace.cldrengine.internal.EraWidthType;
+import com.squarespace.cldrengine.internal.FormatWidthType;
+import com.squarespace.cldrengine.internal.LanguageTag;
+import com.squarespace.cldrengine.internal.ListPatternPositionType;
+import com.squarespace.cldrengine.internal.Meta;
+import com.squarespace.cldrengine.internal.MetaZoneType;
+import com.squarespace.cldrengine.internal.NumberSystemCategory;
+import com.squarespace.cldrengine.internal.Pair;
+import com.squarespace.cldrengine.internal.PluralType;
+import com.squarespace.cldrengine.internal.RegionIdType;
+import com.squarespace.cldrengine.internal.RelativeTimeFieldType;
+import com.squarespace.cldrengine.internal.ScriptIdType;
+import com.squarespace.cldrengine.internal.StringBundle;
+import com.squarespace.cldrengine.internal.TimeZoneNameType;
+import com.squarespace.cldrengine.internal.TimeZoneType;
+import com.squarespace.cldrengine.internal.UnitType;
 
 /**
  * Quick verification that the schema generator's offsets are in sync with

@@ -13,7 +13,7 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'jacoco'
 
-group = 'com.squarespace.cldr2'
+group = 'com.squarespace.cldrengine'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -28,7 +28,7 @@ dependencies {
   implementation 'com.google.code.gson:gson:2.8.5'
   
   testCompile "org.testng:testng:${testngVersion}"
-	testCompile 'org.hamcrest:java-hamcrest:2.0.0.0'
+  testCompile 'org.hamcrest:java-hamcrest:2.0.0.0'
 }
 
 jmh {
@@ -44,7 +44,7 @@ sourceSets.main.resources.srcDirs = ['src/main/resources', 'src/generated/resour
 
 eclipse {
 	project {
-		name = 'cldr2'
+		name = 'cldrengine'
 	}
 }
 

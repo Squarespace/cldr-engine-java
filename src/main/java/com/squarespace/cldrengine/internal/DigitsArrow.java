@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.internal;
 
+import com.squarespace.cldrengine.utils.Pair;
+
 public class DigitsArrow<R> {
 
   private static Pair<String, Integer> EMPTY = Pair.of("", 0);

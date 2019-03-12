@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.internal;
+package com.squarespace.cldrengine.utils;
 
 public class Pair<F, S> {
 

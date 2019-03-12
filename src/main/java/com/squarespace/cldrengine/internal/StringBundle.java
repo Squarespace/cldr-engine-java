@@ -2,74 +2,73 @@ package com.squarespace.cldrengine.internal;
 
 import java.util.Map;
 
+import com.squarespace.cldrengine.locale.LanguageTag;
+
 public class StringBundle implements Bundle {
 
-  private String _languageRegion;
-  private String _languageScript;
-  private String _calendarSystem = "";
-  private String _numberSystem = "default";
-  private String _id;
-  private LanguageTag _tag;
+  private String languageRegion;
+  private String languageScript;
+  private String calendarSystem = "";
+  private String numberSystem = "default";
+  private String id;
+  private LanguageTag tag;
   private String[] strings;
   private String[] exceptions;
   private Map<Integer, Integer> index;
 
   public StringBundle(
-      String _id,
-      LanguageTag _tag,
+      String id,
+      LanguageTag tag,
       String[] strings,
       String[] exceptions,
       Map<Integer, Integer> index) {
 
-    this._id = _id;
-    this._tag = _tag;
+    this.id = id;
+    this.tag = tag;
     this.strings = strings;
     this.exceptions = exceptions;
     this.index = index;
 
-    this._languageRegion = String.format("%s-%s", _tag.language(), _tag.region());
-    this._languageScript = String.format("%s-%s", _tag.language(), _tag.script());
+    this.languageRegion = String.format("%s-%s", tag.language(), tag.region());
+    this.languageScript = String.format("%s-%s", tag.language(), tag.script());
 
-    // TODO: set _calendarSystem and _numberSystem from language tag extensions
-
-      // When bundle is constructed, see if there are unicode extensions for
-      // number and calendar systems.
-//    for (const subtag of tag.extensionSubtags('u')) {
-//      if (subtag.startsWith('nu-')) {
-//        this._numberSystem = subtag.substring(3);
-//      } else if (subtag.startsWith('ca-')) {
-//        this._calendarSystem = subtag.substring(3);
-//      }
-//    }
-
+    // When bundle is constructed, see if there are unicode extensions for
+    // number and calendar systems.
+    for (String subtag : tag.extensionSubtags("u")) {
+      if (subtag.startsWith("nu-")) {
+        this.numberSystem = subtag.substring(3);
+      } else if (subtag.startsWith("ca-")) {
+        this.calendarSystem = subtag.substring(3);
+      }
+    }
   }
 
   public String id() {
-    return _id;
+    return id;
   }
 
   public String language() {
-    return this._tag.language();
+    return this.tag.language();
   }
 
   public String region() {
-    return this._tag.region();
+    return this.tag.region();
   }
 
   public String languageScript() {
-    return this._languageScript;
+    return this.languageScript;
   }
 
   public String languageRegion() {
-    return this._languageRegion;
+    return this.languageRegion;
   }
 
   public String calendarSystem() {
-    return this._calendarSystem;
+    return this.calendarSystem;
   }
 
   public String numberSystem() {
-    return this._numberSystem;
+    return this.numberSystem;
   }
 
   public String get(int offset) {
@@ -83,4 +82,5 @@ public class StringBundle implements Bundle {
     // Return the actual string
     return offset < strings.length ? this.strings[offset] : "";
   }
+
 }

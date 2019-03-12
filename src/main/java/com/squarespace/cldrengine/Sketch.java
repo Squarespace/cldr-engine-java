@@ -3,7 +3,6 @@ package com.squarespace.cldrengine;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -13,20 +12,20 @@ import com.squarespace.cldrengine.internal.CurrencyType;
 import com.squarespace.cldrengine.internal.DateFieldType;
 import com.squarespace.cldrengine.internal.EraWidthType;
 import com.squarespace.cldrengine.internal.FormatWidthType;
-import com.squarespace.cldrengine.internal.LanguageTag;
 import com.squarespace.cldrengine.internal.ListPatternPositionType;
 import com.squarespace.cldrengine.internal.Meta;
 import com.squarespace.cldrengine.internal.MetaZoneType;
 import com.squarespace.cldrengine.internal.NumberSystemCategory;
-import com.squarespace.cldrengine.internal.Pair;
+import com.squarespace.cldrengine.internal.Pack;
 import com.squarespace.cldrengine.internal.PluralType;
 import com.squarespace.cldrengine.internal.RegionIdType;
 import com.squarespace.cldrengine.internal.RelativeTimeFieldType;
 import com.squarespace.cldrengine.internal.ScriptIdType;
-import com.squarespace.cldrengine.internal.StringBundle;
 import com.squarespace.cldrengine.internal.TimeZoneNameType;
 import com.squarespace.cldrengine.internal.TimeZoneType;
 import com.squarespace.cldrengine.internal.UnitType;
+import com.squarespace.cldrengine.locale.LanguageTag;
+import com.squarespace.cldrengine.utils.Pair;
 
 /**
  * Quick verification that the schema generator's offsets are in sync with
@@ -38,27 +37,11 @@ public class Sketch {
 
   public static void main(String[] args) throws Exception {
     JsonObject root = load("en.json");
+    Pack pack = new Pack(root);
 
-    LanguageTag tag = new LanguageTag() {
-      @Override
-      public String language() {
-        return "en";
-      }
-      @Override
-      public String script() {
-        return "Latn";
-      }
-      @Override
-      public String region() {
-        return "US";
-      }
-    };
+    LanguageTag tag = new LanguageTag("en", "Latn", "US");
 
-    JsonObject scripts = root.get("scripts").getAsJsonObject();
-    JsonObject latn = scripts.get("Latn").getAsJsonObject();
-    String[] strings = latn.get("strings").getAsString().split("\t");
-    StringBundle bundle = new StringBundle(
-        "en", tag, strings, new String[] {}, new HashMap<>());
+    Bundle bundle = pack.get(tag);
 
     String s;
     Pair<String, Integer> d;

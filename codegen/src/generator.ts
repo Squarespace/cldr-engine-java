@@ -43,7 +43,8 @@ class Generator {
 
 const RENAMES: { [x: string]: string } = {
   long: 'long_',
-  short: 'short_'
+  short: 'short_',
+  string: 'String'
 };
 
 const json = (o: any) => JSON.stringify(o);
@@ -170,10 +171,14 @@ export class Builder {
   }
 
   constructDigits(inst: Digits) {
+    const type = this.lookupType(inst.name);
+    const typ0 = type.typeargs[0].name;
+    this.indextypes[inst.dim0] = typ0;
+
     const dim0 = `KEY_${keyToField(inst.dim0)}`;
     const _dim0 = this.origin.getIndex(inst.dim0);
     const offset = this.generator.vector2(_dim0.size, inst.values.length * 2);
-    this.append(`/* ${fix(inst.name)} = */ new DigitsArrow<String>(${offset}, ${dim0})`);
+    this.append(`/* ${fix(inst.name)} = */ new DigitsArrow<${typ0}>(${offset}, ${dim0})`);
   }
 
   constructField(inst: Field) {
@@ -190,28 +195,11 @@ export class Builder {
     for (const imp of IMPORTS) {
       this.append(`import ${imp};\n`);
     }
-    this.append(`\npublic final class Meta {\n`);
+    this.append(`\npublic final class Meta extends MetaBase {\n`);
     this.enter();
 
-    // write indices as fields
-
-    for (const key of Object.keys(this.origin.indices)) {
-      const vals = this.origin.indices[key].keys;
-      this.append(`static final KeyIndex<String> KEY_${keyToField(key)} = new KeyIndex<String>(new String[] {\n`);
-      this.enter();
-      this.array(vals);
-      this.exit();
-      this.append('});\n');
-    }
-
-    for (const key of Object.keys(this.origin.values)) {
-      const vals = this.origin.values[key];
-      this.append(`static final String[] VAL_${keyToField(key)} = new String[] {\n`);
-      this.enter();
-      this.array(vals);
-      this.exit();
-      this.append('};\n');
-    }
+    const header = this.buf;
+    this.buf = [];
 
     this.append(`public static final Schema SCHEMA = new Schema(\n`);
     this.enter();
@@ -226,6 +214,51 @@ export class Builder {
     this.append(`);\n`);
     this.exit();
 
+    const code = this.buf;
+    this.buf = [];
+
+    // write indices as fields
+    for (const key of Object.keys(this.origin.indices)) {
+
+      const vals = this.origin.indices[key].keys;
+      let type = this.indextypes[key];
+      if (type === 'DateTimePatternFieldType') {
+        continue;
+      }
+      type = type === 'string' ? 'String' : type;
+      this.append(`static final KeyIndex<${type}> KEY_${keyToField(key)} = new KeyIndex<${type}>(new ${type}[] {\n`);
+      this.enter();
+
+      const len = vals.length;
+      for (let i = 0; i < len; i++) {
+        if (i > 0) {
+          this.append(',\n');
+        }
+        if (type === 'String') {
+          this.append(`  "${vals[i]}"`);
+        } else {
+          const x = vals[i];
+          const num = parseInt(x, 10);
+          const isstr = typeof num !== 'number' || isNaN(num);
+          const k = isstr ? x.replace(/[^\w]+/g, '_').toUpperCase() : `_${x}`;
+          this.append(`  ${type}.${k}`);
+        }
+      }
+      this.exit();
+      this.append('});\n\n');
+    }
+
+    for (const key of Object.keys(this.origin.values)) {
+      const vals = this.origin.values[key];
+      this.append(`static final String[] VAL_${keyToField(key)} = new String[] {\n`);
+      this.enter();
+      this.array(vals);
+      this.exit();
+      this.append('};\n\n');
+    }
+
+    const fields = this.buf;
+    this.buf = header.concat(fields).concat(code);
     this.append('\n}\n');
   }
 
@@ -251,6 +284,7 @@ export class Builder {
 
   constructScopeMap(inst: ScopeMap) {
     const type = this.lookupType(inst.name);
+    const typ0 = type.typeargs[0].name;
     const typ1 = type.typeargs[1].name;
     const sig = type.typeargs.map((a: any) => a.name).join(', ');
     this.append(`/* Map<${sig}> ${inst.name} = */ new HashMap<String, ${typ1}>() {{\n`)
@@ -289,23 +323,23 @@ export class Builder {
   }
 
   constructVector1(inst: Vector1) {
-    // const type = this.lookupType(inst.name);
-    // const typ0 = type.typeargs[0].name;
-    // this.indextypes[inst.dim0] = typ0;
+    const type = this.lookupType(inst.name);
+    const typ0 = type.typeargs[0].name;
+    this.indextypes[inst.dim0] = typ0;
 
     const dim0 = `KEY_${keyToField(inst.dim0)}`;
     const _dim0 = this.origin.getIndex(inst.dim0);
     const offset = this.generator.field(); // header
     this.generator.vector1(_dim0.size);
-    this.append(`/* ${fix(inst.name)} = */ new Vector1Arrow<String>(${offset}, ${dim0})`);
+    this.append(`/* ${fix(inst.name)} = */ new Vector1Arrow<${fix(typ0)}>(${offset}, ${dim0})`);
   }
 
   constructVector2(inst: Vector2) {
     const type = this.lookupType(inst.name);
-    // const typ0 = type.typeargs[0].name;
-    // const typ1 = type.typeargs[1].name;
-    // this.indextypes[inst.dim0] = typ0;
-    // this.indextypes[inst.dim1] = typ1;
+    const typ0 = type.typeargs[0].name;
+    const typ1 = type.typeargs[1].name;
+    this.indextypes[inst.dim0] = typ0;
+    this.indextypes[inst.dim1] = typ1;
 
     const dim0 = `KEY_${keyToField(inst.dim0)}`;
     const dim1 = `KEY_${keyToField(inst.dim1)}`;
@@ -313,7 +347,7 @@ export class Builder {
     const _dim1 = this.origin.getIndex(inst.dim1);
     const offset = this.generator.field(); // header
     this.generator.vector2(_dim0.size, _dim1.size);
-    this.append(`/* ${fix(inst.name)} = */ new Vector2Arrow<String, String>(${offset}, ${dim0}, ${dim1})`);
+    this.append(`/* ${fix(inst.name)} = */ new Vector2Arrow<${fix(typ0)}, ${fix(typ1)}>(${offset}, ${dim0}, ${dim1})`);
   }
 
   private array(vals: string[]): void {

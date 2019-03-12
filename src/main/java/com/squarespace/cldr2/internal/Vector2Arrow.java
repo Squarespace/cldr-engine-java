@@ -5,10 +5,10 @@ public class Vector2Arrow<R, S> {
   private int size;
   private int size2;
   private int offset;
-  private KeyIndex<String> index1;
-  private KeyIndex<String> index2;
+  private KeyIndex<R> index1;
+  private KeyIndex<S> index2;
 
-  public Vector2Arrow(int offset, KeyIndex<String> index1, KeyIndex<String> index2) {
+  public Vector2Arrow(int offset, KeyIndex<R> index1, KeyIndex<S> index2) {
     this.size = index1.size * index2.size;
     this.size2 = index2.size;
     this.offset = offset + 1; // skip header
@@ -20,7 +20,7 @@ public class Vector2Arrow<R, S> {
     return "E".equals(bundle.get(this.offset - 1));
   }
 
-  public String get(PrimitiveBundle bundle, String key1, String key2) {
+  public String get(PrimitiveBundle bundle, R key1, S key2) {
     boolean exists = this.exists(bundle);
     if (exists) {
       int i = this.index1.get(key1);

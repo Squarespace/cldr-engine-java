@@ -77,10 +77,10 @@ public class StringBundle implements Bundle {
     if (this.index != null) {
       Integer i = this.index.get(offset);
       if (i != null) {
-        return this.exceptions[i];
+        return i < this.exceptions.length ? this.exceptions[i] : "";
       }
     }
     // Return the actual string
-    return offset < strings.length ? this.strings[offset] : null;
+    return offset < strings.length ? this.strings[offset] : "";
   }
 }

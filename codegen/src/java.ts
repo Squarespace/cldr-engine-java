@@ -41,17 +41,22 @@ export const tojava = (n: any, types?: any): string => {
       }
 
       const fixup = (s: string): string => {
-        s = s.replace(/Vector1Arrow<.+>/, 'Vector1Arrow<String>');
-        s = s.replace(/Vector2Arrow<.+>/, 'Vector2Arrow<String, String>');
+        // s = s.replace(/Vector1Arrow<.+>/, 'Vector1Arrow<String>');
+        // s = s.replace(/Vector2Arrow<.+>/, 'Vector2Arrow<String, String>');
         s = s.replace(/Map<.+,/, 'Map<String,');
-        s = s.replace(/DigitsArrow<.+>/, 'DigitsArrow<String>');
+        // s = s.replace(/DigitsArrow<.+>/, 'DigitsArrow<String>');
+        s = s.replace(/string/, 'String');
         return s;
       };
 
       r += '{\n';
-      r += props.map((m: any) =>
-        `  public final ${fixup(tojava(m.type))} ${fix(m.name)};`).join('\n');
-      r += `\n\n  public ${n.name}(\n`;
+      if (props.length) {
+        r += '\n';
+        r += props.map((m: any) =>
+          `  public final ${fixup(tojava(m.type))} ${fix(m.name)};`).join('\n');
+        r += '\n';
+      }
+      r += `\n  public ${n.name}(\n`;
       r += props.concat(superprops).map((m: any) =>
         `      ${fixup(tojava(m.type))} ${fix(m.name)}`).join(',\n');
       r += ') {\n';
@@ -95,12 +100,12 @@ export const tojava = (n: any, types?: any): string => {
       break;
 
     case 'typealias':
-      r += `public enum ${n.name} implements StringEnum {\n`;
+      r += `public enum ${n.name} implements StringEnum {\n\n`;
       r += tojava(n.type);
-      r += '  ;\n  private final String value;\n';
+      r += '  ;\n\n  private final String value;\n\n';
       r += `  private ${n.name}(String value) {\n`;
       r += `    this.value = value;\n`;
-      r += '  }\n';
+      r += '  }\n\n';
       r += `  public String value() {\n`;
       r += `    return this.value;\n`;
       r += `  }\n`;

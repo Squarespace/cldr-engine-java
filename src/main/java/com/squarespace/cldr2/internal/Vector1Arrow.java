@@ -7,9 +7,9 @@ public class Vector1Arrow<R> {
 
   private int len;
   private int offset;
-  private KeyIndex<String> index;
+  private KeyIndex<R> index;
 
-  public Vector1Arrow(int offset, KeyIndex<String> index) {
+  public Vector1Arrow(int offset, KeyIndex<R> index) {
     this.len = index.size;
     this.offset = offset + 1; // skip header
     this.index = index;
@@ -19,7 +19,7 @@ public class Vector1Arrow<R> {
     return "E".equals(bundle.get(this.offset - 1));
   }
 
-  public String get(PrimitiveBundle bundle, String key) {
+  public String get(PrimitiveBundle bundle, R key) {
     boolean exists = this.exists(bundle);
     if (exists) {
       int i = this.index.get(key);
@@ -28,13 +28,13 @@ public class Vector1Arrow<R> {
     return "";
   }
 
-  public Map<String, String> mapping(PrimitiveBundle bundle) {
-    Map<String, String> res = new LinkedHashMap<>();
+  public Map<R, String> mapping(PrimitiveBundle bundle) {
+    Map<R, String> res = new LinkedHashMap<>();
     boolean exists = this.exists(bundle);
     if (!exists) {
       return res;
     }
-    String[] keys = this.index.keys();
+    R[] keys = this.index.keys();
     int offset = this.offset;
     for (int i = 0; i < this.len; i++) {
       String s = bundle.get(offset + i);

@@ -1,11 +1,12 @@
 package com.squarespace.cldrengine.locale;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import com.squarespace.cldrengine.internal.LocaleConstants;
@@ -38,13 +39,13 @@ public class LanguageTagParser {
 
 
   // https://www.unicode.org/reports/tr35/tr35-33/tr35.html#Key_And_Type_Definitions_
-  private static final Map<String, Integer> UNICODE_EXTENSION_KEYS = new HashMap<String, Integer>() {{
-    this.put("ca", 1); // calendar
-    this.put("co", 1); // collation
-    this.put("cu", 1); // currency
-    this.put("nu", 1); // numbering system
-    this.put("tz", 1); // timezone
-    this.put("va", 1); // common variant type
+  private static final Set<String> UNICODE_EXTENSION_KEYS = new HashSet<String>() {{
+    this.add("ca"); // calendar
+    this.add("co"); // collation
+    this.add("cu"); // currency
+    this.add("nu"); // numbering system
+    this.add("tz"); // timezone
+    this.add("va"); // common variant type
   }};
 
   // Grandfathered irregular and regular tags from IANA registry.
@@ -60,10 +61,14 @@ public class LanguageTagParser {
 
   static {
     // Grandfathered tag mapping
-    String[] tags = LocaleConstants.GRANDFATHEREDRAW.split("|");
+    String[] tags = LocaleConstants.GRANDFATHEREDRAW.split("\\|");
     for (String tag : tags) {
       String[] parts = tag.split(":");
-      GRANDFATHERED_TAGS.put(parts[0], parts[1]);
+      if (parts.length == 1) {
+        GRANDFATHERED_TAGS.put(parts[0], "");
+      } else {
+        GRANDFATHERED_TAGS.put(parts[0], parts[1]);
+      }
     }
   }
 
@@ -92,7 +97,7 @@ public class LanguageTagParser {
     String str = this.str.indexOf("_") == -1 ? this.str : this.str.replaceAll("_", SEP);
     String preferred = GRANDFATHERED_TAGS.get(str.toLowerCase());
     String[] arr = preferred == null ? str.split(SEP) : preferred.split(SEP);
-    List<String> parts = Arrays.asList(arr);
+    List<String> parts = toList(arr);
     if (parseLanguage(parts)) {
       parseExtLangs(parts);
       parseScript(parts);
@@ -185,8 +190,8 @@ public class LanguageTagParser {
           break;
         }
 
-        if (UNICODE_EXTENSION_KEYS.get(subtag) != 1) {
-          temp = temp.length() > 0 ? SEP + subtag : subtag;
+        if (!UNICODE_EXTENSION_KEYS.contains(subtag)) {
+          temp += temp.length() > 0 ? SEP + subtag : subtag;
           continue;
         }
 
@@ -269,16 +274,15 @@ public class LanguageTagParser {
     }
     return null;
   }
+
+  private List<String> toList(String[] arr) {
+    if (arr.length == 0) {
+      return Collections.emptyList();
+    }
+    List<String> res = new ArrayList<>(arr.length);
+    for (String elem : arr) {
+      res.add(elem);
+    }
+    return res;
+  }
 }
-
-//
-//
-//
-//
-//}
-//
-///**
-// * Low-level parsing of a language tag. No resolution is performed.
-// */
-//export const parseLanguageTag = (str: string) => new LanguageTagParser(str).parse();
-

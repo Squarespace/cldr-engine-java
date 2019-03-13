@@ -5,9 +5,16 @@ import * as glob from 'fast-glob';
 import * as ts from 'typescript';
 import { tsquery } from '@phenomnomnominal/tsquery';
 
+import * as aliases from '@phensley/cldr-core/lib/locale/autogen.aliases';
+import * as distance from '@phensley/cldr-core/lib/locale/autogen.distance';
+import * as locales from '@phensley/cldr-core/lib/locale/autogen.locales';
+import * as partition from '@phensley/cldr-core/lib/locale/autogen.partition';
+import * as subtags from '@phensley/cldr-core/lib/locale/autogen.subtags';
+
 import { decode } from './parser';
 import { Builder } from './generator';
 import { tojava } from './java';
+import { escapeWrap } from './utils';
 
 const PACKAGE = 'package com.squarespace.cldrengine.internal;\n\n';
 
@@ -72,7 +79,7 @@ export const main = () => {
   const builder = new Builder(types);
   builder.construct(ORIGIN);
   let code = builder.buf.join('');
-  fs.writeFileSync(join(dest, 'Meta.java'), code, { encoding: 'utf-8' });
+  write(join(dest, 'Meta.java'), code);
 
   // Generate interfaces
   for (const o of interfaces) {
@@ -84,7 +91,7 @@ export const main = () => {
       code = 'import java.util.Map;\n\n' + code;
     }
     code = PACKAGE + code;
-    fs.writeFileSync(join(dest, `${o.name}.java`), code, { encoding: 'utf-8' });
+    write(join(dest, `${o.name}.java`), code);
   }
 
   // Generate enums
@@ -94,8 +101,17 @@ export const main = () => {
     }
     let code = PACKAGE;
     code += tojava(o);
-    fs.writeFileSync(join(dest, `${o.name}.java`), code, { encoding: 'utf-8' });
+    write(join(dest, `${o.name}.java`), code);
   }
+
+  // Generate constants
+  writeConstants(dest, 'LocaleConstants', {
+    ...aliases,
+    ...distance,
+    ...locales,
+    ...partition,
+    ...subtags
+  });
 
   // Copy packs
   dest = join(__dirname, '../../src/generated/resources/com/squarespace/cldrengine/internal');
@@ -108,5 +124,23 @@ export const main = () => {
     fs.copyFileSync(src, dst);
   });
 };
+
+const writeConstants = (dest: string, name: string, obj: any) => {
+  let code = PACKAGE;
+  code += `public class ${name} {\n\n`;
+  Object.keys(obj).forEach(k => {
+    const key = k.replace(/[^\w]+/g, '_').toUpperCase();
+    let val = obj[k];
+    val = typeof val === 'string' ? val : JSON.stringify(val);
+    code += `  public static final String ${key} =\n`;
+    code += '    ' + escapeWrap(val, 100).join(' +\n    ');
+    code += ';\n\n';
+  });
+  code += '\n}\n';
+  write(join(dest, `${name}.java`), code);
+};
+
+const write = (path: string, data: string) =>
+  fs.writeFileSync(path, data, { encoding: 'utf-8' });
 
 main();

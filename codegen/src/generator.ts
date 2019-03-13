@@ -53,17 +53,6 @@ const keyToField = (key: string) => key.toUpperCase().replace(/-/g, '_');
 
 const fix = (f: string) => RENAMES[f] || f;
 
-// const members = (n: any): any => {
-//   let r: any = {};
-//   for (const e of n.extends) {
-//     r = { ...r, ...members(e) };
-//   }
-//   for (const m of n.members) {
-//     r[m.name] = m.type
-//   }
-//   return r;
-// };
-
 export class Builder {
 
   private generator: Generator = new Generator();
@@ -263,10 +252,8 @@ export class Builder {
   }
 
   constructScope(inst: Scope) {
-    // console.log(`constructScope ${inst.identifier}`);
     const type = this.lookupType(inst.identifier);
     this.append(`/* ${inst.identifier} = */ new ${type.name}(\n`);
-    // this.append(`public static final class ${fix(inst.identifier)} {\n`);
     this.push(type.name);
     this.enter();
     const len = inst.block.length;
@@ -287,14 +274,12 @@ export class Builder {
     const typ0 = type.typeargs[0].name;
     const typ1 = type.typeargs[1].name;
     const sig = type.typeargs.map((a: any) => a.name).join(', ');
-    this.append(`/* Map<${sig}> ${inst.name} = */ new HashMap<String, ${typ1}>() {{\n`)
-    // this.append(`public static final class ${fix(inst.name)} {\n`);
+    this.append(`/* Map<${sig}> ${inst.name} = */ new HashMap<String, ${typ1}>() {{\n`);
     this.enter();
     const fields = this.origin.getValues(inst.fields);
     for (const field of fields) {
       this.append(`this.put("${field}", new ${type.typeargs[1].name}(\n`);
       this.push(type.typeargs[1].name);
-      // this.append(`public static final class ${fix(field)} {\n`);
       this.enter();
       const len = inst.block.length;
       for (let i = 0; i < len; i++) {

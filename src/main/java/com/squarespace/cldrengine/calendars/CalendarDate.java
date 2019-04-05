@@ -1,7 +1,5 @@
 package com.squarespace.cldrengine.calendars;
 
-import static com.squarespace.cldrengine.utils.StringUtils.zeropad;
-
 public abstract class CalendarDate {
   private static final long NULL = Long.MAX_VALUE;
 
@@ -230,22 +228,17 @@ public abstract class CalendarDate {
   }
 
   protected String _toString(String type, String year) {
-    StringBuilder buf = new StringBuilder();
-    buf.append(type).append(' ');
-    if (year != null) {
-      buf.append(year);
-    } else {
-      buf.append(this.year());
-    }
-    buf.append('-').append(zeropad(this.month(), 2));
-    buf.append('-').append(zeropad(this.dayOfMonth(), 2));
-    buf.append(' ');
-    buf.append(zeropad(this.hourOfDay(), 2));
-    buf.append(':').append(zeropad(this.minute(), 2));
-    buf.append(':').append(zeropad(this.second(), 2));
-    buf.append('.').append(zeropad(this.milliseconds(), 3));
-    buf.append(' ').append(this.zoneInfo.timeZoneId);
-    return buf.toString();
+    year = year == null ? Long.toString(this.year()) : year;
+    return String.format("%s %s-%02d-%02d %02d:%02d:%02d:%03d %s",
+        type,
+        year,
+        this.month(),
+        this.dayOfMonth(),
+        this.hourOfDay(),
+        this.minute(),
+        this.second(),
+        this.milliseconds(),
+        this.zoneInfo.timeZoneId);
   }
 
   /**

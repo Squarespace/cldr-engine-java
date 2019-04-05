@@ -16,15 +16,4 @@ public class StringUtils {
     return buf.toString();
   }
 
-  public static String zeropad(long n, int width) {
-    String s = Long.toString(n);
-    StringBuilder buf = new StringBuilder();
-    int add = width - s.length();
-    while (add > 0) {
-      buf.append('0');
-      add--;
-    }
-    return buf.toString();
-  }
-
 }

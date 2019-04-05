@@ -11,6 +11,10 @@ public class GregorianDate extends CalendarDate {
     super(type, firstDay, minDays);
   }
 
+  public String toString() {
+    return this._toString("Gregorian", null);
+  }
+
   protected long monthStart(long eyear, double month, boolean useMonth) {
     boolean isLeap = eyear % 4 == 0;
     long y = eyear - 1;

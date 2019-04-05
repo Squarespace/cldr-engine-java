@@ -10,6 +10,7 @@ import com.squarespace.cldrengine.internal.AltType;
 import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.internal.CurrencyType;
 import com.squarespace.cldrengine.internal.DateFieldType;
+import com.squarespace.cldrengine.internal.DateFieldWidthType;
 import com.squarespace.cldrengine.internal.EraWidthType;
 import com.squarespace.cldrengine.internal.FormatWidthType;
 import com.squarespace.cldrengine.internal.ListPatternPositionType;
@@ -61,7 +62,7 @@ public class Sketch {
     s = Meta.SCHEMA.Numbers.numberSystem.get("latn").scientificFormat.get(bundle);
     expect(s, "#E0");
 
-    s = Meta.SCHEMA.DateFields.relativeTimes.wide.displayName.get(bundle, DateFieldType.QUARTER);
+    s = Meta.SCHEMA.DateFields.displayName.get(bundle, DateFieldType.QUARTER, DateFieldWidthType.WIDE);
     expect(s, "quarter");
 
     s = Meta.SCHEMA.DateFields.relativeTimes.wide.next.get(bundle, RelativeTimeFieldType.DAY);

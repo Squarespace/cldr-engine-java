@@ -5,6 +5,8 @@ public interface Calendars {
   /**
    * Formats a date-time value to string.
    */
-//  formatDate(date: CalendarDate | ZonedDateTime | Date, options?: DateFormatOptions): string;
+  String formatDate(CalendarDate date);
+
+  String formatDate(long epochUTC, String zoneId);
 
 }

@@ -356,7 +356,7 @@ public abstract class CalendarDate {
       dow += 7;
     }
     f[DateField.DAY_OF_WEEK] = dow;
-  };
+  }
 
   protected long checkJDRange(long jd) {
     // TODO: emit warning?

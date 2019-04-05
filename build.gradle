@@ -20,15 +20,21 @@ targetCompatibility = 1.8
 
 project.ext {
 	ccVersion = '1.0.6'
+	gsonVersion = '2.8.5'
+	hamcrestVersion = '2.0.0.0'
+	lombokVersion = '1.18.6'
  	testngVersion = '6.11'
 }
 
 dependencies {
   compile "com.squarespace.compiler:compiler-core:${ccVersion}"
-  implementation 'com.google.code.gson:gson:2.8.5'
-  
+  implementation "com.google.code.gson:gson:${gsonVersion}"
+
+  compileOnly "org.projectlombok:lombok:${lombokVersion}"
+  annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+ 
   testCompile "org.testng:testng:${testngVersion}"
-  testCompile 'org.hamcrest:java-hamcrest:2.0.0.0'
+  testCompile "org.hamcrest:java-hamcrest:${hamcrestVersion}"
 }
 
 jmh {

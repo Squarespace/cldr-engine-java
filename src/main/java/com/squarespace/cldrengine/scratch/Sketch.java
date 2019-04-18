@@ -107,7 +107,7 @@ public class Sketch {
   }
 
   private static void expect(String actual, String expected) throws Exception {
-    if (!actual.equals(expected)) {
+    if (!expected.equals(actual)) {
       throw new Exception("Expected " + expected + " got " + actual);
     }
     System.out.println(actual);

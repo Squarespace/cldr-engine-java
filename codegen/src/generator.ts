@@ -295,13 +295,14 @@ export class Builder {
       this.pop();
     }
 
-    this.suppress = 1;
-    for (const i of inst.block) {
-      this.push(type.typeargs[1].name);
-      this.construct(i);
-      this.pop();
-    }
-    this.suppress = 0;
+    // TODO: this was removed from upstream.
+    // this.suppress = 1;
+    // for (const i of inst.block) {
+    //   this.push(type.typeargs[1].name);
+    //   this.construct(i);
+    //   this.pop();
+    // }
+    // this.suppress = 0;
 
     this.append('\n');
     this.exit();

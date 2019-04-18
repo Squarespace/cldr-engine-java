@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine;
+package com.squarespace.cldrengine.scratch;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -83,7 +83,7 @@ public class Sketch {
     s = Meta.SCHEMA.TimeZones.metaZones.short_.get(bundle, TimeZoneNameType.DAYLIGHT, MetaZoneType.AMERICA_EASTERN);
     expect(s, "Eastern Daylight Time");
 
-    s = Meta.SCHEMA.TimeZones.exemplarCity.get(bundle, TimeZoneType.AMERICA_NEW_YORK);
+    s = Meta.SCHEMA.TimeZones.exemplarCity.get(bundle, "America/New_York");
     expect(s, "New York");
 
     s = Meta.SCHEMA.Currencies.displayName.get(bundle, CurrencyType.USD);
@@ -92,7 +92,7 @@ public class Sketch {
     s = Meta.SCHEMA.Units.long_.displayName.get(bundle, UnitType.LIGHT_YEAR);
     expect(s, "light years");
 
-    s = Meta.SCHEMA.Gregorian.availableFormats.get(bundle, PluralType.OTHER, "yMd");
+    s = Meta.SCHEMA.Gregorian.availableFormats.get(bundle, "yMd");
     expect(s, "dd/MM/y");
 
     s = Meta.SCHEMA.Gregorian.dateFormats.get(bundle, FormatWidthType.FULL);

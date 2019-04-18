@@ -3,7 +3,6 @@ import {
   Field,
   Instruction,
   Origin,
-  ORIGIN,
   Scope,
   ScopeMap,
   Vector1,
@@ -47,7 +46,7 @@ const RENAMES: { [x: string]: string } = {
   string: 'String'
 };
 
-const json = (o: any) => JSON.stringify(o);
+// const json = (o: any) => JSON.stringify(o);
 
 const keyToField = (key: string) => key.toUpperCase().replace(/-/g, '_');
 
@@ -214,7 +213,7 @@ export class Builder {
       if (type === 'DateTimePatternFieldType') {
         continue;
       }
-      type = type === 'string' ? 'String' : type;
+      type = type === 'string' || type === undefined ? 'String' : type;
       this.append(`  public static final KeyIndex<${type}> KEY_${keyToField(key)} = new KeyIndex<${type}>(new ${type}[] {\n`);
       this.enter();
 
@@ -237,14 +236,16 @@ export class Builder {
       this.append('\n  });\n\n');
     }
 
-    for (const key of Object.keys(this.origin.values)) {
-      const vals = this.origin.values[key];
-      this.append(`  public static final String[] VAL_${keyToField(key)} = new String[] {\n`);
-      this.enter();
-      this.array(vals, '  ');
-      this.exit();
-      this.append('  };\n\n');
-    }
+    // Arrays of values can be obtained from the KeyIndex directly. This duplication
+    // has been eliminated upstream.
+    // for (const key of Object.keys(this.origin.values)) {
+    //   const vals = this.origin.values[key];
+    //   this.append(`  public static final String[] VAL_${keyToField(key)} = new String[] {\n`);
+    //   this.enter();
+    //   this.array(vals, '  ');
+    //   this.exit();
+    //   this.append('  };\n\n');
+    // }
 
     const fields = this.buf;
     this.buf = header.concat(fields).concat(code);

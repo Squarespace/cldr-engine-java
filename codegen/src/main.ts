@@ -1,4 +1,3 @@
-import { ORIGIN } from '@phensley/cldr-schema';
 import { dirname, join } from 'path';
 import * as fs from 'fs';
 import * as glob from 'fast-glob';
@@ -15,10 +14,13 @@ import { decode } from './parser';
 import { Builder } from './generator';
 import { tojava } from './java';
 import { escapeWrap } from './utils';
+import { CodeBuilder, Origin } from '@phensley/cldr-schema';
+import { config as DEFAULT_CONFIG } from '@phensley/cldr/lib/config';
 
 const PACKAGE = 'package com.squarespace.cldrengine.internal;\n\n';
 
 const IGNORE = new Set<string>([
+  'SchemaConfig',
   'DateFieldSymbol',
   'DateTimePatternFieldType',
   'Digits',
@@ -32,9 +34,9 @@ const IGNORE = new Set<string>([
   'Vector2'
 ]);
 
-export const buildSchema = () => {
+export const buildSchema = (origin: Origin) => {
   const builder = new Builder({});
-  builder.construct(ORIGIN);
+  builder.construct(origin);
   console.log(builder.buf.join(''));
 };
 
@@ -76,8 +78,11 @@ export const main = () => {
     p[c.name] = c;
     return p;
   }, {});
+
+  const origin = new CodeBuilder(DEFAULT_CONFIG).origin();
+
   const builder = new Builder(types);
-  builder.construct(ORIGIN);
+  builder.construct(origin);
   let code = builder.buf.join('');
   write(join(dest, 'Meta.java'), code);
 

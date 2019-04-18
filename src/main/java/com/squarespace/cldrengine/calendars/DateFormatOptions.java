@@ -8,7 +8,7 @@ import com.squarespace.cldrengine.internal.NumberSystemName;
 import lombok.Builder;
 import lombok.ToString;
 
-@Builder
+@Builder(toBuilder = true)
 @ToString
 public class DateFormatOptions {
 

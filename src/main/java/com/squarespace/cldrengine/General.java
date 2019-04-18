@@ -3,7 +3,7 @@ package com.squarespace.cldrengine;
 import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.locale.Locale;
 
-public interface Locales {
+public interface General {
 
   /**
    * The current language bundle.
@@ -13,11 +13,11 @@ public interface Locales {
   /**
    * The current locale.
    */
-  Locale current();
+  Locale locale();
 
   /**
    * Resolve a language tag to a Locale.
    */
-  Locale resolve(String tag);
+  Locale resolveLocale(String tag);
 
 }

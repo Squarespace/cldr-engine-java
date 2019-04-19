@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.calendars;
 
+import com.squarespace.compiler.parse.Pair;
+
 public abstract class CalendarDate {
   private static final long NULL = Long.MAX_VALUE;
 
@@ -209,10 +211,52 @@ public abstract class CalendarDate {
     return this.zoneInfo.dst;
   }
 
+//  public
   // TODO: fieldOfGreatestDifference
-  // TODO: add
-  // TODO: _add
-  // TODO: _addTime
+
+  public abstract CalendarDate add(CalendarDateFields fields);
+
+  protected abstract int monthCount();
+
+  protected Pair<Long, Long> _add(CalendarDateFields fields) {
+    // All day calculations will be relative to the current day of the month.
+    double dom = this.fields[DateField.DAY_OF_MONTH] + fields.day + (fields.week * 7);
+
+    // Adjust the extended year and month. Note: month may be fractional here,
+    // but will be <= 12 after modulus the year.
+    int mc = this.monthCount();
+    long months = (long)Math.floor(fields.year * mc);
+    double month = (this.fields[DateField.MONTH] - 1) + fields.month + months;
+
+    long yadd = (long) Math.floor(month / mc);
+    long year = this.fields[DateField.EXTENDED_YEAR] + yadd;
+    month -= yadd * mc;
+
+    Pair<Long, Double> time = this._addTime(fields);
+    double jd = this.monthStart(year, month, false) + dom + time._1;
+    long ijd = (long)Math.floor(jd);
+    double djd = jd - ijd;
+
+    // Calculate ms and handle rollover
+    long _ms = Math.round(time._2 * (djd * CalendarConstants.ONE_DAY_MS));
+    if (_ms >= CalendarConstants.ONE_DAY_MS) {
+      ijd++;
+      _ms -= CalendarConstants.ONE_DAY_MS;
+    }
+
+    return Pair.pair(ijd, _ms);
+  }
+
+  protected Pair<Long, Double> _addTime(CalendarDateFields fields) {
+    double msDay = this.fields[DateField.MILLIS_IN_DAY] - this.timeZoneOffset();
+    msDay += (fields.hour * CalendarConstants.ONE_HOUR_MS)
+        + (fields.millis * CalendarConstants.ONE_MINUTE_MS)
+        + (fields.second * CalendarConstants.ONE_SECOND_MS)
+        + fields.millis;
+    long days = (long)Math.floor(msDay / CalendarConstants.ONE_DAY_MS);
+    double ms = msDay - (days * CalendarConstants.ONE_DAY_MS);
+    return Pair.pair(days, ms);
+  }
 
   protected void initFromUnixEpoch(long ms, String zoneId) {
     // TODO:

@@ -1,5 +1,8 @@
 package com.squarespace.cldrengine.calendars;
 
+import com.squarespace.cldrengine.utils.MathUtil;
+import com.squarespace.compiler.parse.Pair;
+
 /**
  * Construct a date using the rules of the Gregorian calendar.
  *
@@ -11,8 +14,43 @@ public class GregorianDate extends CalendarDate {
     super(type, firstDay, minDays);
   }
 
+  public GregorianDate add(CalendarDateFields fields) {
+    String zoneId = fields.zoneId == null ? this.timeZoneId() : fields.zoneId;
+    Pair<Long, Long> result = this._add(fields);
+    return new GregorianDate(CalendarType.GREGORY, this.firstDay, this.minDays)
+        ._initFromJD(result._1, result._2, zoneId);
+  }
+
+  @Override
+  protected int monthCount() {
+    return 12;
+  }
+
   public String toString() {
     return this._toString("Gregorian", null);
+  }
+
+  protected GregorianDate _initFromJD(long jd, long msDay, String zoneId) {
+    super.initFromJD(jd, msDay, zoneId);
+    return this.initGregorian();
+  }
+
+  protected GregorianDate initGregorian() {
+    long[] f = this.fields;
+    if (f[DateField.JULIAN_DAY] >= CalendarConstants.JD_GREGORIAN_CUTOVER) {
+      computeGregorianFields(f);
+    } else {
+      computeJulianFields(f);
+    }
+    long year = f[DateField.EXTENDED_YEAR];
+    long era = 1; // AD;
+    if (year < 1) {
+      era = 0;
+      year = 1 - year;
+    }
+    f[DateField.ERA] = era;
+    f[DateField.YEAR] = year;
+    return this;
   }
 
   protected long monthStart(long eyear, double month, boolean useMonth) {
@@ -37,6 +75,80 @@ public class GregorianDate extends CalendarDate {
       }
     }
     return jd;
+  }
+
+  /**
+   * Compute fields for dates on or after the Gregorian cutover.
+   */
+  protected void computeGregorianFields(long[] f) {
+    long ged = f[DateField.JULIAN_DAY] - CalendarConstants.JD_GREGORIAN_EPOCH;
+    long[] rem = new long[1];
+    long n400 = MathUtil.floorDiv(ged, 146097, rem);
+    long n100 = MathUtil.floorDiv(rem[0], 36524, rem);
+    long n4 = MathUtil.floorDiv(rem[0], 1461, rem);
+    long n1 = MathUtil.floorDiv(rem[0], 365, rem);
+
+    long year = 400 * n400 + 100 * n100 + 4 * n4 + n1;
+    long doy = rem[0]; // 0-based day of year
+    if (n100 == 4 || n1 == 4) {
+      doy = 365;
+    } else {
+      ++year;
+    }
+
+    boolean isLeap = leapGregorian(year);
+    long corr = 0;
+    long mar1 = isLeap ? 60 : 59;
+    if (doy >= mar1) {
+      corr = isLeap ? 1 : 2;
+    }
+    int month = (int)Math.floor((12 * (doy + corr) + 6) / 367);
+    long dom = doy - MONTH_COUNT[month][isLeap ? 3 : 2] + 1;
+
+    f[DateField.EXTENDED_YEAR] = year;
+    f[DateField.MONTH] = month + 1;
+    f[DateField.DAY_OF_MONTH] = dom;
+    f[DateField.DAY_OF_YEAR] = doy + 1;
+    f[DateField.IS_LEAP] = isLeap ? 1 : 0;
+  }
+
+  /**
+   * Compute fields for dates before the Gregorian cutover using the proleptic
+   * Julian calendar. Any Gregorian date before October 15, 1582 is really a
+   * date on the proleptic Julian calendar, with leap years every 4 years.
+   */
+  protected void computeJulianFields(long[] f) {
+    long jed = f[DateField.JULIAN_DAY] - (CalendarConstants.JD_GREGORIAN_EPOCH - 2);
+    long eyear = (long)Math.floor((4 * jed + 1464) / 1461);
+    long jan1 = 365 * (eyear - 1) + (long)Math.floor((eyear - 1) / 4);
+    long doy = jed - jan1;
+    boolean isLeap = eyear % 4 == 0;
+    long corr = 0;
+    long mar1 = isLeap ? 60 : 59;
+    if (doy >= mar1) {
+      corr = isLeap ? 1 : 2;
+    }
+
+    int month = (int)Math.floor((12 * (doy + corr) + 6) / 365);
+    long dom = doy - MONTH_COUNT[month][isLeap ? 3 : 2] + 1;
+
+    f[DateField.EXTENDED_YEAR] = eyear;
+    f[DateField.MONTH] = month + 1;
+    f[DateField.DAY_OF_MONTH] = dom;
+    f[DateField.DAY_OF_YEAR] = doy + 1;
+    f[DateField.IS_LEAP] = isLeap ? 1 : 0;
+  }
+
+  /**
+   * Return true if the given year is a leap year in the Gregorian calendar; false otherwise.
+   * Note that we switch to the Julian calendar at the Gregorian cutover year.
+   */
+  protected boolean leapGregorian(long year) {
+    boolean r = year % 4 == 0;
+    if (year >= CalendarConstants.JD_GREGORIAN_CUTOVER_YEAR) {
+      r = r && ((year % 100 != 0) || (year % 400 == 0));
+    }
+    return r;
   }
 
   private static final int[][] MONTH_COUNT = new int[][] {

@@ -19,6 +19,7 @@ public class SchemaConfig extends HashMap<String, List<String>> {
   private static final Set<String> CHECKSUM_IGNORE = new HashSet<>(Arrays.asList("calendars"));
 
   private static final List<String> COPY_KEYS = Arrays.asList(
+      "calendars",
       "gregorian-available-format",
       "gregorian-plural-format",
       "gregorian-interval-format",

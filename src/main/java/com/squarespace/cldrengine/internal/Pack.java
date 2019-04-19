@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.locale.LanguageTag;
+import com.squarespace.cldrengine.locale.LocaleResolver;
 import com.squarespace.cldrengine.utils.Decoders;
 
 public class Pack {
@@ -60,8 +61,7 @@ public class Pack {
     // We need the script and region to find the correct string layer. Caller should
     // ideally supply a resolved language tag to avoid the overhead of this call.
     if (!tag.hasLanguage() || !tag.hasScript() || !tag.hasRegion()) {
-//      tag = LanguageResolver.resolve(tag);
-      // TODO:
+      tag = LocaleResolver.resolve(tag);
     }
 
     PackScript script = this.scripts.get(tag.script());

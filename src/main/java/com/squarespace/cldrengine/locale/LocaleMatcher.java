@@ -42,6 +42,15 @@ public class LocaleMatcher {
    * the given threshold. Any matches whose distance is greater than or equal to the
    * threshold will be treated as having maximum distance.
    */
+  public LocaleMatch match(String desiredLocales) {
+    return match(desiredLocales, DistanceTable.DEFAULT_THRESHOLD);
+  }
+
+  /**
+   * Find the desired locale that is the closed match to a supported locale, within
+   * the given threshold. Any matches whose distance is greater than or equal to the
+   * threshold will be treated as having maximum distance.
+   */
   public LocaleMatch match(String desiredLocales, int threshold) {
     List<Entry> desireds = parse(desiredLocales);
     return this._match(desireds, threshold);
@@ -52,9 +61,27 @@ public class LocaleMatcher {
    * the given threshold. Any matches whose distance is greater than or equal to the
    * threshold will be treated as having maximum distance.
    */
+  public LocaleMatch match(String[] desiredLocales) {
+    return match(desiredLocales, DistanceTable.DEFAULT_THRESHOLD);
+  }
+
+  /**
+   * Find the desired locale that is the closed match to a supported locale, within
+   * the given threshold. Any matches whose distance is greater than or equal to the
+   * threshold will be treated as having maximum distance.
+   */
   public LocaleMatch match(String[] desiredLocales, int threshold) {
     List<Entry> desireds = parse(desiredLocales);
     return this._match(desireds, threshold);
+  }
+
+  /**
+   * Find the desired locale that is the closed match to a supported locale, within
+   * the given threshold. Any matches whose distance is greater than or equal to the
+   * threshold will be treated as having maximum distance.
+   */
+  public LocaleMatch match(List<String> desiredLocales) {
+    return match(desiredLocales, DistanceTable.DEFAULT_THRESHOLD);
   }
 
   /**

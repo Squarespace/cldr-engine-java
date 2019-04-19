@@ -1,4 +1,4 @@
-package cldrenginecom.squarespace.cldrengine.locale;
+package com.squarespace.cldrengine.locale;
 
 import static org.testng.Assert.assertEquals;
 

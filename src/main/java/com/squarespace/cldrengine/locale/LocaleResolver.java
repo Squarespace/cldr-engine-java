@@ -10,15 +10,15 @@ import com.squarespace.compiler.parse.Pair;
 
 public class LocaleResolver {
 
+  // Markers that let us quickly determine that a given FastTag field is undefined,
+  // while still having the ability to call equals() and hashCode() on it.
+  private static final Integer LANGUAGE = 0;
+  private static final Integer SCRIPT = 1;
+  private static final Integer REGION = 2;
+
   private static Map<FastTag, FastTag> LIKELY_SUBTAGS_MAP = loadLikelySubtags();
   private static Map<String, List<Pair<FastTag, FastTag>>> LANGUAGE_ALIAS_MAP = loadLanguageAliases();
   private static Map<String, List<String>> REGION_ALIAS_MAP = loadRegionAliases();
-
-  // Markers that let us quickly determine that a given FastTag field is undefined,
-  // while still having the ability to call equals() and hashCode() on it.
-  private static Integer LANGUAGE = 0;
-  private static Integer SCRIPT = 1;
-  private static Integer REGION = 2;
 
   // Field flags for match order
   private static int F_LANGUAGE = 1;
@@ -257,6 +257,11 @@ public class LocaleResolver {
       result = 31 * result + this.region.hashCode();
       return result;
     }
+
+    @Override
+    public String toString() {
+      return "FastTag(" + this.language + ", " + this.script + ", " + this.region + ")";
+    }
   }
 
   private static Map<FastTag, FastTag> loadLikelySubtags() {
@@ -264,7 +269,7 @@ public class LocaleResolver {
     for (String row : LocaleConstants.LIKELYRAW.split("\\|")) {
       String[] parts = row.split(":");
       FastTag key = parseFastTag(parts[0]);
-      FastTag val = parseFastTag(parts[1]);
+      FastTag val = parseFastTag(parts.length == 2 ? parts[1] : "");
       map.put(key, val);
     }
     return map;
@@ -276,7 +281,7 @@ public class LocaleResolver {
       String[] parts = row.split(":");
       FastTag type = parseFastTag(parts[0]);
       FastTag repl = parseFastTag(parts[1]);
-      String language = (String)type.language;
+      String language = type.language.toString();
       List<Pair<FastTag, FastTag>> pairs = map.get(language);
       if (pairs == null) {
         pairs = new ArrayList<>();

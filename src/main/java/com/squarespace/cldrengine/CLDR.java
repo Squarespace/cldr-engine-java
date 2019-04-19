@@ -3,9 +3,11 @@ package com.squarespace.cldrengine;
 import com.squarespace.cldrengine.calendars.Calendars;
 import com.squarespace.cldrengine.calendars.CalendarsImpl;
 import com.squarespace.cldrengine.internal.Bundle;
+import com.squarespace.cldrengine.locale.CLocale;
+import com.squarespace.cldrengine.locale.CLocaleImpl;
 import com.squarespace.cldrengine.locale.LanguageTag;
 import com.squarespace.cldrengine.locale.LanguageTagParser;
-import com.squarespace.cldrengine.locale.CLocale;
+import com.squarespace.cldrengine.locale.LocaleResolver;
 
 /**
  * Contains all functionality for a given locale.
@@ -43,11 +45,13 @@ public class CLDR {
    * a resolved LanguageTag.
    */
   public static CLocale resolveLocale(String id) {
-    return null;
+    LanguageTag tag = LocaleResolver.resolve(id);
+    return new CLocaleImpl(id, tag);
   }
 
   public static CLocale resolveLocale(LanguageTag tag) {
-    return null;
+    tag = LocaleResolver.resolve(tag);
+    return new CLocaleImpl(tag.compact(), tag);
   }
 
   public static LanguageTag parseLanguageTag(String tag) {

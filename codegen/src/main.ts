@@ -118,7 +118,7 @@ export const main = () => {
     ...subtags
   });
 
-  // Copy packs
+  // Copy resource packs
   dest = join(__dirname, '../../src/generated/resources/com/squarespace/cldrengine/internal');
   makedirs(dest);
 
@@ -128,6 +128,10 @@ export const main = () => {
     const dst = join(dest, p);
     fs.copyFileSync(src, dst);
   });
+
+  // Copy schema config
+  const configpath = join(__dirname, '../node_modules/@phensley/cldr-compiler/lib/cli/compiler/config.json');
+  fs.copyFileSync(configpath, join(dest, 'config.json'));
 };
 
 const writeConstants = (dest: string, name: string, obj: any) => {

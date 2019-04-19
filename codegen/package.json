@@ -8,7 +8,8 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc -w --preserveWatchOutput"
+    "build:watch": "tsc -w --preserveWatchOutput",
+		"generate": "npm run build && node ./lib/main.js"
   },
   "devDependencies": {
     "@phenomnomnominal/tsquery": "^3.0.0",

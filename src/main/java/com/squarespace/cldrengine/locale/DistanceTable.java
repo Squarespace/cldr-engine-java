@@ -16,32 +16,22 @@ public class DistanceTable {
   public static final int MAX_DISTANCE = 100;
   public static final int DEFAULT_THRESHOLD = 50;
 
-  private static final DistanceTable INSTANCE = new DistanceTable();
-
   private static final DistanceMap MAP = load();
-
-  public static void main(String[] args) {
-    System.out.println(MAP);
-  }
-
-  public static DistanceTable get() {
-    return INSTANCE;
-  }
 
   /**
    * Returns the distance between the desired and supported locale, using the
    * default distance threshold.
    */
-//  public int distance(CLDR.Locale desired, CLDR.Locale supported) {
-//    return distance(desired, supported, DEFAULT_THRESHOLD);
-//  }
+  public static int distance(LanguageTag desired, LanguageTag supported) {
+    return distance(desired, supported, DEFAULT_THRESHOLD);
+  }
 
   /**
    * Returns the distance between the desired and supported locale, using the
    * given distance threshold. Any distance equal to or greater than the threshold
    * will return the maximum distance.
    */
-  public int distance(LanguageTag desired, LanguageTag supported, int threshold) {
+  public static int distance(LanguageTag desired, LanguageTag supported, int threshold) {
     // Query the top level LANGUAGE
     boolean langEquals = desired.language().equals(supported.language());
     Node node = MAP.get(desired.language(), supported.language());
@@ -118,7 +108,7 @@ public class DistanceTable {
    * Scan the desired region against the supported partitions and vice versa.
    * Return the first matching node.
    */
-  private Node scanTerritory(DistanceMap map, String desired, String supported) {
+  private static Node scanTerritory(DistanceMap map, String desired, String supported) {
     Node node;
     for (String partition : PartitionTable.getRegionPartition(desired)) {
       node = map.get(partition, supported);

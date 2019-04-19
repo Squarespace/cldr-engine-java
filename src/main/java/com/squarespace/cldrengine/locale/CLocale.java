@@ -3,8 +3,10 @@ package com.squarespace.cldrengine.locale;
 /**
  * Wrapper pairing an application's opaque locale identifier with a
  * parsed and resolved language tag object.
+ *
+ * Prefixed with 'C' to distinguish it from Java's Locale.
  */
-public interface Locale {
+public interface CLocale {
 
   /**
    * Application's own identifier for the locale, e.g. 'en_US', 'fr-CA', etc.

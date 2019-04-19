@@ -1,7 +1,7 @@
 package com.squarespace.cldrengine;
 
 import com.squarespace.cldrengine.internal.Bundle;
-import com.squarespace.cldrengine.locale.Locale;
+import com.squarespace.cldrengine.locale.CLocale;
 
 /**
  * Top-level namespace to expose info about the current locale and bundle,
@@ -9,10 +9,10 @@ import com.squarespace.cldrengine.locale.Locale;
  */
 class GeneralImpl implements General {
 
-  private final Locale locale;
+  private final CLocale locale;
   private final Bundle bundle;
 
-  public GeneralImpl(Locale locale, Bundle bundle) {
+  public GeneralImpl(CLocale locale, Bundle bundle) {
     this.locale = locale;
     this.bundle = bundle;
   }
@@ -27,14 +27,14 @@ class GeneralImpl implements General {
   /**
    * The current locale.
    */
-  public Locale locale() {
+  public CLocale locale() {
     return this.locale;
   }
 
   /**
    * Resolve a language tag to a Locale.
    */
-  public Locale resolveLocale(String tag) {
+  public CLocale resolveLocale(String tag) {
     return CLDR.resolveLocale(tag);
   }
 

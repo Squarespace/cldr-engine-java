@@ -1,13 +1,11 @@
 package com.squarespace.cldrengine.locale;
 
-public class LocaleImpl implements CLocale {
-
-  public static final LanguageTag UNDEFINED = new LanguageTag(null, null, null);
+public class CLocaleImpl implements CLocale {
 
   private final String id;
   private final LanguageTag tag;
 
-  public LocaleImpl(String id, LanguageTag tag) {
+  public CLocaleImpl(String id, LanguageTag tag) {
     this.id = id;
     this.tag = tag;
   }

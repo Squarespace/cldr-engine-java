@@ -5,20 +5,20 @@ import com.squarespace.cldrengine.calendars.CalendarsImpl;
 import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.locale.LanguageTag;
 import com.squarespace.cldrengine.locale.LanguageTagParser;
-import com.squarespace.cldrengine.locale.Locale;
+import com.squarespace.cldrengine.locale.CLocale;
 
 /**
  * Contains all functionality for a given locale.
  */
 public class CLDR {
 
-  private final Locale locale;
+  private final CLocale locale;
   private final Bundle bundle;
 
   public final General locales;
   public final Calendars Calendars;
 
-  protected CLDR(Locale locale, Bundle bundle) {
+  protected CLDR(CLocale locale, Bundle bundle) {
     this.locale = locale;
     this.bundle = bundle;
     this.locales = new GeneralImpl(locale, bundle);
@@ -29,7 +29,7 @@ public class CLDR {
     return null;
   }
 
-  public static CLDR get(Locale locale) {
+  public static CLDR get(CLocale locale) {
     return null;
   }
 
@@ -42,11 +42,11 @@ public class CLDR {
    * that includes the original id string or tag's compact form, and
    * a resolved LanguageTag.
    */
-  public static Locale resolveLocale(String id) {
+  public static CLocale resolveLocale(String id) {
     return null;
   }
 
-  public static Locale resolveLocale(LanguageTag tag) {
+  public static CLocale resolveLocale(LanguageTag tag) {
     return null;
   }
 

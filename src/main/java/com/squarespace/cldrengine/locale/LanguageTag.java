@@ -60,6 +60,10 @@ public class LanguageTag {
   private String _compact;
   private String _expanded;
 
+  public LanguageTag() {
+    this(null, null, null, null, null, null);
+  }
+
   public LanguageTag(String language, String script, String region) {
     this(language, script, region, null, null, null);
   }

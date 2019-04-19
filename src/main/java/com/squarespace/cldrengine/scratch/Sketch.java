@@ -23,7 +23,6 @@ import com.squarespace.cldrengine.internal.RegionIdType;
 import com.squarespace.cldrengine.internal.RelativeTimeFieldType;
 import com.squarespace.cldrengine.internal.ScriptIdType;
 import com.squarespace.cldrengine.internal.TimeZoneNameType;
-import com.squarespace.cldrengine.internal.TimeZoneType;
 import com.squarespace.cldrengine.internal.UnitType;
 import com.squarespace.cldrengine.locale.LanguageTag;
 import com.squarespace.cldrengine.utils.Pair;

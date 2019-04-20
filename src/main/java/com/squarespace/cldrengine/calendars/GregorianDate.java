@@ -14,6 +14,7 @@ public class GregorianDate extends CalendarDate {
     super(type, firstDay, minDays);
   }
 
+  @Override
   public GregorianDate add(CalendarDateFields fields) {
     String zoneId = fields.zoneId == null ? this.timeZoneId() : fields.zoneId;
     Pair<Long, Long> result = this._add(fields);

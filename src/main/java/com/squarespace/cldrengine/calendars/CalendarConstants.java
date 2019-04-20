@@ -17,6 +17,11 @@ public class CalendarConstants {
   // Julian day for Jan 1, 1 first day of the Gregorian calendar common era
   public static final long JD_GREGORIAN_EPOCH = 1721426;
 
+  // Julian day for Mar 21, 622 first day of the Persian calendar
+  public static final long JD_PERSIAN_EPOCH = 1948320;
+
+  public static final long BUDDHIST_ERA_START = -543;
+
   public static final int ONE_SECOND_MS = 1000;
   public static final int ONE_MINUTE_MS = 60 * ONE_SECOND_MS;
   public static final int ONE_HOUR_MS = 60 * ONE_MINUTE_MS;

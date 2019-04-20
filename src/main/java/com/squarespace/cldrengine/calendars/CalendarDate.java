@@ -271,6 +271,10 @@ public abstract class CalendarDate {
     this.initFromUnixEpoch(unixEpoch, zoneId);
   }
 
+  protected String _toString(String type) {
+    return this._toString(type, Long.toString(this.year()));
+  }
+
   protected String _toString(String type, String year) {
     year = year == null ? Long.toString(this.year()) : year;
     return String.format("%s %s-%02d-%02d %02d:%02d:%02d:%03d %s",

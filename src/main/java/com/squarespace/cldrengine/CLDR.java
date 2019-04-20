@@ -37,6 +37,7 @@ public class CLDR {
   protected CLDR(CLocale locale, Bundle bundle) {
 //    this.locale = locale;
 //    this.bundle = bundle;
+//    System.out.println(CONFIG.checksum(VERSION));
     this.General = new GeneralImpl(locale, bundle);
     this.Calendars = new CalendarsImpl(bundle);
     this.Schema = Meta.SCHEMA;

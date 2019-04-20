@@ -85,7 +85,7 @@ public class Pack {
     PackScript(JsonObject obj) {
       this.strings = obj.get("strings").getAsString().split(SEP);
       this.exceptions = obj.get("exceptions").getAsString().split(SEP);
-      this.regions = new HashMap<>();
+      this.regions = decodeObject(obj.get("regions").getAsJsonObject());
       this.cache = new HashMap<>();
       this.defaultRegion = obj.get("default").getAsString();
     }
@@ -112,16 +112,25 @@ public class Pack {
       if (raw == null) {
         return null;
       }
-      byte[] bytes = Decoders.z85Decode(raw);
-      int[] numbers = Decoders.vuintDecode(bytes);
+      short[] bytes = Decoders.z85Decode(raw);
+      long[] numbers = Decoders.vuintDecode(bytes);
       Map<Integer, Integer> index = new HashMap<>();
       for (int i = 0; i < numbers.length; i += 2) {
-        int k = numbers[i];
-        int v = numbers[i + 1];
+        int k = (int)numbers[i];
+        int v = (int)numbers[i + 1];
         index.put(k, v);
       }
       this.cache.put(region, index);
       return index;
+    }
+
+    private Map<String, String> decodeObject(JsonObject obj) {
+      Map<String, String> map = new HashMap<>();
+      for (String key : obj.keySet()) {
+        String val = obj.get(key).getAsString();
+        map.put(key, val);
+      }
+      return map;
     }
   }
 

@@ -76,17 +76,19 @@ public class SchemaConfig extends HashMap<String, List<String>> {
     pute("currency-spacing-pattern", Meta.KEY_CURRENCY_SPACING_PATTERN);
     pute("currency-spacing-pos", Meta.KEY_CURRENCY_SPACING_POS);
 
-// TODO:
-//    pute("number-misc-pattern", Meta.KEY_MISC_PATTERN_INDEX);
-//    puts("number-misc-pattern", new KeyIndex<String>(new String[] {
-//      "at-least", "at-most", "approx", "range"
-//    }));
+    pute("number-misc-pattern", Meta.KEY_NUMBER_MISC_PATTERN);
     pute("number-symbol", Meta.KEY_NUMBER_SYMBOL);
     pute("number-system", Meta.KEY_NUMBER_SYSTEM);
 
     // TIMEZONE INDICES
     pute("metazone", Meta.KEY_METAZONE);
     pute("timezone-type", Meta.KEY_TIMEZONE_TYPE);
+
+    try {
+      load();
+    } catch (IOException e) {
+      throw new RuntimeException("FATAL: failed to load schema config", e);
+    }
   }
 
   private <T extends StringEnum> void pute(String key, KeyIndex<T> index) {
@@ -103,16 +105,16 @@ public class SchemaConfig extends HashMap<String, List<String>> {
     put(key, Arrays.asList(keys));
   }
 
-  public static void main(String[] args) throws Exception {
-    SchemaConfig c = new SchemaConfig();
-    c.load();
-    System.out.println(c.checksum("0.14.0-alpha.0"));
-  }
+//  public static void main(String[] args) throws Exception {
+//    SchemaConfig c = new SchemaConfig();
+//    c.load();
+//    System.out.println(c.checksum("0.14.0-alpha.0"));
+//  }
 
   /**
    * Load the JSON configuration.
    */
-  public void load() throws IOException {
+  private void load() throws IOException {
     JsonObject root = (JsonObject) ResourceUtil.load(SchemaConfig.class, "config.json");
     copy("currency-id", root);
     copy("language-id", root);
@@ -158,6 +160,7 @@ public class SchemaConfig extends HashMap<String, List<String>> {
         continue;
       }
       c.update(key);
+//      System.out.println(key + "  " + c.get());
       List<String> values = this.get(key);
       for (String val : values) {
         c.update(val);

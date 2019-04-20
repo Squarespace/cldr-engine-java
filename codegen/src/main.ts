@@ -126,6 +126,7 @@ export const main = () => {
   fs.readdirSync(packroot).filter(p => p.endsWith('.json')).forEach(p => {
     const src = join(packroot, p);
     const dst = join(dest, p);
+    console.log(`copy ${p}`);
     fs.copyFileSync(src, dst);
   });
 

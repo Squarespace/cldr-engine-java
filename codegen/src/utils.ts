@@ -24,6 +24,7 @@ export const lineWrap = (max: number, sep: string, values: string[]): string => 
 export const escapeWrap = (s: string, width: number): string[] => {
   const lines: string[] = [];
   let r = '';
+  let esc = false;
   const len = s.length;
   for (let i = 0; i < len; i++) {
     const c = s[i];
@@ -40,14 +41,19 @@ export const escapeWrap = (s: string, width: number): string[] => {
       case '\n':
         r += '\\n';
         break;
+      case '\\':
+        r += c;
+        esc = true;
+        break;
       default:
         r += c;
         break;
     }
-    if (r.length >= width) {
+    if (!esc && r.length >= width) {
       lines.push(r);
       r = '';
     }
+    esc = false;
   }
   if (r.length) {
     lines.push(r);

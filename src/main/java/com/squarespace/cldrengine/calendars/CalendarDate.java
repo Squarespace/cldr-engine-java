@@ -259,10 +259,9 @@ public abstract class CalendarDate {
   }
 
   protected void initFromUnixEpoch(long ms, String zoneId) {
-    // TODO:
-//    zoneId = substituteZoneAlias(zoneId);
-//    this.zoneInfo = zoneInfoCache.get(ms, zoneId);
-    jdFromUnixEpoch(ms - this.zoneInfo.offset, this.fields);
+    zoneId = TimeZoneData.substituteZoneAlias(zoneId);
+    this.zoneInfo = TimeZoneData.zoneInfoFromUTC(zoneId, ms);
+    jdFromUnixEpoch(ms + this.zoneInfo.offset, this.fields);
     computeBaseFields(this.fields);
   }
 
@@ -277,7 +276,7 @@ public abstract class CalendarDate {
 
   protected String _toString(String type, String year) {
     year = year == null ? Long.toString(this.year()) : year;
-    return String.format("%s %s-%02d-%02d %02d:%02d:%02d:%03d %s",
+    return String.format("%s %s-%02d-%02d %02d:%02d:%02d.%03d %s",
         type,
         year,
         this.month(),

@@ -1,6 +1,7 @@
 package com.squarespace.cldrengine.utils;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
 public class Decoders {
 
@@ -63,17 +64,21 @@ public class Decoders {
     0x100000000000000L
   };
 
+  public static long[] vuintDecode(short[] arr) {
+    return vuintDecode(arr, null);
+  }
+
   /**
    * Decodes a variable-length unsigned 64-bit integer from the given
    * byte array, writing the decoded integers back to the same array.
    * An optional mapping function can be supplied to transform each
    * integer before it is appended to the buffer.
    */
-  public static long[] vuintDecode(short[] arr) {
+  public static long[] vuintDecode(short[] arr, Function<Long, Long> func) {
     int i = 0;
     int j = 0;
     int k = 0;
-    int n = 0;
+    long n = 0;
     int len = arr.length;
     long[] res = null;
     while (i < len) {
@@ -84,16 +89,20 @@ public class Decoders {
       if ((arr[i] & 0x80) == 0) {
         if (res == null) {
           // allocate the output buffer using the first decoded integer
-          res = new long[n];
+          res = new long[(int)n];
         } else {
           // write the decoded integer to the buffer and reset the state
-          res[j++] = n;
+          res[j++] = func == null ? n : func.apply(n);
         }
         n = k = 0;
       }
       i++;
     }
     return res;
+  }
+
+  public static long zigzagDecode(long n) {
+    return n == 0 ? 0 : n % 2 == 1 ? (n + 1) / -2 : n / 2;
   }
 
 }

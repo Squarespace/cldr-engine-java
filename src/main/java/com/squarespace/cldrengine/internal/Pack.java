@@ -9,6 +9,7 @@ import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.locale.LanguageTag;
 import com.squarespace.cldrengine.locale.LocaleResolver;
 import com.squarespace.cldrengine.utils.Decoders;
+import com.squarespace.cldrengine.utils.JsonUtils;
 
 public class Pack {
 
@@ -85,7 +86,7 @@ public class Pack {
     PackScript(JsonObject obj) {
       this.strings = obj.get("strings").getAsString().split(SEP);
       this.exceptions = obj.get("exceptions").getAsString().split(SEP);
-      this.regions = decodeObject(obj.get("regions").getAsJsonObject());
+      this.regions = JsonUtils.decodeObject(obj.get("regions"));
       this.cache = new HashMap<>();
       this.defaultRegion = obj.get("default").getAsString();
     }
@@ -124,14 +125,6 @@ public class Pack {
       return index;
     }
 
-    private Map<String, String> decodeObject(JsonObject obj) {
-      Map<String, String> map = new HashMap<>();
-      for (String key : obj.keySet()) {
-        String val = obj.get(key).getAsString();
-        map.put(key, val);
-      }
-      return map;
-    }
   }
 
 }

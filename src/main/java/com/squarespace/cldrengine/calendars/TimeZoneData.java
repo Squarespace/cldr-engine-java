@@ -1,0 +1,420 @@
+package com.squarespace.cldrengine.calendars;
+
+import static com.squarespace.cldrengine.utils.Decoders.vuintDecode;
+import static com.squarespace.cldrengine.utils.Decoders.z85Decode;
+import static com.squarespace.cldrengine.utils.JsonUtils.decodeArray;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.squarespace.cldrengine.internal.TimeZoneConstants;
+import com.squarespace.cldrengine.utils.Decoders;
+import com.squarespace.cldrengine.utils.JsonUtils;
+import com.squarespace.cldrengine.utils.Search;
+
+public class TimeZoneData {
+
+  // Mapping of additional aliases to canonical timezone identifier
+  private static final Map<String, String> ZONEALIASES = new HashMap<>();
+
+  // Mapping of CLDR stable timezone identifiers
+  private static final Map<String, String> ZONE_TO_STABLEID = new HashMap<>();
+
+  // Set to check if a timezone id is a CLDR stable id
+  private static final Set<String> CLDR_STABLEIDS = new HashSet<>();
+
+  // Maps a canonical timezone identifier to the index offset its zone info
+  private static final Map<String, Integer> ZONEINDEX = new HashMap<>();
+
+  // Map aliases and lowercase forms to canonical timezone identifier
+  private static final Map<String, String> LINKINDEX = new HashMap<>();
+
+  // Map a timezone identifier to a metazone index
+  private static final Map<String, Integer> ZONETOMETAZONE = new HashMap<>();
+
+  // Static mapping of characters to integer
+  private static Map<String, Integer> TYPES = new HashMap<>();
+
+  // Default UTC zone here for quick access.
+  private static final TZInfo UTC = new TZInfo("Etc/UTC", "UTC", 0, 0);
+
+  // Array of decoded timezone identifiers
+  private static String[] TIMEZONEIDS;
+
+  // Array of until timestamps sorted by usage frequency
+  private static long[] UNTILINDEX;
+
+  // Decoded zoneinfo records
+  private static ZoneRecord[] ZONERECORDS;
+
+  // Array of metazone identifiers
+  private static String[] METAZONEIDS;
+
+  // Decoded metazone records
+  private static MetazoneRecord[] METAZONES;
+
+  static {
+    encodeTypes();
+    loadStableIds();
+    loadAliases();
+    loadTimezones();
+    loadMetazones();
+  }
+
+  public static void main(String[] args) {
+    String newYork = "America/New_York";
+    String utc = "Etc/UTC";
+    long base = 1324513333333L;
+    long day = 86400 * 1000;
+    for (String zoneId : new String[] { newYork, utc }) {
+      for (int i = 0; i < 1; i++) {
+        long epoch = base + ((day * i) * 30);
+        GregorianDate date = GregorianDate.fromUnixEpoch(epoch, zoneId, DayOfWeek.SUNDAY, 1);
+        System.out.println(date.toString());
+        lookup(zoneId, epoch, true);
+      }
+    }
+  }
+
+  /**
+   * Maps a possible timezone alias to the correct id.
+   */
+  public static String substituteZoneAlias(String id) {
+    String zoneId = ZONEALIASES.get(id);
+    return zoneId == null ? id : zoneId;
+  }
+
+  /**
+   * Lookup the zoneinfo record for the given timezone id and UTC timestamp.
+   */
+  public static ZoneInfo zoneInfoFromUTC(String zoneId, long utc) {
+    TZInfo info = lookup(zoneId, utc, true);
+    if (info == null) {
+      info = UTC;
+    }
+
+    // For the purposes of CLDR stable timezone ids, check if the passed-in
+    // id is an alias to a current/valid tzdb id.
+    boolean isstable = CLDR_STABLEIDS.contains(zoneId);
+
+    // Use the passed-in id as the stable id if it is an alias,
+    // otherwise lookup the id in the stable map.
+    String stableId = isstable ? zoneId : getStableId(zoneId);
+
+    String metazoneId = getMetazone(info.zoneId, utc);
+    return new ZoneInfo(
+      info.zoneId,
+      stableId,
+      metazoneId == null ? "" : metazoneId,
+      info.offset,
+      info.dst == 1
+    );
+  }
+
+  /**
+   * For a given timezone identifier and UTC timestamp, return the
+   * metazone identifier or null if none exists.
+   */
+  public static String getMetazone(String zoneId, long utc) {
+    Integer i = ZONETOMETAZONE.get(zoneId);
+    if (i != null) {
+      MetazoneRecord rec = METAZONES[i];
+      if (rec != null) {
+        // Note: we don't bother with binary search here since the metazone
+        // until arrays are quite short.
+        int len = rec.untils.length;
+        for (int j = len - 1; j > 0; j--) {
+          if (rec.untils[j] <= utc) {
+            return METAZONEIDS[(int)rec.offsets[j]];
+          }
+        }
+
+        // Hit the end, return the initial metazone id
+        return METAZONEIDS[(int)rec.offsets[0]];
+      }
+    }
+
+    // This zone has no metazone id, e.g. "Etc/GMT+1"
+    return null;
+  }
+
+  /**
+   * Map a timezone identifier to the CLDR stable id
+   */
+  private static String getStableId(String id) {
+    return ZONE_TO_STABLEID.getOrDefault(id, id);
+  }
+
+  private static TZInfo lookup(String id, long utc, boolean isUTC) {
+    ZoneRecord rec = record(id);
+    return rec == null ? null : rec.fromUTC(utc);
+  }
+
+  private static ZoneRecord record(String zoneId) {
+    String id = LINKINDEX.get(zoneId);
+    if (id == null) {
+      return null;
+    }
+
+    // Find the offset to the record for this zone. This should
+    // always be non-null.
+    int i = ZONEINDEX.get(id);
+    return ZONERECORDS[i];
+  }
+
+  /**
+   * Encode a mapping of a character to its integer offset for decoding
+   * the tzdb type values.
+   */
+  private static void encodeTypes() {
+    String[] parts = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+    for (int i = 0; i < parts.length; i++) {
+      TYPES.put(parts[i], i);
+    }
+  }
+
+  /**
+   * Load the mapping of timezone alias to canonical identifier.
+   */
+  private static void loadAliases() {
+    for (String row : TimeZoneConstants.ZONEALIASRAW.split("\\|")) {
+      String[] parts = row.split(":");
+      ZONEALIASES.put(parts[0], parts[1]);
+    }
+  }
+
+  /**
+   * Load all timezone data.
+   */
+  private static void loadTimezones() {
+    JsonObject root;
+    try {
+      root = (JsonObject) JsonUtils.loadJson(TimeZoneConstants.class, "zonedata.json");
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to load timezone data resource", e);
+    }
+
+    // Decode timezone ids and index array position
+    TIMEZONEIDS = split(root.get("zoneids"), "\\|");
+    for (int i = 0; i < TIMEZONEIDS.length; i++) {
+      String id = TIMEZONEIDS[i];
+      ZONEINDEX.put(id, i);
+      addLink(id, id);
+    }
+
+    // Decode links
+    String[] parts = split(root.get("links"), "\\|");
+    for (String part : parts) {
+      String[] kv = part.split(":");
+      String alias = kv[0];
+      String id = TIMEZONEIDS[Integer.parseInt(kv[1])];
+      addLink(alias, id);
+    }
+
+    // Decode timezone until index and raw zone info
+    short[] raw = z85Decode(root.get("index").getAsString());
+    UNTILINDEX = vuintDecode(raw, Decoders::zigzagDecode);
+
+    // Decode all zoneinfo records
+    String[] rawzoneinfo = decodeArray(root.get("zoneinfo"));
+    ZONERECORDS = new ZoneRecord[rawzoneinfo.length];
+    for (int i = 0; i < rawzoneinfo.length; i++) {
+      ZONERECORDS[i] = new ZoneRecord(TIMEZONEIDS[i], rawzoneinfo[i]);
+    }
+  }
+
+  /**
+   * Load CLDR metazone records and CLDR stable identifiers.
+   *
+   * Example: "America_Eastern" represents a metazone that
+   * references standard and daylight savings identifiers for
+   * "America/New_York", etc.
+   *
+   * A CLDR stable timezone identifier never changes, even as
+   * canonical TZDB identifiers are deprecated. Each time a
+   * new TZDB is released we generate the mappings back to the
+   * corresponding CLDR stable identifier, where they differ.
+   */
+  private static void loadMetazones() {
+    JsonObject root = (JsonObject) JsonUtils.parse(TimeZoneConstants.METAZONEDATA);
+    METAZONEIDS = decodeArray(root.get("metazoneids"));
+
+    short[] raw = z85Decode(root.get("index").getAsString());
+    long[] index = vuintDecode(raw);
+
+    raw = z85Decode(root.get("offsets").getAsString());
+    long[] offsets = vuintDecode(raw);
+
+    raw = z85Decode(root.get("untils").getAsString());
+    long[] untils = vuintDecode(raw, Decoders::zigzagDecode);
+
+    // Decode all metazone records
+    METAZONES = new MetazoneRecord[index.length / 2];
+    for (int i = 0; i < index.length; i += 2) {
+      int start = (int)index[i];
+      int end = (int)index[i + 1];
+      METAZONES[i / 2] = new MetazoneRecord(
+        Arrays.copyOfRange(offsets, start, end),
+        Arrays.copyOfRange(untils, start, end)
+      );
+    }
+
+    // Map timezone identifiers to corresponding metazone record offset
+    raw = z85Decode(root.get("zoneindex").getAsString());
+    long[] zoneindex = vuintDecode(raw);
+    for (int i = 0; i < zoneindex.length; i++) {
+      int mi = (int) zoneindex[i];
+      if (mi != -1) {
+        ZONETOMETAZONE.put(TIMEZONEIDS[i], mi);
+        ZONETOMETAZONE.put(TIMEZONEIDS[i].toLowerCase(), mi);
+      }
+    }
+
+    // Map timezone identifier back to CLDR stable identifier
+    String[] parts = split(root.get("stableids"), "\\|");
+    for (int i = 0; i < parts.length; i++) {
+      String[] kv = parts[i].split(":");
+      String zoneid = TIMEZONEIDS[Integer.parseInt(kv[0])];
+      ZONE_TO_STABLEID.put(zoneid, kv[1]);
+    }
+  }
+
+  /**
+   * Load the set of CLDR stable timezone ids.
+   */
+  private static void loadStableIds() {
+    String[] ids = decodeArray(JsonUtils.parse(TimeZoneConstants.STABLEIDS));
+    for (String id : ids) {
+      CLDR_STABLEIDS.add(id);
+    }
+  }
+
+  private static void addLink(String src, String dst) {
+    LINKINDEX.put(src, dst);
+    LINKINDEX.put(src.toLowerCase(), dst);
+  }
+
+  static String[] split(JsonElement elem, String delim) {
+    return split(elem.getAsString(), delim);
+  }
+
+  static String[] split(String raw, String delim) {
+    return raw.isEmpty() ? new String[] { } : raw.split(delim);
+  }
+
+  /**
+   * Holds paired until timestamps and offsets used to determine
+   * which metazone identifier to use at a given point in time.
+   */
+  static class MetazoneRecord {
+
+    final long[] offsets;
+    final long[] untils;
+
+    public MetazoneRecord(long[] offsets, long[] untils) {
+      this.offsets = offsets;
+      this.untils = untils;
+    }
+
+    @Override
+    public String toString() {
+      return "MetazoneRecord(offsets=" + Arrays.toString(this.offsets)
+        + " untils=" + Arrays.toString(this.untils)
+        + ")";
+    }
+  }
+
+  /**
+   * Record for a single timezone, used to determine which localtime
+   * record is in effect at a given point in time.
+   */
+  static class ZoneRecord {
+    final long[] untils;
+    final TZInfo[] localtime;
+    final int[] types;
+
+    public ZoneRecord(String zoneId, String raw) {
+      String[] parts = split(raw, "\t");
+      String _info = parts[0];
+      String _types = parts[1];
+      String _untils = parts[2];
+
+      long[] untils = vuintDecode(z85Decode(_untils), Decoders::zigzagDecode);
+      int len = untils.length;
+      if (len > 0) {
+        untils[0] = UNTILINDEX[(int)untils[0]] * 1000;
+        for (int i = 1; i < len; i++) {
+          untils[i] = untils[i - 1] + (UNTILINDEX[(int)untils[i]] * 1000);
+        }
+      }
+
+      parts = split(_info, "\\|");
+      this.localtime = new TZInfo[parts.length];
+      for (int i = 0; i < parts.length; i++) {
+        this.localtime[i] = TZInfo.decode(zoneId, parts[i]);
+      }
+
+      parts = split(_types, "");
+      this.types = new int[parts.length];
+      for (int i = 0; i < parts.length; i++) {
+        this.types[i] = TYPES.get(parts[i]);
+      }
+      this.untils = untils;
+    }
+
+    public TZInfo fromUTC(long utc) {
+      int i = Search.binarySearch(this.untils, true, utc);
+      int type = i == -1 ? 0 : this.types[i];
+      return this.localtime[type];
+    }
+
+    @Override
+    public String toString() {
+      return "ZoneRecord(untils=" + Arrays.toString(untils)
+        + " localtime=" + Arrays.toString(localtime)
+        + " types=" + Arrays.toString(types)
+        + ")";
+    }
+  }
+
+  /**
+   * Holds a timezone abbreviation, daylight savings (dst) flag,
+   * and an offset from UTC.
+   */
+  static class TZInfo {
+    final String zoneId;
+    final String abbr;
+    final int dst;
+    final int offset;
+
+    public TZInfo(String zoneId, String abbr, int dst, int offset) {
+      this.zoneId = zoneId;
+      this.abbr = abbr;
+      this.dst = dst;
+      this.offset = offset;
+    }
+
+    static TZInfo decode(String zoneId, String raw) {
+      String[] parts = raw.split(":");
+      String abbr = parts[0];
+      int dst = Integer.parseInt(parts[1]);
+      int offset = Integer.parseInt(parts[2]) * 1000;
+      return new TZInfo(zoneId, abbr, dst, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "ZoneInfo(id=" + zoneId
+          + " abbr=" + abbr
+          + " dst=" + dst
+          + " offset=" + offset
+          + ")";
+    }
+  }
+}

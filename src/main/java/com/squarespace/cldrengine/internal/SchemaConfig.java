@@ -12,7 +12,7 @@ import java.util.Set;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.squarespace.cldrengine.utils.Checksum;
-import com.squarespace.cldrengine.utils.ResourceUtil;
+import com.squarespace.cldrengine.utils.JsonUtils;
 
 public class SchemaConfig extends HashMap<String, List<String>> {
 
@@ -86,7 +86,7 @@ public class SchemaConfig extends HashMap<String, List<String>> {
    * Load the JSON configuration.
    */
   private void load() throws IOException {
-    JsonObject root = (JsonObject) ResourceUtil.load(SchemaConfig.class, "config.json");
+    JsonObject root = (JsonObject) JsonUtils.loadJson(SchemaConfig.class, "config.json");
     copy("currency-id", root);
     copy("language-id", root);
     copy("script-id", root);

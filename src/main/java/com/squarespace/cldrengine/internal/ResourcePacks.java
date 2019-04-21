@@ -7,7 +7,7 @@ import java.util.Map;
 import com.google.gson.JsonObject;
 import com.squarespace.cldrengine.locale.LanguageTag;
 import com.squarespace.cldrengine.locale.LanguageTagParser;
-import com.squarespace.cldrengine.utils.ResourceUtil;
+import com.squarespace.cldrengine.utils.JsonUtils;
 
 public class ResourcePacks {
 
@@ -28,7 +28,7 @@ public class ResourcePacks {
       }
       String name = language + ".json";
       try {
-        JsonObject obj = ResourceUtil.load(ResourcePacks.class, name);
+        JsonObject obj = JsonUtils.loadJson(ResourcePacks.class, name);
         map.put(language, new Pack(obj));
       } catch (IOException e) {
         throw new RuntimeException("Fatal: failed to load resource pack: '" + name + "'", e);

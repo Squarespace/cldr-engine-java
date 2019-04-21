@@ -4,11 +4,17 @@ import * as glob from 'fast-glob';
 import * as ts from 'typescript';
 import { tsquery } from '@phenomnomnominal/tsquery';
 
-import * as aliases from '@phensley/cldr-core/lib/locale/autogen.aliases';
+import * as localealiases from '@phensley/cldr-core/lib/locale/autogen.aliases';
 import * as distance from '@phensley/cldr-core/lib/locale/autogen.distance';
 import * as locales from '@phensley/cldr-core/lib/locale/autogen.locales';
 import * as partition from '@phensley/cldr-core/lib/locale/autogen.partition';
 import * as subtags from '@phensley/cldr-core/lib/locale/autogen.subtags';
+
+import * as zonealiases from '@phensley/cldr-core/lib/systems/calendars/autogen.aliases';
+import * as metazonedata from '@phensley/cldr-core/lib/systems/calendars/autogen.zonedata';
+import * as timezonedata from '@phensley/timezone/lib/autogen.zonedata';
+
+import { TimeZoneStableIdIndex } from '@phensley/cldr-schema';
 
 import { decode } from './parser';
 import { Builder } from './generator';
@@ -111,11 +117,17 @@ export const main = () => {
 
   // Generate constants
   writeConstants(dest, 'LocaleConstants', {
-    ...aliases,
+    ...localealiases,
     ...distance,
     ...locales,
     ...partition,
     ...subtags
+  });
+
+  writeConstants(dest, 'TimeZoneConstants', {
+    ...zonealiases,
+    ...metazonedata,
+    stableids: TimeZoneStableIdIndex.keys
   });
 
   // Copy resource packs
@@ -133,6 +145,10 @@ export const main = () => {
   // Copy schema config
   const configpath = join(__dirname, '../node_modules/@phensley/cldr-compiler/lib/cli/compiler/config.json');
   fs.copyFileSync(configpath, join(dest, 'config.json'));
+
+  // Save timezone data (too large to embed in a Java class)
+  const tzdatapath = join(dest, 'zonedata.json');
+  fs.writeFileSync(tzdatapath, JSON.stringify(timezonedata.rawdata), { encoding: 'utf-8' });
 };
 
 const writeConstants = (dest: string, name: string, obj: any) => {

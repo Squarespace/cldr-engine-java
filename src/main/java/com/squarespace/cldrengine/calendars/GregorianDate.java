@@ -14,6 +14,10 @@ public class GregorianDate extends CalendarDate {
     super(type, firstDay, minDays);
   }
 
+  public static GregorianDate fromUnixEpoch(long epoch, String zoneId, int firstDay, int minDays) {
+    return new GregorianDate(CalendarType.GREGORY, firstDay, minDays)._initFromUnixEpoch(epoch, zoneId);
+  }
+
   @Override
   public GregorianDate add(CalendarDateFields fields) {
     String zoneId = fields.zoneId == null ? this.timeZoneId() : fields.zoneId;
@@ -27,8 +31,14 @@ public class GregorianDate extends CalendarDate {
     return 12;
   }
 
+  @Override
   public String toString() {
     return this._toString("Gregorian", null);
+  }
+
+  protected GregorianDate _initFromUnixEpoch(long epoch, String zoneId) {
+    super.initFromUnixEpoch(epoch, zoneId);
+    return this.initGregorian();
   }
 
   protected GregorianDate _initFromJD(long jd, long msDay, String zoneId) {

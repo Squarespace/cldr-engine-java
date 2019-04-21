@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import com.google.gson.JsonArray;
 import com.squarespace.cldrengine.internal.LocaleConstants;
-import com.squarespace.cldrengine.utils.ResourceUtil;
+import com.squarespace.cldrengine.utils.JsonUtils;
 
 public class LocaleMatcher {
 
@@ -236,7 +236,7 @@ public class LocaleMatcher {
   }
 
   private static final Map<String, Integer> load() {
-    JsonArray elems = (JsonArray) ResourceUtil.parse(LocaleConstants.PARADIGMLOCALES);
+    JsonArray elems = (JsonArray) JsonUtils.parse(LocaleConstants.PARADIGMLOCALES);
     Map<String, Integer> res = new HashMap<>();
     for (int i = 0; i < elems.size(); i++) {
       String raw = elems.get(i).getAsString();

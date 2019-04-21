@@ -5,18 +5,22 @@ import java.util.Map;
 
 public class Vector1Arrow<R> {
 
-  private int len;
+  private int size;
   private int offset;
   private KeyIndex<R> index;
 
   public Vector1Arrow(int offset, KeyIndex<R> index) {
-    this.len = index.size;
+    this.size = index.size;
     this.offset = offset + 1; // skip header
     this.index = index;
   }
 
   boolean exists(PrimitiveBundle bundle) {
     return "E".equals(bundle.get(this.offset - 1));
+  }
+
+  public int size() {
+    return this.size;
   }
 
   public String get(PrimitiveBundle bundle, R key) {
@@ -28,6 +32,9 @@ public class Vector1Arrow<R> {
     return "";
   }
 
+  /**
+   * Return mapping of all keys to all non-empty string values.
+   */
   public Map<R, String> mapping(PrimitiveBundle bundle) {
     Map<R, String> res = new LinkedHashMap<>();
     boolean exists = this.exists(bundle);
@@ -36,7 +43,7 @@ public class Vector1Arrow<R> {
     }
     R[] keys = this.index.keys();
     int offset = this.offset;
-    for (int i = 0; i < this.len; i++) {
+    for (int i = 0; i < this.size; i++) {
       String s = bundle.get(offset + i);
       if (s != null) {
         res.put(keys[i], s);

@@ -18,29 +18,6 @@ public class SchemaConfig extends HashMap<String, List<String>> {
 
   private static final Set<String> CHECKSUM_IGNORE = new HashSet<>(Arrays.asList("calendars"));
 
-  private static final List<String> COPY_KEYS = Arrays.asList(
-      "calendars",
-      "gregorian-available-format",
-      "gregorian-plural-format",
-      "gregorian-interval-format",
-      "buddhist-available-format",
-      "buddhist-plural-format",
-      "buddhist-interval-format",
-      "japanese-available-format",
-      "japanese-plural-format",
-      "japanese-interval-format",
-      "persian-available-format",
-      "persian-plural-format",
-      "persian-interval-format",
-      "currency-id",
-      "language-id",
-      "script-id",
-      "region-id",
-      "unit-id",
-      "timezone-id",
-      "number-system-name"
-  );
-
   public SchemaConfig() {
     pute("alt-key", Meta.KEY_ALT_KEY);
     pute("plural-key", Meta.KEY_PLURAL_KEY);
@@ -105,12 +82,6 @@ public class SchemaConfig extends HashMap<String, List<String>> {
     put(key, Arrays.asList(keys));
   }
 
-//  public static void main(String[] args) throws Exception {
-//    SchemaConfig c = new SchemaConfig();
-//    c.load();
-//    System.out.println(c.checksum("0.14.0-alpha.0"));
-//  }
-
   /**
    * Load the JSON configuration.
    */
@@ -160,9 +131,7 @@ public class SchemaConfig extends HashMap<String, List<String>> {
         continue;
       }
       c.update(key);
-//      System.out.println(key + "  " + c.get());
-      List<String> values = this.get(key);
-      for (String val : values) {
+      for (String val : this.get(key)) {
         c.update(val);
       }
     }

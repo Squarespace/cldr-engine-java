@@ -33,8 +33,6 @@ import com.squarespace.cldrengine.utils.Pair;
  */
 public class Sketch {
 
-  private static final JsonParser JSON_PARSER = new JsonParser();
-
   public static void main(String[] args) throws Exception {
     JsonObject root = load("en.json");
     Pack pack = new Pack(root);
@@ -79,7 +77,7 @@ public class Sketch {
     s = Meta.SCHEMA.Gregorian.eras.get(bundle, EraWidthType.NAMES, "1");
     expect(s, "Anno Domini");
 
-    s = Meta.SCHEMA.TimeZones.metaZones.short_.get(bundle, TimeZoneNameType.DAYLIGHT, MetaZoneType.AMERICA_EASTERN);
+    s = Meta.SCHEMA.TimeZones.metaZones.long_.get(bundle, TimeZoneNameType.DAYLIGHT, MetaZoneType.AMERICA_EASTERN);
     expect(s, "Eastern Daylight Time");
 
     s = Meta.SCHEMA.TimeZones.exemplarCity.get(bundle, "America/New_York");
@@ -92,16 +90,16 @@ public class Sketch {
     expect(s, "light years");
 
     s = Meta.SCHEMA.Gregorian.availableFormats.get(bundle, "yMd");
-    expect(s, "dd/MM/y");
+    expect(s, "M/d/y");
 
     s = Meta.SCHEMA.Gregorian.dateFormats.get(bundle, FormatWidthType.FULL);
-    expect(s, "EEEE, d MMMM y");
+    expect(s, "EEEE, MMMM d, y");
   }
 
 
   private static JsonObject load(String path) throws IOException {
     try (InputStream stream = Bundle.class.getResourceAsStream(path)) {
-      return (JsonObject) JSON_PARSER.parse(new InputStreamReader(stream));
+      return (JsonObject) JsonParser.parseReader(new InputStreamReader(stream));
     }
   }
 

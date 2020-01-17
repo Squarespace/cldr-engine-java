@@ -1,7 +1,5 @@
 package com.squarespace.cldrengine.calendars;
 
-import static com.squarespace.cldrengine.utils.Decoders.vuintDecode;
-import static com.squarespace.cldrengine.utils.Decoders.z85Decode;
 import static com.squarespace.cldrengine.utils.JsonUtils.decodeArray;
 
 import java.io.IOException;
@@ -14,7 +12,6 @@ import java.util.Set;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.squarespace.cldrengine.internal.TimeZoneConstants;
-import com.squarespace.cldrengine.utils.Decoders;
 import com.squarespace.cldrengine.utils.JsonUtils;
 import com.squarespace.cldrengine.utils.Search;
 
@@ -218,8 +215,7 @@ public class TimeZoneData {
     }
 
     // Decode timezone until index and raw zone info
-    short[] raw = z85Decode(root.get("index").getAsString());
-    UNTILINDEX = vuintDecode(raw, Decoders::zigzagDecode);
+    UNTILINDEX = longArray(root.get("index").getAsString());
 
     // Decode all zoneinfo records
     String[] rawzoneinfo = decodeArray(root.get("zoneinfo"));
@@ -227,6 +223,18 @@ public class TimeZoneData {
     for (int i = 0; i < rawzoneinfo.length; i++) {
       ZONERECORDS[i] = new ZoneRecord(TIMEZONEIDS[i], rawzoneinfo[i]);
     }
+  }
+
+  private static long[] longArray(String str) {
+    if (str.isEmpty()) {
+      return new long[] { };
+    }
+    String[] raw = str.split("\\s+");
+    long[] res = new long[raw.length];
+    for (int i = 0; i < raw.length; i++) {
+      res[i] = Long.valueOf(raw[i], 36).longValue();
+    }
+    return res;
   }
 
   /**
@@ -245,14 +253,9 @@ public class TimeZoneData {
     JsonObject root = (JsonObject) JsonUtils.parse(TimeZoneConstants.METAZONEDATA);
     METAZONEIDS = decodeArray(root.get("metazoneids"));
 
-    short[] raw = z85Decode(root.get("index").getAsString());
-    long[] index = vuintDecode(raw);
-
-    raw = z85Decode(root.get("offsets").getAsString());
-    long[] offsets = vuintDecode(raw);
-
-    raw = z85Decode(root.get("untils").getAsString());
-    long[] untils = vuintDecode(raw, Decoders::zigzagDecode);
+    long[] index = longArray(root.get("index").getAsString());
+    long[] offsets = longArray(root.get("offsets").getAsString());
+    long[] untils = longArray(root.get("untils").getAsString());
 
     // Decode all metazone records
     METAZONES = new MetazoneRecord[index.length / 2];
@@ -266,8 +269,7 @@ public class TimeZoneData {
     }
 
     // Map timezone identifiers to corresponding metazone record offset
-    raw = z85Decode(root.get("zoneindex").getAsString());
-    long[] zoneindex = vuintDecode(raw);
+    long[] zoneindex = longArray(root.get("zoneindex").getAsString());
     for (int i = 0; i < zoneindex.length; i++) {
       int mi = (int) zoneindex[i];
       if (mi != -1) {
@@ -340,12 +342,13 @@ public class TimeZoneData {
     final int[] types;
 
     public ZoneRecord(String zoneId, String raw) {
-      String[] parts = split(raw, "\t");
+      String[] parts = split(raw, "_");
       String _info = parts[0];
-      String _types = parts[1];
-      String _untils = parts[2];
+      String _types = parts.length > 1 ? parts[1] : "";
+      String _untils = parts.length > 2 ? parts[2] : "";
 
-      long[] untils = vuintDecode(z85Decode(_untils), Decoders::zigzagDecode);
+      long[] untils = longArray(_untils);
+
       int len = untils.length;
       if (len > 0) {
         untils[0] = UNTILINDEX[(int)untils[0]] * 1000;
@@ -404,7 +407,7 @@ public class TimeZoneData {
       String[] parts = raw.split(":");
       String abbr = parts[0];
       int dst = Integer.parseInt(parts[1]);
-      int offset = Integer.parseInt(parts[2]) * 1000;
+      int offset = Integer.parseInt(parts[2], 36) * 1000;
       return new TZInfo(zoneId, abbr, dst, offset);
     }
 

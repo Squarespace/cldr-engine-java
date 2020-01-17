@@ -14,15 +14,13 @@ import com.google.gson.JsonParser;
 
 public class JsonUtils {
 
-  private static final JsonParser JSON_PARSER = new JsonParser();
-
   public static JsonElement parse(String raw) {
-    return JSON_PARSER.parse(new StringReader(raw));
+    return JsonParser.parseReader(new StringReader(raw));
   }
 
   public static JsonObject loadJson(Class<?> cls, String path) throws IOException {
     try (InputStream stream = cls.getResourceAsStream(path)) {
-      return (JsonObject) JSON_PARSER.parse(new InputStreamReader(stream));
+      return (JsonObject) JsonParser.parseReader(new InputStreamReader(stream));
     }
   }
 

@@ -8,12 +8,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.locale.LanguageTag;
 import com.squarespace.cldrengine.locale.LocaleResolver;
-import com.squarespace.cldrengine.utils.Decoders;
 import com.squarespace.cldrengine.utils.JsonUtils;
 
 public class Pack {
-
-  private static final JsonParser JSON_PARSER = new JsonParser();
 
   private final String version;
   private final String cldrVersion;
@@ -22,7 +19,7 @@ public class Pack {
   private final Map<String, PackScript> scripts;
 
   public Pack(String data) {
-    this(JSON_PARSER.parse(data).getAsJsonObject());
+    this(JsonParser.parseString(data).getAsJsonObject());
   }
 
   public Pack(JsonObject data) {
@@ -30,8 +27,8 @@ public class Pack {
     this.cldrVersion = data.get("cldr").getAsString();
     this.language = data.get("language").getAsString();
 
-//    this.defaultTag = data.get("default").getAsString();
     // TODO:
+//    this.defaultTag = data.get("defaultTag").getAsString();
     this.defaultTag = null;
     JsonObject scripts = data.get("scripts").getAsJsonObject();
     this.scripts = new HashMap<>();
@@ -75,7 +72,7 @@ public class Pack {
 
   private static class PackScript {
 
-    private static final String SEP = "\t";
+    private static final String SEP = "_";
 
     final String[] strings;
     final String[] exceptions;
@@ -88,7 +85,7 @@ public class Pack {
       this.exceptions = obj.get("exceptions").getAsString().split(SEP);
       this.regions = JsonUtils.decodeObject(obj.get("regions"));
       this.cache = new HashMap<>();
-      this.defaultRegion = obj.get("default").getAsString();
+      this.defaultRegion = obj.get("defaultRegion").getAsString();
     }
 
     Bundle get(LanguageTag tag) {
@@ -113,12 +110,11 @@ public class Pack {
       if (raw == null) {
         return null;
       }
-      short[] bytes = Decoders.z85Decode(raw);
-      long[] numbers = Decoders.vuintDecode(bytes);
       Map<Integer, Integer> index = new HashMap<>();
-      for (int i = 0; i < numbers.length; i += 2) {
-        int k = (int)numbers[i];
-        int v = (int)numbers[i + 1];
+      String[] parts = raw.split("\\s+");
+      for (int i = 0; i < parts.length; i += 2) {
+        Integer k = Integer.valueOf(parts[i], 36);
+        Integer v = Integer.valueOf(parts[i + 1], 36);
         index.put(k, v);
       }
       this.cache.put(region, index);

@@ -7,7 +7,7 @@ import java.util.Set;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.squarespace.cldrengine.internal.LocaleConstants;
+import com.squarespace.cldrengine.internal.LocaleExternalData;
 import com.squarespace.cldrengine.locale.DistanceMap.Node;
 import com.squarespace.cldrengine.utils.JsonUtils;
 
@@ -132,7 +132,7 @@ public class DistanceTable {
    * we omit type checking and error handling.
    */
   private static DistanceMap load() {
-    JsonObject json = (JsonObject) JsonUtils.parse(LocaleConstants.DISTANCEMAP);
+    JsonObject json = (JsonObject) JsonUtils.parse(LocaleExternalData.DISTANCEMAP);
     DistanceMap map = new DistanceMap();
     encode(map, json);
     return map;

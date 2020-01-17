@@ -11,7 +11,7 @@ import java.util.Set;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.squarespace.cldrengine.internal.TimeZoneConstants;
+import com.squarespace.cldrengine.internal.TimeZoneExternalData;
 import com.squarespace.cldrengine.utils.JsonUtils;
 import com.squarespace.cldrengine.utils.Search;
 
@@ -180,7 +180,7 @@ public class TimeZoneData {
    * Load the mapping of timezone alias to canonical identifier.
    */
   private static void loadAliases() {
-    for (String row : TimeZoneConstants.ZONEALIASRAW.split("\\|")) {
+    for (String row : TimeZoneExternalData.ZONEALIASRAW.split("\\|")) {
       String[] parts = row.split(":");
       ZONEALIASES.put(parts[0], parts[1]);
     }
@@ -192,7 +192,7 @@ public class TimeZoneData {
   private static void loadTimezones() {
     JsonObject root;
     try {
-      root = (JsonObject) JsonUtils.loadJson(TimeZoneConstants.class, "zonedata.json");
+      root = (JsonObject) JsonUtils.loadJson(TimeZoneExternalData.class, "zonedata.json");
     } catch (IOException e) {
       throw new RuntimeException("Failed to load timezone data resource", e);
     }
@@ -250,7 +250,7 @@ public class TimeZoneData {
    * corresponding CLDR stable identifier, where they differ.
    */
   private static void loadMetazones() {
-    JsonObject root = (JsonObject) JsonUtils.parse(TimeZoneConstants.METAZONEDATA);
+    JsonObject root = (JsonObject) JsonUtils.parse(TimeZoneExternalData.METAZONEDATA);
     METAZONEIDS = decodeArray(root.get("metazoneids"));
 
     long[] index = longArray(root.get("index").getAsString());
@@ -291,7 +291,7 @@ public class TimeZoneData {
    * Load the set of CLDR stable timezone ids.
    */
   private static void loadStableIds() {
-    String[] ids = decodeArray(JsonUtils.parse(TimeZoneConstants.STABLEIDS));
+    String[] ids = decodeArray(JsonUtils.parse(TimeZoneExternalData.STABLEIDS));
     for (String id : ids) {
       CLDR_STABLEIDS.add(id);
     }

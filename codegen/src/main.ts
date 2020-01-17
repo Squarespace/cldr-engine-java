@@ -4,17 +4,21 @@ import * as glob from 'fast-glob';
 import * as ts from 'typescript';
 import { tsquery } from '@phenomnomnominal/tsquery';
 
-import * as languageTagAliases from '@phensley/language-tag/lib/autogen.aliases';
-import * as localealiases from '@phensley/locale/lib/autogen.aliases';
-import * as distance from '@phensley/locale-matcher/lib/autogen.distance';
-import * as locales from '@phensley/cldr-core/lib/locale/autogen.locales';
-import * as partition from '@phensley/locale-matcher/lib/autogen.partition';
-import * as languageTagSubtags from '@phensley/language-tag/lib/autogen.subtags';
-import * as localeSubtags from '@phensley/locale/lib/autogen.subtags';
+import * as calprefs from '@phensley/cldr-core/lib/internals/calendars/autogen.calprefs';
+import * as dayperiods from '@phensley/cldr-core/lib/internals/calendars/autogen.dayperiods';
+import * as timedata from '@phensley/cldr-core/lib/internals/calendars/autogen.timedata';
+import * as weekdata from '@phensley/cldr-core/lib/internals/calendars/autogen.weekdata';
 
-import * as zonealiases from '@phensley/cldr-core/lib/systems/calendars/autogen.aliases';
+import * as distance from '@phensley/locale-matcher/lib/autogen.distance';
+import * as languageTagAliases from '@phensley/language-tag/lib/autogen.aliases';
+import * as languageTagSubtags from '@phensley/language-tag/lib/autogen.subtags';
+import * as localealiases from '@phensley/locale/lib/autogen.aliases';
+import * as locales from '@phensley/cldr-core/lib/locale/autogen.locales';
+import * as localeSubtags from '@phensley/locale/lib/autogen.subtags';
 import * as metazonedata from '@phensley/cldr-core/lib/systems/calendars/autogen.zonedata';
+import * as partition from '@phensley/locale-matcher/lib/autogen.partition';
 import * as timezonedata from '@phensley/timezone/lib/autogen.zonedata';
+import * as zonealiases from '@phensley/cldr-core/lib/systems/calendars/autogen.aliases';
 
 import { TimeZoneStableIdIndex } from '@phensley/cldr-schema';
 
@@ -95,7 +99,6 @@ export const main = () => {
 
   const origin = new CodeBuilder(DEFAULT_CONFIG).origin();
 
-  console.log(JSON.stringify(types));
   const builder = new Builder(types);
   builder.construct(origin);
   let code = builder.buf.join('');
@@ -124,8 +127,15 @@ export const main = () => {
     write(join(dest, `${o.name}.java`), code);
   }
 
+  writeConstants(dest, 'CalendarExternalData', {
+    ...calprefs,
+    ...dayperiods,
+    ...timedata,
+    ...weekdata
+  });
+
   // Generate constants
-  writeConstants(dest, 'LocaleConstants', {
+  writeConstants(dest, 'LocaleExternalData', {
     ...languageTagAliases,
     ...localealiases,
     ...distance,
@@ -135,7 +145,7 @@ export const main = () => {
     ...localeSubtags
   });
 
-  writeConstants(dest, 'TimeZoneConstants', {
+  writeConstants(dest, 'TimeZoneExternalData', {
     ...zonealiases,
     ...metazonedata,
     stableids: TimeZoneStableIdIndex.keys

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.squarespace.cldrengine.internal.LocaleConstants;
+import com.squarespace.cldrengine.internal.LocaleExternalData;
 import com.squarespace.compiler.parse.Pair;
 
 public class LocaleResolver {
@@ -266,7 +266,7 @@ public class LocaleResolver {
 
   private static Map<FastTag, FastTag> loadLikelySubtags() {
     Map<FastTag, FastTag> map = new HashMap<>();
-    for (String row : LocaleConstants.LIKELYRAW.split("\\|")) {
+    for (String row : LocaleExternalData.LIKELYRAW.split("\\|")) {
       String[] parts = row.split(":");
       FastTag key = parseFastTag(parts[0]);
       FastTag val = parseFastTag(parts.length == 2 ? parts[1] : "");
@@ -277,7 +277,7 @@ public class LocaleResolver {
 
   private static Map<String, List<Pair<FastTag, FastTag>>> loadLanguageAliases() {
     Map<String, List<Pair<FastTag, FastTag>>> map = new HashMap<>();
-    for (String row : LocaleConstants.LANGUAGEALIASRAW.split("\\|")) {
+    for (String row : LocaleExternalData.LANGUAGEALIASRAW.split("\\|")) {
       String[] parts = row.split(":");
       FastTag type = parseFastTag(parts[0]);
       FastTag repl = parseFastTag(parts[1]);
@@ -294,7 +294,7 @@ public class LocaleResolver {
 
   private static Map<String, List<String>> loadRegionAliases() {
     Map<String, List<String>> map = new HashMap<>();
-    for (String row : LocaleConstants.TERRITORYALIASRAW.split("\\|")) {
+    for (String row : LocaleExternalData.TERRITORYALIASRAW.split("\\|")) {
       String[] parts = row.split(":");
       String key = parts[0];
       List<String> regions = new ArrayList<>();

@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import com.squarespace.cldrengine.internal.LocaleConstants;
+import com.squarespace.cldrengine.internal.LocaleExternalData;
 import com.squarespace.cldrengine.utils.StringUtils;
 
 public class LanguageTagParser {
@@ -61,7 +61,7 @@ public class LanguageTagParser {
 
   static {
     // Grandfathered tag mapping
-    String[] tags = LocaleConstants.GRANDFATHEREDRAW.split("\\|");
+    String[] tags = LocaleExternalData.GRANDFATHEREDRAW.split("\\|");
     for (String tag : tags) {
       String[] parts = tag.split(":");
       if (parts.length == 1) {

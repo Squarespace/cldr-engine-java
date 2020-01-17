@@ -19,7 +19,7 @@ public class ResourcePacks {
 
   private static Map<String, Pack> load() {
     Map<String, Pack> map = new HashMap<>();
-    String[] locales = LocaleConstants.AVAILABLELOCALESRAW.split("\\|");
+    String[] locales = LocaleExternalData.AVAILABLELOCALESRAW.split("\\|");
     for (String locale : locales) {
       LanguageTag tag = LanguageTagParser.parse(locale);
       String language = tag.language();

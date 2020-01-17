@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.squarespace.cldrengine.internal.LocaleConstants;
+import com.squarespace.cldrengine.internal.LocaleExternalData;
 
 /**
  * Builds a set of partitions for use in enhanced language matching. This splits
@@ -27,8 +27,8 @@ class PartitionTable {
 
   private static Map<String, Set<String>> load() {
     Map<String, Set<String>> result = new HashMap<>();
-    encode(result, LocaleConstants.REGIONS);
-    encode(result, LocaleConstants.MACROREGIONS);
+    encode(result, LocaleExternalData.REGIONS);
+    encode(result, LocaleExternalData.MACROREGIONS);
     return result;
   }
 

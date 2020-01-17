@@ -4,11 +4,13 @@ import * as glob from 'fast-glob';
 import * as ts from 'typescript';
 import { tsquery } from '@phenomnomnominal/tsquery';
 
-import * as localealiases from '@phensley/cldr-core/lib/locale/autogen.aliases';
-import * as distance from '@phensley/cldr-core/lib/locale/autogen.distance';
+import * as languageTagAliases from '@phensley/language-tag/lib/autogen.aliases';
+import * as localealiases from '@phensley/locale/lib/autogen.aliases';
+import * as distance from '@phensley/locale-matcher/lib/autogen.distance';
 import * as locales from '@phensley/cldr-core/lib/locale/autogen.locales';
-import * as partition from '@phensley/cldr-core/lib/locale/autogen.partition';
-import * as subtags from '@phensley/cldr-core/lib/locale/autogen.subtags';
+import * as partition from '@phensley/locale-matcher/lib/autogen.partition';
+import * as languageTagSubtags from '@phensley/language-tag/lib/autogen.subtags';
+import * as localeSubtags from '@phensley/locale/lib/autogen.subtags';
 
 import * as zonealiases from '@phensley/cldr-core/lib/systems/calendars/autogen.aliases';
 import * as metazonedata from '@phensley/cldr-core/lib/systems/calendars/autogen.zonedata';
@@ -30,14 +32,20 @@ const IGNORE = new Set<string>([
   'DateFieldSymbol',
   'DateTimePatternFieldType',
   'Digits',
+  'DigitsArrow',
   'Field',
+  'FieldArrow',
   'Instruction',
+  'KeyIndex',
   'PrimitiveBundle',
   'Origin',
   'Scope',
+  'ScopeArrow',
   'ScopeMap',
   'Vector1',
-  'Vector2'
+  'Vector1Arrow',
+  'Vector2',
+  'Vector2Arrow'
 ]);
 
 export const buildSchema = (origin: Origin) => {
@@ -63,7 +71,7 @@ const makedirs = (p: string) => {
 };
 
 export const main = () => {
-  const root = join(__dirname, '../node_modules/@phensley/cldr-schema/lib/**/*.d.ts');
+  const root = join(__dirname, '../node_modules/@phensley/cldr-types/lib/**/*.d.ts');
   const sources = loadSources(root);
   const enums: any[] = [];
   const interfaces: any[] = [];
@@ -87,6 +95,7 @@ export const main = () => {
 
   const origin = new CodeBuilder(DEFAULT_CONFIG).origin();
 
+  console.log(JSON.stringify(types));
   const builder = new Builder(types);
   builder.construct(origin);
   let code = builder.buf.join('');
@@ -117,11 +126,13 @@ export const main = () => {
 
   // Generate constants
   writeConstants(dest, 'LocaleConstants', {
+    ...languageTagAliases,
     ...localealiases,
     ...distance,
     ...locales,
     ...partition,
-    ...subtags
+    ...languageTagSubtags,
+    ...localeSubtags
   });
 
   writeConstants(dest, 'TimeZoneConstants', {

@@ -1,7 +1,18 @@
 import * as fs from 'fs';
 import * as zlib from 'zlib';
 import { join } from 'path';
-import { CodeBuilder, DigitsArrow, FieldArrow, Origin, Schema, ScopeArrow, Vector1Arrow, Vector2Arrow } from '@phensley/cldr-schema';
+import {
+  Schema,
+} from '@phensley/cldr-types';
+import {
+  CodeBuilder,
+  DigitsArrowImpl,
+  FieldArrowImpl,
+  Origin,
+  ScopeArrowImpl,
+  Vector1ArrowImpl,
+  Vector2ArrowImpl
+} from '@phensley/cldr-schema';
 import { VERSION } from '@phensley/cldr-core/lib/utils/version';
 import { SchemaBuilder } from '@phensley/cldr-core/lib/internals/schema';
 import { checksumIndices } from '@phensley/cldr-core/lib/resource/checksum';
@@ -9,8 +20,8 @@ import { config as CONFIG } from '@phensley/cldr/lib/config';
 
 export const loader = (lang: string) => {
   const path = join(__dirname, `../node_modules/@phensley/cldr/packs/${lang}.json.gz`);
-    const compressed = fs.readFileSync(path);
-    return zlib.gunzipSync(compressed).toString('utf-8');
+  const compressed = fs.readFileSync(path);
+  return zlib.gunzipSync(compressed).toString('utf-8');
 };
 
 export const buildSchema = (origin: Origin, debug: boolean = false): Schema => {
@@ -27,18 +38,18 @@ type Entry = [number, string, number, number] | [number, string];
  */
 const scan = (o: any, depth: number = 1): Entry[] => {
   let e: Entry[] = [];
-  if (o instanceof DigitsArrow) {
+  if (o instanceof DigitsArrowImpl) {
     const start = o.offset;
     e.push([depth, 'DigitsArrow', start, start + o.index.size * o.size2]);
-  } else if (o instanceof FieldArrow) {
+  } else if (o instanceof FieldArrowImpl) {
     e.push([depth, 'FieldArrow', o.offset, o.offset + 1]);
-  } else if (o instanceof Vector1Arrow) {
+  } else if (o instanceof Vector1ArrowImpl) {
     const start = o.offset - 1;
     e.push([depth, 'Vector1Arrow', start, start + o.len + 1]);
-  } else if (o instanceof Vector2Arrow) {
+  } else if (o instanceof Vector2ArrowImpl) {
     const start = o.offset - 1;
     e.push([depth, 'Vector2Arrow', start, start + o.size + 1]);
-  } else if (o instanceof ScopeArrow) {
+  } else if (o instanceof ScopeArrowImpl) {
     e.push([depth, 'ScopeArrow']);
     for (const key of Object.keys(o.map)) {
       e.push([depth, key]);

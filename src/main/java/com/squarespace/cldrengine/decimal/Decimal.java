@@ -122,6 +122,10 @@ public class Decimal {
   }
 
   // TODO: add
+  public Decimal add(Decimal v) {
+    Decimal r = handleFlags(Op.ADDITION, v);
+    return r == null ? this.addsub(this, v, v.sign) : r;
+  }
 
   // TODO: subtract
 
@@ -219,7 +223,14 @@ public class Decimal {
     return w;
   }
 
-  // TODO: shiftleft
+  public Decimal shiftleft(int shift) {
+    if (this.flag != 0) {
+      return this;
+    }
+    Decimal w = new Decimal(this);
+    w._shiftleft(shift);
+    return w;
+  }
 
   // TODO: increment
 
@@ -241,11 +252,108 @@ public class Decimal {
 
   // TODO: formatParts
 
-  // TODO: handleFlags
+  /**
+   * Handle setting of flags for operations per the IEEE-754-2008 specification.
+   * These rules are also referenced in the EcmaScript specification:
+   *
+   * 12.7.3.1 - Applying the mul operator:
+   * https://tc39.github.io/ecma262/#sec-applying-the-mul-operator
+   *
+   * 12.7.3.2 - Applying the div operator:
+   * https://tc39.github.io/ecma262/#sec-applying-the-div-operator
+   *
+   * 12.7.3.3 - Applying the mod operator:
+   * https://tc39.github.io/ecma262/#sec-applying-the-mod-operator
+   *
+   * 12.8.5 - Applying the additive operators to numbers:
+   * https://tc39.github.io/ecma262/#sec-applying-the-additive-operators-to-numbers
+   *
+   */
+  protected Decimal handleFlags(Op op, Decimal v) {
+    Decimal u = this;
+    int uflag = u.flag;
+    int vflag = v.flag;
+
+    // Any operation involving a NAN returns a NAN
+    if (uflag == DecimalFlag.NAN || vflag == DecimalFlag.NAN) {
+      return NAN;
+    }
+
+    boolean uinf = uflag == DecimalFlag.INFINITY;
+    boolean vinf = vflag == DecimalFlag.INFINITY;
+    boolean uzero = u.isZero();
+    boolean vzero = v.isZero();
+
+    switch (op) {
+      case ADDITION:
+        if (uinf && vinf) {
+          return u.sign == v.sign ? (u.sign == 1 ? POSITIVE_INFINITY : NEGATIVE_INFINITY) : NAN;
+        } else if (uinf || vinf) {
+          return uinf ? u : v;
+        }
+        break;
+
+      case SUBTRACTION:
+        if (uinf && vinf) {
+          return u.sign == v.sign ? NAN : u.sign == 1 ? POSITIVE_INFINITY : NEGATIVE_INFINITY;
+        } else if (uinf || vinf) {
+          return uinf ? (u.sign == 1 ? POSITIVE_INFINITY : NEGATIVE_INFINITY)
+              : v.sign == 1 ? NEGATIVE_INFINITY : POSITIVE_INFINITY;
+        }
+        break;
+
+      case MULTIPLICATION:
+        if (uinf) {
+          return vzero ? NAN : u.sign == v.sign ? POSITIVE_INFINITY : NEGATIVE_INFINITY;
+        }
+        if (vinf) {
+          return uzero ? NAN : u.sign == v.sign ? POSITIVE_INFINITY : NEGATIVE_INFINITY;
+        }
+        break;
+
+      case DIVISION:
+        if (uinf && vinf) {
+          return NAN;
+        }
+        if (uinf) {
+          return vzero ? (u.sign == 1 ? POSITIVE_INFINITY : NEGATIVE_INFINITY) :
+            u.sign == v.sign ? POSITIVE_INFINITY : NEGATIVE_INFINITY;
+        }
+        if (vinf) {
+          return ZERO;
+        }
+        if (vzero) {
+          return uzero ? NAN : u.sign == 1 ? POSITIVE_INFINITY : NEGATIVE_INFINITY;
+        }
+        break;
+
+      case MOD:
+        if (uinf || vzero) {
+          return NAN;
+        }
+        if (!uinf && vinf) {
+          return u;
+        }
+        if (uzero && (!vzero && !vinf)) {
+          return u;
+        }
+        break;
+    }
+    return null;
+  }
+
 
   // TODO: fromRaw
 
-  // TODO: _shiftleft
+  protected void _shiftleft(int shift) {
+    if (shift <= 0) {
+      return;
+    }
+    Decimal w = this;
+    int prec = w.precision();
+    // TODO: resume
+//    long[] data = copy(w.data);
+  }
 
   // TODO: _shiftright
 
@@ -336,7 +444,54 @@ public class Decimal {
     return this.data.length > 0 && (this.data[0] % 2 == 1);
   }
 
-  // TODO: addsub
+  protected Decimal addsub(Decimal u, Decimal v, int vsign) {
+    Decimal m = u; // m = bigger
+    Decimal n = v; // n = smaller
+    int swap = 0;
+    if (m.exp < n.exp) {
+      Decimal t = m;
+      m = n;
+      n = t;
+      swap++;
+    }
+
+    int shift = m.exp - n.exp;
+    m = m.shiftleft(shift);
+
+    Decimal w = new Decimal(ZERO);
+    w.exp = n.exp;
+
+    if (m.data.length < n.data.length) {
+      Decimal t = m;
+      m = n;
+      n = t;
+      swap++;
+    }
+
+    if (u.sign == vsign) {
+      w.data = DecimalMath.add(m.data, n.data);
+      w.sign = vsign;
+    } else {
+      int ulen = m.data.length;
+      int vlen = n.data.length;
+      if (ulen == vlen) {
+        for (int i = ulen - 1; i >= 0; i--) {
+          if (m.data[i] != n.data[i]) {
+            if (m.data[i] < n.data[i]) {
+              Decimal t = m;
+              m = n;
+              n = t;
+              swap++;
+            }
+            break;
+          }
+        }
+      }
+      w.data = DecimalMath.subtract(m.data, n.data);
+      w.sign = (swap & 1) == 1 ? vsign : m.sign;
+    }
+    return w.trim();
+  }
 
   private void parse(String s) {
     String msg = this._parse(s);
@@ -502,26 +657,26 @@ public class Decimal {
     return res;
   }
 
+  private static final Decimal ZERO = new Decimal(0);
+  private static final Decimal ONE = new Decimal(1);
+  private static final Decimal TWO = new Decimal(2);
+
+  private static final Decimal NAN = new Decimal("nan");
+  private static final Decimal NEGATIVE_INFINITY = new Decimal("-infinity");
+  private static final Decimal POSITIVE_INFINITY = new Decimal("infinity");
+
+  private static enum Op {
+    ADDITION,
+    SUBTRACTION,
+    MULTIPLICATION,
+    DIVISION,
+    MOD
+  }
+
   private static class ParseFlags {
     public static final int SIGN = 1;
     public static final int POINT = 2;
     public static final int EXP = 4;
-  }
-
-  private static class Constants {
-    // 10^7 < sqrt(Number.MAX_SAFE_INTEGER) in JavaScript
-    public static final int RADIX = (int)1e7;
-    public static final int RDIGITS = 7;
-
-    public static final int P0 = 1;
-    public static final int P1 = 10;
-    public static final int P2 = 100;
-    public static final int P3 = 1000;
-    public static final int P4 = 10000;
-    public static final int P5 = 100000;
-    public static final int P6 = 1000000;
-    public static final int P7 = 10000000;
-    public static final int P8 = 100000000;
   }
 
   private static final int[] POWERS10 = new int[] {

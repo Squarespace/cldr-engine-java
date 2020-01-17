@@ -20,10 +20,10 @@ targetCompatibility = 1.8
 
 project.ext {
 	ccVersion = '1.0.6'
-	gsonVersion = '2.8.5'
-	hamcrestVersion = '2.0.0.0'
-	lombokVersion = '1.18.6'
- 	testngVersion = '6.11'
+	gsonVersion = '2.8.6'
+	hamcrestVersion = '2.2'
+	lombokVersion = '1.18.10'
+ 	testngVersion = '7.1.0'
 }
 
 dependencies {

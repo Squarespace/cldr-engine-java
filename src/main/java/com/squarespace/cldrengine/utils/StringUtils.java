@@ -1,6 +1,7 @@
 package com.squarespace.cldrengine.utils;
 
 import java.util.List;
+import java.util.ListIterator;
 
 public class StringUtils {
 
@@ -16,4 +17,24 @@ public class StringUtils {
     return buf.toString();
   }
 
+  public static final String reverseJoin(List<String> list, String sep) {
+    StringBuilder buf = new StringBuilder();
+    ListIterator<String> iter = list.listIterator();
+    while (iter.hasPrevious()) {
+      if (buf.length() > 0) {
+        buf.append(sep);
+      }
+      buf.append(iter.previous());
+    }
+    return buf.toString();
+  }
+
+  public static final String reverse(String s) {
+    StringBuilder buf = new StringBuilder();
+    for (int i = s.length() - 1; i >= 0; i--) {
+      buf.append(s.charAt(i));
+    }
+    return buf.toString();
+  }
 }
+

@@ -11,10 +11,56 @@ import java.util.Set;
  */
 public class Decimal {
 
+  private static enum Op {
+    ADDITION,
+    SUBTRACTION,
+    MULTIPLICATION,
+    DIVISION,
+    MOD
+  }
+
+  private static class ParseFlags {
+    public static final int SIGN = 1;
+    public static final int POINT = 2;
+    public static final int EXP = 4;
+  }
+
+  private static final int[] POWERS10 = new int[] {
+      Constants.P0,
+      Constants.P1,
+      Constants.P2,
+      Constants.P3,
+      Constants.P4,
+      Constants.P5,
+      Constants.P6,
+      Constants.P7,
+      Constants.P8
+  };
+
+  private static final Set<String> NAN_VALUES = new HashSet<>(Arrays.asList(
+      "nan", "NaN"));
+
+  private static final Set<String> POS_INFINITY = new HashSet<>(Arrays.asList(
+      "infinity", "+infinity", "Infinity", "+Infinity"));
+
+  private static final Set<String> NEG_INFINITY = new HashSet<>(Arrays.asList(
+     "-infinity", "-Infinity"));
+
+  private static final String[] DECIMAL_DIGITS = new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+  private static final Decimal ZERO = new Decimal(0);
+  private static final Decimal ONE = new Decimal(1);
+  private static final Decimal TWO = new Decimal(2);
+
+  private static final Decimal NAN = new Decimal("nan");
+  private static final Decimal NEGATIVE_INFINITY = new Decimal("-infinity");
+  private static final Decimal POSITIVE_INFINITY = new Decimal("infinity");
+
   private long[] data;
   private int sign;
   private int exp;
   private int flag;
+
 
   public Decimal(String s) {
     parse(s);
@@ -50,6 +96,13 @@ public class Decimal {
       return;
     }
     parse(Double.toString(n));
+  }
+
+  protected Decimal(int sign, int exp, long[] data, int flag) {
+    this.sign = sign;
+    this.exp = exp;
+    this.data = Arrays.copyOf(data, data.length);
+    this.flag = flag;
   }
 
   public static Decimal coerce(String n) {
@@ -125,6 +178,14 @@ public class Decimal {
   public Decimal add(Decimal v) {
     Decimal r = handleFlags(Op.ADDITION, v);
     return r == null ? this.addsub(this, v, v.sign) : r;
+  }
+
+  /**
+   * Subtracts v.
+   */
+  public Decimal subtract(Decimal v) {
+    Decimal r = handleFlags(Op.SUBTRACTION, v);
+    return r == null ? this.addsub(this, v, -v.sign) : r;
   }
 
   // TODO: subtract
@@ -223,6 +284,9 @@ public class Decimal {
     return w;
   }
 
+  /**
+   * Shifts all digits to the left, increasing the precision.
+   */
   public Decimal shiftleft(int shift) {
     if (this.flag != 0) {
       return this;
@@ -232,23 +296,207 @@ public class Decimal {
     return w;
   }
 
-  // TODO: increment
+  /**
+   * Shifts all digits to the right, reducing the precision. Result is rounded
+   * using the given rounding mode.
+   */
+  public Decimal shiftright(int shift, RoundingModeType mode) {
+    // TODO:
+    return this;
+  }
 
-  // TODO: decrement
+  /**
+   * Increment the least-significant integer digit.
+   */
+  public Decimal increment() {
+    if (this.flag != 0) {
+      return this;
+    }
+    Decimal r = new Decimal(this);
+    if (r.sign == -1 || r.exp != 0) {
+      return r.add(ONE);
+    }
+    r._increment();
+    return r;
+  }
+
+  /**
+   * Decrement the least-significant integer digit.
+   */
+  public Decimal decrement() {
+    return this.flag != 0 ? this : this.subtract(ONE);
+  }
 
   // TODO: toString
+
+  /**
+   * Format the number to a string, using fixed point.
+   */
+  @Override
+  public String toString() {
+    return this.flag != 0 ? this.formatFlags() : this.formatString(this, 1);
+  }
 
   // TODO: toParts
 
   // TODO: toScientificParts
 
-  // TODO: format<R>
+  /**
+   * Low-level formatting of string and Part[] forms.
+   */
+  public <R> void format(DecimalFormatter<R> formatter, String decimal, String group, int minInt, int minGroup,
+      int priGroup, int secGroup, boolean zeroScale, String[] digits) {
 
-  // TODO: formatFlags
+    // Determine if grouping is enabled, and set the primary and
+    // secondary group sizes.
+    boolean grouping = !group.equals("");
+    if (secGroup <= 0) {
+      secGroup = priGroup;
+    }
+    int exp = this.exp;
+
+    // Determine how many integer digits to emit. If integer digits is
+    // larger than the integer coefficient we emit leading zeros.
+    int _int = (this.data.length == 1 && this.data[0] == 0) ? 1 : this.precision() + exp;
+
+    if (minInt <= 0 && this.compare(ONE, true) == -1) {
+      // If the number is between 0 and 1 and format requested minimum
+      // integer digits of zero, don't emit a leading zero digit.
+      _int = 0;
+    } else {
+      _int = Math.max(_int, minInt);
+    }
+
+    // Array to append digits in reverse order
+    int len = this.data.length;
+    int groupSize = priGroup;
+    int emitted = 0;
+
+    boolean doGroup = (grouping && priGroup > 0 && _int >= minGroup + priGroup);
+
+    // Push trailing zeros for a positive exponent, inly if the number
+    // is non-zero
+    int zeros = exp;
+    if (!(this.data.length == 1 && this.data[0] == 0)) {
+      while (zeros > 0) {
+        formatter.add(digits[0]);
+        emitted++;
+        _int--;
+        if (_int > 0) {
+
+          // Emit grouping
+          if (doGroup && emitted > 0 && emitted % groupSize == 0) {
+            // Push group character, reset emitted digits, and switch
+            // to secondary grouping size.
+            formatter.add(group);
+            emitted = 0;
+            groupSize = secGroup;
+          }
+
+        }
+        zeros--;
+      }
+    } else if (zeroScale && exp < 0) {
+      // Handle sign of zero which means we have exactly '0'. If we
+      // have the 'zeroScale' flag set, a negative exponent here will
+      // emit zeros after the decimal point.
+      while (exp < 0) {
+        exp++;
+        formatter.add(digits[0]);
+      }
+      formatter.add(decimal);
+    }
+
+    // Scan coefficient from least- to most-significant digit.
+    int last = len - 1;
+    for (int i = 0; i < len; i++) {
+      // Count the decimal digits c in this radix digit d
+      long d = this.data[i];
+      int c = i == last ? digitCount(d) : Constants.RDIGITS;
+
+      // Loop over the decimal digits
+      for (int j = 0; j < c; j++) {
+        // Push decimal digit
+        formatter.add(digits[(int)(d % 10)]);
+        d = (d / 10);
+
+        // When we've reached exponent of 0, push the decimal point.
+        exp++;
+        if (exp == 0) {
+          formatter.add(decimal);
+        }
+
+        // Decrement integer, increment emitted digits when exponent is positive, to
+        // trigger grouping logic. We only do this once exp has become positive to
+        // avoid counting emitted digits for decimal part.
+        if (exp > 0) {
+          emitted++;
+          _int--;
+          if (_int > 0) {
+
+            // Emit grouping
+            if (doGroup && emitted > 0 && emitted % groupSize == 0) {
+              // Push group character, reset emitted digits, and switch
+              // to secondary grouping size.
+              formatter.add(group);
+              emitted = 0;
+              groupSize = secGroup;
+            }
+
+          }
+        }
+      }
+    }
+
+    // If exponent still negative, emit leading decimal zeros
+    while (exp < 0) {
+      formatter.add(digits[0]);
+
+      // When we've reached exponent of 0, push the decimal point
+      exp++;
+      if (exp == 0) {
+        formatter.add(decimal);
+      }
+    }
+
+    // Leading integer zeros
+    while (_int > 0) {
+      formatter.add(digits[0]);
+      emitted++;
+      _int--;
+      if (_int > 0) {
+
+        // Emit grouping
+        if (doGroup && emitted > 0 && emitted % groupSize == 0) {
+          // Push group character, reset emitted digits, and switch
+          // to secondary grouping size.
+          formatter.add(group);
+          emitted = 0;
+          groupSize = secGroup;
+        }
+
+      }
+    }
+  }
+
+  protected String formatFlags() {
+    switch (this.flag) {
+      case DecimalFlag.NAN:
+        return "NaN";
+      case DecimalFlag.INFINITY:
+      default:
+        return this.sign == 1 ? "Infinity" : "-Infinity";
+    }
+  }
 
   // TODO: formatFlagsParts
 
-  // TODO: formatString
+  protected String formatString(Decimal d, int minInt) {
+    StringDecimalFormatter f = new StringDecimalFormatter();
+    d.format(f, ".", "", minInt, 1, 3, 3, true, DECIMAL_DIGITS);
+    String r = f.render();
+    return d.sign == -1 ? "-" + r : r;
+  }
 
   // TODO: formatParts
 
@@ -345,14 +593,71 @@ public class Decimal {
 
   // TODO: fromRaw
 
+  /**
+   * Mutating in-place shift left.
+   */
   protected void _shiftleft(int shift) {
     if (shift <= 0) {
       return;
     }
     Decimal w = this;
     int prec = w.precision();
-    // TODO: resume
-//    long[] data = copy(w.data);
+    long[] data = new long[w.data.length];
+    System.arraycopy(w.data, 0, data, 0, w.data.length);
+    int m = data.length;
+
+    // Compute the shift in terms of our radix.
+    int q = (shift / Constants.RDIGITS);
+    int r = shift - q * Constants.RDIGITS;
+
+    // Expand w to hold shifted result and zero all elements.
+    int n = size(prec + shift);
+    w.data = new long[n];
+
+    // Trivial case where shift is a multiple of our radix.
+    if (r == 0) {
+      while (--m >= 0) {
+        w.data[m + q] = data[m];
+      }
+      return;
+    }
+
+    // Shift divided by radix leaves a remainder.
+    long powlo = POWERS10[r];
+    long powhi = POWERS10[Constants.RDIGITS - r];
+    long hi = 0;
+    long lo = 0;
+    long loprev = 0;
+
+    n--;
+    m--;
+    hi = (data[m] / powhi);
+    loprev = data[m] - hi * powhi;
+    if (hi != 0) {
+      w.data[n] = hi;
+      n--;
+    }
+    m--;
+
+    // Divmod each element of u, copying the hi/lo parts to w.
+    for (; m >= 0; m--, n--) {
+      hi = (data[m] / powhi);
+      lo = data[m] - hi * powhi;
+      w.data[n] = powlo * loprev + hi;
+      loprev = lo;
+    }
+
+    w.data[q] = powlo * loprev;
+    System.out.println(Arrays.toString(w.data));
+  }
+
+  /**
+   * Return the storage space needed to hold the given number of digits.
+   */
+  private int size(int n) {
+    int q = (n / Constants.RDIGITS);
+    int r = n - q * Constants.RDIGITS;
+    return r == 0 ? q : q + 1;
   }
 
   // TODO: _shiftright
@@ -380,6 +685,9 @@ public class Decimal {
     }
   }
 
+  /**
+   * Trim leading zeros from a result and reset sign and exponent accordingly.
+   */
   protected Decimal trim() {
     this.trimLeadingZeros();
     return this;
@@ -398,8 +706,26 @@ public class Decimal {
     }
   }
 
+  /**
+   * Increment the least-significant digit of the coefficient.
+   */
   protected void _increment() {
-
+    boolean z = this.isZero();
+    int len = this.data.length;
+    long s = 0;
+    int k = 1;
+    for (int i = 0; k == 1 && i < len; i++) {
+      s = this.data[i] + k;
+      k = s == Constants.RADIX ? 1 : 0;
+      this.data[i] = k == 1 ? 0 : s;
+    }
+    if (k == 1) {
+      this.data = DecimalMath.push(this.data, 1);
+    }
+    // Check if we incremented from zero
+    if (z) {
+      this.sign = 1;
+    }
   }
 
   /**
@@ -606,7 +932,7 @@ public class Decimal {
         case '7':
         case '8':
         case '9':
-          n += (code - '0') & POWERS10[z];
+          n += (code - '0') * POWERS10[z];
           z++;
           dig++;
           if (z == Constants.RDIGITS) {
@@ -657,49 +983,5 @@ public class Decimal {
     return res;
   }
 
-  private static final Decimal ZERO = new Decimal(0);
-  private static final Decimal ONE = new Decimal(1);
-  private static final Decimal TWO = new Decimal(2);
-
-  private static final Decimal NAN = new Decimal("nan");
-  private static final Decimal NEGATIVE_INFINITY = new Decimal("-infinity");
-  private static final Decimal POSITIVE_INFINITY = new Decimal("infinity");
-
-  private static enum Op {
-    ADDITION,
-    SUBTRACTION,
-    MULTIPLICATION,
-    DIVISION,
-    MOD
-  }
-
-  private static class ParseFlags {
-    public static final int SIGN = 1;
-    public static final int POINT = 2;
-    public static final int EXP = 4;
-  }
-
-  private static final int[] POWERS10 = new int[] {
-      Constants.P0,
-      Constants.P1,
-      Constants.P2,
-      Constants.P3,
-      Constants.P4,
-      Constants.P5,
-      Constants.P6,
-      Constants.P7,
-      Constants.P8
-  };
-
-  private static final Set<String> NAN_VALUES = new HashSet<>(Arrays.asList(
-      "nan", "NaN"));
-
-  private static final Set<String> POS_INFINITY = new HashSet<>(Arrays.asList(
-      "infinity", "+infinity", "Infinity", "+Infinity"));
-
-  private static final Set<String> NEG_INFINITY = new HashSet<>(Arrays.asList(
-     "-infinity", "-Infinity"));
-
-  private static final String[] DECIMAL_DIGITS = new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 }

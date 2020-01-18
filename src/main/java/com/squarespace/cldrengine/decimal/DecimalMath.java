@@ -15,7 +15,7 @@ public class DecimalMath {
     // A1. Initialize
     int j = 0;
     long k = 0;
-    while (j < k) {
+    while (j < n) {
       // v may be shorter than u
       long vj = j < vlen ? v[j] : 0;
 

@@ -16,4 +16,9 @@ public enum RoundingModeType {
   private RoundingModeType(String v) {
     this.value = v;
   }
+
+  @Override
+  public String toString() {
+    return value;
+  }
 }

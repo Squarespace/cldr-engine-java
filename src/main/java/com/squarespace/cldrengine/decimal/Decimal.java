@@ -25,18 +25,6 @@ public class Decimal {
     public static final int EXP = 4;
   }
 
-  private static final int[] POWERS10 = new int[] {
-      Constants.P0,
-      Constants.P1,
-      Constants.P2,
-      Constants.P3,
-      Constants.P4,
-      Constants.P5,
-      Constants.P6,
-      Constants.P7,
-      Constants.P8
-  };
-
   private static final Set<String> NAN_VALUES = new HashSet<>(Arrays.asList(
       "nan", "NaN"));
 
@@ -60,7 +48,6 @@ public class Decimal {
   private int sign;
   private int exp;
   private int flag;
-
 
   public Decimal(String s) {
     parse(s);
@@ -141,15 +128,103 @@ public class Decimal {
     return compare(v, false);
   }
 
+  /**
+   * Compare decimal u to v, returning the following:
+   *
+   *  -1   if  u &lt; v
+   *   0   if  u = v
+   *   1   if  u &gt; v
+   *
+   * If the abs flag is true compare the absolute values.
+   *
+   * Any NAN argument will always return -1.
+   */
   public int compare(Decimal v, boolean abs) {
-    return -1;
+    Decimal u = this;
+
+    if (u.flag != 0 || v.flag != 0) {
+      // NAN is never equal to itself or any other value
+      if (u.flag == DecimalFlag.NAN || v.flag == DecimalFlag.NAN) {
+        return -1;
+      }
+
+      // INFINITY
+
+      // Infinities can be equal if their sign matches
+      if (u.flag == v.flag) {
+        return u.sign == v.sign ? 0 : u.sign == -1 ? -1 : 1;
+      }
+
+      // Negative infinity before all other values
+      // Positive infinity after all other values
+      return u.flag == DecimalFlag.INFINITY ?
+        u.sign == -1 ? -1 : 1 :
+        v.sign == -1 ? 1 : -1;
+    }
+
+    u = u.stripTrailingZeros();
+    v = v.stripTrailingZeros();
+
+    boolean uz = u.isZero();
+    boolean vz = v.isZero();
+    if (uz && vz) {
+      return 0;
+    }
+
+    int us = u.sign;
+    int vs = v.sign;
+    if (!abs && us != vs) {
+      return us == -1 ? -1 : 1;
+    }
+
+    int ue = u.alignexp();
+    int ve = v.alignexp();
+    if (ue != ve) {
+      if (abs) {
+        return ue < ve ? -1 : 1;
+      }
+      return ue < ve ? -1 * us : us;
+    }
+
+    if (u.exp != v.exp) {
+      int shift = u.exp - v.exp;
+      if (shift > 0) {
+        int c = DecimalMath.compare(v.data, u.data, shift);
+        return c == 0 ? c : -c;
+      }
+      return DecimalMath.compare(u.data, v.data, -shift);
+    }
+
+    // Same number of radix digits.
+    int i = u.data.length - 1;
+    while (i >= 0) {
+      long a = u.data[i];
+      long b = v.data[i];
+      if (a != b) {
+        return (a < b ? -1 : 1) * (abs ? 1 : u.sign);
+      }
+      i--;
+    }
+
+    // Equal
+    return 0;
   }
 
   // TODO: properties
 
-  // TODO: abs
+  /**
+   * Return the absolute value of the number.
+   */
+  public Decimal abs() {
+    return this.sign == -1 ? new Decimal(-this.sign, this.exp, this.data, this.flag) : this;
+  }
 
-  // TODO: negate
+  /**
+   * Invert this number's sign.
+   */
+  public Decimal negate() {
+    return this.isNaN() ? this : new Decimal(-this.sign, this.exp, this.data, this.flag);
+  }
 
   /**
    * Indicates this number is negative.
@@ -165,7 +240,16 @@ public class Decimal {
     return this.isZero() ? 0 : this.sign;
   }
 
-  // TODO: isInteger
+  /**
+   * Check if this number can be represented as an integer without loss of precision.
+   * For example, '12.000' is the same number as '12'.
+   */
+  public boolean isInteger() {
+    if (this.flag != 0) {
+      return false;
+    }
+    return (this.exp + this.trailingZeros()) >= 0;
+  }
 
   /**
    * Number is exactly zero. Exponent may exist, e.g. "0e-2" os "0.00"
@@ -326,8 +410,6 @@ public class Decimal {
   public Decimal decrement() {
     return this.flag != 0 ? this : this.subtract(ONE);
   }
-
-  // TODO: toString
 
   /**
    * Format the number to a string, using fixed point.
@@ -623,8 +705,8 @@ public class Decimal {
     }
 
     // Shift divided by radix leaves a remainder.
-    long powlo = POWERS10[r];
-    long powhi = POWERS10[Constants.RDIGITS - r];
+    long powlo = Constants.POWERS10[r];
+    long powhi = Constants.POWERS10[Constants.RDIGITS - r];
     long hi = 0;
     long lo = 0;
     long loprev = 0;
@@ -932,7 +1014,7 @@ public class Decimal {
         case '7':
         case '8':
         case '9':
-          n += (code - '0') * POWERS10[z];
+          n += (code - '0') * Constants.POWERS10[z];
           z++;
           dig++;
           if (z == Constants.RDIGITS) {

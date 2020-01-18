@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import lombok.AllArgsConstructor;
+
 /**
  * Arbitrary precision decimal type.
  */
@@ -317,7 +319,26 @@ public class Decimal {
     return r;
   }
 
-  // TODO: scientific
+  @AllArgsConstructor
+  public static class Scientific {
+    public final Decimal coefficient;
+    public final int exponent;
+  }
+
+  /**
+   * Return a scientific representation of the number,
+   * Decimal coefficient and adjusted exponent.
+   */
+  public Scientific scientific(int minIntDigits) {
+    if (this.flag != 0) {
+      return new Scientific(this, 0);
+    }
+    minIntDigits = minIntDigits <= 1 ? 1 : minIntDigits;
+    int exp = -(this.precision() - 1) + (minIntDigits - 1);
+    // ensure exponent is not negative zero
+    Decimal coeff = new Decimal(this.sign, exp == 0 ? 0 : exp, this.data, this.flag);
+    return new Scientific(coeff, this.exp - coeff.exp);
+  }
 
   /**
    * Number of digits in the unscaled value.
@@ -344,7 +365,24 @@ public class Decimal {
     return this.flag != 0 ? 0 : Math.max(this.precision() + this.exp, 1);
   }
 
-  // TODO: setScale
+  /**
+   * Returns a new number with the given scale, shifting the coefficient as needed.
+   */
+  public Decimal setScale(int scale) {
+    return setScale(scale, RoundingModeType.HALF_EVEN);
+  }
+
+  /**
+   * Returns a new number with the given scale, shifting the coefficient as needed.
+   */
+  public Decimal setScale(int scale, RoundingModeType mode) {
+    if (this.flag != 0) {
+      return this;
+    }
+    Decimal r = new Decimal(this);
+    r._setScale(scale, mode);
+    return r;
+  }
 
   /**
    * Adjusted exponent for alignment. Two numbers with the same aligned exponent are
@@ -385,8 +423,12 @@ public class Decimal {
    * using the given rounding mode.
    */
   public Decimal shiftright(int shift, RoundingModeType mode) {
-    // TODO:
-    return this;
+    if (this.flag != 0) {
+      return this;
+    }
+    Decimal w = new Decimal(this);
+    w._shiftright(shift, mode);
+    return w;
   }
 
   /**
@@ -742,17 +784,95 @@ public class Decimal {
     return r == 0 ? q : q + 1;
   }
 
-  // TODO: _shiftright
-
+  /**
+   * Mutating in-place shift right.
+   */
   protected void _shiftright(int shift) {
     _shiftright(shift, RoundingModeType.HALF_EVEN);
   }
 
+  /**
+   * Mutating in-place shift right.
+   */
   protected void _shiftright(int shift, RoundingModeType mode) {
+    if (shift <= 0) {
+      return;
+    }
+    if (this.isZero()) {
+      this.exp += shift;
+      return;
+    }
+    Decimal w = this;
+    long[] data = new long[w.data.length];
 
+    long[] div = new long[] { 0, 0 };
+    DecimalMath.divword(div, shift, Constants.RDIGITS);
+    long q = div[0];
+    long r = div[1];
+
+    int i = 0;
+    int j = 0;
+    long rnd = 0;
+    long rest = 0;
+    if (r == 0) {
+      if (q > 0) {
+        DecimalMath.divpow10(div, data[(int)(q - 1)], Constants.RDIGITS - 1);
+        rnd = div[0];
+        rest = div[1];
+        if (rest == 0) {
+          rest = !DecimalMath.allzero(data, (int)(q - 1)) ? 1 : 0;
+        }
+      }
+      for (j = 0; j < data.length - q; j++) {
+        w.data[j] = data[(int)(q + j)];
+      }
+      w.exp += shift;
+      if (w.round(rnd, rest, mode)) {
+        w._increment();
+      }
+      w.trim();
+      return;
+    }
+
+    long hiprev = 0;
+    int ph = Constants.POWERS10[Constants.RDIGITS - (int)r];
+    DecimalMath.divpow10(div, data[(int)q], (int)r);
+    hiprev = div[0];
+    rest = div[1];
+    DecimalMath.divpow10(div, rest,  (int)(r - 1));
+    rnd = div[0];
+    rest = div[1];
+    if (rest == 0 && q > 0) {
+      rest = !DecimalMath.allzero(data, (int)q) ? 1 : 0;
+    }
+
+    for (j = 0, i = (int)(q + 1); i < data.length; i++, j++) {
+      DecimalMath.divpow10(div, data[i], (int)r);
+      long hi = div[0];
+      long lo = div[1];
+      w.data[j] = ph * lo + hiprev;
+      hiprev = hi;
+    }
+    if (hiprev != 0) {
+      w.data[j] = hiprev;
+    }
+
+    w.exp += shift;
+    if (w.round(rnd, rest, mode)) {
+      w._increment();
+    }
+    w.trim();
   }
 
-  // TODO: _setScale
+  protected void _setScale(int scale, RoundingModeType mode) {
+    int diff = scale - this.scale();
+    if (diff > 0) {
+      this._shiftleft(diff);
+    } else {
+      this._shiftright(-diff, mode);
+    }
+    this.exp = scale == 0 ? 0 : -scale;
+  }
 
   protected void _stripTrailingZeros() {
     int n = 0;

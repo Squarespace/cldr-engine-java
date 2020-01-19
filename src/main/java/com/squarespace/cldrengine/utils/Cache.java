@@ -1,5 +1,6 @@
 package com.squarespace.cldrengine.utils;
 
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 /**
@@ -14,15 +15,16 @@ import java.util.function.Function;
  *    key identifies the type of object to cache.
  *
  * Ported from @phensley/cldr-utils src/cache.ts
+ * Modified to use ConcurrentHashMap
  */
 public class Cache<V> {
 
-  private LRU<String, V> storage;
+  private ConcurrentHashMap<String, V> storage;
   private Function<String, V> builder;
 
-  public Cache(Function<String, V> builder, int capacity) {
+  public Cache(Function<String, V> builder, int initialCapacity) {
     this.builder = builder;
-    this.storage = new LRU<>(capacity);
+    this.storage = new ConcurrentHashMap<>(initialCapacity);
   }
 
   public int size() {
@@ -30,11 +32,6 @@ public class Cache<V> {
   }
 
   public V get(String raw) {
-    V v = this.storage.get(raw);
-    if (v == null) {
-      v = this.builder.apply(raw);
-      this.storage.set(raw, v);
-    }
-    return v;
+    return this.storage.computeIfAbsent(raw, this.builder);
   }
 }

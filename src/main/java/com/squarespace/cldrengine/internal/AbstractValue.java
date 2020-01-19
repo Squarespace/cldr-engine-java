@@ -11,7 +11,9 @@ public interface AbstractValue<R> {
   void insert(int i, String type, String value);
   R render();
   void reset();
-  R join(R[] elems);
-  void wrap(WrapperPattern pattern, R[] args);
+  @SuppressWarnings("unchecked")
+  R join(R... elems);
+  @SuppressWarnings("unchecked")
+  void wrap(WrapperPattern pattern, R ...args);
   R empty();
 }

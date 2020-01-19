@@ -199,6 +199,10 @@ public abstract class CalendarDate {
     return this.zoneInfo.timeZoneId;
   }
 
+  public String timeZoneStableId() {
+    return this.zoneInfo.stableId;
+  }
+
   public int timeZoneOffset() {
     return this.zoneInfo.offset;
   }

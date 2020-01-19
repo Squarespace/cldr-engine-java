@@ -2,7 +2,7 @@ package com.squarespace.cldrengine.calendars;
 
 import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.internal.ContextType;
-import com.squarespace.cldrengine.internal.NumberingSystem;
+import com.squarespace.cldrengine.numbering.NumberingSystem;
 
 public abstract class CalendarContext<T extends CalendarDate> {
 

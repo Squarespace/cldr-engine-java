@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.internal;
+package com.squarespace.cldrengine.numbering;
 
 import com.squarespace.cldrengine.decimal.Decimal;
 
@@ -13,6 +13,7 @@ public abstract class NumberingSystem {
   int primaryGroupingSize;
   int secondaryGroupingSize;
 
+  public abstract String formatString(long n, boolean groupDigits, int minInt);
   public abstract String formatString(Decimal n, boolean groupDigits, int minInt);
 
 }

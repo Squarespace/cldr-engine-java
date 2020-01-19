@@ -39,7 +39,7 @@ public class CLDR {
 //    this.bundle = bundle;
 //    System.out.println(CONFIG.checksum(VERSION));
     this.General = new GeneralImpl(locale, bundle);
-    this.Calendars = new CalendarsImpl(bundle);
+    this.Calendars = new CalendarsImpl(bundle, new Internals(CONFIG, VERSION, false));
     this.Schema = Meta.SCHEMA;
   }
 

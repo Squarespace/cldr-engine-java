@@ -7,6 +7,4 @@ public interface Calendars {
    */
   String formatDate(CalendarDate date, DateFormatOptions options);
 
-  String formatDate(long epochUTC, String zoneId);
-
 }

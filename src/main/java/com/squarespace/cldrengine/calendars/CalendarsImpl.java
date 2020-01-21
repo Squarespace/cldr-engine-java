@@ -2,7 +2,6 @@ package com.squarespace.cldrengine.calendars;
 
 import java.util.Map;
 
-import com.squarespace.cldrengine.CLDR;
 import com.squarespace.cldrengine.internal.AbstractValue;
 import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.internal.ContextTransformFieldType;
@@ -14,6 +13,11 @@ import com.squarespace.cldrengine.internal.StringValue;
 import com.squarespace.cldrengine.numbering.NumberParams;
 
 public class CalendarsImpl implements Calendars {
+
+  private static final DateFormatOptions DATE_FORMAT_OPTIONS_DEFAULT = DateFormatOptions
+      .builder()
+      .date(FormatWidthType.FULL)
+      .build();
 
   private final Bundle bundle;
   private final Internals internals;
@@ -32,13 +36,8 @@ public class CalendarsImpl implements Calendars {
     return this._formatDate(new StringValue(), date, options);
   }
 
-  @Override
-  public String formatDate(long epochUTC, String zoneId) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
   protected <R> R _formatDate(AbstractValue<R> value, CalendarDate date, DateFormatOptions options) {
+    options = options == null ? DATE_FORMAT_OPTIONS_DEFAULT : options;
     CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem, "default");
     DateFormatRequest req = this.manager.getDateFormatRequest(date, options, params);
@@ -51,24 +50,5 @@ public class CalendarsImpl implements Calendars {
     return new CalendarContext<T>(date, this.bundle, params.system,
         params.latnSystem, context, transform);
   }
-
-  public static void main(String[] args) {
-    String id = "en";
-    CLDR cldr = CLDR.get(id);
-    String zoneId = "America/New_York";
-    CalendarDate date = GregorianDate.fromUnixEpoch(1579634069000L, zoneId, 1, 1);
-    System.out.println(date.toString());
-    DateFormatOptions options = DateFormatOptions.builder()
-        .datetime(FormatWidthType.FULL)
-        .build();
-    String r = cldr.Calendars.formatDate(date, options);
-    System.out.println(r);
-    options = DateFormatOptions.builder()
-        .datetime(FormatWidthType.SHORT)
-        .build();
-    r = cldr.Calendars.formatDate(date, options);
-    System.out.println(r);
-  }
-
 
 }

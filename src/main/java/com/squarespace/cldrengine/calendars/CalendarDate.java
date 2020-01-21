@@ -4,10 +4,14 @@ package com.squarespace.cldrengine.calendars;
 import static com.squarespace.cldrengine.utils.Pair.of;
 
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.utils.Pair;
+
+import lombok.AllArgsConstructor;
 
 public abstract class CalendarDate {
 
@@ -261,48 +265,374 @@ public abstract class CalendarDate {
     return a < b ? -1 : a > b ? 1 : 0;
   }
 
-  public abstract CalendarDate add(CalendarDateFields fields);
+  public abstract CalendarDate add(TimePeriod fields);
+  public abstract CalendarDate subtract(TimePeriod fields);
+  public abstract CalendarDate withZone(String zoneId);
 
+  protected abstract void initFields(long[] f);
   protected abstract int monthCount();
+  protected abstract int daysInMonth(long year, int month);
+  protected abstract int daysInYear(long year);
+  protected abstract long monthStart(long eyear, double month, boolean useMonth);
 
-  protected Pair<Long, Long> _add(CalendarDateFields fields) {
-    // All day calculations will be relative to the current day of the month.
-    double dom = this.fields[DateField.DAY_OF_MONTH] + fields.day + (fields.week * 7);
-
-    // Adjust the extended year and month. Note: month may be fractional here,
-    // but will be <= 12 after modulus the year.
-    int mc = this.monthCount();
-    long months = (long)Math.floor(fields.year * mc);
-    double month = (this.fields[DateField.MONTH] - 1) + fields.month + months;
-
-    long yadd = (long) Math.floor(month / mc);
-    long year = this.fields[DateField.EXTENDED_YEAR] + yadd;
-    month -= yadd * mc;
-
-    Pair<Long, Double> time = this._addTime(fields);
-    double jd = this.monthStart(year, month, false) + dom + time._1;
-    long ijd = (long)Math.floor(jd);
-    double djd = jd - ijd;
-
-    // Calculate ms and handle rollover
-    long _ms = Math.round(time._2 * (djd * CalendarConstants.ONE_DAY_MS));
-    if (_ms >= CalendarConstants.ONE_DAY_MS) {
-      ijd++;
-      _ms -= CalendarConstants.ONE_DAY_MS;
-    }
-
-    return Pair.of(ijd, _ms);
+  protected TimePeriod invertPeriod(TimePeriod f) {
+    TimePeriod r = new TimePeriod();
+    r.year = invert(f.year);
+    r.month = invert(f.month);
+    r.week = invert(f.week);
+    r.day = invert(f.day);
+    r.hour = invert(f.hour);
+    r.minute = invert(f.minute);
+    r.second = invert(f.second);
+    r.millis = invert(f.millis);
+    return f;
   }
 
-  protected Pair<Long, Double> _addTime(CalendarDateFields fields) {
-    double msDay = this.fields[DateField.MILLIS_IN_DAY] - this.timeZoneOffset();
-    msDay += (fields.hour * CalendarConstants.ONE_HOUR_MS)
-        + (fields.millis * CalendarConstants.ONE_MINUTE_MS)
-        + (fields.second * CalendarConstants.ONE_SECOND_MS)
-        + fields.millis;
-    long days = (long)Math.floor(msDay / CalendarConstants.ONE_DAY_MS);
-    double ms = msDay - (days * CalendarConstants.ONE_DAY_MS);
+  private double invert(double d) {
+    return d == 0 ? d : -d;
+  }
+
+  @AllArgsConstructor
+  protected static class Swap {
+    CalendarDate start;
+    long[] startFields;
+    CalendarDate end;
+    long[] endFields;
+  }
+
+  protected Swap swap(CalendarDate other) {
+    CalendarDate start = this;
+    CalendarDate end = other;
+    if (this.compare(other) == 1) {
+      CalendarDate tmp = start;
+      start = end;
+      end = tmp;
+    }
+    return new Swap(start, start.utcfields(), end, end.utcfields());
+  }
+
+  /**
+   * Roll up time period fields into a subset of fields.
+   */
+  protected TimePeriod _rollup(TimePeriod span, long[] sf, long[] ef, TimePeriodField[] fields) {
+    int f = timePeriodFieldFlags(fields);
+    if (f == 0) {
+      return span;
+    }
+
+    int mc = this.monthCount();
+
+    double year = span.year;
+    double month = span.month;
+    double day = span.day;
+    double ms = (span.hour * CalendarConstants.ONE_HOUR_MS) +
+        (span.minute * CalendarConstants.ONE_MINUTE_MS) +
+        (span.second * CalendarConstants.ONE_SECOND_MS) +
+        span.millis;
+
+    if (((f & FLAG_YEAR) != 0) && ((f & FLAG_MONTH) != 0)) {
+      // Both year and month were requested, so use their integer values.
+
+    } else if ((f * FLAG_MONTH) != 0) {
+      // Month was requested so convert years into months
+      month += year * mc;
+      year = 0;
+
+    } else if ((f & FLAG_YEAR) != 0 && month > 0) {
+      // Year was requested so convert months into days
+
+      // This is a little more verbose but necessary to accurately convert
+      // months into days. Example:
+      //
+      //  2001-03-11  and 2001-09-09   5 months and 29 days apart
+      //  == (last month days) + (full month days) + (first month days)
+      //  == 9 + 31 + 31 + 30 + 31 + 30 + (31 - 11)
+      //  == 182 days
+
+      long endy = ef[DateField.EXTENDED_YEAR];
+      long endm = ef[DateField.MONTH] - 1;
+
+      // TODO: create a cursor for year/month calculations to reduce
+      // the verbosity of this block
+
+      // Subtract the number of days to find the "day of month"
+      // relative to each of the months to be converted.
+      double dom = ef[DateField.DAY_OF_MONTH] - day;
+      if (dom < 0) {
+        endm--;
+        if (endm < 0) {
+          endm += mc;
+          endy--;
+        }
+        dom += this.daysInMonth(endy, (int)endm);
+      }
+
+      // Convert each month except the last into days
+      double tmpd = dom;
+      while (month > 1) {
+        endm--;
+        if (endm < 0) {
+          endm += mc;
+          endy--;
+        }
+        tmpd += this.daysInMonth(endy, (int)endm);
+        month--;
+      }
+
+      // Convert the last month into days
+      endm--;
+      if (endm < 0) {
+        endm += mc;
+        endy--;
+      }
+
+      tmpd += this.daysInMonth(endy, (int)endm) - dom;
+      day += tmpd;
+      month = 0;
+
+    } else {
+      // Neither year nor month were requested, so we ignore those parts
+      // of the time period, and re-calculate the days directly from the
+      // original date fields.
+      day = ef[DateField.JULIAN_DAY] - sf[DateField.JULIAN_DAY];
+      ms = ef[DateField.MILLIS_IN_DAY] - sf[DateField.MILLIS_IN_DAY];
+      if (ms < 0) {
+        day--;
+        ms += CalendarConstants.ONE_DAY_MS;
+      }
+      year = month = 0;
+    }
+
+    // We have integer year, month, and millis computed at this point
+
+    ms += CalendarConstants.ONE_DAY_MS * day;
+    day = 0;
+
+    long onedy = CalendarConstants.ONE_DAY_MS;
+    long onewk = onedy * 7;
+    long onehr = CalendarConstants.ONE_HOUR_MS;
+    long onemn = CalendarConstants.ONE_MINUTE_MS;
+
+    double week = 0;
+    double hour = 0;
+    double minute = 0;
+    double second = 0;
+    double millis = 0;
+
+    // Roll down
+    if ((f & FLAG_WEEK) != 0) {
+      week = ms / onewk;
+      ms -= week * onewk;
+    }
+    if ((f & FLAG_DAY) != 0) {
+      day = ms / onedy;
+      ms -= day * onedy;
+    }
+    if ((f & FLAG_HOUR) != 0) {
+      hour = ms / onehr;
+      ms -= hour * onehr;
+    }
+    if ((f & FLAG_MINUTE) != 0) {
+      minute = ms / onemn;
+      ms -= minute * onemn;
+    }
+    if ((f & FLAG_SECOND) != 0) {
+      second = ms / 1000;
+      ms -= second * 1000;
+    }
+    if ((f & FLAG_MILLIS) != 0) {
+      millis = ms;
+    }
+
+    double dayms = ms / CalendarConstants.ONE_DAY_MS;
+
+    // Roll up fractional
+    if (f < FLAG_MONTH) {
+      // Days in the last year before adding the remaining fields
+      long diy = this.daysInYear((long) (sf[DateField.EXTENDED_YEAR] + year));
+      year += (day + dayms) / diy;
+      day = 0;
+    } else if (f < FLAG_WEEK) {
+      long ey = ef[DateField.YEAR];
+      long em = ef[DateField.MONTH] - 2;
+      if (em < 0) {
+        em += mc;
+        ey--;
+      }
+      int dim = this.daysInMonth(ey, (int)em);
+      month += (day + dayms) / dim;
+    } else if (f < FLAG_DAY) {
+      week += (day + dayms) / 7;
+    } else if (f < FLAG_HOUR) {
+      day += dayms;
+    } else if (f < FLAG_MINUTE) {
+      hour += ms / onehr;
+    } else if (f < FLAG_SECOND) {
+      minute += ms / onemn;
+    } else if (f < FLAG_MILLIS) {
+      second += ms / 1000;
+    }
+
+    return TimePeriod.builder()
+        .year(year)
+        .month(month)
+        .week(week)
+        .day(day)
+        .hour(hour)
+        .minute(minute)
+        .second(second)
+        .millis(millis)
+        .build();
+
+  }
+
+  protected int timePeriodFieldFlags(TimePeriodField[] fields) {
+    int flags = 0;
+    for (TimePeriodField field : fields) {
+      flags |= FIELDMAP.get(field);
+    }
+    return flags;
+  }
+
+  private static final Map<TimePeriodField, Integer> FIELDMAP = new EnumMap<>(TimePeriodField.class);
+
+  private static final int FLAG_YEAR = 1;
+  private static final int FLAG_MONTH = 2;
+  private static final int FLAG_WEEK = 4;
+  private static final int FLAG_DAY = 8;
+  private static final int FLAG_HOUR = 16;
+  private static final int FLAG_MINUTE = 32;
+  private static final int FLAG_SECOND = 64;
+  private static final int FLAG_MILLIS = 128;
+
+  static {
+    FIELDMAP.put(TimePeriodField.YEAR, FLAG_YEAR);
+    FIELDMAP.put(TimePeriodField.MONTH, FLAG_MONTH);
+    FIELDMAP.put(TimePeriodField.WEEK, FLAG_WEEK);
+    FIELDMAP.put(TimePeriodField.DAY, FLAG_DAY);
+    FIELDMAP.put(TimePeriodField.HOUR, FLAG_HOUR);
+    FIELDMAP.put(TimePeriodField.MINUTE, FLAG_MINUTE);
+    FIELDMAP.put(TimePeriodField.SECOND, FLAG_SECOND);
+    FIELDMAP.put(TimePeriodField.MILLIS, FLAG_MILLIS);
+  }
+
+  /**
+   * Compute a new Julian day and milliseconds UTC by updating one or more fields.
+   */
+  protected Pair<Long, Double> _add(TimePeriod fields) {
+    long[] f = this.utcfields();
+
+    long jd;
+    double ms;
+    long year;
+    double yearf;
+
+    long ydays;
+    double ydaysf;
+
+    long month;
+    double monthf;
+
+    long day;
+    double dayf;
+
+    // Capture days and time fields (in milliseconds) for future use.
+    // We do this here since we'll be re-initializing the date fields below.
+    Pair<Long, Long> daysms = this._addTime(fields);
+    long _days = daysms._1;
+    long _ms = daysms._2;
+    _days += fields.day + (fields.week * 7);
+
+    // YEARS
+
+    // Split off the fractional part of the years. Add the integer
+    // years to the extended year. Then get the number of days in that
+    // year and multiply that by the fractional part.
+    // Example: In a Gregorian leap year we'll have 366 days. If the fractional
+    // year is 0.25 we'll get 91.5 days.
+    Pair<Long, Double> split = splitfrac(fields.year);
+    year = split._1;
+    yearf = split._2;
+    year += f[DateField.EXTENDED_YEAR];
+
+    split = splitfrac(this.daysInYear(year) * yearf);
+    ydays = split._1;
+    ydaysf = split._2;
+
+    // Add day fractions from year calculation to milliseconds
+    ms = ydaysf * CalendarConstants.ONE_DAY_MS;
+
+    // Calculate the julian day for the year, month and day-of-month combination,
+    // adding in the days due to fractional year
+    jd = this.monthStart(year, f[DateField.MONTH] - 1, false) + f[DateField.DAY_OF_MONTH] + ydays;
+
+    // Initialize fields from the julian day
+    f[DateField.JULIAN_DAY] = jd;
+    f[DateField.MILLIS_IN_DAY] = 0;
+    this.initFields(f);
+
+    year = f[DateField.EXTENDED_YEAR];
+
+    // MONTHS
+
+    // Get integer and fractional months
+    split = splitfrac((f[DateField.MONTH] - 1) + fields.month);
+    month = split._1;
+    monthf = split._2;
+
+    // Add back years by dividing by month count
+    int mc = this.monthCount();
+    split = splitfrac(month / 12); // ignore fraction here
+    long myears = split._1;
+    month -= myears * mc;
+    year += myears;
+
+    // Take away a year if the month pointer went negative
+    if (month < 0) {
+      month += mc;
+      year--;
+    }
+
+    // Compute updated julian day from year and fractional month
+    int dim = (int)(this.daysInMonth(year, (int)month) * monthf);
+    split = splitfrac(dim);
+    day = split._1;
+    dayf = split._2;
+    jd = this.monthStart(year, month, false) + f[DateField.DAY_OF_MONTH];
+
+    // DAY AND TIME FIELDS
+
+    // Adjust julian day by fractional day and time fields
+    day += _days;
+    ms += Math.round(_ms + (dayf * CalendarConstants.ONE_DAY_MS));
+    if (ms >= CalendarConstants.ONE_DAY_MS) {
+      double d = Math.floor(ms / CalendarConstants.ONE_DAY_MS);
+      ms -= d * CalendarConstants.ONE_DAY_MS;
+      day += d;
+    }
+
+    return Pair.of(jd + day, ms);
+  }
+
+  /**
+   * Converts all time fields into [days, milliseconds].
+   */
+  protected Pair<Long, Long> _addTime(TimePeriod fields) {
+    long msDay = this.fields[DateField.MILLIS_IN_DAY] - this.timeZoneOffset();
+    msDay += (fields.hour * CalendarConstants.ONE_HOUR_MS) +
+        (fields.minute * CalendarConstants.ONE_MINUTE_MS) +
+        (fields.second * CalendarConstants.ONE_SECOND_MS) +
+        fields.millis;
+    long days = msDay / CalendarConstants.ONE_DAY_MS;
+    long ms = msDay - (days * CalendarConstants.ONE_DAY_MS);
     return Pair.of(days, ms);
+  }
+
+  protected Pair<Long, Double> splitfrac(double n) {
+    double t = Math.abs(n);
+    int sign = n < 0 ? -1 : 1;
+    long r = (long)Math.floor(t);
+    return Pair.of(sign * r, sign * (t - r));
   }
 
   protected void initFromUnixEpoch(long ms, String zoneId) {
@@ -393,7 +723,14 @@ public abstract class CalendarDate {
     return ((7 - psow) >= this.minDays) ? weekNo + 1 : weekNo;
   }
 
-  protected abstract long monthStart(long eyear, double month, boolean useMonth);
+  protected long[] utcfields() {
+    long u = this.unixEpoch();
+    long[] f = Arrays.copyOf(this.fields, this.fields.length);
+    jdFromUnixEpoch(u, f);
+    computeBaseFields(f);
+    initFields(f);
+    return f;
+  }
 
   /**
    * Compute Julian day from timezone-adjusted Unix epoch milliseconds.

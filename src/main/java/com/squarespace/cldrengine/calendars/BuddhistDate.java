@@ -14,11 +14,10 @@ public class BuddhistDate extends GregorianDate {
   }
 
   @Override
-  public BuddhistDate add(CalendarDateFields fields) {
-    String zoneId = fields.zoneId == null ? this.timeZoneId() : fields.zoneId;
-    Pair<Long, Long> result = this._add(fields);
+  public BuddhistDate add(TimePeriod fields) {
+    Pair<Long, Double> result = this._add(fields);
     return new BuddhistDate(this.firstDay, this.minDays)
-        ._initFromJD(result._1, result._2, zoneId);
+        ._initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
   }
 
   @Override
@@ -32,14 +31,19 @@ public class BuddhistDate extends GregorianDate {
 
   protected BuddhistDate _initFromUnixEpoch(long epoch, String zoneId) {
     super.initFromUnixEpoch(epoch, zoneId);
-    computeBuddhistFields(this.fields);
+    this.initFields(this.fields);
     return this;
   }
 
   protected BuddhistDate _initFromJD(long jd, long msDay, String zoneId) {
     super.initFromJD(jd, msDay, zoneId);
-    computeBuddhistFields(this.fields);
+    this.initFields(this.fields);
     return this;
+  }
+
+  protected void initFields(long[] f) {
+    super.initFields(f);
+    computeBuddhistFields(f);
   }
 
   private void computeBuddhistFields(long[] f) {

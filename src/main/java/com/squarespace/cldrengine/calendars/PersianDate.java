@@ -22,11 +22,33 @@ public class PersianDate extends CalendarDate {
   }
 
   @Override
-  public CalendarDate add(CalendarDateFields fields) {
-    String zoneId = fields.zoneId == null ? this.timeZoneId() : fields.zoneId;
-    Pair<Long, Long> result = this._add(fields);
-    return new PersianDate(this.firstDay, this.minDays)
-        ._initFromJD(result._1, result._2, zoneId);
+  public CalendarDate add(TimePeriod fields) {
+    Pair<Long, Double> result = this._add(fields);
+    PersianDate d = new PersianDate(this.firstDay, this.minDays);
+    d.initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
+    return d;
+  }
+
+  @Override
+    public CalendarDate subtract(TimePeriod fields) {
+      return this.add(invertPeriod(fields));
+    }
+
+  @Override
+  public CalendarDate withZone(String zoneId) {
+    PersianDate d = new PersianDate(this.firstDay, this.minDays);
+    d.initFromUnixEpoch(this.unixEpoch(), zoneId);
+    return d;
+  }
+
+  @Override
+  protected int daysInMonth(long year, int month) {
+    return MONTH_COUNT[month][leapPersian(year) ? 1 : 0];
+  }
+
+  @Override
+  protected int daysInYear(long year) {
+    return leapPersian(year) ? 366 : 365;
   }
 
   @Override
@@ -40,14 +62,19 @@ public class PersianDate extends CalendarDate {
 
   protected PersianDate _initFromUnixEpoch(long epoch, String zoneId) {
     super.initFromUnixEpoch(epoch, zoneId);
-    computePersianFields(this.fields);
+    this.initFields(this.fields);
     return this;
   }
 
   protected PersianDate _initFromJD(long jd, long msDay, String zoneId) {
     super.initFromJD(jd, msDay, zoneId);
-    computePersianFields(this.fields);
+    this.initFields(this.fields);
     return this;
+  }
+
+  @Override
+  protected void initFields(long[] f) {
+    this.computePersianFields(f);
   }
 
   @Override

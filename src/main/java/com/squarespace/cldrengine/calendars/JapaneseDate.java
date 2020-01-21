@@ -18,12 +18,19 @@ public class JapaneseDate extends GregorianDate {
     return _toString("Japanese", Long.toString(this.extendedYear()));
   }
 
-  public JapaneseDate add(CalendarDateFields fields) {
-    String zoneId = fields.zoneId == null ? this.timeZoneId() : fields.zoneId;
-    Pair<Long, Long> result = this._add(fields);
-    return new JapaneseDate(this.firstDay, this.minDays)
-        ._initFromJD(result._1, result._2, zoneId);
+  @Override
+  public JapaneseDate add(TimePeriod fields) {
+    Pair<Long, Double> result = this._add(fields);
+    JapaneseDate d = new JapaneseDate(this.firstDay, this.minDays);
+    d.initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
+    return d;
+  }
 
+  @Override
+  public GregorianDate withZone(String zoneId) {
+    JapaneseDate d = new JapaneseDate(this.firstDay, this.minDays);
+    d.initFromUnixEpoch(this.unixEpoch(), zoneId);
+    return d;
   }
 
   public static JapaneseDate fromUnixEpoch(long epoch, String zoneId, int firstDay, int minDays) {

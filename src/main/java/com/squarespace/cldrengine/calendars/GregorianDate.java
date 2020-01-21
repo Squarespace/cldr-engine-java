@@ -19,11 +19,32 @@ public class GregorianDate extends CalendarDate {
   }
 
   @Override
-  public GregorianDate add(CalendarDateFields fields) {
-    String zoneId = fields.zoneId == null ? this.timeZoneId() : fields.zoneId;
-    Pair<Long, Long> result = this._add(fields);
+  public GregorianDate add(TimePeriod fields) {
+    Pair<Long, Double> result = this._add(fields);
     return new GregorianDate(CalendarType.GREGORY, this.firstDay, this.minDays)
-        ._initFromJD(result._1, result._2, zoneId);
+        ._initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
+  }
+
+  @Override
+  public GregorianDate subtract(TimePeriod fields) {
+    return add(invertPeriod(fields));
+  }
+
+  @Override
+  public GregorianDate withZone(String zoneId) {
+    GregorianDate d = new GregorianDate(CalendarType.GREGORY, this.firstDay, this.minDays);
+    d.initFromUnixEpoch(this.unixEpoch(), zoneId);
+    return d;
+  }
+
+  @Override
+  protected int daysInMonth(long year, int month) {
+    return MONTH_COUNT[month][leapGregorian(year) ? 1 : 0];
+  }
+
+  @Override
+  protected int daysInYear(long year) {
+    return leapGregorian(year) ? 366 : 365;
   }
 
   @Override
@@ -38,16 +59,17 @@ public class GregorianDate extends CalendarDate {
 
   protected GregorianDate _initFromUnixEpoch(long epoch, String zoneId) {
     super.initFromUnixEpoch(epoch, zoneId);
-    return this.initGregorian();
+    this.initFields(this.fields);
+    return this;
   }
 
   protected GregorianDate _initFromJD(long jd, long msDay, String zoneId) {
     super.initFromJD(jd, msDay, zoneId);
-    return this.initGregorian();
+    this.initFields(this.fields);
+    return this;
   }
 
-  protected GregorianDate initGregorian() {
-    long[] f = this.fields;
+  protected void initFields(long[] f) {
     if (f[DateField.JULIAN_DAY] >= CalendarConstants.JD_GREGORIAN_CUTOVER) {
       computeGregorianFields(f);
     } else {
@@ -61,7 +83,6 @@ public class GregorianDate extends CalendarDate {
     }
     f[DateField.ERA] = era;
     f[DateField.YEAR] = year;
-    return this;
   }
 
   protected long monthStart(long eyear, double month, boolean useMonth) {

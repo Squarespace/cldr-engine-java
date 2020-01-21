@@ -16,10 +16,6 @@ class PartitionTable {
 
   private static final Map<String, Set<String>> REGION_TO_PARTITION = load();
 
-  public static void main(String[] args) {
-    System.out.println(REGION_TO_PARTITION);
-  }
-
   public static Set<String> getRegionPartition(String region) {
     Set<String> result = REGION_TO_PARTITION.get(region);
     return result == null ? Collections.emptySet() : result;

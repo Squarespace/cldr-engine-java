@@ -15,16 +15,23 @@ public class Sketch5 {
     String zoneId = "America/New_York";
     CalendarDate date = GregorianDate.fromUnixEpoch(1579634069000L, zoneId, 1, 1);
     System.out.println(date.toString());
-    DateFormatOptions options = DateFormatOptions.builder()
+
+    DateFormatOptions options;
+    String r;
+
+    options = DateFormatOptions.builder()
         .datetime(FormatWidthType.FULL)
         .context(ContextType.BEGIN_SENTENCE)
         .build();
-    String r = cldr.Calendars.formatDate(date, options);
-    System.out.println(r);
+    r = cldr.Calendars.formatDate(date, options);
+    System.out.println("1>> " + r);
+
+
     options = DateFormatOptions.builder()
-        .datetime(FormatWidthType.SHORT)
+        .skeleton("EEEEyMMd")
+        .context(ContextType.BEGIN_SENTENCE)
         .build();
     r = cldr.Calendars.formatDate(date, options);
-    System.out.println(r);
+    System.out.println("2>> " + r);
   }
 }

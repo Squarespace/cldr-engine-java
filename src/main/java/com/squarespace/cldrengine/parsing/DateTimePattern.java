@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 public class DateTimePattern {
 
   public final List<Object> nodes;
+  public final String raw;
 
   public static final Set<Character> DATE_PATTERN_CHARS = new HashSet<>(Arrays.asList(
       'G', 'y', 'Y', 'u', 'U', 'r', 'Q', 'q', 'M', 'L', 'l', 'w', 'W', 'd', 'D',
@@ -79,7 +80,7 @@ public class DateTimePattern {
     } else {
       nodes.add(buf.toString());
     }
-    return new DateTimePattern(nodes);
+    return new DateTimePattern(nodes, raw);
   }
 
   @AllArgsConstructor

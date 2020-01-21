@@ -772,7 +772,6 @@ public class Decimal {
     }
 
     w.data[q] = powlo * loprev;
-    System.out.println(Arrays.toString(w.data));
   }
 
   /**

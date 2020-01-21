@@ -8,6 +8,10 @@ import java.util.function.Function;
 
 public class StringUtils {
 
+  public static boolean isEmpty(String s) {
+    return s == null || s.equals("");
+  }
+
   public static final String join(List<String> list, String sep) {
     StringBuilder buf = new StringBuilder();
     int size = list.size();

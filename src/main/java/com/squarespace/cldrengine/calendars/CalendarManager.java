@@ -1,6 +1,7 @@
 package com.squarespace.cldrengine.calendars;
 
-import java.util.Arrays;
+import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,10 +9,12 @@ import com.squarespace.cldrengine.calendars.SkeletonData.Field;
 import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.internal.FormatWidthType;
 import com.squarespace.cldrengine.internal.Internals;
+import com.squarespace.cldrengine.internal.NumberSymbolType;
 import com.squarespace.cldrengine.internal.Schema;
 import com.squarespace.cldrengine.numbering.NumberParams;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.utils.Cache;
+import com.squarespace.cldrengine.utils.StringUtils;
 
 public class CalendarManager {
 
@@ -54,10 +57,10 @@ public class CalendarManager {
     FormatWidthType wrapKey = this.supportedOption(options.wrap);
     String skelKey = options.skeleton;
     if (skelKey == null) {
-      skelKey = null;
+      skelKey = "";
     }
 
-    if (dateKey == null && timeKey == null && skelKey == null) {
+    if (dateKey == null && timeKey == null && isEmpty(skelKey)) {
       dateKey = FormatWidthType.LONG;
     }
 
@@ -133,7 +136,7 @@ public class CalendarManager {
       CalendarDate date, DateSkeleton query, DateSkeleton match, NumberParams params) {
     DateTimePattern pattern = patterns.getAvailablePattern(date, match);
     return pattern.nodes.size() == 0 ?
-        null : patterns.adjustPattern(pattern, query, params.symbols.get("decimal"));
+        null : patterns.adjustPattern(pattern, query, params.symbols.get(NumberSymbolType.DECIMAL));
   }
 
   /**

@@ -74,7 +74,6 @@ public class TimeZoneData {
       for (int i = 0; i < 1; i++) {
         long epoch = base + ((day * i) * 30);
         GregorianDate date = GregorianDate.fromUnixEpoch(epoch, zoneId, DayOfWeek.SUNDAY, 1);
-        System.out.println(date.toString());
         lookup(zoneId, epoch, true);
       }
     }

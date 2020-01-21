@@ -128,4 +128,10 @@ public class DateSkeletonParser {
     s.isDate = s.isDate || idx < Field.DAYPERIOD.ordinal();
     s.isTime = s.isTime || idx >= Field.DAYPERIOD.ordinal();
   }
+
+  public static void main(String[] args) {
+    DateTimePattern p = DateTimePattern.parse("H");
+    DateSkeletonParser parser = new DateSkeletonParser(p.nodes, p.nodes);
+    parser.parse("EEEEyMMd", false);
+  }
 }

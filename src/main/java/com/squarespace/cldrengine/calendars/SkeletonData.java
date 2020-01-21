@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 public class SkeletonData {
 
@@ -41,6 +42,7 @@ public class SkeletonData {
   public static final int MISSING_FIELD = 0x1000;
 
   @AllArgsConstructor
+  @ToString
   public static class FieldType {
     public final char ch; // pattern character
     public final Field field;
@@ -180,7 +182,7 @@ public class SkeletonData {
     FieldType best = entries.get(0);
     for (FieldType type : entries) {
       best = type;
-      if (type.repeat < width || type.repeat < width) {
+      if (type.repeat > width || type.width < width) {
         continue;
       }
       return type;

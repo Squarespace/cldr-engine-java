@@ -3,13 +3,15 @@ package com.squarespace.cldrengine.calendars;
 import com.squarespace.cldrengine.calendars.SkeletonData.Field;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
+@ToString
 public class DateSkeleton {
 
   public int[] type = SkeletonData.skeletonFields();
   public SkeletonField[] info = new SkeletonField[type.length];
   public String skeleton = "";
-  public String pattern = "";
+  public String pattern = null;
 
   public boolean isDate = false;
   public boolean isTime = false;
@@ -76,6 +78,7 @@ public class DateSkeleton {
   }
 
   @AllArgsConstructor
+  @ToString
   public static class SkeletonField {
 
     final char input;

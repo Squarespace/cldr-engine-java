@@ -16,6 +16,7 @@ import com.squarespace.cldrengine.internal.PluralType;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.utils.JsonUtils;
 import com.squarespace.cldrengine.utils.LRU;
+import com.squarespace.cldrengine.utils.StringUtils;
 
 import lombok.AllArgsConstructor;
 
@@ -114,7 +115,7 @@ public class CalendarPatterns {
     String pattern = s.pattern;
     if (pattern == null) {
       pattern = this.rawAvailableFormats.get(s.skeleton);
-      if (s.pattern == null) {
+      if (pattern == null) {
         Map<String, String> formats = this.rawPluralFormats.get(PluralType.OTHER);
         pattern = formats.get(s.skeleton);
       }
@@ -168,15 +169,11 @@ public class CalendarPatterns {
         // Only add skeletons which point to valid formats for this locale.
         // Not all skeletons are implemented for all locales.
         String value = formats.get(skeleton);
-        if (value != null && !value.isEmpty()) {
-          this.availableMatcher.add(this.skeletonParser.parse(value, false), null);
+        if (!StringUtils.isEmpty(value)) {
+          this.availableMatcher.add(this.skeletonParser.parse(skeleton, false), null);
         }
       }
     }
-  }
-
-  public static void main(String[] args) {
-    System.out.println(TIMEDATA);
   }
 
 }

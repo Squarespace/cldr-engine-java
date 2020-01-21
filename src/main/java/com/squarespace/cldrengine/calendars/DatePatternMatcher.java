@@ -108,7 +108,7 @@ public class DatePatternMatcher {
 
     // TODO: handle appending missing fields
 
-    return new DateTimePattern(r);
+    return new DateTimePattern(r, "");
   }
 
   protected int getDistance(DateSkeleton a, DateSkeleton b, int mask) {

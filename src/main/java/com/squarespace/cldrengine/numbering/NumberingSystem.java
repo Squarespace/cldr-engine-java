@@ -1,6 +1,9 @@
 package com.squarespace.cldrengine.numbering;
 
+import java.util.Map;
+
 import com.squarespace.cldrengine.decimal.Decimal;
+import com.squarespace.cldrengine.internal.NumberSymbolType;
 
 import lombok.AllArgsConstructor;
 
@@ -8,7 +11,7 @@ import lombok.AllArgsConstructor;
 public abstract class NumberingSystem {
 
   String name;
-  NumberSymbols symbols;
+  Map<NumberSymbolType, String> symbols;
   int minimumGroupingDigits;
   int primaryGroupingSize;
   int secondaryGroupingSize;

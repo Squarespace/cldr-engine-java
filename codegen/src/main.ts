@@ -20,6 +20,8 @@ import * as partition from '@phensley/locale-matcher/lib/autogen.partition';
 import * as timezonedata from '@phensley/timezone/lib/autogen.zonedata';
 import * as zonealiases from '@phensley/cldr-core/lib/systems/calendars/autogen.aliases';
 
+import * as decimalnumbers from '@phensley/cldr-core/lib/systems/numbering/autogen.names';
+
 import { TimeZoneStableIdIndex } from '@phensley/cldr-schema';
 
 import { decode } from './parser';
@@ -134,7 +136,6 @@ export const main = () => {
     ...weekdata
   });
 
-  // Generate constants
   writeConstants(dest, 'LocaleExternalData', {
     ...languageTagAliases,
     ...localealiases,
@@ -143,6 +144,10 @@ export const main = () => {
     ...partition,
     ...languageTagSubtags,
     ...localeSubtags
+  });
+
+  writeConstants(dest, 'NumberExternalData', {
+    ...decimalnumbers
   });
 
   writeConstants(dest, 'TimeZoneExternalData', {

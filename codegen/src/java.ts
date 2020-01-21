@@ -100,14 +100,25 @@ export const tojava = (n: any, types?: any): string => {
       break;
 
     case 'typealias':
-      r += `public enum ${n.name} implements StringEnum {\n\n`;
+      r += `import java.util.Arrays;\n`;
+      r += `import java.util.HashMap;\n`;
+      r += `import java.util.Map;\n\n`;
+      r += `public enum ${n.name} implements StringEnum<${n.name}> {\n\n`;
       r += tojava(n.type);
-      r += '  ;\n\n  private final String value;\n\n';
+      r += '  ;\n\n';
+      r += `  private static final Map<String, ${n.name}> REVERSE = new HashMap<>();\n`;
+      r += `  static {\n`;
+      r += `    Arrays.stream(${n.name}.values()).forEach(e -> REVERSE.put(e.value, e));\n`;
+      r += `  }\n\n`;
+      r += '  private final String value;\n\n';
       r += `  private ${n.name}(String value) {\n`;
       r += `    this.value = value;\n`;
       r += '  }\n\n';
       r += `  public String value() {\n`;
       r += `    return this.value;\n`;
+      r += `  }\n\n`;
+      r += `  public static ${n.name} fromString(String s) {\n`;
+      r += `    return REVERSE.get(s);\n`;
       r += `  }\n`;
       r += '}\n';
       break;

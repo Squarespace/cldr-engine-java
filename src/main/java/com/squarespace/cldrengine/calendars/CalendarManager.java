@@ -1,5 +1,6 @@
 package com.squarespace.cldrengine.calendars;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,8 +45,8 @@ public class CalendarManager {
   }
 
   public DateFormatRequest getDateFormatRequest(CalendarDate date, DateFormatOptions options, NumberParams params) {
-    String calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar);
-    CalendarPatterns patterns = this.getCalendarPatterns(calendar);
+    CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar);
+    CalendarPatterns patterns = this.getCalendarPatterns(calendar.value);
 
     // TODO:
     FormatWidthType dateKey = this.supportedOption(options.datetime, options.date);
@@ -152,6 +153,9 @@ public class CalendarManager {
 
   protected FormatWidthType supportedOption(FormatWidthType ...keys) {
     for (FormatWidthType key : keys) {
+      if (key == null) {
+        continue;
+      }
       switch (key) {
         case FULL:
         case LONG:

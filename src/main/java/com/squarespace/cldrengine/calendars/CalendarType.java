@@ -1,5 +1,9 @@
 package com.squarespace.cldrengine.calendars;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * The internal type name for Gregorian calendar is "gregory" so that it can fit
  * into a language tag ("zh-u-ca-gregory") as "gregorian" exceeds the 8-char
@@ -17,9 +21,21 @@ public enum CalendarType {
 
   public final String value;
 
+  private static final Map<String, CalendarType> REVERSE = new HashMap<>();
+  static {
+    Arrays.stream(CalendarType.values()).forEach(t -> REVERSE.put(t.value, t));
+  }
+
   private CalendarType(String value) {
     this.value = value;
   }
 
+  public String value() {
+    return this.value;
+  }
+
+  public static CalendarType fromString(String s) {
+    return REVERSE.get(s);
+  }
 }
 

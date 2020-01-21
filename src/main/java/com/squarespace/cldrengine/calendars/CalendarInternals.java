@@ -50,11 +50,8 @@ public class CalendarInternals {
   public CalendarInternals(Internals internals) {
     this.internals = internals;
     this.schema = internals.schema;
-
-    System.err.println("CALENDARS: " + internals.config.get("calendars"));
     this.calendarFormatterCache = new Cache<>(this::buildFormatter, 1024);
-    // TODO: fix
-    this.availableCalendars = new HashSet<>(Arrays.asList("gregory"));
+    this.availableCalendars = new HashSet<>(internals.config.get("calendars"));
   }
 
   public CalendarFormatter<CalendarDate> getCalendarFormatter(CalendarType type) {
@@ -88,34 +85,34 @@ public class CalendarInternals {
     return _date != null ? _date : _time != null ? _time : value.empty();
   }
 
-  public String selectCalendar(Bundle bundle, CalendarType type) {
-    return selectCalendar(bundle, type.value);
+  public CalendarType selectCalendar(Bundle bundle, CalendarType type) {
+    return selectCalendar(bundle, type == null ? "gregory" : type.value);
   }
 
-  public String selectCalendar(Bundle bundle, String calendar) {
-    calendar = this.supportedCalendar(calendar);
-    if (calendar == null) {
-      calendar = this.supportedCalendar(bundle.calendarSystem());
+  public CalendarType selectCalendar(Bundle bundle, String calendar) {
+    CalendarType cal = this.supportedCalendar(calendar);
+    if (cal == null) {
+      cal = this.supportedCalendar(bundle.calendarSystem());
     }
-    if (calendar == null) {
+    if (cal == null) {
       List<String> prefs = CALENDAR_PREFS.get(bundle.region());
       if (prefs == null) {
         prefs = CALENDAR_PREFS.get("001");
       }
       if (prefs != null) {
         for (String id : prefs) {
-          calendar = this.supportedCalendar(id);
-          if (calendar != null) {
-            return calendar;
+          cal = this.supportedCalendar(id);
+          if (cal != null) {
+            return cal;
           }
         }
       }
-      return "gregory";
+      return CalendarType.GREGORY;
     }
-    return calendar;
+    return cal;
   }
 
-  protected String supportedCalendar(String c) {
+  protected CalendarType supportedCalendar(String c) {
     if (c != null && this.availableCalendars.contains(c)) {
       switch (c) {
         case "buddhist":
@@ -123,9 +120,9 @@ public class CalendarInternals {
         case "japanese":
         case "persian":
         case "gregory":
-          return c;
+          return CalendarType.fromString(c);
         case "gregorian":
-          return "gregory";
+          return CalendarType.GREGORY;
         default:
           break;
       }

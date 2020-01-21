@@ -15,7 +15,7 @@ public class Vector1Arrow<R> {
     this.index = index;
   }
 
-  boolean exists(PrimitiveBundle bundle) {
+  public boolean exists(PrimitiveBundle bundle) {
     return "E".equals(bundle.get(this.offset - 1));
   }
 

@@ -1,10 +1,16 @@
 package com.squarespace.cldrengine.calendars;
 
+import java.util.Map;
+
 import com.squarespace.cldrengine.internal.Bundle;
+import com.squarespace.cldrengine.internal.ContextTransformFieldType;
 import com.squarespace.cldrengine.internal.ContextType;
 import com.squarespace.cldrengine.numbering.NumberingSystem;
 
-public abstract class CalendarContext<T extends CalendarDate> {
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public class CalendarContext<T extends CalendarDate> {
 
   /**
    * Calendar-specific date
@@ -36,6 +42,6 @@ public abstract class CalendarContext<T extends CalendarDate> {
   /**
    * Context transform info.
    */
-  ContextTransformInfo transform;
+  Map<ContextTransformFieldType, String> transform;
 
 }

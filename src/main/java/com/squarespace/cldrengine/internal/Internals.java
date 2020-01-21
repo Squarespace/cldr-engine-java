@@ -2,6 +2,7 @@ package com.squarespace.cldrengine.internal;
 
 import com.squarespace.cldrengine.calendars.CalendarInternals;
 import com.squarespace.cldrengine.general.GeneralInternals;
+import com.squarespace.cldrengine.numbering.NumberInternals;
 
 public class Internals {
 
@@ -13,6 +14,7 @@ public class Internals {
 
   public final CalendarInternals calendars;
   public final GeneralInternals general;
+  public final NumberInternals numbers;
 
   public Internals(SchemaConfig config, String version, boolean debug) {
     this.config = config;
@@ -22,6 +24,7 @@ public class Internals {
 
     this.calendars = new CalendarInternals(this);
     this.general = new GeneralInternals(this);
+    this.numbers = new NumberInternals(this);
   }
 
 }

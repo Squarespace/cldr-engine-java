@@ -19,6 +19,10 @@ public class SchemaConfig extends HashMap<String, List<String>> {
   private static final Set<String> CHECKSUM_IGNORE = new HashSet<>(Arrays.asList("calendars"));
 
   public SchemaConfig() {
+    puts("calendars", new KeyIndex<>(new String[] {
+        "gregory", "buddhist", "japanese", "persian"
+    }));
+
     pute("alt-key", Meta.KEY_ALT_KEY);
     pute("plural-key", Meta.KEY_PLURAL_KEY);
 

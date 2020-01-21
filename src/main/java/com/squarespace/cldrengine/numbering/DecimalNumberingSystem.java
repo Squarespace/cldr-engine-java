@@ -1,14 +1,22 @@
 package com.squarespace.cldrengine.numbering;
 
+import java.util.Map;
+
 import com.squarespace.cldrengine.decimal.Decimal;
 import com.squarespace.cldrengine.decimal.StringDecimalFormatter;
+import com.squarespace.cldrengine.internal.NumberSymbolType;
 
 public class DecimalNumberingSystem extends NumberingSystem {
 
   private final String[] digits;
 
-  public DecimalNumberingSystem(String name, String[] digits, NumberSymbols symbols,
-      int minimumGroupingDigits, int primaryGroupingSize, int secondaryGroupingSize) {
+  public DecimalNumberingSystem(
+      String name,
+      String[] digits,
+      Map<NumberSymbolType, String> symbols,
+      int minimumGroupingDigits,
+      int primaryGroupingSize,
+      int secondaryGroupingSize) {
     super(name, symbols, minimumGroupingDigits, primaryGroupingSize, secondaryGroupingSize);
     this.digits = digits;
   }

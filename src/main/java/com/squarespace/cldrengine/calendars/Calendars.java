@@ -5,7 +5,7 @@ public interface Calendars {
   /**
    * Formats a date-time value to string.
    */
-  String formatDate(CalendarDate date);
+  String formatDate(CalendarDate date, DateFormatOptions options);
 
   String formatDate(long epochUTC, String zoneId);
 

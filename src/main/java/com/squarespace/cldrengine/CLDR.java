@@ -8,6 +8,7 @@ import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.Meta;
 import com.squarespace.cldrengine.internal.Pack;
+import com.squarespace.cldrengine.internal.PrivateApi;
 import com.squarespace.cldrengine.internal.ResourcePacks;
 import com.squarespace.cldrengine.internal.Schema;
 import com.squarespace.cldrengine.internal.SchemaConfig;
@@ -38,8 +39,10 @@ public class CLDR {
 //    this.locale = locale;
 //    this.bundle = bundle;
 //    System.out.println(CONFIG.checksum(VERSION));
+//    Internals internals = new Internals(CONFIG, VERSION, false);
+    PrivateApi privateApi = new PrivateApi(bundle, INTERNALS);
     this.General = new GeneralImpl(locale, bundle);
-    this.Calendars = new CalendarsImpl(bundle, new Internals(CONFIG, VERSION, false));
+    this.Calendars = new CalendarsImpl(bundle, INTERNALS, privateApi);
     this.Schema = Meta.SCHEMA;
   }
 

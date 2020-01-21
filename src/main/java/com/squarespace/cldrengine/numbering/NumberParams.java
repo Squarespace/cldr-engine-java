@@ -1,5 +1,10 @@
 package com.squarespace.cldrengine.numbering;
 
+import java.util.Map;
+
+import com.squarespace.cldrengine.internal.CurrencySpacingPattern;
+import com.squarespace.cldrengine.internal.CurrencySpacingPos;
+import com.squarespace.cldrengine.internal.NumberSymbolType;
 import com.squarespace.cldrengine.internal.NumberSystemName;
 
 import lombok.AllArgsConstructor;
@@ -12,10 +17,10 @@ public class NumberParams {
   public NumberingSystem latnSystem;
   public String[] digits;
   public String[] latnDigits;
-  public NumberSymbols symbols;
+  public Map<NumberSymbolType, String> symbols;
   public int minimumGroupingDigits;
   public int primaryGroupingSize;
   public int secondaryGroupingSize;
-  public CurrencySpacing currencySpacing;
+  public Map<CurrencySpacingPos, Map<CurrencySpacingPattern, String>> currencySpacing;
 
 }

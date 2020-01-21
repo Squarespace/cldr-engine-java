@@ -403,7 +403,7 @@ public class CalendarFormatter<T extends CalendarDate> {
       Vector2Arrow<TimeZoneNameType, MetaZoneType> format = node.width == 4 ?
           this.tz.metaZones.long_ : this.tz.metaZones.short_;
       String name = format.get(ctx.bundle, ctx.date.isDaylightSavings() ? TimeZoneNameType.DAYLIGHT : TimeZoneNameType.STANDARD,
-          MetaZoneType.valueOf(key2));
+          MetaZoneType.fromString(key2));
       if (!name.isEmpty()) {
         return name;
       }
@@ -455,7 +455,7 @@ public class CalendarFormatter<T extends CalendarDate> {
     if (!key.isEmpty()) {
       Vector2Arrow<TimeZoneNameType, MetaZoneType> format = width == 1 ?
           this.tz.metaZones.short_ : this.tz.metaZones.long_;
-      name = format.get(ctx.bundle, TimeZoneNameType.GENERIC, MetaZoneType.valueOf(key));
+      name = format.get(ctx.bundle, TimeZoneNameType.GENERIC, MetaZoneType.fromString(key));
     }
     return name.isEmpty() ? this.timezone_O(ctx, new DateTimeNode('O', width)) : name;
   }

@@ -1,6 +1,7 @@
 package com.squarespace.cldrengine.general;
 
-import com.squarespace.cldrengine.calendars.ContextTransformInfo;
+import java.util.Map;
+
 import com.squarespace.cldrengine.internal.ContextTransformFieldType;
 import com.squarespace.cldrengine.internal.ContextType;
 import com.squarespace.cldrengine.internal.Internals;
@@ -32,7 +33,7 @@ public class GeneralInternals {
   /**
    * Contextually transform a string
    */
-  public String contextTransform(String value, ContextTransformInfo info,
+  public String contextTransform(String value, Map<ContextTransformFieldType, String> info,
       ContextType context, ContextTransformFieldType field) {
     if (value.isEmpty()) {
       return value;

@@ -1,24 +1,25 @@
 package com.squarespace.cldrengine.calendars;
 
-import static com.squarespace.compiler.parse.Pair.pair;
+
+import static com.squarespace.cldrengine.utils.Pair.of;
 
 import java.util.Arrays;
 import java.util.List;
 
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
-import com.squarespace.compiler.parse.Pair;
+import com.squarespace.cldrengine.utils.Pair;
 
 public abstract class CalendarDate {
 
   private static final long NULL = Long.MAX_VALUE;
 
   private static final List<Pair<Integer, DateTimePatternFieldType>> DIFFERENCE_FIELDS = Arrays.asList(
-      pair(DateField.YEAR, DateTimePatternFieldType.YEAR),
-      pair(DateField.MONTH, DateTimePatternFieldType.MONTH),
-      pair(DateField.DAY_OF_MONTH, DateTimePatternFieldType.DAY),
-      pair(DateField.AM_PM, DateTimePatternFieldType.DAYPERIOD),
-      pair(DateField.HOUR, DateTimePatternFieldType.HOUR),
-      pair(DateField.MINUTE, DateTimePatternFieldType.MINUTE)
+      of(DateField.YEAR, DateTimePatternFieldType.YEAR),
+      of(DateField.MONTH, DateTimePatternFieldType.MONTH),
+      of(DateField.DAY_OF_MONTH, DateTimePatternFieldType.DAY),
+      of(DateField.AM_PM, DateTimePatternFieldType.DAYPERIOD),
+      of(DateField.HOUR, DateTimePatternFieldType.HOUR),
+      of(DateField.MINUTE, DateTimePatternFieldType.MINUTE)
       );
 
   protected final long[] fields = new long[DateField.LENGTH];
@@ -248,6 +249,18 @@ public abstract class CalendarDate {
     return DateTimePatternFieldType.SECOND;
   }
 
+  /**
+   * Compare two dates a and b, returning:
+   *   a < b  ->  -1
+   *   a = b  ->  0
+   *   a > b  ->  1
+   */
+  public int compare(CalendarDate other) {
+    long a = this.unixEpoch();
+    long b = other.unixEpoch();
+    return a < b ? -1 : a > b ? 1 : 0;
+  }
+
   public abstract CalendarDate add(CalendarDateFields fields);
 
   protected abstract int monthCount();
@@ -278,7 +291,7 @@ public abstract class CalendarDate {
       _ms -= CalendarConstants.ONE_DAY_MS;
     }
 
-    return Pair.pair(ijd, _ms);
+    return Pair.of(ijd, _ms);
   }
 
   protected Pair<Long, Double> _addTime(CalendarDateFields fields) {
@@ -289,7 +302,7 @@ public abstract class CalendarDate {
         + fields.millis;
     long days = (long)Math.floor(msDay / CalendarConstants.ONE_DAY_MS);
     double ms = msDay - (days * CalendarConstants.ONE_DAY_MS);
-    return Pair.pair(days, ms);
+    return Pair.of(days, ms);
   }
 
   protected void initFromUnixEpoch(long ms, String zoneId) {

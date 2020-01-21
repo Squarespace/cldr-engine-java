@@ -1,7 +1,7 @@
 package com.squarespace.cldrengine.calendars;
 
 import com.squarespace.cldrengine.utils.MathUtil;
-import com.squarespace.compiler.parse.Pair;
+import com.squarespace.cldrengine.utils.Pair;
 
 /**
  * Construct a date using the rules of the Persian calendar.

@@ -1,6 +1,6 @@
 package com.squarespace.cldrengine.calendars;
 
-import com.squarespace.compiler.parse.Pair;
+import com.squarespace.cldrengine.utils.Pair;
 
 /**
  * A date in the Japanese Imperial calendar.

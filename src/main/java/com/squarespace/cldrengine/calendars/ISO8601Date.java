@@ -1,6 +1,6 @@
 package com.squarespace.cldrengine.calendars;
 
-import com.squarespace.compiler.parse.Pair;
+import com.squarespace.cldrengine.utils.Pair;
 
 public class ISO8601Date extends GregorianDate {
 

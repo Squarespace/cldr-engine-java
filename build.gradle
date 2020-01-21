@@ -27,7 +27,8 @@ project.ext {
 }
 
 dependencies {
-  compile "com.squarespace.compiler:compiler-core:${ccVersion}"
+  //compile "com.squarespace.compiler:compiler-core:${ccVersion}"
+  
   implementation "com.google.code.gson:gson:${gsonVersion}"
 
   compileOnly "org.projectlombok:lombok:${lombokVersion}"

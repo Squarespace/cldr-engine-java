@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.squarespace.cldrengine.internal.LocaleExternalData;
-import com.squarespace.compiler.parse.Pair;
+import com.squarespace.cldrengine.utils.Pair;
 
 public class LocaleResolver {
 
@@ -287,7 +287,7 @@ public class LocaleResolver {
         pairs = new ArrayList<>();
         map.put(language, pairs);
       }
-      pairs.add(Pair.pair(type, repl));
+      pairs.add(Pair.of(type, repl));
     }
     return map;
   }

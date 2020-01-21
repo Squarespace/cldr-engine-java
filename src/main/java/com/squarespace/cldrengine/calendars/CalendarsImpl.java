@@ -40,7 +40,6 @@ public class CalendarsImpl implements Calendars {
 
   protected <R> R _formatDate(AbstractValue<R> value, CalendarDate date, DateFormatOptions options) {
     CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar);
-    System.out.println("calendar " + calendar);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem, "default");
     DateFormatRequest req = this.manager.getDateFormatRequest(date, options, params);
     CalendarContext<CalendarDate> ctx = this._context(date, params, options.context);
@@ -57,12 +56,17 @@ public class CalendarsImpl implements Calendars {
     String id = "en";
     CLDR cldr = CLDR.get(id);
     String zoneId = "America/New_York";
-    CalendarDate date = BuddhistDate.fromUnixEpoch(1579634069000L, zoneId, 1, 1);
+    CalendarDate date = GregorianDate.fromUnixEpoch(1579634069000L, zoneId, 1, 1);
     System.out.println(date.toString());
     DateFormatOptions options = DateFormatOptions.builder()
-        .calendar(CalendarType.BUDDHIST)
-        .date(FormatWidthType.FULL).build();
+        .datetime(FormatWidthType.FULL)
+        .build();
     String r = cldr.Calendars.formatDate(date, options);
+    System.out.println(r);
+    options = DateFormatOptions.builder()
+        .datetime(FormatWidthType.SHORT)
+        .build();
+    r = cldr.Calendars.formatDate(date, options);
     System.out.println(r);
   }
 

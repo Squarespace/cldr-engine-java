@@ -79,7 +79,7 @@ public class CalendarInternals {
     if (_date != null && _time != null && wrapper != null) {
       WrapperPattern pattern = this.internals.general.wrapperPatternCache.get(wrapper);
       // TODO: warning
-      value.wrap(pattern, _time, _date);
+      value.wrap(pattern, Arrays.asList(_time, _date));
       return value.render();
     }
     return _date != null ? _date : _time != null ? _time : value.empty();

@@ -16,7 +16,7 @@ public class WrapperPattern {
    * Example:  "{1} at {0}"
    */
   public static WrapperPattern parse(String raw) {
-    ArrayList<Object> nodes = new ArrayList<>();
+    List<Object> nodes = new ArrayList<>();
     int len = raw.length();
     StringBuilder buf = new StringBuilder();
     boolean inquote = false;

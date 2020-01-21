@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.internal;
 
+import java.util.List;
+
 import com.squarespace.cldrengine.parsing.WrapperPattern;
 
 public class StringValue implements AbstractValue<String> {
@@ -42,22 +44,24 @@ public class StringValue implements AbstractValue<String> {
     this.buf = new StringBuilder();
   }
 
-  public String join(String ...str) {
+  public String join(List<String> elems) {
     StringBuilder tmp = new StringBuilder();
-    for (String s : str) {
+    for (String s : elems) {
       tmp.append(s);
     }
     return tmp.toString();
   }
 
-  public void wrap(WrapperPattern pattern, String ...args) {
-    for (Object node : pattern.nodes) {
+  public void wrap(WrapperPattern pattern, List<String> args) {
+    int size = pattern.nodes.size();
+    for (int i = 0; i < size; i++) {
+      Object node = pattern.nodes.get(i);
       if (node instanceof String) {
         this.add("literal", (String)node);
       } else {
-        int i = (int) node;
-        if (i < args.length) {
-          String arg = args[i];
+        int idx = (int) node;
+        if (idx < args.size()) {
+          String arg = args.get(idx);
           if (arg != null && !arg.isEmpty()) {
             this.buf.append(arg);
           }
@@ -69,4 +73,5 @@ public class StringValue implements AbstractValue<String> {
   public String empty() {
     return "";
   }
+
 }

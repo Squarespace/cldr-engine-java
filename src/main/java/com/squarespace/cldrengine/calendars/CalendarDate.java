@@ -1,9 +1,25 @@
 package com.squarespace.cldrengine.calendars;
 
+import static com.squarespace.compiler.parse.Pair.pair;
+
+import java.util.Arrays;
+import java.util.List;
+
+import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.compiler.parse.Pair;
 
 public abstract class CalendarDate {
+
   private static final long NULL = Long.MAX_VALUE;
+
+  private static final List<Pair<Integer, DateTimePatternFieldType>> DIFFERENCE_FIELDS = Arrays.asList(
+      pair(DateField.YEAR, DateTimePatternFieldType.YEAR),
+      pair(DateField.MONTH, DateTimePatternFieldType.MONTH),
+      pair(DateField.DAY_OF_MONTH, DateTimePatternFieldType.DAY),
+      pair(DateField.AM_PM, DateTimePatternFieldType.DAYPERIOD),
+      pair(DateField.HOUR, DateTimePatternFieldType.HOUR),
+      pair(DateField.MINUTE, DateTimePatternFieldType.MINUTE)
+      );
 
   protected final long[] fields = new long[DateField.LENGTH];
   protected final CalendarType type;
@@ -215,8 +231,22 @@ public abstract class CalendarDate {
     return this.zoneInfo.dst;
   }
 
-//  public
-  // TODO: fieldOfGreatestDifference
+  /**
+   * Computes the field of visual difference between the two dates.
+   * Note: This assumes the dates are of the same type and have the same
+   * timezone offset.
+   */
+  public DateTimePatternFieldType fieldOfVisualDifference(CalendarDate other) {
+    long[] a = this.fields;
+    long[] b = other.fields;
+    for (Pair<Integer, DateTimePatternFieldType> pair : DIFFERENCE_FIELDS) {
+      int key = pair._1;
+      if (a[key] != b[key]) {
+        return pair._2;
+      }
+    }
+    return DateTimePatternFieldType.SECOND;
+  }
 
   public abstract CalendarDate add(CalendarDateFields fields);
 

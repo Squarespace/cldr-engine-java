@@ -6,15 +6,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class DateTimePattern {
 
   public final List<Object> nodes;
 
-  private static final Set<Character> DATE_PATTERN_CHARS = new HashSet<>(Arrays.asList(
+  public static final Set<Character> DATE_PATTERN_CHARS = new HashSet<>(Arrays.asList(
       'G', 'y', 'Y', 'u', 'U', 'r', 'Q', 'q', 'M', 'L', 'l', 'w', 'W', 'd', 'D',
       'F', 'g', 'E', 'e', 'c', 'a', 'b', 'B', 'h', 'H', 'K', 'k', 'j', 'J', 'C',
       'm', 's', 'S', 'A', 'z', 'Z', 'O', 'v', 'V', 'X', 'x'));

@@ -12,14 +12,14 @@ import lombok.ToString;
 @ToString
 public class DateFormatOptions {
 
-  private FormatWidthType datetime;
-  private FormatWidthType date;
-  private FormatWidthType time;
-  private String skeleton;
-  private FormatWidthType wrap;
-  private CalendarType calendar;
-  private NumberSystemName numberSystemName;
-  private NumberSystemCategory numberSystemCategory;
-  private ContextType context;
+  public FormatWidthType datetime;
+  public FormatWidthType date;
+  public FormatWidthType time;
+  public String skeleton;
+  public FormatWidthType wrap;
+  public CalendarType calendar;
+  public NumberSystemName numberSystemName;
+  public NumberSystemCategory numberSystemCategory;
+  public ContextType context;
 
 }

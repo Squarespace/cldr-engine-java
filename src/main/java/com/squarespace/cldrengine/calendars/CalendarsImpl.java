@@ -28,8 +28,9 @@ public class CalendarsImpl implements Calendars {
 
   protected <R> R _formatDate(AbstractValue<R> value, CalendarDate date, DateFormatOptions options) {
     CalendarContext<CalendarDate> ctx;
+    String calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar);
     // TODO:
-//    this.internals.calendars.formatDateTime(CalendarType.GREGORY, ctx, value, date, time, wrapper)
+
     return null;
   }
 

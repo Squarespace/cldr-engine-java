@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import com.squarespace.cldrengine.internal.TimeZoneExternalData;
 import com.squarespace.cldrengine.utils.JsonUtils;
 import com.squarespace.cldrengine.utils.Search;
+import com.squarespace.cldrengine.utils.StringUtils;
 
 public class TimeZoneData {
 
@@ -215,7 +216,7 @@ public class TimeZoneData {
     }
 
     // Decode timezone until index and raw zone info
-    UNTILINDEX = longArray(root.get("index").getAsString());
+    UNTILINDEX = StringUtils.longArray(root.get("index").getAsString());
 
     // Decode all zoneinfo records
     String[] rawzoneinfo = decodeArray(root.get("zoneinfo"));
@@ -225,17 +226,17 @@ public class TimeZoneData {
     }
   }
 
-  private static long[] longArray(String str) {
-    if (str.isEmpty()) {
-      return new long[] { };
-    }
-    String[] raw = str.split("\\s+");
-    long[] res = new long[raw.length];
-    for (int i = 0; i < raw.length; i++) {
-      res[i] = Long.valueOf(raw[i], 36).longValue();
-    }
-    return res;
-  }
+//  private static long[] longArray(String str) {
+//    if (str.isEmpty()) {
+//      return new long[] { };
+//    }
+//    String[] raw = str.split("\\s+");
+//    long[] res = new long[raw.length];
+//    for (int i = 0; i < raw.length; i++) {
+//      res[i] = Long.valueOf(raw[i], 36).longValue();
+//    }
+//    return res;
+//  }
 
   /**
    * Load CLDR metazone records and CLDR stable identifiers.
@@ -253,9 +254,9 @@ public class TimeZoneData {
     JsonObject root = (JsonObject) JsonUtils.parse(TimeZoneExternalData.METAZONEDATA);
     METAZONEIDS = decodeArray(root.get("metazoneids"));
 
-    long[] index = longArray(root.get("index").getAsString());
-    long[] offsets = longArray(root.get("offsets").getAsString());
-    long[] untils = longArray(root.get("untils").getAsString());
+    long[] index = StringUtils.longArray(root.get("index").getAsString());
+    long[] offsets = StringUtils.longArray(root.get("offsets").getAsString());
+    long[] untils = StringUtils.longArray(root.get("untils").getAsString());
 
     // Decode all metazone records
     METAZONES = new MetazoneRecord[index.length / 2];
@@ -269,7 +270,7 @@ public class TimeZoneData {
     }
 
     // Map timezone identifiers to corresponding metazone record offset
-    long[] zoneindex = longArray(root.get("zoneindex").getAsString());
+    long[] zoneindex = StringUtils.longArray(root.get("zoneindex").getAsString());
     for (int i = 0; i < zoneindex.length; i++) {
       int mi = (int) zoneindex[i];
       if (mi != -1) {
@@ -347,7 +348,7 @@ public class TimeZoneData {
       String _types = parts.length > 1 ? parts[1] : "";
       String _untils = parts.length > 2 ? parts[2] : "";
 
-      long[] untils = longArray(_untils);
+      long[] untils = StringUtils.longArray(_untils);
 
       int len = untils.length;
       if (len > 0) {

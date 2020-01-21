@@ -1,18 +1,45 @@
 package com.squarespace.cldrengine.calendars;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.internal.AbstractValue;
+import com.squarespace.cldrengine.internal.Bundle;
+import com.squarespace.cldrengine.internal.CalendarExternalData;
 import com.squarespace.cldrengine.internal.CalendarSchema;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.Schema;
-import com.squarespace.cldrengine.parsing.DateTimePattern.DateTimeNode;
+import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.parsing.WrapperPattern;
 import com.squarespace.cldrengine.utils.Cache;
+import com.squarespace.cldrengine.utils.JsonUtils;
 
 public class CalendarInternals {
+
+  private static final Map<String, List<String>> CALENDAR_PREFS = new HashMap<>();
+
+  static {
+    String[] calendarIds = JsonUtils.decodeArray(JsonParser.parseString(CalendarExternalData.CALENDARIDS));
+    JsonObject root = JsonParser.parseString(CalendarExternalData.CALENDARPREFDATA).getAsJsonObject();
+    for (String region : root.keySet()) {
+      List<String> prefs = new ArrayList<>();
+      JsonArray ids = root.getAsJsonArray(region);
+      for (int i = 0; i < ids.size(); i++) {
+        int id = ids.get(i).getAsInt();
+        String pref = calendarIds[id];
+        prefs.add(pref);
+      }
+      CALENDAR_PREFS.put(region, prefs);
+    }
+  }
 
   public final Internals internals;
   public final Schema schema;
@@ -39,7 +66,7 @@ public class CalendarInternals {
   }
 
   public <R> R formatDateTime(CalendarType calendar, CalendarContext<CalendarDate> ctx,
-      AbstractValue<R> value, DateTimeNode[] date, DateTimeNode[] time, String wrapper) {
+      AbstractValue<R> value, DateTimePattern date, DateTimePattern time, String wrapper) {
 
     CalendarFormatter<CalendarDate> formatter = this.getCalendarFormatter(calendar);
     R _date = null;
@@ -61,6 +88,50 @@ public class CalendarInternals {
     return _date != null ? _date : _time != null ? _time : value.empty();
   }
 
+  public String selectCalendar(Bundle bundle, CalendarType type) {
+    return selectCalendar(bundle, type.value);
+  }
+
+  public String selectCalendar(Bundle bundle, String calendar) {
+    calendar = this.supportedCalendar(calendar);
+    if (calendar == null) {
+      calendar = this.supportedCalendar(bundle.calendarSystem());
+    }
+    if (calendar == null) {
+      List<String> prefs = CALENDAR_PREFS.get(bundle.region());
+      if (prefs == null) {
+        prefs = CALENDAR_PREFS.get("001");
+      }
+      if (prefs != null) {
+        for (String id : prefs) {
+          calendar = this.supportedCalendar(id);
+          if (calendar != null) {
+            return calendar;
+          }
+        }
+      }
+      return "gregory";
+    }
+    return calendar;
+  }
+
+  protected String supportedCalendar(String c) {
+    if (c != null && this.availableCalendars.contains(c)) {
+      switch (c) {
+        case "buddhist":
+        case "iso8601":
+        case "japanese":
+        case "persian":
+        case "gregory":
+          return c;
+        case "gregorian":
+          return "gregory";
+        default:
+          break;
+      }
+    }
+    return null;
+  }
 
   private CalendarFormatter<CalendarDate> buildFormatter(String calendar) {
     CalendarSchema s = this.schema.Gregorian;
@@ -79,6 +150,6 @@ public class CalendarInternals {
           break;
       }
     }
-    return new CalendarFormatter(this.internals, s);
+    return new CalendarFormatter<>(this.internals, s);
   }
 }

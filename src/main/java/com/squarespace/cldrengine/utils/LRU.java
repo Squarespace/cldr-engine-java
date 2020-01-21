@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.remove;
+package com.squarespace.cldrengine.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +27,11 @@ public class LRU<K, V> {
     this.capacity = capacity;
   }
 
-  public int size() {
+  public synchronized int size() {
     return this.storage.size();
   }
 
-  public V get(K key) {
+  public synchronized V get(K key) {
     Node<K, V> n = this.storage.get(key);
     if (n == null) {
       return null;
@@ -40,7 +40,7 @@ public class LRU<K, V> {
     return n.val;
   }
 
-  public void set(K key, V val) {
+  public synchronized void set(K key, V val) {
     if (this.capacity == 0) {
       return;
     }
@@ -76,7 +76,7 @@ public class LRU<K, V> {
     this.insert(n, this.root);
   }
 
-  public String toString() {
+  public synchronized String toString() {
     StringBuilder buf = new StringBuilder();
     Node<K, V> n = this.root.next;
     boolean nz = false;

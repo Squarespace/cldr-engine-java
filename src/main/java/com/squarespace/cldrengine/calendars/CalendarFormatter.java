@@ -32,10 +32,10 @@ public class CalendarFormatter<T extends CalendarDate> {
     this.tz = internals.schema.TimeZones;
   }
 
-  public <R> void format(AbstractValue<R> val, CalendarContext<T> ctx, DateTimeNode[] pattern) {
-    int len = pattern.length;
+  public <R> void format(AbstractValue<R> val, CalendarContext<T> ctx, DateTimePattern pattern) {
+    int len = pattern.nodes.size();
     for (int i = 0; i < len; i++) {
-      Object node = pattern[i];
+      Object node = pattern.nodes.get(i);
       if (node instanceof String) {
         val.add("literal", (String)node);
         continue;

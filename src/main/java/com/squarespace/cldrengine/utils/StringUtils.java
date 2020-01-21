@@ -1,7 +1,10 @@
 package com.squarespace.cldrengine.utils;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.function.Function;
 
 public class StringUtils {
 
@@ -36,5 +39,28 @@ public class StringUtils {
     }
     return buf.toString();
   }
+
+  public static long[] longArray(String str) {
+    return longArray(str, 36);
+  }
+
+  public static long[] longArray(String str, int base) {
+    return Arrays.stream(parseArray(str, Long.class, s -> Long.valueOf(s, base)))
+        .mapToLong(v -> v).toArray();
+  }
+
+  @SuppressWarnings("unchecked")
+  public static <R> R[] parseArray(String str, Class<R> cls, Function<String, R> parse) {
+    if (str.isEmpty() ) {
+      return (R[]) Array.newInstance(cls, 0);
+    }
+    String[] raw = str.split("\\s+");
+    R[] res = (R[]) Array.newInstance(cls, raw.length);
+    for (int i = 0; i < raw.length; i++) {
+      res[i] = parse.apply(raw[i]);
+    }
+    return res;
+  }
+
 }
 

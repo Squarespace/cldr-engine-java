@@ -21,6 +21,7 @@ import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.parsing.WrapperPattern;
 import com.squarespace.cldrengine.utils.Cache;
 import com.squarespace.cldrengine.utils.JsonUtils;
+import com.squarespace.cldrengine.utils.Pair;
 
 public class CalendarInternals {
 
@@ -45,11 +46,20 @@ public class CalendarInternals {
   public final Schema schema;
 
   public final Cache<CalendarFormatter<CalendarDate>> calendarFormatterCache;
+  public final Cache<DateTimePattern> patternCache;
+  public final Cache<DateTimePattern[]> hourPatternCache;
   public final Set<String> availableCalendars;
 
   public CalendarInternals(Internals internals) {
     this.internals = internals;
     this.schema = internals.schema;
+    this.patternCache = new Cache<>(DateTimePattern::parse, 1024);
+    this.hourPatternCache = new Cache<>(s -> {
+      String[] parts = s.split(";");
+      DateTimePattern positive = patternCache.get(parts[0]);
+      DateTimePattern negative = patternCache.get(parts[1]);
+      return new DateTimePattern[] { positive, negative };
+    }, 50);
     this.calendarFormatterCache = new Cache<>(this::buildFormatter, 1024);
     this.availableCalendars = new HashSet<>(internals.config.get("calendars"));
   }
@@ -58,8 +68,8 @@ public class CalendarInternals {
     return this.calendarFormatterCache.get(type.value);
   }
 
-  public Object[] getHourPattern(String raw, boolean negative) {
-    return new Object[] { } ;
+  public DateTimePattern getHourPattern(String raw, boolean negative) {
+     return this.hourPatternCache.get(raw)[negative ? 1 : 0];
   }
 
   public <R> R formatDateTime(CalendarType calendar, CalendarContext<CalendarDate> ctx,

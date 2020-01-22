@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.calendars;
 
+import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
+
 import com.squarespace.cldrengine.decimal.Decimal;
 import com.squarespace.cldrengine.general.GeneralInternals;
 import com.squarespace.cldrengine.internal.AbstractValue;
@@ -399,12 +401,12 @@ public class CalendarFormatter<T extends CalendarDate> {
       return "";
     }
     String key2 = ctx.date.metaZoneId();
-    if (!key2.isEmpty()) {
+    if (!isEmpty(key2)) {
       Vector2Arrow<TimeZoneNameType, MetaZoneType> format = node.width == 4 ?
           this.tz.metaZones.long_ : this.tz.metaZones.short_;
       String name = format.get(ctx.bundle, ctx.date.isDaylightSavings() ? TimeZoneNameType.DAYLIGHT : TimeZoneNameType.STANDARD,
           MetaZoneType.fromString(key2));
-      if (!name.isEmpty()) {
+      if (!isEmpty(name)) {
         return name;
       }
     }
@@ -523,17 +525,18 @@ public class CalendarFormatter<T extends CalendarDate> {
     }
     TZC tzc = getTZC(offset);
     boolean emitMins = !short_ || tzc.minutes > 0;
-    Object[] hourPattern = this._hourPattern(ctx.bundle, tzc.negative);
+    DateTimePattern hourPattern = this._hourPattern(ctx.bundle, tzc.negative);
     StringBuilder fmt = new StringBuilder();
-    for (int i = 0; i < hourPattern.length; i++) {
-      if (hourPattern[i] instanceof String) {
-        String p = (String)hourPattern[i];
+    for (int i = 0; i < hourPattern.nodes.size(); i++) {
+      Object elem = hourPattern.nodes.get(i);
+      if (elem instanceof String) {
+        String p = (String)elem;
         boolean sep = p.equals(".") || p.equals(":");
         if (!sep || emitMins) {
           fmt.append(p);
         }
       } else {
-        DateTimeNode node = (DateTimeNode)hourPattern[i];
+        DateTimeNode node = (DateTimeNode)elem;
         if (node.field == 'H') {
           fmt.append(node.width == 1 ? _num(ctx, tzc.hours, 1) : _num(ctx, tzc.hours, short_ ? 1 : node.width));
         } else if (node.field == 'm' && emitMins) {
@@ -546,9 +549,8 @@ public class CalendarFormatter<T extends CalendarDate> {
     return this.general.formatWrapper(wrap, fmt.toString());
   }
 
-  protected Object[] _hourPattern(Bundle bundle, boolean negative) {
+  protected DateTimePattern _hourPattern(Bundle bundle, boolean negative) {
     String raw = this.tz.hourFormat.get(bundle);
-    // TODO:
     return this.internals.calendars.getHourPattern(raw, negative);
   }
 

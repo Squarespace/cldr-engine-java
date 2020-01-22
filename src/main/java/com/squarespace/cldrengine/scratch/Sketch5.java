@@ -12,7 +12,7 @@ public class Sketch5 {
   public static void main(String[] args) {
     String id = "es";
     CLDR cldr = CLDR.get(id);
-    String zoneId = "America/New_York";
+    String zoneId = "America/Los_Angeles";
     CalendarDate date = GregorianDate.fromUnixEpoch(1579634069000L, zoneId, 1, 1);
     System.out.println(date.toString());
 
@@ -26,12 +26,18 @@ public class Sketch5 {
     r = cldr.Calendars.formatDate(date, options);
     System.out.println("1>> " + r);
 
-
     options = DateFormatOptions.builder()
-        .skeleton("EEEEyMMd")
+        .skeleton("EEEEyMMMd")
         .context(ContextType.BEGIN_SENTENCE)
         .build();
     r = cldr.Calendars.formatDate(date, options);
     System.out.println("2>> " + r);
+
+    options = DateFormatOptions.builder()
+        .context(ContextType.BEGIN_SENTENCE)
+        .time(FormatWidthType.LONG)
+        .build();
+    r = cldr.Calendars.formatDate(date, options);
+    System.out.println("3>> " + r);
   }
 }

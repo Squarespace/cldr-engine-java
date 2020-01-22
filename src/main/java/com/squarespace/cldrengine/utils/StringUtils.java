@@ -9,7 +9,7 @@ import java.util.function.Function;
 public class StringUtils {
 
   public static boolean isEmpty(String s) {
-    return s == null || s.equals("");
+    return s == null || s.isEmpty();
   }
 
   public static final String join(List<String> list, String sep) {

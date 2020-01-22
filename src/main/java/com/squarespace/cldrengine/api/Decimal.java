@@ -46,7 +46,7 @@ public class Decimal {
 
   private static final Decimal ZERO = new Decimal(0);
   private static final Decimal ONE = new Decimal(1);
-  private static final Decimal TWO = new Decimal(2);
+//  private static final Decimal TWO = new Decimal(2);
 
   private static final Decimal NAN = new Decimal("nan");
   private static final Decimal NEGATIVE_INFINITY = new Decimal("-infinity");
@@ -808,7 +808,7 @@ public class Decimal {
       return;
     }
     Decimal w = this;
-    long[] data = new long[w.data.length];
+    long[] data = Arrays.copyOf(w.data, w.data.length);
 
     long[] div = new long[] { 0, 0 };
     DecimalMath.divword(div, shift, Constants.RDIGITS);
@@ -844,6 +844,7 @@ public class Decimal {
     DecimalMath.divpow10(div, data[(int)q], (int)r);
     hiprev = div[0];
     rest = div[1];
+
     DecimalMath.divpow10(div, rest,  (int)(r - 1));
     rnd = div[0];
     rest = div[1];
@@ -858,6 +859,7 @@ public class Decimal {
       w.data[j] = ph * lo + hiprev;
       hiprev = hi;
     }
+
     if (hiprev != 0) {
       w.data[j] = hiprev;
     }

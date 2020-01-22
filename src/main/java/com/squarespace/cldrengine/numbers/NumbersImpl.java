@@ -2,6 +2,7 @@ package com.squarespace.cldrengine.numbers;
 
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.Decimal;
+import com.squarespace.cldrengine.api.DecimalAdjustOptions;
 import com.squarespace.cldrengine.api.Numbers;
 import com.squarespace.cldrengine.general.GeneralInternals;
 import com.squarespace.cldrengine.internal.Internals;

@@ -86,6 +86,7 @@ const DateFormatOptions =
 
 const DecimalAdjustOptions =
   new Option('DecimalAdjustOptions')
+    .field('round', 'RoundingModeType')
     .field('minimumIntegerDigits', 'Integer')
     .field('maximumFractionDigits', 'Integer')
     .field('minimumFractionDigits', 'Integer')
@@ -95,7 +96,6 @@ const DecimalAdjustOptions =
 const NumberFormatOptoions =
   new Option('NumberFormatOptions', 'DecimalAdjustOptions')
     .field('group', 'Boolean')
-    .field('round', 'RoundingModeType')
     .field('numberSystem', 'String');
 
 const DecimalFormatOptions =

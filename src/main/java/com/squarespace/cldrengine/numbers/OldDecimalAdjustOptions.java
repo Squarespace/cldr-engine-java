@@ -5,7 +5,7 @@ import static com.squarespace.cldrengine.api.Option.option;
 import com.squarespace.cldrengine.api.Option;
 import com.squarespace.cldrengine.api.RoundingModeType;
 
-public class DecimalAdjustOptions {
+public class OldDecimalAdjustOptions {
 
   public final Option<RoundingModeType> round = option();
   public final Option<Integer> minimumIntegerDigits = option();
@@ -56,8 +56,8 @@ public class DecimalAdjustOptions {
       return this;
     }
 
-    public DecimalAdjustOptions build() {
-      DecimalAdjustOptions d = new DecimalAdjustOptions();
+    public OldDecimalAdjustOptions build() {
+      OldDecimalAdjustOptions d = new OldDecimalAdjustOptions();
       d.round.set(round);
       d.minimumIntegerDigits.set(minimumIntegerDigits);
       d.maximumFractionDigits.set(maximumFractionDigits);

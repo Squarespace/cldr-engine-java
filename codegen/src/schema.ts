@@ -4,7 +4,7 @@ import * as glob from 'fast-glob';
 import * as ts from 'typescript';
 import { tsquery } from '@phenomnomnominal/tsquery';
 
-import { write } from './utils';
+import { makedirs, write } from './utils';
 
 import * as calprefs from '@phensley/cldr-core/lib/internals/calendars/autogen.calprefs';
 import * as dayperiods from '@phensley/cldr-core/lib/internals/calendars/autogen.dayperiods';
@@ -70,14 +70,6 @@ const loadSources = (pattern: string): ts.SourceFile[] =>
       return [p, fs.readFileSync(p, { encoding: 'utf-8' })];
     })
     .map(([p, data]) => tsquery.ast(data, p));
-
-const makedirs = (p: string) => {
-  if (fs.existsSync(p)) {
-    return;
-  }
-  makedirs(dirname(p));
-  fs.mkdirSync(p);
-};
 
 export const generateSchema = () => {
   const root = join(__dirname, '../node_modules/@phensley/cldr-types/lib/**/*.d.ts');

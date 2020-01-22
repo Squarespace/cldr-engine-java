@@ -19,9 +19,8 @@ import com.squarespace.cldrengine.numbers.NumberParams;
 public class CalendarsImpl implements Calendars {
 
   private static final DateFormatOptions DATE_FORMAT_OPTIONS_DEFAULT = DateFormatOptions
-      .builder()
-      .date(FormatWidthType.FULL)
-      .build();
+      .build()
+      .date(FormatWidthType.FULL);
 
   private final Bundle bundle;
   private final Internals internals;
@@ -41,11 +40,11 @@ public class CalendarsImpl implements Calendars {
   }
 
   protected <R> R _formatDate(AbstractValue<R> value, CalendarDate date, DateFormatOptions options) {
-    options = options == null ? DATE_FORMAT_OPTIONS_DEFAULT : options;
-    CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar);
-    NumberParams params = this.privateApi.getNumberParams(options.numberSystem, "default");
+    options = (options == null ? DateFormatOptions.build() : options).merge(DATE_FORMAT_OPTIONS_DEFAULT);
+    CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar.get());
+    NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     DateFormatRequest req = this.manager.getDateFormatRequest(date, options, params);
-    CalendarContext<CalendarDate> ctx = this._context(date, params, options.context);
+    CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get());
     return this.internals.calendars.formatDateTime(calendar, ctx, value, req.date, req.time, req.wrapper);
   }
 

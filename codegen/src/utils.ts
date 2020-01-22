@@ -1,4 +1,13 @@
 import * as fs from 'fs';
+import { dirname } from 'path';
+
+export const makedirs = (p: string) => {
+  if (fs.existsSync(p)) {
+    return;
+  }
+  makedirs(dirname(p));
+  fs.mkdirSync(p);
+};
 
 export const lineWrap = (max: number, sep: string, values: string[]): string => {
   let res = '';

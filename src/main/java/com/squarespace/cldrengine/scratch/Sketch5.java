@@ -19,24 +19,21 @@ public class Sketch5 {
     DateFormatOptions options;
     String r;
 
-    options = DateFormatOptions.builder()
+    options = DateFormatOptions.build()
         .datetime(FormatWidthType.FULL)
-        .context(ContextType.BEGIN_SENTENCE)
-        .build();
+        .context(ContextType.BEGIN_SENTENCE);
     r = cldr.Calendars.formatDate(date, options);
     System.out.println("1>> " + r);
 
-    options = DateFormatOptions.builder()
+    options = DateFormatOptions.build()
         .skeleton("EEEEyMMMd")
-        .context(ContextType.BEGIN_SENTENCE)
-        .build();
+        .context(ContextType.BEGIN_SENTENCE);
     r = cldr.Calendars.formatDate(date, options);
     System.out.println("2>> " + r);
 
-    options = DateFormatOptions.builder()
+    options = DateFormatOptions.build()
         .context(ContextType.BEGIN_SENTENCE)
-        .time(FormatWidthType.LONG)
-        .build();
+        .time(FormatWidthType.LONG);
     r = cldr.Calendars.formatDate(date, options);
     System.out.println("3>> " + r);
   }

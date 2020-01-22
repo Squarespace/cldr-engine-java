@@ -50,17 +50,14 @@ class CalendarManager {
   }
 
   public DateFormatRequest getDateFormatRequest(CalendarDate date, DateFormatOptions options, NumberParams params) {
-    CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar);
+    CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar.get());
     CalendarPatterns patterns = this.getCalendarPatterns(calendar.value);
 
     // TODO:
-    FormatWidthType dateKey = this.supportedOption(options.datetime, options.date);
-    FormatWidthType timeKey = this.supportedOption(options.datetime, options.time);
-    FormatWidthType wrapKey = this.supportedOption(options.wrap);
-    String skelKey = options.skeleton;
-    if (skelKey == null) {
-      skelKey = "";
-    }
+    FormatWidthType dateKey = options.datetime.or(options.date.get());
+    FormatWidthType timeKey = options.datetime.or(options.time.get());
+    FormatWidthType wrapKey = options.wrap.get();
+    String skelKey = options.skeleton.or("");
 
     if (dateKey == null && timeKey == null && isEmpty(skelKey)) {
       dateKey = FormatWidthType.LONG;
@@ -156,21 +153,21 @@ class CalendarManager {
     return patterns.getWrapperPattern(wrapKey);
   }
 
-  protected FormatWidthType supportedOption(FormatWidthType ...keys) {
-    for (FormatWidthType key : keys) {
-      if (key == null) {
-        continue;
-      }
-      switch (key) {
-        case FULL:
-        case LONG:
-        case MEDIUM:
-        case SHORT:
-          return key;
-       default:
-         break;
-      }
-    }
-    return null;
-  }
+//  protected FormatWidthType supportedOption(FormatWidthType ...keys) {
+//    for (FormatWidthType key : keys) {
+//      if (key == null) {
+//        continue;
+//      }
+//      switch (key) {
+//        case FULL:
+//        case LONG:
+//        case MEDIUM:
+//        case SHORT:
+//          return key;
+//       default:
+//         break;
+//      }
+//    }
+//    return null;
+//  }
 }

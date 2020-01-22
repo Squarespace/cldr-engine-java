@@ -2,6 +2,9 @@
 /.classpath
 /.project
 
+.DS_Store
+*.swp
+
 .gradle/
 /gradlew.bat
 

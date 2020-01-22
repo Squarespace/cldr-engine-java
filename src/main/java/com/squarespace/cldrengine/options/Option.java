@@ -19,6 +19,16 @@ public class Option<T> {
     this.value = value;
   }
 
+  public void set(Option<T> opt) {
+    this.value = opt.get();
+  }
+
+  public void setIf(Option<T> opt) {
+    if (opt.ok()) {
+      this.value = opt.get();
+    }
+  }
+
   public T get() {
     return value;
   }
@@ -29,5 +39,10 @@ public class Option<T> {
 
   public boolean ok() {
     return value != null;
+  }
+
+  @Override
+  public String toString() {
+    return value == null ? "null" : value.toString();
   }
 }

@@ -1,10 +1,10 @@
 package com.squarespace.cldrengine.scratch;
 
 import com.squarespace.cldrengine.CLDR;
-import com.squarespace.cldrengine.internal.Bundle;
-import com.squarespace.cldrengine.internal.EraWidthType;
-import com.squarespace.cldrengine.internal.MetaZoneType;
-import com.squarespace.cldrengine.internal.TimeZoneNameType;
+import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.EraWidthType;
+import com.squarespace.cldrengine.api.MetaZoneType;
+import com.squarespace.cldrengine.api.TimeZoneNameType;
 
 public class Sketch2 {
 

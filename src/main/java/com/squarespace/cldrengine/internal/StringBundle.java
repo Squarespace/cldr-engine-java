@@ -2,7 +2,8 @@ package com.squarespace.cldrengine.internal;
 
 import java.util.Map;
 
-import com.squarespace.cldrengine.locale.LanguageTag;
+import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.LanguageTag;
 
 public class StringBundle implements Bundle {
 

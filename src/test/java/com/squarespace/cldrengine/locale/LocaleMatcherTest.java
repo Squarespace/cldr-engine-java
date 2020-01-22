@@ -4,6 +4,8 @@ import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
 
+import com.squarespace.cldrengine.api.LocaleMatcher;
+
 public class LocaleMatcherTest {
 
   @Test

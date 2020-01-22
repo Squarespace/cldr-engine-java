@@ -1,5 +1,8 @@
 package com.squarespace.cldrengine.locale;
 
+import com.squarespace.cldrengine.api.CLocale;
+import com.squarespace.cldrengine.api.LanguageTag;
+
 public class CLocaleImpl implements CLocale {
 
   private final String id;

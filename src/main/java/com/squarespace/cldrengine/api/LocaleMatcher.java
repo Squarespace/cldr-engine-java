@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.locale;
+package com.squarespace.cldrengine.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +8,11 @@ import java.util.regex.Pattern;
 
 import com.google.gson.JsonArray;
 import com.squarespace.cldrengine.internal.LocaleExternalData;
+import com.squarespace.cldrengine.locale.CLocaleImpl;
+import com.squarespace.cldrengine.locale.DistanceTable;
+import com.squarespace.cldrengine.locale.LanguageTagParser;
+import com.squarespace.cldrengine.locale.LocaleMatch;
+import com.squarespace.cldrengine.locale.LocaleResolver;
 import com.squarespace.cldrengine.utils.JsonUtils;
 
 public class LocaleMatcher {

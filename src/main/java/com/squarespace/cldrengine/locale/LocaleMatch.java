@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.locale;
 
+import com.squarespace.cldrengine.api.CLocale;
+
 public class LocaleMatch {
 
   public final CLocale locale;

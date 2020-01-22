@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.decimal;
+package com.squarespace.cldrengine.api;
 
 public enum RoundingModeType {
 

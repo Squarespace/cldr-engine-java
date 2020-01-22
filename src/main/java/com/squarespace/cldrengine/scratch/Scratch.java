@@ -1,10 +1,10 @@
 package com.squarespace.cldrengine.scratch;
 
-import com.squarespace.cldrengine.internal.FormatWidthType;
+import com.squarespace.cldrengine.api.FormatWidthType;
+import com.squarespace.cldrengine.api.MetaZoneType;
+import com.squarespace.cldrengine.api.TimeZoneNameType;
 import com.squarespace.cldrengine.internal.Meta;
-import com.squarespace.cldrengine.internal.MetaZoneType;
 import com.squarespace.cldrengine.internal.PrimitiveBundle;
-import com.squarespace.cldrengine.internal.TimeZoneNameType;
 
 public class Scratch {
 

@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.calendars;
+package com.squarespace.cldrengine.api;
 
 import java.util.Arrays;
 import java.util.HashMap;

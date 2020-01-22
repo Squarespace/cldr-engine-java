@@ -7,12 +7,13 @@ import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.squarespace.cldrengine.internal.Bundle;
+import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.CalendarDate;
+import com.squarespace.cldrengine.api.FormatWidthType;
+import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.internal.CalendarExternalData;
 import com.squarespace.cldrengine.internal.CalendarSchema;
-import com.squarespace.cldrengine.internal.FormatWidthType;
 import com.squarespace.cldrengine.internal.Internals;
-import com.squarespace.cldrengine.internal.PluralType;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.utils.JsonUtils;
 import com.squarespace.cldrengine.utils.LRU;
@@ -20,7 +21,7 @@ import com.squarespace.cldrengine.utils.StringUtils;
 
 import lombok.AllArgsConstructor;
 
-public class CalendarPatterns {
+class CalendarPatterns {
 
   @AllArgsConstructor
   public static class TimeData {

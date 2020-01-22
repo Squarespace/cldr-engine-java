@@ -2,11 +2,14 @@ package com.squarespace.cldrengine;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.squarespace.cldrengine.calendars.Calendars;
+import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.CLocale;
+import com.squarespace.cldrengine.api.Calendars;
+import com.squarespace.cldrengine.api.General;
+import com.squarespace.cldrengine.api.LanguageTag;
+import com.squarespace.cldrengine.api.Numbers;
 import com.squarespace.cldrengine.calendars.CalendarsImpl;
-import com.squarespace.cldrengine.general.General;
 import com.squarespace.cldrengine.general.GeneralImpl;
-import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.Meta;
 import com.squarespace.cldrengine.internal.Pack;
@@ -14,12 +17,9 @@ import com.squarespace.cldrengine.internal.PrivateApi;
 import com.squarespace.cldrengine.internal.ResourcePacks;
 import com.squarespace.cldrengine.internal.Schema;
 import com.squarespace.cldrengine.internal.SchemaConfig;
-import com.squarespace.cldrengine.locale.CLocale;
 import com.squarespace.cldrengine.locale.CLocaleImpl;
-import com.squarespace.cldrengine.locale.LanguageTag;
 import com.squarespace.cldrengine.locale.LanguageTagParser;
 import com.squarespace.cldrengine.locale.LocaleResolver;
-import com.squarespace.cldrengine.numbers.Numbers;
 import com.squarespace.cldrengine.numbers.NumbersImpl;
 
 /**

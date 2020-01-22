@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine;
+package com.squarespace.cldrengine.api;
 
 import lombok.AllArgsConstructor;
 

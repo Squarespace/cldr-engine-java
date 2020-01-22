@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.locale;
+package com.squarespace.cldrengine.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;

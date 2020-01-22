@@ -1,6 +1,6 @@
 package com.squarespace.cldrengine.decimal;
 
-class Constants {
+public class Constants {
 
   // 10^7 < sqrt(Number.MAX_SAFE_INTEGER) in JavaScript
   public static final int RADIX = (int)1e7;

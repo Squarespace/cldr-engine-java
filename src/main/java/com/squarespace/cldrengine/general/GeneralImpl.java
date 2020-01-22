@@ -1,8 +1,9 @@
 package com.squarespace.cldrengine.general;
 
 import com.squarespace.cldrengine.CLDR;
-import com.squarespace.cldrengine.internal.Bundle;
-import com.squarespace.cldrengine.locale.CLocale;
+import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.CLocale;
+import com.squarespace.cldrengine.api.General;
 
 /**
  * Top-level namespace to expose info about the current locale and bundle,

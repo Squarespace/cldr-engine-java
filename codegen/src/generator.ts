@@ -178,8 +178,6 @@ export class Builder {
     this.origin = inst;
 
     // setup class
-    this.append('package com.squarespace.cldrengine.internal;\n\n');
-    this.append('/** AUTO-GENERATED DO NOT EDIT */\n\n');
     for (const imp of IMPORTS) {
       this.append(`import ${imp};\n`);
     }

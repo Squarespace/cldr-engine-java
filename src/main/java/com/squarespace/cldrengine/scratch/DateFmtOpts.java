@@ -1,7 +1,7 @@
 package com.squarespace.cldrengine.scratch;
 
-import com.squarespace.cldrengine.calendars.CalendarType;
-import com.squarespace.cldrengine.calendars.DateFormatOptions;
+import com.squarespace.cldrengine.api.CalendarType;
+import com.squarespace.cldrengine.api.DateFormatOptions;
 
 public class DateFmtOpts {
 

@@ -4,6 +4,8 @@ import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
 
+import com.squarespace.cldrengine.api.BuddhistDate;
+
 public class BuddhistDateTest {
 
   public static final String NEW_YORK = "America/New_York";

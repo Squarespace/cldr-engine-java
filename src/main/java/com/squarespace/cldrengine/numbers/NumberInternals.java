@@ -1,6 +1,6 @@
 package com.squarespace.cldrengine.numbers;
 
-import com.squarespace.cldrengine.decimal.Decimal;
+import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.internal.CurrenciesSchema;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.NumbersSchema;

@@ -2,6 +2,8 @@ package com.squarespace.cldrengine.internal;
 
 import java.util.Map;
 
+import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.ContextTransformFieldType;
 import com.squarespace.cldrengine.numbers.NumberParams;
 import com.squarespace.cldrengine.numbers.NumberParamsCache;
 

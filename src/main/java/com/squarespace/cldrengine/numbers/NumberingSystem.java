@@ -2,8 +2,8 @@ package com.squarespace.cldrengine.numbers;
 
 import java.util.Map;
 
-import com.squarespace.cldrengine.decimal.Decimal;
-import com.squarespace.cldrengine.internal.NumberSymbolType;
+import com.squarespace.cldrengine.api.Decimal;
+import com.squarespace.cldrengine.api.NumberSymbolType;
 
 import lombok.AllArgsConstructor;
 

@@ -1,6 +1,6 @@
-package com.squarespace.cldrengine.numbers;
+package com.squarespace.cldrengine.api;
 
-import com.squarespace.cldrengine.decimal.Decimal;
+import com.squarespace.cldrengine.numbers.DecimalAdjustOptions;
 
 public interface Numbers {
 

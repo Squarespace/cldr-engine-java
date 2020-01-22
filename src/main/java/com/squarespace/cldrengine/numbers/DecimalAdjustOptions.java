@@ -2,7 +2,7 @@ package com.squarespace.cldrengine.numbers;
 
 import static com.squarespace.cldrengine.options.Option.option;
 
-import com.squarespace.cldrengine.decimal.RoundingModeType;
+import com.squarespace.cldrengine.api.RoundingModeType;
 import com.squarespace.cldrengine.options.Option;
 
 public class DecimalAdjustOptions {

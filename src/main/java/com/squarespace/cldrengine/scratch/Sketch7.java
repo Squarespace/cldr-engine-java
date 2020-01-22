@@ -1,8 +1,8 @@
 package com.squarespace.cldrengine.scratch;
 
-import com.squarespace.cldrengine.calendars.CalendarDate;
-import com.squarespace.cldrengine.calendars.GregorianDate;
-import com.squarespace.cldrengine.calendars.TimePeriod;
+import com.squarespace.cldrengine.api.CalendarDate;
+import com.squarespace.cldrengine.api.GregorianDate;
+import com.squarespace.cldrengine.api.TimePeriod;
 
 public class Sketch7 {
 

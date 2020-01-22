@@ -1,6 +1,6 @@
-package com.squarespace.cldrengine.calendars;
+package com.squarespace.cldrengine.api;
 
-public class CalendarConstants {
+class CalendarConstants {
 
   public static final int ISO8601_MIN_DAYS = 4;
 

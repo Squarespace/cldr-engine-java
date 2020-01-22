@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 
 import com.google.gson.JsonParser;
-import com.squarespace.cldrengine.internal.Bundle;
+import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.internal.CalendarExternalData;
 import com.squarespace.cldrengine.utils.Cache;
 import com.squarespace.cldrengine.utils.JsonUtils;

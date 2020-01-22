@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
+import com.squarespace.cldrengine.api.LanguageTag;
+
 public class LanguageTagTest {
 
   @Test

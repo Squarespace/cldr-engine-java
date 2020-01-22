@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
-import com.squarespace.cldrengine.locale.LanguageTag;
+import com.squarespace.cldrengine.api.LanguageTag;
 import com.squarespace.cldrengine.locale.LanguageTagParser;
 
 public class LanguageTagParserTest {

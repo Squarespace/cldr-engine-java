@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.locale;
+package com.squarespace.cldrengine.api;
 
 /**
  * Wrapper pairing an application's opaque locale identifier with a

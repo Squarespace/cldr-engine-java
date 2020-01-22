@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.squarespace.cldrengine.Part;
+import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.utils.StringUtils;
 
 public class PartsDecimalFormatter implements DecimalFormatter<List<Part>> {

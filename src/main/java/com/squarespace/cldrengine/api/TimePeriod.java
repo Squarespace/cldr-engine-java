@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.calendars;
+package com.squarespace.cldrengine.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

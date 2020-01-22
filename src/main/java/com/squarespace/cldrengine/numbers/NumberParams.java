@@ -2,10 +2,10 @@ package com.squarespace.cldrengine.numbers;
 
 import java.util.Map;
 
-import com.squarespace.cldrengine.internal.CurrencySpacingPattern;
-import com.squarespace.cldrengine.internal.CurrencySpacingPos;
-import com.squarespace.cldrengine.internal.NumberSymbolType;
-import com.squarespace.cldrengine.internal.NumberSystemName;
+import com.squarespace.cldrengine.api.CurrencySpacingPattern;
+import com.squarespace.cldrengine.api.CurrencySpacingPos;
+import com.squarespace.cldrengine.api.NumberSymbolType;
+import com.squarespace.cldrengine.api.NumberSystemName;
 
 import lombok.AllArgsConstructor;
 

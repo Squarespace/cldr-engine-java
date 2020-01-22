@@ -1,6 +1,6 @@
-package com.squarespace.cldrengine.calendars;
+package com.squarespace.cldrengine.api;
 
-public class DateField {
+class DateField {
 
   // Milliseconds from Unix epoch, adjusted by local timezone offset
   public static final int LOCAL_MILLIS = 0;

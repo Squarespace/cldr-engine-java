@@ -1,5 +1,6 @@
-package com.squarespace.cldrengine.calendars;
+package com.squarespace.cldrengine.api;
 
+import com.squarespace.cldrengine.calendars.DayOfWeek;
 import com.squarespace.cldrengine.utils.Pair;
 
 public class ISO8601Date extends GregorianDate {

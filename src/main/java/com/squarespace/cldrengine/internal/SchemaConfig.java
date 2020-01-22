@@ -72,7 +72,7 @@ public class SchemaConfig extends HashMap<String, List<String>> {
     }
   }
 
-  private <T extends StringEnum> void pute(String key, KeyIndex<T> index) {
+  private <T extends StringEnum<T>> void pute(String key, KeyIndex<T> index) {
     T[] keys = index.keys();
     List<String> res = new ArrayList<>(keys.length);
     for (T t : keys) {

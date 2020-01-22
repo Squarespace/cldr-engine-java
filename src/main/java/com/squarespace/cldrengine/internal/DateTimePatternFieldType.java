@@ -1,6 +1,6 @@
 package com.squarespace.cldrengine.internal;
 
-public enum DateTimePatternFieldType implements StringEnum {
+public enum DateTimePatternFieldType implements StringEnum<DateTimePatternFieldType> {
 
   YEAR("y"),
   MONTH("M"),

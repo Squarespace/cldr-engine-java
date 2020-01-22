@@ -1,7 +1,7 @@
 package com.squarespace.cldrengine.scratch;
 
+import com.squarespace.cldrengine.api.GregorianDate;
 import com.squarespace.cldrengine.calendars.DayOfWeek;
-import com.squarespace.cldrengine.calendars.GregorianDate;
 import com.squarespace.cldrengine.calendars.TimeZoneData;
 
 public class Sketch6 {
@@ -15,6 +15,7 @@ public class Sketch6 {
       for (int i = 0; i < 1; i++) {
         long epoch = base + ((day * i) * 30);
         GregorianDate date = GregorianDate.fromUnixEpoch(epoch, zoneId, DayOfWeek.SUNDAY, 1);
+        System.out.println(date.toString());
         TimeZoneData.zoneInfoFromUTC(zoneId, epoch);
       }
     }

@@ -1,10 +1,16 @@
-package com.squarespace.cldrengine.decimal;
+package com.squarespace.cldrengine.api;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.squarespace.cldrengine.decimal.Constants;
+import com.squarespace.cldrengine.decimal.DecimalFlag;
+import com.squarespace.cldrengine.decimal.DecimalFormatter;
+import com.squarespace.cldrengine.decimal.DecimalMath;
+import com.squarespace.cldrengine.decimal.StringDecimalFormatter;
 
 import lombok.AllArgsConstructor;
 
@@ -260,7 +266,9 @@ public class Decimal {
     return this.flag == 0 && this.data.length == 1 && this.data[0] == 0;
   }
 
-  // TODO: add
+  /**
+   * Adds v.
+   */
   public Decimal add(Decimal v) {
     Decimal r = handleFlags(Op.ADDITION, v);
     return r == null ? this.addsub(this, v, v.sign) : r;
@@ -273,8 +281,6 @@ public class Decimal {
     Decimal r = handleFlags(Op.SUBTRACTION, v);
     return r == null ? this.addsub(this, v, -v.sign) : r;
   }
-
-  // TODO: subtract
 
   // TODO: multiply
 

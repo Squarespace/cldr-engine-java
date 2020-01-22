@@ -5,18 +5,20 @@ import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.CalendarDate;
+import com.squarespace.cldrengine.api.CalendarType;
+import com.squarespace.cldrengine.api.DateFormatOptions;
+import com.squarespace.cldrengine.api.FormatWidthType;
+import com.squarespace.cldrengine.api.NumberSymbolType;
 import com.squarespace.cldrengine.calendars.SkeletonData.Field;
-import com.squarespace.cldrengine.internal.Bundle;
-import com.squarespace.cldrengine.internal.FormatWidthType;
 import com.squarespace.cldrengine.internal.Internals;
-import com.squarespace.cldrengine.internal.NumberSymbolType;
 import com.squarespace.cldrengine.internal.Schema;
 import com.squarespace.cldrengine.numbers.NumberParams;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.utils.Cache;
-import com.squarespace.cldrengine.utils.StringUtils;
 
-public class CalendarManager {
+class CalendarManager {
 
   private final Bundle bundle;
   private final Internals internals;

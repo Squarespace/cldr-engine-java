@@ -6,7 +6,8 @@ import java.util.Map;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.squarespace.cldrengine.locale.LanguageTag;
+import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.LanguageTag;
 import com.squarespace.cldrengine.locale.LocaleResolver;
 import com.squarespace.cldrengine.utils.JsonUtils;
 

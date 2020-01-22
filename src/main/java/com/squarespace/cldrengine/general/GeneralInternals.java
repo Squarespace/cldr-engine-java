@@ -2,8 +2,8 @@ package com.squarespace.cldrengine.general;
 
 import java.util.Map;
 
-import com.squarespace.cldrengine.internal.ContextTransformFieldType;
-import com.squarespace.cldrengine.internal.ContextType;
+import com.squarespace.cldrengine.api.ContextTransformFieldType;
+import com.squarespace.cldrengine.api.ContextType;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.LayoutSchema;
 import com.squarespace.cldrengine.internal.ListPatternsSchema;
@@ -39,7 +39,7 @@ public class GeneralInternals {
       return value;
     }
 
-    String flag = field != null ? info.get(field.value()) : "";
+    String flag = field != null ? info.get(field) : "";
     boolean title = false;
     switch (context) {
       case BEGIN_SENTENCE:

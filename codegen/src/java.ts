@@ -102,7 +102,8 @@ export const tojava = (n: any, types?: any): string => {
     case 'typealias':
       r += `import java.util.Arrays;\n`;
       r += `import java.util.HashMap;\n`;
-      r += `import java.util.Map;\n\n`;
+      r += `import java.util.Map;\n`;
+      r += `import com.squarespace.cldrengine.internal.StringEnum;\n\n`;
       r += `public enum ${n.name} implements StringEnum<${n.name}> {\n\n`;
       r += tojava(n.type);
       r += '  ;\n\n';

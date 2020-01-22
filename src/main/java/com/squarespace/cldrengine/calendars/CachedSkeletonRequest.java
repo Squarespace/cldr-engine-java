@@ -5,7 +5,7 @@ import com.squarespace.cldrengine.parsing.DateTimePattern;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CachedSkeletonRequest {
+class CachedSkeletonRequest {
 
   public DateSkeleton dateSkel;
   public DateTimePattern date;

@@ -11,7 +11,7 @@ import com.squarespace.cldrengine.internal.FormatWidthType;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.NumberSymbolType;
 import com.squarespace.cldrengine.internal.Schema;
-import com.squarespace.cldrengine.numbering.NumberParams;
+import com.squarespace.cldrengine.numbers.NumberParams;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.utils.Cache;
 import com.squarespace.cldrengine.utils.StringUtils;

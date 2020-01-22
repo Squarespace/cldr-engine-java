@@ -1,3 +1,4 @@
+import * as fs from 'fs';
 
 export const lineWrap = (max: number, sep: string, values: string[]): string => {
   let res = '';
@@ -60,3 +61,6 @@ export const escapeWrap = (s: string, width: number): string[] => {
   }
   return lines.map(s => `"${s}"`);
 }
+
+export const write = (path: string, data: string) =>
+  fs.writeFileSync(path, data, { encoding: 'utf-8' });

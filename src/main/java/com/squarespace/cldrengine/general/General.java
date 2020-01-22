@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine;
+package com.squarespace.cldrengine.general;
 
 import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.locale.CLocale;

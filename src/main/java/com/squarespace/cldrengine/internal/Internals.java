@@ -2,7 +2,7 @@ package com.squarespace.cldrengine.internal;
 
 import com.squarespace.cldrengine.calendars.CalendarInternals;
 import com.squarespace.cldrengine.general.GeneralInternals;
-import com.squarespace.cldrengine.numbering.NumberInternals;
+import com.squarespace.cldrengine.numbers.NumberInternals;
 
 public class Internals {
 

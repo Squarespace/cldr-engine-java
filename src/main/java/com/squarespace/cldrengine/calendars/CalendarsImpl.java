@@ -10,7 +10,7 @@ import com.squarespace.cldrengine.internal.FormatWidthType;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.PrivateApi;
 import com.squarespace.cldrengine.internal.StringValue;
-import com.squarespace.cldrengine.numbering.NumberParams;
+import com.squarespace.cldrengine.numbers.NumberParams;
 
 public class CalendarsImpl implements Calendars {
 

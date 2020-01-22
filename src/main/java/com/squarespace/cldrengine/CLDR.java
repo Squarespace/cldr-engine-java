@@ -4,6 +4,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.squarespace.cldrengine.calendars.Calendars;
 import com.squarespace.cldrengine.calendars.CalendarsImpl;
+import com.squarespace.cldrengine.general.General;
+import com.squarespace.cldrengine.general.GeneralImpl;
 import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.Meta;
@@ -17,6 +19,8 @@ import com.squarespace.cldrengine.locale.CLocaleImpl;
 import com.squarespace.cldrengine.locale.LanguageTag;
 import com.squarespace.cldrengine.locale.LanguageTagParser;
 import com.squarespace.cldrengine.locale.LocaleResolver;
+import com.squarespace.cldrengine.numbers.Numbers;
+import com.squarespace.cldrengine.numbers.NumbersImpl;
 
 /**
  * Contains all functionality for a given locale.
@@ -33,6 +37,7 @@ public class CLDR {
 
   public final General General;
   public final Calendars Calendars;
+  public final Numbers Numbers;
   public final Schema Schema;
 
   protected CLDR(CLocale locale, Bundle bundle) {
@@ -43,6 +48,7 @@ public class CLDR {
     PrivateApi privateApi = new PrivateApi(bundle, INTERNALS);
     this.General = new GeneralImpl(locale, bundle);
     this.Calendars = new CalendarsImpl(bundle, INTERNALS, privateApi);
+    this.Numbers = new NumbersImpl(bundle, INTERNALS, privateApi);
     this.Schema = Meta.SCHEMA;
   }
 

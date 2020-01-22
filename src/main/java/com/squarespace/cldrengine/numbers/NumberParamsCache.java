@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.numbering;
+package com.squarespace.cldrengine.numbers;
 
 import java.util.ArrayList;
 import java.util.HashMap;

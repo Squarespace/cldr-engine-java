@@ -5,7 +5,7 @@ import java.util.Map;
 import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.internal.ContextTransformFieldType;
 import com.squarespace.cldrengine.internal.ContextType;
-import com.squarespace.cldrengine.numbering.NumberingSystem;
+import com.squarespace.cldrengine.numbers.NumberingSystem;
 
 import lombok.AllArgsConstructor;
 

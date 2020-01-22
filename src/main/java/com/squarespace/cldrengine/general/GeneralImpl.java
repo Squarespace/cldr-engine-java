@@ -1,5 +1,6 @@
-package com.squarespace.cldrengine;
+package com.squarespace.cldrengine.general;
 
+import com.squarespace.cldrengine.CLDR;
 import com.squarespace.cldrengine.internal.Bundle;
 import com.squarespace.cldrengine.locale.CLocale;
 
@@ -7,7 +8,7 @@ import com.squarespace.cldrengine.locale.CLocale;
  * Top-level namespace to expose info about the current locale and bundle,
  * and attach helper methods for dealing with locales.
  */
-class GeneralImpl implements General {
+public class GeneralImpl implements General {
 
   private final CLocale locale;
   private final Bundle bundle;

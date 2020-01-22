@@ -2,8 +2,8 @@ package com.squarespace.cldrengine.internal;
 
 import java.util.Map;
 
-import com.squarespace.cldrengine.numbering.NumberParams;
-import com.squarespace.cldrengine.numbering.NumberParamsCache;
+import com.squarespace.cldrengine.numbers.NumberParams;
+import com.squarespace.cldrengine.numbers.NumberParamsCache;
 
 public class PrivateApi {
 

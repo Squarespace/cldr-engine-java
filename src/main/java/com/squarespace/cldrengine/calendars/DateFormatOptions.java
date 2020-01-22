@@ -11,13 +11,13 @@ import lombok.ToString;
 @ToString
 public class DateFormatOptions {
 
-  public FormatWidthType datetime;
-  public FormatWidthType date;
-  public FormatWidthType time;
-  public String skeleton;
-  public FormatWidthType wrap;
-  public CalendarType calendar;
-  public String numberSystem;
-  public ContextType context;
+  public final FormatWidthType datetime;
+  public final FormatWidthType date;
+  public final FormatWidthType time;
+  public final String skeleton;
+  public final FormatWidthType wrap;
+  public final CalendarType calendar;
+  public final String numberSystem;
+  public final ContextType context;
 
 }

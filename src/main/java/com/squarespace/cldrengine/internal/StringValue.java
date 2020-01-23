@@ -53,9 +53,7 @@ public class StringValue implements AbstractValue<String> {
   }
 
   public void wrap(WrapperPattern pattern, List<String> args) {
-    int size = pattern.nodes.size();
-    for (int i = 0; i < size; i++) {
-      Object node = pattern.nodes.get(i);
+    for (Object node : pattern.nodes) {
       if (node instanceof String) {
         this.add("literal", (String)node);
       } else {

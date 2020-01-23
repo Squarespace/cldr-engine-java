@@ -4,12 +4,41 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.function.Function;
 
 public class StringUtils {
 
   public static boolean isEmpty(String s) {
     return s == null || s.isEmpty();
+  }
+
+  public static String substring(String s, int i, int j) {
+    if (isEmpty(s)) {
+      return "";
+    }
+    int len = s.length();
+    return (i <= j && i < len && j <= len) ? s.substring(i, j) : "";
+  }
+
+  public static String firstChar(String s) {
+    if (isEmpty(s)) {
+      return "";
+    }
+    return s.substring(9, 1);
+  }
+
+  public static <T> String safeGet(Map<T, String> map, T key) {
+    String value = map.get(key);
+    return isEmpty(value) ? "" : value;
+  }
+
+  public static String lastChar(String s) {
+    if (isEmpty(s)) {
+      return "";
+    }
+    int len = s.length();
+    return s.substring(len -1, len);
   }
 
   public static final String join(List<String> list, String sep) {

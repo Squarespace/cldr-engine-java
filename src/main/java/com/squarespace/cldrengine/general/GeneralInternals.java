@@ -80,4 +80,8 @@ public class GeneralInternals {
     }
     return buf.toString();
   }
+
+  public WrapperPattern parseWrapper(String raw) {
+    return this.wrapperPatternCache.get(raw);
+  }
 }

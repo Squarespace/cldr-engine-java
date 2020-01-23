@@ -29,7 +29,7 @@ public class DecimalNumberingSystem extends NumberingSystem {
   @Override
   public String formatString(Decimal n, boolean groupDigits, int minInt) {
     if (!groupDigits && n.isInteger()) {
-      return fastFormatDecimal(n.toString(), minInt);
+      return fastFormatDecimal(n.toString(), digits, minInt);
     }
     return formatDecimal(n, groupDigits, minInt);
   }
@@ -43,7 +43,7 @@ public class DecimalNumberingSystem extends NumberingSystem {
     return fmt.render();
   }
 
-  private String fastFormatDecimal(String n, int minInt) {
+  public static String fastFormatDecimal(String n, String[] digits, int minInt) {
     StringBuilder buf = new StringBuilder();
     int len = n.length();
     for (int i = 0; i < len; i++) {
@@ -59,7 +59,7 @@ public class DecimalNumberingSystem extends NumberingSystem {
         case '7':
         case '8':
         case '9':
-          buf.append(this.digits[c - '0']);
+          buf.append(digits[c - '0']);
           break;
       }
     }
@@ -67,7 +67,7 @@ public class DecimalNumberingSystem extends NumberingSystem {
     if (diff > 0) {
       StringBuilder pfx = new StringBuilder();
       while (diff-- > 0) {
-        pfx.append(this.digits[0]);
+        pfx.append(digits[0]);
       }
       pfx.append(buf);
       return pfx.toString();

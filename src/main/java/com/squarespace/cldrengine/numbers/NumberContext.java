@@ -2,7 +2,6 @@ package com.squarespace.cldrengine.numbers;
 
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.DecimalAdjustOptions;
-import com.squarespace.cldrengine.api.NumberFormatOptions;
 import com.squarespace.cldrengine.api.Option;
 import com.squarespace.cldrengine.api.RoundingModeType;
 import com.squarespace.cldrengine.parsing.NumberPattern;

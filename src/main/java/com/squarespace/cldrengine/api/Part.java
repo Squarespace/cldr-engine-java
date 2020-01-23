@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Part {
 
-  final String type;
-  final String value;
+  public final String type;
+  public final String value;
 
 }

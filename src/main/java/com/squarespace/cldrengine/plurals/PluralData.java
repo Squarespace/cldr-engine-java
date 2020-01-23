@@ -32,7 +32,6 @@ class PluralData {
     Map<String, Rule[]> res = new HashMap<>();
     for (String id : set.keySet()) {
       List<Rule> rules = new ArrayList<>();
-
       JsonArray a1 = set.get(id).getAsJsonArray();
       for (int i = 0; i < a1.size(); i++) {
         JsonArray a2 = a1.get(i).getAsJsonArray();
@@ -40,9 +39,8 @@ class PluralData {
         int[][] indices = intArrayArray(a2.get(1).getAsJsonArray());
         Rule rule = new Rule(index, indices);
         rules.add(rule);
-
-        res.put(id, rules.toArray(new Rule[] {}));
       }
+      res.put(id, rules.toArray(new Rule[] {}));
     }
     return res;
   }
@@ -90,5 +88,8 @@ class PluralData {
     return res.stream().toArray(int[][]::new);
   }
 
+  public static void main(String[] args) {
+    System.out.println(ORDINALS.keySet());
+  }
 
 }

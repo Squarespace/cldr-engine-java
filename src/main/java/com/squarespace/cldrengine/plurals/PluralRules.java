@@ -90,8 +90,8 @@ public class PluralRules {
         int v = (int) elem;
         res = res || (integer && n == v);
       } else {
-        Range range = (Range) elem;
-        res = res || (integer && range.start <= n && n <= range.end);
+        int[] range = (int[]) elem;
+        res = res || (integer && range[0] <= n && n <= range[1]);
       }
     }
     return expr.relop == 1 ? res : !res;

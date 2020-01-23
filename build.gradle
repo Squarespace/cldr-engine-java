@@ -36,6 +36,7 @@ dependencies {
  
   testCompile "org.testng:testng:${testngVersion}"
   testCompile "org.hamcrest:java-hamcrest:${hamcrestVersion}"
+  testCompile 'commons-io:commons-io:2.1'
 }
 
 jmh {

@@ -75,7 +75,7 @@ public class NumberInternals {
     RoundingModeType round = options.round.or(RoundingModeType.HALF_EVEN);
 
     NumberSystemInfo latnInfo = this.numbers.numberSystem.get("latn");
-    NumberSystemInfo info = this.numbers.numberSystem.get(params.numberSystemName);
+    NumberSystemInfo info = this.numbers.numberSystem.get(params.numberSystemName.value());
     if (info == null) {
       info = latnInfo;
     }
@@ -100,23 +100,100 @@ public class NumberInternals {
         NumberContext ctx = new NumberContext(options, round, true, false);
 
         // Adjust the number using the compact pattern and divisor.
-        Decimal q2;
-        int ndigits;
+        Pair<Decimal, Integer> pair;
         if (options.divisor.ok()) {
-          // TODO:
+          pair = this.setupCompactDivisor(bundle, n, ctx, standardRaw, options.divisor.get(), patternImpl);
+        } else {
+          pair = this.setupCompact(bundle, n, ctx, standardRaw, patternImpl);
         }
+        Decimal q2 = pair._1;
+        int ndigits = pair._2;
+
+        q2 = negzero(q2, options.negativeZero.or(false));
+
+        // Compute the plural category for the final q2.
+        plural = plurals.cardinal(q2);
+
+        // Select the final pluralized compact pattern based on the integer
+        // digits of n and the plural category of the rounded / shifted number q2.
+        String raw = patternImpl.get(bundle, plural, ndigits)._1;
+        if (isEmpty(raw)) {
+          raw = standardRaw;
+        }
+
+        // Re-select pattern as number may have changed sign due to rounding.
+        NumberPattern pattern = this.getNumberPattern(raw, q2.isNegative());
+        result = renderer.render(q2, pattern, "", "", "", ctx.minInt, options.group.or(false), null);
+        break;
+
+      default:
+        result = renderer.empty();
         break;
     }
 
-    return Pair.of(renderer.empty(), plural);
+    return Pair.of(result, plural);
   }
 
-  protected Pair<Decimal, Integer> setupCompact(Bundle bundle, NumberContext ctx, String standardRaw,
-      DigitsArrow<PluralType> pattenrImpl) {
+  protected Decimal negzero(Decimal n, boolean show) {
+    return !show && n.isZero() && n.isNegative() ? n.abs() : n;
+  }
 
-    // TODO:
+  protected Pair<Decimal, Integer> setupCompact(Bundle bundle, Decimal n, NumberContext ctx,
+      String standardRaw, DigitsArrow<PluralType> patternImpl) {
 
-    return Pair.of(new Decimal(1), 1);
+    // Select the correct divisor based on the number of integer digits in n.
+    boolean negative = n.isNegative();
+    int ndigits = n.integerDigits();
+
+    // Select the initial compact pattern based on the integer digits of n.
+    // The plural category doesn't matter until the final pattern is selected.
+    Pair<String, Integer> pair = patternImpl.get(bundle, PluralType.OTHER, ndigits);
+    String raw = pair._1;
+    int ndivisor = pair._2;
+    NumberPattern pattern = this.getCompactPattern(raw, standardRaw, negative);
+    int fracDigits = ctx.useSignificant ? -1 : 0;
+
+    // Move the decimal point of n, producing q1. we always strip trailing
+    // zeros on compact patterns.
+    Decimal q1 = n;
+    if (ndivisor > 0) {
+      q1 = q1.movePoint(-ndivisor);
+    }
+
+    // Adjust q1 using the compact pattern's parameters, to produce q2.
+    int q1digits = q1.integerDigits();
+    ctx.setCompact(pattern, q1digits, ndivisor, fracDigits);
+
+    Decimal q2 = ctx.adjust(q1);
+    int q2digits = q2.integerDigits();
+    negative = q2.isNegative();
+
+    // Check if the number rounded up, adding another integer digit.
+    if (q2digits > q1digits) {
+      // Select a new divisor and pattern.
+      ndigits++;
+
+      pair = patternImpl.get(bundle, PluralType.OTHER, ndigits);
+      raw = pair._1;
+      int divisor = pair._2;
+      pattern = this.getCompactPattern(raw, standardRaw, negative);
+
+      // If divisor changed we need to divide and adjust again. We don't divide,
+      // we just move the decimal point, since our Decimal type uses a radix that
+      // is a power of 10. Otherwise q2 is ready for formatting.
+      if (divisor > ndivisor) {
+        // We shift right before we move the decimal point. This triggers rounding
+        // of the number at its correct scale. Otherwise we would end up with
+        // 999,999 becoming 0.999999 and half-even rounding truncating the
+        // number to '0M' instead of '1M'.
+        q1 = n.shiftright(divisor, RoundingModeType.HALF_EVEN);
+        q1 = q1.movePoint(-divisor);
+        ctx.setCompact(pattern, q1.integerDigits(), divisor, fracDigits);
+        q2 = ctx.adjust(q1);
+      }
+    }
+
+    return Pair.of(q2, ndigits);
   }
 
   protected Pair<Decimal, Integer> setupCompactDivisor(Bundle bundle, Decimal n, NumberContext ctx,

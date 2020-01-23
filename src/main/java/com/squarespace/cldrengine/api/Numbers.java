@@ -7,4 +7,9 @@ public interface Numbers {
    */
   Decimal adjustDecimal(Decimal num, DecimalAdjustOptions options);
 
+  /**
+   * Formats a decimal number to string.
+   */
+  String formatDecimal(Decimal n, DecimalFormatOptions options);
 }
+

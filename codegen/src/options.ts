@@ -103,7 +103,8 @@ const DecimalFormatOptions =
     .field('style', 'DecimalFormatStyleType')
     .field('negativeZero', 'Boolean')
     .field('divisor', 'Integer')
-    .field('context', 'ContextType');
+    .field('context', 'ContextType')
+    .field('errors', 'String');
 
 const CurrencyFormatOptions =
   new Option('CurrencyFormatOptions', 'NumberFormatOptions')

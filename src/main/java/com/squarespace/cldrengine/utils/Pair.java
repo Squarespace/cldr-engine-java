@@ -1,5 +1,8 @@
 package com.squarespace.cldrengine.utils;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class Pair<F, S> {
 
   public final F _1;

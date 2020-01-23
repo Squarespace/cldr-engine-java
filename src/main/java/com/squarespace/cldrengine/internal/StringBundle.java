@@ -4,6 +4,8 @@ import java.util.Map;
 
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.LanguageTag;
+import com.squarespace.cldrengine.plurals.PluralRules;
+import com.squarespace.cldrengine.plurals.Plurals;
 
 public class StringBundle implements Bundle {
 
@@ -16,6 +18,9 @@ public class StringBundle implements Bundle {
   private String[] strings;
   private String[] exceptions;
   private Map<Integer, Integer> index;
+
+  // Plural rules are used in many places, so provide them on the bundle
+  private PluralRules plurals;
 
   public StringBundle(
       String id,
@@ -32,6 +37,7 @@ public class StringBundle implements Bundle {
 
     this.languageRegion = String.format("%s-%s", tag.language(), tag.region());
     this.languageScript = String.format("%s-%s", tag.language(), tag.script());
+    this.plurals = Plurals.get(tag.language(), tag.region());
 
     // When bundle is constructed, see if there are unicode extensions for
     // number and calendar systems.
@@ -84,4 +90,10 @@ public class StringBundle implements Bundle {
     return offset < strings.length ? this.strings[offset] : "";
   }
 
+  /**
+   * Plural rules for cardinals and ordinals for this locale.
+   */
+  public PluralRules plurals() {
+    return this.plurals;
+  }
 }

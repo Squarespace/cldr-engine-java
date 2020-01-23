@@ -4,7 +4,7 @@ import com.squarespace.cldrengine.utils.Pair;
 
 public class DigitsArrow<R> {
 
-  private static Pair<String, Integer> EMPTY = Pair.of("", 0);
+  private static final Pair<String, Integer> EMPTY = Pair.of("", 0);
 
   private static int[] DIGITS = new int[] {
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15

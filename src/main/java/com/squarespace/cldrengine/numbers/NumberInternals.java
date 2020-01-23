@@ -15,14 +15,15 @@ import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.RoundingModeType;
 import com.squarespace.cldrengine.internal.CurrenciesSchema;
 import com.squarespace.cldrengine.internal.DecimalFormats;
+import com.squarespace.cldrengine.internal.DigitsArrow;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.NumberSystemInfo;
 import com.squarespace.cldrengine.internal.NumbersSchema;
 import com.squarespace.cldrengine.parsing.NumberPattern;
 import com.squarespace.cldrengine.parsing.NumberPatternParser;
+import com.squarespace.cldrengine.plurals.PluralRules;
 import com.squarespace.cldrengine.utils.Cache;
 import com.squarespace.cldrengine.utils.Pair;
-import com.squarespace.cldrengine.utils.StringUtils;
 
 public class NumberInternals {
 
@@ -86,9 +87,71 @@ public class NumberInternals {
       standardRaw = latnDecimalFormats.standard.get(bundle);
     }
 
-    // TODO:
-    // const plurals = bundle.plurals();
+    PluralRules plurals = bundle.plurals();
+
+    switch (style) {
+      case LONG:
+      case SHORT:
+        boolean isShort = style == DecimalFormatStyleType.SHORT;
+        boolean useLatn = decimalFormats.short_.get(bundle, PluralType.OTHER, 4)._2 != 0;
+        DigitsArrow<PluralType> patternImpl = isShort
+            ? (useLatn ? latnInfo.decimalFormats.short_ : decimalFormats.short_)
+            : (useLatn ? latnInfo.decimalFormats.long_ : decimalFormats.long_);
+        NumberContext ctx = new NumberContext(options, round, true, false);
+
+        // Adjust the number using the compact pattern and divisor.
+        Decimal q2;
+        int ndigits;
+        if (options.divisor.ok()) {
+          // TODO:
+        }
+        break;
+    }
 
     return Pair.of(renderer.empty(), plural);
+  }
+
+  protected Pair<Decimal, Integer> setupCompact(Bundle bundle, NumberContext ctx, String standardRaw,
+      DigitsArrow<PluralType> pattenrImpl) {
+
+    // TODO:
+
+    return Pair.of(new Decimal(1), 1);
+  }
+
+  protected Pair<Decimal, Integer> setupCompactDivisor(Bundle bundle, Decimal n, NumberContext ctx,
+      String standardRaw, int divisor, DigitsArrow<PluralType> patternImpl) {
+    boolean negative = n.isNegative();
+    int ndigits = (int)Math.log10(divisor) + 1;
+
+    // Select compact patterns based on number of digits in divisor
+    Pair<String, Integer> pair = patternImpl.get(bundle, PluralType.OTHER, ndigits);
+    String raw = pair._1;
+    int ndivisor = pair._2;
+
+    if (ndivisor > 0) {
+      n = n.movePoint(-ndivisor);
+    }
+
+    NumberPattern pattern = this.getCompactPattern(raw, standardRaw, negative);
+    int fracDigits = ctx.useSignificant ? -1 : 0;
+    boolean noMinInt = ctx.minInt == -1;
+    ctx.setCompact(pattern, n.integerDigits(), ndivisor, fracDigits);
+    // Hack to avoid extra leading '0' for certain divisor cases
+    if (noMinInt) {
+      ctx.minInt = 1;
+    }
+    return Pair.of(ctx.adjust(n), ndigits);
+  }
+
+  protected NumberPattern getCompactPattern(String raw, String standardRaw, boolean negative) {
+    if (!isEmpty(raw)) {
+      return this.getNumberPattern(raw, negative);
+    }
+    // Adjust standard pattern to have same fraction settings as compact
+    NumberPattern pattern = new NumberPattern(this.getNumberPattern(standardRaw, negative));
+    pattern.minFrac = 0;
+    pattern.maxFrac = 0;
+    return pattern;
   }
 }

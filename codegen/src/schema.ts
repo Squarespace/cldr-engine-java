@@ -24,6 +24,8 @@ import * as zonealiases from '@phensley/cldr-core/lib/systems/calendars/autogen.
 
 import * as decimalnumbers from '@phensley/cldr-core/lib/systems/numbering/autogen.names';
 
+import * as plural from '@phensley/plurals/lib/autogen.rules';
+
 import { TimeZoneStableIdIndex } from '@phensley/cldr-schema';
 
 import { decode } from './parser';
@@ -176,6 +178,10 @@ export const generateSchema = () => {
     ...zonealiases,
     ...metazonedata,
     stableids: TimeZoneStableIdIndex.keys
+  });
+
+  writeConstants(internalDir, 'PluralExternalData', {
+    ...plural
   });
 
   // Copy resource packs

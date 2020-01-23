@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -128,6 +129,34 @@ public class TimeZoneData {
   }
 
   /**
+   * Get the info for a time zone using a UTC timestamp.
+   */
+  public static TZInfo fromUTC(String zoneId, long utc) {
+    return lookup(zoneId, utc, true);
+  }
+
+  /**
+   * UTC zone info.
+   */
+  public static TZInfo utcZone() {
+    return TimeZoneData.UTC;
+  }
+
+  /**
+   * Resolve a lowercase time zone id or alias into the canonical proper-cased id.
+   */
+  public static String resolveId(String id) {
+    return LINKINDEX.get(id);
+  }
+
+  /**
+   * Returns a list of time zone ids.
+   */
+  public static List<String> zoneIds() {
+    return Arrays.asList(TIMEZONEIDS);
+  }
+
+  /**
    * Map a timezone identifier to the CLDR stable id
    */
   private static String getStableId(String id) {
@@ -211,18 +240,6 @@ public class TimeZoneData {
     }
   }
 
-//  private static long[] longArray(String str) {
-//    if (str.isEmpty()) {
-//      return new long[] { };
-//    }
-//    String[] raw = str.split("\\s+");
-//    long[] res = new long[raw.length];
-//    for (int i = 0; i < raw.length; i++) {
-//      res[i] = Long.valueOf(raw[i], 36).longValue();
-//    }
-//    return res;
-//  }
-
   /**
    * Load CLDR metazone records and CLDR stable identifiers.
    *
@@ -288,11 +305,11 @@ public class TimeZoneData {
     LINKINDEX.put(src.toLowerCase(), dst);
   }
 
-  static String[] split(JsonElement elem, String delim) {
+  private static String[] split(JsonElement elem, String delim) {
     return split(elem.getAsString(), delim);
   }
 
-  static String[] split(String raw, String delim) {
+  private static String[] split(String raw, String delim) {
     return raw.isEmpty() ? new String[] { } : raw.split(delim);
   }
 
@@ -300,7 +317,7 @@ public class TimeZoneData {
    * Holds paired until timestamps and offsets used to determine
    * which metazone identifier to use at a given point in time.
    */
-  static class MetazoneRecord {
+  private static class MetazoneRecord {
 
     final long[] offsets;
     final long[] untils;
@@ -322,7 +339,7 @@ public class TimeZoneData {
    * Record for a single timezone, used to determine which localtime
    * record is in effect at a given point in time.
    */
-  static class ZoneRecord {
+  private static class ZoneRecord {
     final long[] untils;
     final TZInfo[] localtime;
     final int[] types;

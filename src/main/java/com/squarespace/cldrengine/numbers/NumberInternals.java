@@ -3,9 +3,14 @@ package com.squarespace.cldrengine.numbers;
 import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 import static com.squarespace.cldrengine.utils.TypeUtils.defaulter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.CurrencyFormatOptions;
+import com.squarespace.cldrengine.api.CurrencyFractions;
+import com.squarespace.cldrengine.api.CurrencyType;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.DecimalAdjustOptions;
 import com.squarespace.cldrengine.api.DecimalFormatOptions;
@@ -33,6 +38,15 @@ public class NumberInternals {
       .round(RoundingModeType.HALF_EVEN);
 
   private static final NumberPattern ADJUST_PATTERN = NumberPatternParser.parse("0")[0];
+
+  private static final Map<CurrencyType, CurrencyFractions> CURRENCY_FRACTIONS = new HashMap<>();
+
+  private static final CurrencyFractions DEFAULT_CURRENCY_FRACTIONS =
+      new CurrencyFractions(2, 0, 2, 0);
+
+  static {
+
+  }
 
   private final Internals internals;
   private final CurrenciesSchema currencies;
@@ -210,6 +224,22 @@ public class NumberInternals {
     }
 
     return Pair.of(result, plural);
+  }
+
+  public <T> T formatCurrency(Bundle bundle, NumberRenderer<T> renderer,
+      Decimal n, CurrencyType code, CurrencyFormatOptions options, NumberParams params) {
+
+    CurrencyFractions fractions = getCurrencyFractions(code);
+    RoundingModeType round = options.round.or(RoundingModeType.HALF_EVEN);
+
+    // TODO:
+
+    return renderer.empty();
+  }
+
+  protected CurrencyFractions getCurrencyFractions(CurrencyType code) {
+    CurrencyFractions res = CURRENCY_FRACTIONS.get(code);
+    return res == null ? DEFAULT_CURRENCY_FRACTIONS : res;
   }
 
   protected Decimal negzero(Decimal n, boolean show) {

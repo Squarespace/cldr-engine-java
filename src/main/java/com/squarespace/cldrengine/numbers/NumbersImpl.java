@@ -1,11 +1,16 @@
 package com.squarespace.cldrengine.numbers;
 
+import java.util.List;
+
 import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.CurrencyFormatOptions;
+import com.squarespace.cldrengine.api.CurrencyType;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.DecimalAdjustOptions;
 import com.squarespace.cldrengine.api.DecimalFormatOptions;
 import com.squarespace.cldrengine.api.NumberSymbolType;
 import com.squarespace.cldrengine.api.Numbers;
+import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.general.GeneralInternals;
 import com.squarespace.cldrengine.internal.Internals;
@@ -13,6 +18,9 @@ import com.squarespace.cldrengine.internal.PrivateApi;
 import com.squarespace.cldrengine.utils.Pair;
 
 public class NumbersImpl implements Numbers {
+
+  private static final DecimalFormatOptions FORCE_ERRORS = DecimalFormatOptions.build()
+      .errors("nan infinity");
 
   public final Bundle bundle;
   public final NumberInternals numbers;
@@ -37,6 +45,20 @@ public class NumbersImpl implements Numbers {
     return this.formatDecimalImpl(renderer, params, n, options);
   }
 
+  public List<Part> formatDecimalToParts(Decimal n, DecimalFormatOptions options) {
+    options = (options == null ? DecimalFormatOptions.build() : options);
+    NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), null);
+    NumberRenderer<List<Part>> renderer = this.numbers.partsRenderer(params);
+    return this.formatDecimalImpl(renderer, params, n, options);
+  }
+
+  public String formatCurrency(Decimal n, CurrencyType code, CurrencyFormatOptions options) {
+    options = (options == null ? CurrencyFormatOptions.build() : options);
+    NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "finance");
+    NumberRenderer<String> renderer = this.numbers.stringRenderer(params);
+    return this.formatCurrencyImpl(renderer, params, n, code, options);
+  }
+
   protected <T> T formatDecimalImpl(NumberRenderer<T> renderer, NumberParams params,
       Decimal n, DecimalFormatOptions options) {
 
@@ -47,6 +69,12 @@ public class NumbersImpl implements Numbers {
     }
     Pair<T, PluralType> result = this.numbers.formatDecimal(bundle, renderer, n, options, params);
     return result._1;
+  }
+
+  protected <T> T formatCurrencyImpl(NumberRenderer<T> renderer, NumberParams params,
+      Decimal n, CurrencyType code, CurrencyFormatOptions options) {
+    validate(n, FORCE_ERRORS, renderer, params);
+    return this.numbers.formatCurrency(this.bundle, renderer, n, code, options, params);
   }
 
   protected <T> T validate(Decimal n, DecimalFormatOptions options, NumberRenderer<T> renderer,

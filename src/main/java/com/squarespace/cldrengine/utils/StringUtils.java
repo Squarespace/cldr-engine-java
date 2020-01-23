@@ -55,7 +55,7 @@ public class StringUtils {
 
   public static final String reverseJoin(List<String> list, String sep) {
     StringBuilder buf = new StringBuilder();
-    ListIterator<String> iter = list.listIterator();
+    ListIterator<String> iter = list.listIterator(list.size());
     while (iter.hasPrevious()) {
       if (buf.length() > 0) {
         buf.append(sep);

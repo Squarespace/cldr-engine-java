@@ -824,6 +824,7 @@ public class Decimal {
     }
     Decimal w = this;
     long[] data = Arrays.copyOf(w.data, w.data.length);
+    Arrays.fill(w.data, 0);
 
     long[] div = new long[] { 0, 0 };
     DecimalMath.divword(div, shift, Constants.RDIGITS);
@@ -834,6 +835,7 @@ public class Decimal {
     int j = 0;
     long rnd = 0;
     long rest = 0;
+
     if (r == 0) {
       if (q > 0) {
         DecimalMath.divpow10(div, data[(int)(q - 1)], Constants.RDIGITS - 1);

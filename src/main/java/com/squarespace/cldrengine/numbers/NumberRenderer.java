@@ -11,7 +11,7 @@ public interface NumberRenderer<R> {
   R empty();
   R make(String type, String value);
   R render(Decimal n, NumberPattern pattern, String currencySybol, String percentSymbol,
-      String decimalSymbol, int minInt, boolean grouping, Integer exponent);
+      String decimalSymbol, int minInt, Boolean grouping, Integer exponent);
   R wrap(GeneralInternals internal, String raw, List<R> args);
 
 }

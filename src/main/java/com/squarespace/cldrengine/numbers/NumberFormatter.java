@@ -32,7 +32,7 @@ public abstract class NumberFormatter<R> implements NumberRenderer<R> {
   public abstract DecimalFormatter<R> formatter(String decimal, String group);
 
   public R render(Decimal n, NumberPattern pattern, String currencySymbol,
-      String percentSymbol, String decimalSymbol, int minInt, boolean grouping,
+      String percentSymbol, String decimalSymbol, int minInt, Boolean grouping,
       Integer exponent) {
 
     Map<NumberSymbolType, String> symbols = params.symbols;
@@ -49,6 +49,9 @@ public abstract class NumberFormatter<R> implements NumberRenderer<R> {
 
     String group = "";
     String currencyGroup = symbols.get(NumberSymbolType.CURRENCYGROUP);
+
+    // Default grouping option to true
+    grouping = grouping == null ? true : grouping;
     if (grouping) {
       group = symbols.get(NumberSymbolType.GROUP);
       if (!isEmpty(currencyGroup)) {

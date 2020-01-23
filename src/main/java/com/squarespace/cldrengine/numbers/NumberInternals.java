@@ -10,6 +10,7 @@ import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.DecimalAdjustOptions;
 import com.squarespace.cldrengine.api.DecimalFormatOptions;
 import com.squarespace.cldrengine.api.DecimalFormatStyleType;
+import com.squarespace.cldrengine.api.NumberSymbolType;
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.RoundingModeType;
@@ -31,7 +32,7 @@ public class NumberInternals {
       .minimumIntegerDigits(0)
       .round(RoundingModeType.HALF_EVEN);
 
-    private static final NumberPattern ADJUST_PATTERN = NumberPatternParser.parse("0")[0];
+  private static final NumberPattern ADJUST_PATTERN = NumberPatternParser.parse("0")[0];
 
   private final Internals internals;
   private final CurrenciesSchema currencies;
@@ -91,7 +92,7 @@ public class NumberInternals {
 
     switch (style) {
       case LONG:
-      case SHORT:
+      case SHORT: {
         boolean isShort = style == DecimalFormatStyleType.SHORT;
         boolean useLatn = decimalFormats.short_.get(bundle, PluralType.OTHER, 4)._2 != 0;
         DigitsArrow<PluralType> patternImpl = isShort
@@ -123,8 +124,85 @@ public class NumberInternals {
 
         // Re-select pattern as number may have changed sign due to rounding.
         NumberPattern pattern = this.getNumberPattern(raw, q2.isNegative());
-        result = renderer.render(q2, pattern, "", "", "", ctx.minInt, options.group.or(false), null);
+        result = renderer.render(q2, pattern, "", "", "", ctx.minInt, options.group.get(), null);
         break;
+      }
+
+      case PERCENT:
+      case PERCENT_SCALED:
+      case PERMILLE:
+      case PERMILLE_SCALED: {
+        // Get percent pattern
+        String raw = info.percentFormat.get(bundle);
+        if (raw == null) {
+          raw = latnInfo.percentFormat.get(bundle);
+        }
+        NumberPattern pattern = this.getNumberPattern(raw, n.isNegative());
+
+        // Scale the number to a percent or permille form as needed.
+        if (style == DecimalFormatStyleType.PERCENT) {
+          n = n.movePoint(2);
+        } else if (style == DecimalFormatStyleType.PERMILLE) {
+          n = n.movePoint(3);
+        }
+
+        // Select percent or permille symbol.
+        String symbol = (style == DecimalFormatStyleType.PERCENT || style == DecimalFormatStyleType.PERCENT_SCALED) ?
+            params.symbols.get(NumberSymbolType.PERCENTSIGN) : params.symbols.get(NumberSymbolType.PERMILLE);
+
+        // Adjust number using pattern and options, then render.
+        NumberContext ctx = new NumberContext(options, round, false, false, -1);
+        ctx.setPattern(pattern, false);
+        n = ctx.adjust(n);
+        n = negzero(n, options.negativeZero.or(false));
+        plural = plurals.cardinal(n);
+
+        // Re-select pattern as number may have changed sign due to rounding
+        pattern = this.getNumberPattern(raw, n.isNegative());
+        result = renderer.render(n, pattern, "", symbol, "", ctx.minInt, options.group.get(), null);
+        break;
+      }
+
+      case DECIMAL: {
+        // Get decimal pattern
+        NumberPattern pattern = this.getNumberPattern(standardRaw, n.isNegative());
+
+        // Adjust number using pattern and options, then render.
+        NumberContext ctx = new NumberContext(options, round, false, false, -1);
+        ctx.setPattern(pattern, false);
+        n = ctx.adjust(n);
+        n = negzero(n, options.negativeZero.or(false));
+        plural = plurals.cardinal(n);
+
+        // Re-select pattern as number may have changed sign due to rounding.
+        pattern = this.getNumberPattern(standardRaw, n.isNegative());
+        result = renderer.render(n, pattern, "", "", "", ctx.minInt, options.group.get(), null);
+        break;
+      }
+
+      case SCIENTIFIC: {
+        NumberContext ctx = new NumberContext(options, round, false, true, -1);
+        String format = info.scientificFormat.get(bundle);
+        if (isEmpty(format)) {
+          format = latnInfo.scientificFormat.get(bundle);
+        }
+        NumberPattern pattern = this.getNumberPattern(format, n.isNegative());
+
+        ctx.setPattern(pattern, true);
+        n = ctx.adjust(n, true);
+        // output negative zero by default for scientific
+        n = negzero(n, options.negativeZero.or(true) != false);
+
+        pattern = this.getNumberPattern(format, n.isNegative());
+
+        // Split number into coefficient and exponent
+        Decimal.Scientific sci = n.scientific(ctx.minInt == 0 ? 1 : ctx.minInt);
+
+        Decimal adjcoeff = ctx.adjust(sci.coefficient, true);
+        result = renderer.render(adjcoeff, pattern, "", "", "", 1, false, sci.exponent);
+        break;
+      }
+
 
       default:
         result = renderer.empty();

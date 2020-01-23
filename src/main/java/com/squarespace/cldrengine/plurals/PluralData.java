@@ -15,8 +15,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 class PluralData {
 
-  public static final Map<String, List<Rule>> CARDINALS;
-  public static final Map<String, List<Rule>> ORDINALS;
+  public static final Map<String, Rule[]> CARDINALS;
+  public static final Map<String, Rule[]> ORDINALS;
   public static final List<Expr> EXPRESSIONS;
 
   static {
@@ -26,24 +26,22 @@ class PluralData {
     ORDINALS = decodeRules(ordinals);
     JsonArray expressions = JsonParser.parseString(PluralExternalData.EXPRESSIONS).getAsJsonArray();
     EXPRESSIONS = decodeExpressions(expressions);
-    for (Expr expr : EXPRESSIONS) {
-      System.out.println(expr);
-    }
   }
 
-  private static Map<String, List<Rule>> decodeRules(JsonObject set) {
-    Map<String, List<Rule>> res = new HashMap<>();
+  private static Map<String, Rule[]> decodeRules(JsonObject set) {
+    Map<String, Rule[]> res = new HashMap<>();
     for (String id : set.keySet()) {
       List<Rule> rules = new ArrayList<>();
-      res.put(id, rules);
 
       JsonArray a1 = set.get(id).getAsJsonArray();
       for (int i = 0; i < a1.size(); i++) {
-       JsonArray a2 = a1.get(i).getAsJsonArray();
-       int index = a2.get(0).getAsInt();
-       int[][] indices = intArrayArray(a2.get(1).getAsJsonArray());
-       Rule rule = new Rule(index, indices);
-       rules.add(rule);
+        JsonArray a2 = a1.get(i).getAsJsonArray();
+        int index = a2.get(0).getAsInt();
+        int[][] indices = intArrayArray(a2.get(1).getAsJsonArray());
+        Rule rule = new Rule(index, indices);
+        rules.add(rule);
+
+        res.put(id, rules.toArray(new Rule[] {}));
       }
     }
     return res;

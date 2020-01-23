@@ -237,6 +237,19 @@ public class DecimalMath {
     return new DivideResult(q, new long[] { });
   }
 
+  public static int digitCount(long w) {
+    if (w < Constants.P4) {
+      if (w < Constants.P2) {
+        return w < Constants.P1 ? 1 : 2;
+      }
+      return w < Constants.P3 ? 3 : 4;
+    }
+    if (w < Constants.P6) {
+      return w < Constants.P5 ? 5 : 6;
+    }
+    return w < Constants.P7 ? 7 : 8;
+  }
+
   /**
    * divide() "add back" helper, adds v to u.
    */

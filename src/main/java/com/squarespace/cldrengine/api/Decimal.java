@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.api;
 
+import static com.squarespace.cldrengine.decimal.DecimalMath.digitCount;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -51,6 +53,14 @@ public class Decimal {
   private static final Decimal NAN = new Decimal("nan");
   private static final Decimal NEGATIVE_INFINITY = new Decimal("-infinity");
   private static final Decimal POSITIVE_INFINITY = new Decimal("infinity");
+
+  @AllArgsConstructor
+  public static class Properties {
+    public final long[] data;
+    public final int sign;
+    public final int exp;
+    public final int flag;
+  }
 
   private long[] data;
   private int sign;
@@ -218,7 +228,12 @@ public class Decimal {
     return 0;
   }
 
-  // TODO: properties
+  /**
+   * Return the raw internal properties of the number. Use with caution.
+   */
+  public Properties properties() {
+    return new Properties(this.data, this.sign, this.exp, this.flag);
+  }
 
   /**
    * Return the absolute value of the number.
@@ -1170,19 +1185,6 @@ public class Decimal {
     return null;
   }
 
-  private static int digitCount(long w) {
-    if (w < Constants.P4) {
-      if (w < Constants.P2) {
-        return w < Constants.P1 ? 1 : 2;
-      }
-      return w < Constants.P3 ? 3 : 4;
-    }
-    if (w < Constants.P6) {
-      return w < Constants.P5 ? 5 : 6;
-    }
-    return w < Constants.P7 ? 7 : 8;
-  }
-
   private static long[] convert(List<Integer> list) {
     int len = list.size();
     long[] res = new long[len];
@@ -1191,6 +1193,5 @@ public class Decimal {
     }
     return res;
   }
-
 
 }

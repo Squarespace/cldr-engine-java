@@ -1,5 +1,5 @@
 plugins {
-  id 'me.champeau.gradle.jmh' version '0.3.0'
+  //id 'me.champeau.gradle.jmh' version '0.3.0'
 }
 
 repositories {
@@ -7,11 +7,11 @@ repositories {
 	mavenCentral()
 }
 
-apply plugin: 'me.champeau.gradle.jmh'
+//apply plugin: 'me.champeau.gradle.jmh'
 apply plugin: 'java'
-apply plugin: 'maven'
+//apply plugin: 'maven'
 apply plugin: 'eclipse'
-apply plugin: 'jacoco'
+//apply plugin: 'jacoco'
 
 group = 'com.squarespace.cldrengine'
 
@@ -21,7 +21,7 @@ targetCompatibility = 1.8
 project.ext {
 	ccVersion = '1.0.6'
 	gsonVersion = '2.8.6'
-	hamcrestVersion = '2.2'
+	//hamcrestVersion = '2.2'
 	lombokVersion = '1.18.10'
  	testngVersion = '7.1.0'
 }
@@ -34,11 +34,14 @@ dependencies {
   compileOnly "org.projectlombok:lombok:${lombokVersion}"
   annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
  
-  testCompile "org.testng:testng:${testngVersion}"
-  testCompile "org.hamcrest:java-hamcrest:${hamcrestVersion}"
-  testCompile 'commons-io:commons-io:2.1'
+  testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+  testImplementation "org.testng:testng:${testngVersion}"
+  //testCompile "org.hamcrest:java-hamcrest:${hamcrestVersion}"
+  testImplementation 'commons-io:commons-io:2.1'
+  testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
+/*
 jmh {
   jmhVersion '1.19'
   forceGC = true
@@ -46,6 +49,7 @@ jmh {
   zip64 = true
   //include = '.*LanguageMatcher.*'
 }
+*/
 
 sourceSets.main.java.srcDirs = ['src/main/java', 'src/generated/java']
 sourceSets.main.resources.srcDirs = ['src/main/resources', 'src/generated/resources']
@@ -57,7 +61,7 @@ eclipse {
 }
 
 wrapper {
-	gradleVersion = '4.9'
+	gradleVersion = '6.1'
 }
 
 clean {
@@ -66,15 +70,16 @@ clean {
 
 test {
 	useTestNG()
-	jacoco {
-		append = false
-	}
+	//jacoco {
+  //		append = false
+	//}
 }
 
-jacoco {
-	toolVersion = '0.7.9'
-}
+//jacoco {
+//	toolVersion = '0.7.9'
+//}
 
+/*
 jacocoTestReport {
 	group = 'Reporting'
 	additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
@@ -84,4 +89,5 @@ jacocoTestReport {
 		html.destination = "${buildDir}/jacoco-report"
 	}
 }
+*/
 

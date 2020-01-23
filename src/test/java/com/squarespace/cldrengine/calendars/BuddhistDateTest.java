@@ -19,7 +19,7 @@ public class BuddhistDateTest {
 
     d = make(n, NEW_YORK);
 
-    assertEquals(d.toString(), "Buddhist");
+    assertEquals(d.toString(), "Buddhist 2561-04-11 19:59:59.123 America/New_York");
   }
 
   private static BuddhistDate make(long epoch, String zoneId) {

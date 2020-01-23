@@ -53,7 +53,6 @@ public class PluralSamplesTest {
     public final String[] samples;
   }
 
-  @BeforeClass
   protected Map<String, List<TestCase>> loadCases() {
     try {
       Map<String, List<TestCase>> cases = new HashMap<>();

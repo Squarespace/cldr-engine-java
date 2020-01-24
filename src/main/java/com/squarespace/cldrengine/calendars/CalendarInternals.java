@@ -27,6 +27,8 @@ import com.squarespace.cldrengine.utils.JsonUtils;
 public class CalendarInternals {
 
   private static final Map<String, List<String>> CALENDAR_PREFS = new HashMap<>();
+  private static final Map<String, Integer> WEEK_FIRST_DAY = new HashMap<>();
+  private static final Map<String, Integer> WEEK_MIN_DAYS = new HashMap<>();
 
   static {
     String[] calendarIds = JsonUtils.decodeArray(JsonParser.parseString(CalendarExternalData.CALENDARIDS));
@@ -40,6 +42,18 @@ public class CalendarInternals {
         prefs.add(pref);
       }
       CALENDAR_PREFS.put(region, prefs);
+    }
+
+    root = JsonParser.parseString(CalendarExternalData.WEEKFIRSTDAY).getAsJsonObject();
+    for (String region : root.keySet()) {
+      int firstDay = root.get(region).getAsInt();
+      WEEK_FIRST_DAY.put(region, firstDay);
+    }
+
+    root = JsonParser.parseString(CalendarExternalData.WEEKMINDAYS).getAsJsonObject();
+    for (String region : root.keySet()) {
+      int minDays = root.get(region).getAsInt();
+      WEEK_MIN_DAYS.put(region, minDays);
     }
   }
 
@@ -71,6 +85,16 @@ public class CalendarInternals {
 
   public DateTimePattern getHourPattern(String raw, boolean negative) {
      return this.hourPatternCache.get(raw)[negative ? 1 : 0];
+  }
+
+  public int weekFirstDay(String region) {
+    Integer w = WEEK_FIRST_DAY.get(region);
+    return w == null ? WEEK_FIRST_DAY.get("001") : w;
+  }
+
+  public int weekMinDays(String region) {
+    Integer w = WEEK_MIN_DAYS.get(region);
+    return w == null ? WEEK_MIN_DAYS.get("001") : w;
   }
 
   public <R> R formatDateTime(CalendarType calendar, CalendarContext<CalendarDate> ctx,

@@ -13,6 +13,7 @@ type Type =
   | 'EraWidthType'
   | 'FieldWidthType'
   | 'FormatWidthType'
+  | 'MessageFormatFuncMap'
   | 'RoundingModeType'
   | 'Integer'
   | 'String'
@@ -31,6 +32,7 @@ const API_SET = new Set<Type>([
   'EraWidthType',
   'FieldWidthType',
   'FormatWidthType',
+  'MessageFormatFuncMap',
   'RoundingModeType',
 ]);
 
@@ -61,11 +63,16 @@ const CalendarFieldsOptions =
     .field('width', 'FieldWidthType')
     .field('context', 'ContextType');
 
-const EraFieldOptions =
-  new Option('EraFieldsOptions')
-    .field('calendar', 'CalendarType')
-    .field('width', 'EraWidthType')
+const CurrencyDisplayNameOptions =
+  new Option('CurrencyDisplayNameOptions')
     .field('context', 'ContextType');
+
+const CurrencyFormatOptions =
+  new Option('CurrencyFormatOptions', 'NumberFormatOptions')
+    .field('divisor', 'Integer')
+    .field('cash', 'Boolean')
+    .field('style', 'CurrencyFormatStyleType')
+    .field('symbolWidth', 'CurrencySymbolWidthType');
 
 const DateFieldFormatOptions =
   new Option('DateFieldFormatOptions')
@@ -93,11 +100,6 @@ const DecimalAdjustOptions =
     .field('maximumSignificantDigits', 'Integer')
     .field('minimumSignificantDigits', 'Integer');
 
-const NumberFormatOptoions =
-  new Option('NumberFormatOptions', 'DecimalAdjustOptions')
-    .field('group', 'Boolean')
-    .field('numberSystem', 'String');
-
 const DecimalFormatOptions =
   new Option('DecimalFormatOptions', 'NumberFormatOptions')
     .field('style', 'DecimalFormatStyleType')
@@ -106,12 +108,11 @@ const DecimalFormatOptions =
     .field('context', 'ContextType')
     .field('errors', 'String');
 
-const CurrencyFormatOptions =
-  new Option('CurrencyFormatOptions', 'NumberFormatOptions')
-    .field('divisor', 'Integer')
-    .field('cash', 'Boolean')
-    .field('style', 'CurrencyFormatStyleType')
-    .field('symbolWidth', 'CurrencySymbolWidthType');
+const EraFieldOptions =
+  new Option('EraFieldsOptions')
+    .field('calendar', 'CalendarType')
+    .field('width', 'EraWidthType')
+    .field('context', 'ContextType');
 
 const MathContext =
   new Option('MathContext')
@@ -119,16 +120,29 @@ const MathContext =
     .field('precision', 'Integer')
     .field('round', 'RoundingModeType');
 
+const MessageFormatterOptions =
+  new Option('MessageFormatterOptions')
+    .field('language', 'String')
+    .field('region', 'String')
+    .field('formatters', 'MessageFormatFuncMap');
+
+const NumberFormatOptions =
+  new Option('NumberFormatOptions', 'DecimalAdjustOptions')
+    .field('group', 'Boolean')
+    .field('numberSystem', 'String');
+
 const INDEX = [
   CalendarFieldsOptions,
+  CurrencyDisplayNameOptions,
   CurrencyFormatOptions,
   DateFieldFormatOptions,
   DateFormatOptions,
   DecimalAdjustOptions,
   DecimalFormatOptions,
   EraFieldOptions,
-  NumberFormatOptoions,
-  MathContext
+  MathContext,
+  MessageFormatterOptions,
+  NumberFormatOptions,
 ].reduce((p, c) => {
   p[c.name] = c;
   return p;

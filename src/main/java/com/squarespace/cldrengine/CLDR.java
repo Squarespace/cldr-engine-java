@@ -32,8 +32,6 @@ public class CLDR {
   private static final Internals INTERNALS = new Internals(CONFIG, VERSION, false);
 
   private static final ConcurrentHashMap<String, Bundle> BUNDLES = new ConcurrentHashMap<>(100);
-//  private final CLocale locale;
-//  private final Bundle bundle;
 
   public final General General;
   public final Calendars Calendars;
@@ -41,12 +39,8 @@ public class CLDR {
   public final Schema Schema;
 
   protected CLDR(CLocale locale, Bundle bundle) {
-//    this.locale = locale;
-//    this.bundle = bundle;
-//    System.out.println(CONFIG.checksum(VERSION));
-//    Internals internals = new Internals(CONFIG, VERSION, false);
     PrivateApi privateApi = new PrivateApi(bundle, INTERNALS);
-    this.General = new GeneralImpl(locale, bundle);
+    this.General = new GeneralImpl(bundle, locale, INTERNALS);
     this.Calendars = new CalendarsImpl(bundle, INTERNALS, privateApi);
     this.Numbers = new NumbersImpl(bundle, INTERNALS, privateApi);
     this.Schema = Meta.SCHEMA;

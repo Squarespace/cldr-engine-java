@@ -13,7 +13,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 //apply plugin: 'jacoco'
 
-group = 'com.squarespace.cldrengine'
+group = 'com.squarespace.cldr-engine'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -56,7 +56,7 @@ sourceSets.main.resources.srcDirs = ['src/main/resources', 'src/generated/resour
 
 eclipse {
 	project {
-		name = 'cldrengine'
+		name = 'squarespace-cldr-engine'
 	}
 }
 

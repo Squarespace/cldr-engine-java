@@ -2,8 +2,11 @@ package com.squarespace.cldrengine.general;
 
 import java.util.Map;
 
+import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.CharacterOrderType;
 import com.squarespace.cldrengine.api.ContextTransformFieldType;
 import com.squarespace.cldrengine.api.ContextType;
+import com.squarespace.cldrengine.api.LineOrderType;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.LayoutSchema;
 import com.squarespace.cldrengine.internal.ListPatternsSchema;
@@ -28,6 +31,16 @@ public class GeneralInternals {
     this.listPatterns = schema.ListPatterns;
     this.names = schema.Names;
     this.wrapperPatternCache = new Cache<WrapperPattern>(WrapperPattern::parse, 64);
+  }
+
+  public CharacterOrderType characterOrder(Bundle bundle) {
+    String s = this.layout.characterOrder.get(bundle);
+    return CharacterOrderType.fromString(s);
+  }
+
+  public LineOrderType lineOrder(Bundle bundle) {
+    String s = this.layout.lineOrder.get(bundle);
+    return LineOrderType.fromString(s);
   }
 
   /**

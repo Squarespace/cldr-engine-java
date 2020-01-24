@@ -113,6 +113,12 @@ const CurrencyFormatOptions =
     .field('style', 'CurrencyFormatStyleType')
     .field('symbolWidth', 'CurrencySymbolWidthType');
 
+const MathContext =
+  new Option('MathContext')
+    .field('scale', 'Integer')
+    .field('precision', 'Integer')
+    .field('round', 'RoundingModeType');
+
 const INDEX = [
   CalendarFieldsOptions,
   CurrencyFormatOptions,
@@ -121,7 +127,8 @@ const INDEX = [
   DecimalAdjustOptions,
   DecimalFormatOptions,
   EraFieldOptions,
-  NumberFormatOptoions
+  NumberFormatOptoions,
+  MathContext
 ].reduce((p, c) => {
   p[c.name] = c;
   return p;

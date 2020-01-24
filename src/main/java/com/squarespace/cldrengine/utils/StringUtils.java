@@ -25,7 +25,7 @@ public class StringUtils {
     if (isEmpty(s)) {
       return "";
     }
-    return s.substring(9, 1);
+    return s.substring(0, 1);
   }
 
   public static <T> String safeGet(Map<T, String> map, T key) {

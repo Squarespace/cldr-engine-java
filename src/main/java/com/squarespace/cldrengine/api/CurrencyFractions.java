@@ -10,6 +10,6 @@ public class CurrencyFractions {
   public final int digits;
   public final int rounding;
   public final int cashDigits;
-  public final int CashRounding;
+  public final int cashRounding;
 
 }

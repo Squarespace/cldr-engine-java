@@ -12,6 +12,8 @@ import com.squarespace.cldrengine.decimal.Constants;
 import com.squarespace.cldrengine.decimal.DecimalFlag;
 import com.squarespace.cldrengine.decimal.DecimalFormatter;
 import com.squarespace.cldrengine.decimal.DecimalMath;
+import com.squarespace.cldrengine.decimal.DecimalMath.DivideResult;
+import com.squarespace.cldrengine.decimal.DecimalMath.MathCtx;
 import com.squarespace.cldrengine.decimal.StringDecimalFormatter;
 
 import lombok.AllArgsConstructor;
@@ -297,9 +299,120 @@ public class Decimal {
     return r == null ? this.addsub(this, v, -v.sign) : r;
   }
 
-  // TODO: multiply
+  /**
+   * Multplies by v with optional math context.
+   */
+  public Decimal multiply(Decimal v, MathContext context) {
+    Decimal r = this.handleFlags(Op.MULTIPLICATION, v);
+    if (r != null) {
+      return r;
+    }
 
-  // TODO: divide
+    MathCtx ctx = DecimalMath.parseMathContext(RoundingModeType.HALF_EVEN, context);
+    Decimal u = this;
+    Decimal w = new Decimal(ZERO);
+    w.sign = u.sign == v.sign ? 1 : -1;
+    w.exp = (u.exp + v.exp);
+
+    boolean uz = u.isZero();
+    boolean vz = v.isZero();
+    if (uz || vz) {
+      if (!ctx.usePrecision) {
+        w._setScale(ctx.scaleprec, RoundingModeType.HALF_EVEN);
+      }
+      return w;
+    }
+
+    w.data = DecimalMath.multiply(u.data, v.data);
+    w.sign = u.sign == v.sign ? 1 : -1;
+    w.trim();
+
+    // Adjust coefficient to match precision
+    if (ctx.usePrecision) {
+      int delta = w.precision() - ctx.scaleprec;
+      if (delta > 0) {
+        w._shiftright(delta, ctx.rounding);
+      }
+    } else {
+      w._setScale(ctx.scaleprec, ctx.rounding);
+    }
+    return w;
+  }
+
+  /**
+   * Divide by v with optional math context.
+   */
+  public Decimal divide(Decimal v, MathContext context) {
+    Decimal r = this.handleFlags(Op.DIVISION, v);
+    if (r != null) {
+      return r;
+    }
+
+    MathCtx ctx = DecimalMath.parseMathContext(RoundingModeType.HALF_EVEN, context);
+
+    Decimal u = this;
+    if (!ctx.usePrecision) {
+      // Shift the numerator to ensure the result has the desired scale.
+      int sh = ctx.scaleprec + v.scale();
+      if (sh > 0) {
+        u = u.shiftleft(sh);
+        u.exp -= sh;
+      }
+    }
+
+    Decimal w = new Decimal(ZERO);
+
+    // Shift in extra digits for rounding.
+    int shift = 2;
+
+    // In precision mode, ensure shift takes into account target precision
+    if (ctx.usePrecision) {
+      shift += (v.precision() - u.precision()) + ctx.scaleprec;
+    }
+
+    // Calculate the exponent on the result
+    int exp = (u.exp - v.exp) - shift;
+
+    // Shift numerator or denominator
+    if (shift > 0) {
+      u = u.shiftleft(shift);
+    } else if (shift < 0) {
+      v = v.shiftleft(-shift);
+    }
+
+    // Perform the division
+    DivideResult result = DecimalMath.divide(u.data, v.data, false);
+    long[] quo = result.quotient;
+    long[] rem = result.remainder;
+
+    w.data = quo;
+    w.sign = u.sign == v.sign ? 1 : -1;
+    w.exp = exp;
+    w.trim();
+
+    boolean hasrem = rem.length > 0 && rem[rem.length - 1] != 0;
+    if (hasrem) {
+      long lsd = w.data[0] % 10;
+      if (lsd == 0 || lsd == 5) {
+        w.data[0]++;
+      }
+    }
+
+    if (ctx.usePrecision) {
+      // Adjust precision to match context
+      int delta = w.precision() - ctx.scaleprec;
+      if (delta > 0) {
+        w._shiftright(delta, ctx.rounding);
+      }
+    } else {
+      // Adjust scale to match context
+      w._setScale(ctx.scaleprec, ctx.rounding);
+    }
+    if (ctx.usePrecision) {
+      w._stripTrailingZeros();
+    }
+    return w;
+  }
 
   // TODO: divmod
 

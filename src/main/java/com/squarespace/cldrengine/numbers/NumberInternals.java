@@ -3,25 +3,32 @@ package com.squarespace.cldrengine.numbers;
 import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 import static com.squarespace.cldrengine.utils.TypeUtils.defaulter;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.squarespace.cldrengine.api.AltType;
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.CurrencyFormatOptions;
+import com.squarespace.cldrengine.api.CurrencyFormatStyleType;
 import com.squarespace.cldrengine.api.CurrencyFractions;
+import com.squarespace.cldrengine.api.CurrencySymbolWidthType;
 import com.squarespace.cldrengine.api.CurrencyType;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.DecimalAdjustOptions;
 import com.squarespace.cldrengine.api.DecimalFormatOptions;
 import com.squarespace.cldrengine.api.DecimalFormatStyleType;
+import com.squarespace.cldrengine.api.MathContext;
 import com.squarespace.cldrengine.api.NumberSymbolType;
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.RoundingModeType;
 import com.squarespace.cldrengine.internal.CurrenciesSchema;
+import com.squarespace.cldrengine.internal.CurrencyFormats;
 import com.squarespace.cldrengine.internal.DecimalFormats;
 import com.squarespace.cldrengine.internal.DigitsArrow;
+import com.squarespace.cldrengine.internal.FieldArrow;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.NumberSystemInfo;
 import com.squarespace.cldrengine.internal.NumbersSchema;
@@ -74,6 +81,10 @@ public class NumberInternals {
 
   public NumberRenderer<List<Part>> partsRenderer(NumberParams params) {
     return new PartsNumberFormatter(params);
+  }
+
+  public String getCurrencyPluralName(Bundle bundle, CurrencyType code, PluralType plural) {
+    return this.currencies.pluralName.get(bundle, plural, code);
   }
 
   public NumberPattern getNumberPattern(String raw, boolean negative) {
@@ -232,8 +243,138 @@ public class NumberInternals {
     CurrencyFractions fractions = getCurrencyFractions(code);
     RoundingModeType round = options.round.or(RoundingModeType.HALF_EVEN);
 
-    // TODO:
+    if (options.cash.ok() && fractions.cashRounding > 1) {
+      Decimal cr = new Decimal(fractions.cashRounding);
+      MathContext cx = MathContext.build().round(RoundingModeType.HALF_EVEN);
+      // Simple cash rounding to nearest "cash digits" increment
+      n = n.divide(cr, cx);
+      n = n.setScale(fractions.cashDigits, round);
+      n = n.multiply(cr, cx);
+    }
 
+    // TODO: display context support
+    AltType width = options.symbolWidth.get() == CurrencySymbolWidthType.NARROW
+        ? AltType.NARROW : AltType.NONE;
+    CurrencyFormatStyleType style = options.style.or(CurrencyFormatStyleType.SYMBOL);
+
+    NumberSystemInfo latnInfo = this.numbers.numberSystem.get("latn");
+    NumberSystemInfo info = this.numbers.numberSystem.get(params.numberSystemName.value());
+    if (info == null) {
+      info = latnInfo;
+    }
+
+    CurrencyFormats currencyFormats = info.currencyFormats;
+    CurrencyFormats latnDecimalFormats = latnInfo.currencyFormats;
+
+    String standardRaw = currencyFormats.standard.get(bundle);
+    if (isEmpty(standardRaw)) {
+      standardRaw = latnDecimalFormats.standard.get(bundle);
+    }
+
+    // Some locales have a special decimal symbol for certain currencies, e.g. pt-PT and PTE
+    String decimal = this.currencies.decimal.get(bundle, code);
+
+    PluralRules plurals = bundle.plurals();
+
+    switch (style) {
+      case CODE:
+      case NAME: {
+        String raw = info.decimalFormats.standard.get(bundle);
+        if (isEmpty(raw)) {
+          raw = latnInfo.decimalFormats.standard.get(bundle);
+        }
+        NumberPattern pattern = this.getNumberPattern(raw, n.isNegative());
+
+        // Adjust number using the pattern and options, then render.
+        NumberContext ctx = new NumberContext(options, round, false, false, fractions.digits);
+        ctx.setPattern(pattern, false);
+        n = ctx.adjust(n);
+        n = negzero(n, false);
+
+        // Re-select pattern as number may have changed sign due to rounding.
+        pattern = this.getNumberPattern(raw, n.isNegative());
+        T num = renderer.render(n, pattern, "", "", decimal, ctx.minInt, options.group.get(), null);
+
+        // Compute plural category and select pluralized unit.
+        PluralType plural = plurals.cardinal(n);
+        String unit = style == CurrencyFormatStyleType.CODE
+            ? code.value() : this.getCurrencyPluralName(bundle, code, plural);
+
+        // Wrap number and unit together.
+        // TODO: implement a more concise fallback to 'other' for pluralized lookups
+        String unitWrapper = currencyFormats.unitPattern.get(bundle, plural);
+        if (unitWrapper == null) {
+          unitWrapper = currencyFormats.unitPattern.get(bundle, PluralType.OTHER);
+        }
+        if (unitWrapper == null) {
+          unitWrapper = latnInfo.currencyFormats.unitPattern.get(bundle, plural);
+        }
+        if (unitWrapper == null) {
+          unitWrapper = latnInfo.currencyFormats.unitPattern.get(bundle, PluralType.OTHER);
+        }
+        return renderer.wrap(this.internals.general, unitWrapper, Arrays.asList(num, renderer.make("unit", unit)));
+      }
+
+      case SHORT: {
+        // The extra complexity here is to deal with rounding up and selecting the
+        // correct pluralized pattern for the final rounded form.
+        DigitsArrow<PluralType> patternImpl = currencyFormats.short_;
+
+        NumberContext ctx = new NumberContext(options, round, true, false, fractions.digits);
+        String symbol = this.currencies.symbol.get(bundle, width, code);
+
+        // Adjust the number using the compact pattern and divisor.
+        Pair<Decimal, Integer> res;
+        if (options.divisor.ok()) {
+          res = this.setupCompactDivisor(bundle, n, ctx, standardRaw, options.divisor.get(), patternImpl);
+        } else {
+          res = this.setupCompact(bundle, n, ctx, standardRaw, patternImpl);
+        }
+        Decimal q2 = res._1;
+        int ndigits = res._2;
+        q2 = negzero(q2, false);
+
+        // Compute the plural category for the final q2.
+        PluralType plural = plurals.cardinal(q2);
+
+        // Select the final pluralized compact pattern based on the integer
+        // digits of n and the plural category of the rounded / shifted number q2.
+        String raw = patternImpl.get(bundle, plural, ndigits)._1;
+        if (isEmpty(raw) || raw.equals("0")) {
+          raw = standardRaw;
+        }
+
+        NumberPattern pattern = this.getNumberPattern(raw, q2.isNegative());
+        return renderer.render(q2, pattern, symbol, "", decimal, ctx.minInt, options.group.get(), null);
+      }
+
+      case ACCOUNTING:
+      case SYMBOL: {
+        // Select standard or accounting pattern based on style.
+        FieldArrow styleArrow = style == CurrencyFormatStyleType.SYMBOL
+            ? currencyFormats.standard : currencyFormats.accounting;
+        String raw = styleArrow.get(bundle);
+        if (isEmpty(raw)) {
+          styleArrow = style == CurrencyFormatStyleType.SYMBOL
+              ? latnInfo.currencyFormats.standard : latnInfo.currencyFormats.accounting;
+          raw = styleArrow.get(bundle);
+        }
+        NumberPattern pattern = this.getNumberPattern(raw, n.isNegative());
+
+        // Adjust number using pattern and options, then render.
+        NumberContext ctx = new NumberContext(options, round, false, false, fractions.digits);
+        ctx.setPattern(pattern, false);
+        n = ctx.adjust(n);
+        n = negzero(n, false);
+
+        // Re-select pattern as number may have changed sign due to rounding.
+        pattern = this.getNumberPattern(raw, n.isNegative());
+        String symbol = this.currencies.symbol.get(bundle, width, code);
+        return renderer.render(n, pattern, symbol, "", decimal, ctx.minInt, options.group.get(), null);
+      }
+    }
+
+    // NO valid style matched
     return renderer.empty();
   }
 

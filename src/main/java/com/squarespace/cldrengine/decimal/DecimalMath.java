@@ -1,6 +1,10 @@
 package com.squarespace.cldrengine.decimal;
 
+import com.squarespace.cldrengine.api.MathContext;
+import com.squarespace.cldrengine.api.RoundingModeType;
+
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 public class DecimalMath {
 
@@ -235,6 +239,33 @@ public class DecimalMath {
       return new DivideResult(q, r);
     }
     return new DivideResult(q, new long[] { });
+  }
+
+  @AllArgsConstructor
+  @ToString
+  public static class MathCtx {
+    public final boolean usePrecision;
+    public final int scaleprec;
+    public final RoundingModeType rounding;
+  }
+
+  private static final int DEFAULT_PRECISION = 28;
+
+  public static MathCtx parseMathContext(RoundingModeType rounding, MathContext context) {
+    boolean usePrecision = true;
+    int scaleprec = DEFAULT_PRECISION;
+    if (context != null) {
+      if (context.scale.ok()) {
+        scaleprec = context.scale.get();
+        usePrecision = false;
+      } else if (context.precision.ok()) {
+        scaleprec = Math.max(context.precision.get(), 0);
+      }
+      if (context.round.ok()) {
+        rounding = context.round.get();
+      }
+    }
+    return new MathCtx(usePrecision, scaleprec, rounding);
   }
 
   public static int digitCount(long w) {

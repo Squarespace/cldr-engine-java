@@ -34,6 +34,11 @@ public class Sketch10 {
     };
 
     for (CurrencyType code : codes) {
+      System.out.println("\n");
+      System.out.println(cldr.Numbers.getCurrencyDisplayName(code, null));
+      System.out.println(cldr.Numbers.getCurrencyPluralName(n, code, null));
+      System.out.println(cldr.Numbers.getCurrencySymbol(code, null));
+
       CurrencyFormatOptions copts = CurrencyFormatOptions.build()
           .group(true)
           .style(CurrencyFormatStyleType.CODE);

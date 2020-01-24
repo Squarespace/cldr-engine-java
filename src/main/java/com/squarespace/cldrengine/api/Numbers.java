@@ -27,7 +27,40 @@ public interface Numbers {
   /**
    * Formats a currency value to an array of parts.
    */
-//  formatCurrencyToParts(num: DecimalArg, code: CurrencyType, options?: CurrencyFormatOptions): Part[];
+  List<Part> formatCurrencyToParts(Decimal n, CurrencyType code, CurrencyFormatOptions options);
 
+  /**
+   * Returns the currency symbol of the given width.
+   */
+  String getCurrencySymbol(CurrencyType code, CurrencySymbolWidthType width);
+
+  /**
+   * Returns the display name of the currency.
+   */
+  String getCurrencyDisplayName(CurrencyType code, CurrencyDisplayNameOptions options);
+
+  /**
+   * Returns the pluralized display name of the currency.
+   */
+  String getCurrencyPluralName(Decimal n, CurrencyType code, CurrencyDisplayNameOptions options);
+
+  /**
+   * Return the currency fraction info for a given currency code.
+   */
+  CurrencyFractions getCurrencyFractions(CurrencyType code);
+
+  /**
+   * Return the currency code to use for a given region.
+   */
+  CurrencyType getCurrencyForRegion(String region);
+
+  /**
+   * Returns the plural cardinal category of the given decimal number.
+   */
+  PluralType getPluralCardinal(Decimal n, DecimalAdjustOptions options);
+
+  /**
+   * Returns the plural ordinal category of the given decimal number.
+   */
+  PluralType getPluralOrdinal(Decimal n, DecimalAdjustOptions options);
 }
-

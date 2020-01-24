@@ -1,9 +1,15 @@
 package com.squarespace.cldrengine.numbers;
 
 import java.util.List;
+import java.util.Map;
 
 import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.ContextTransformFieldType;
+import com.squarespace.cldrengine.api.ContextType;
+import com.squarespace.cldrengine.api.CurrencyDisplayNameOptions;
 import com.squarespace.cldrengine.api.CurrencyFormatOptions;
+import com.squarespace.cldrengine.api.CurrencyFractions;
+import com.squarespace.cldrengine.api.CurrencySymbolWidthType;
 import com.squarespace.cldrengine.api.CurrencyType;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.DecimalAdjustOptions;
@@ -21,6 +27,9 @@ public class NumbersImpl implements Numbers {
 
   private static final DecimalFormatOptions FORCE_ERRORS = DecimalFormatOptions.build()
       .errors("nan infinity");
+
+  private static final CurrencyDisplayNameOptions DEFAULT_CURRENCY_OPTIONS =
+      CurrencyDisplayNameOptions.build().context(ContextType.BEGIN_SENTENCE);
 
   public final Bundle bundle;
   public final NumberInternals numbers;
@@ -57,6 +66,57 @@ public class NumbersImpl implements Numbers {
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "finance");
     NumberRenderer<String> renderer = this.numbers.stringRenderer(params);
     return this.formatCurrencyImpl(renderer, params, n, code, options);
+  }
+
+  public List<Part> formatCurrencyToParts(Decimal n, CurrencyType code, CurrencyFormatOptions options) {
+    options = (options == null ? CurrencyFormatOptions.build() : options);
+    NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "finance");
+    NumberRenderer<List<Part>> renderer = this.numbers.partsRenderer(params);
+    return this.formatCurrencyImpl(renderer, params, n, code, options);
+  }
+
+  public String getCurrencySymbol(CurrencyType code, CurrencySymbolWidthType width) {
+    return this.numbers.getCurrencySymbol(bundle, code, width);
+  }
+
+  public String getCurrencyDisplayName(CurrencyType code, CurrencyDisplayNameOptions options) {
+    options = (options == null ? CurrencyDisplayNameOptions.build() : options);
+    ContextType context = options.context.or(ContextType.BEGIN_SENTENCE);
+    String name = this.numbers.getCurrencyDisplayName(this.bundle, code);
+    Map<ContextTransformFieldType, String> transform = this.privateApi.getContextTransformInfo();
+    return this.general.contextTransform(name, transform, context, ContextTransformFieldType.CURRENCYNAME);
+  }
+
+  public String getCurrencyPluralName(Decimal n, CurrencyType code, CurrencyDisplayNameOptions options) {
+    options = (options == null ? CurrencyDisplayNameOptions.build() : options);
+    ContextType context = options.context.or(ContextType.BEGIN_SENTENCE);
+    // TODO: support adjustment options here
+    PluralType plural = this.getPluralCardinal(n, null);
+    String name = this.numbers.getCurrencyPluralName(bundle, code, plural);
+    Map<ContextTransformFieldType, String> transform = this.privateApi.getContextTransformInfo();
+    return this.general.contextTransform(name, transform, context, ContextTransformFieldType.CURRENCYNAME);
+  }
+
+  public CurrencyFractions getCurrencyFractions(CurrencyType code) {
+    return this.numbers.getCurrencyFractions(code);
+  }
+
+  public CurrencyType getCurrencyForRegion(String region) {
+    return this.numbers.getCurrencyForRegion(region);
+  }
+
+  public PluralType getPluralCardinal(Decimal n, DecimalAdjustOptions options) {
+    if (options != null) {
+      n = this.adjustDecimal(n, options);
+    }
+    return this.bundle.plurals().cardinal(n);
+  }
+
+  public PluralType getPluralOrdinal(Decimal n, DecimalAdjustOptions options) {
+    if (options != null) {
+      n = this.adjustDecimal(n, options);
+    }
+    return this.bundle.plurals().ordinal(n);
   }
 
   protected <T> T formatDecimalImpl(NumberRenderer<T> renderer, NumberParams params,

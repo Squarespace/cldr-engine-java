@@ -50,6 +50,8 @@ public class NumberInternals {
 
   private static final Map<CurrencyType, CurrencyFractions> CURRENCY_FRACTIONS = new HashMap<>();
 
+  private static final Map<String, CurrencyType> CURRENCY_REGIONS = new HashMap<>();
+
   private static final CurrencyFractions DEFAULT_CURRENCY_FRACTIONS =
       new CurrencyFractions(2, 0, 2, 0);
 
@@ -61,6 +63,12 @@ public class NumberInternals {
       int[] values = StringUtils.intArray(row[1]);
       CURRENCY_FRACTIONS.put(code, new CurrencyFractions(
           values[0], values[1], values[2], values[3]));
+    }
+
+    parts = NumberExternalData.CURRENCYREGIONSRAW.split("\\|");
+    for (String part : parts) {
+      String[] row = part.split(":");
+      CURRENCY_REGIONS.put(row[0], CurrencyType.fromString(row[1]));
     }
   }
 
@@ -90,6 +98,19 @@ public class NumberInternals {
 
   public NumberRenderer<List<Part>> partsRenderer(NumberParams params) {
     return new PartsNumberFormatter(params);
+  }
+
+  public String getCurrencySymbol(Bundle bundle, CurrencyType code, CurrencySymbolWidthType width) {
+    AltType alt = width == CurrencySymbolWidthType.NARROW ? AltType.NARROW : AltType.NONE;
+    String symbol = this.currencies.symbol.get(bundle, alt, code);
+    if (isEmpty(symbol)) {
+      symbol = this.currencies.symbol.get(bundle, AltType.NONE, code);
+    }
+    return symbol;
+  }
+
+  public String getCurrencyDisplayName(Bundle bundle, CurrencyType code) {
+    return this.currencies.displayName.get(bundle, code);
   }
 
   public String getCurrencyPluralName(Bundle bundle, CurrencyType code, PluralType plural) {
@@ -390,6 +411,10 @@ public class NumberInternals {
   protected CurrencyFractions getCurrencyFractions(CurrencyType code) {
     CurrencyFractions res = CURRENCY_FRACTIONS.get(code);
     return res == null ? DEFAULT_CURRENCY_FRACTIONS : res;
+  }
+
+  protected CurrencyType getCurrencyForRegion(String region) {
+    return CURRENCY_REGIONS.getOrDefault(region, CurrencyType.USD);
   }
 
   protected Decimal negzero(Decimal n, boolean show) {

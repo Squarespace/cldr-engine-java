@@ -9,6 +9,7 @@ type Type =
   | 'CurrencyFormatStyleType'
   | 'CurrencySymbolWidthType'
   | 'DateFieldWidthType'
+  | 'Decimal'
   | 'DecimalFormatStyleType'
   | 'EraWidthType'
   | 'FieldWidthType'
@@ -18,6 +19,9 @@ type Type =
   | 'RoundingModeType'
   | 'Integer'
   | 'String'
+  | 'UnitFormatStyleType'
+  | 'UnitLength'
+  | 'UnitType'
   ;
 
 const API_PACKAGE = 'com.squarespace.cldrengine.api';
@@ -29,6 +33,7 @@ const API_SET = new Set<Type>([
   'CurrencyFormatStyleType',
   'CurrencySymbolWidthType',
   'DateFieldWidthType',
+  'Decimal',
   'DecimalFormatStyleType',
   'EraWidthType',
   'FieldWidthType',
@@ -36,6 +41,9 @@ const API_SET = new Set<Type>([
   'MessageFormatFuncMap',
   'PluralRules',
   'RoundingModeType',
+  'UnitFormatStyleType',
+  'UnitLength',
+  'UnitType'
 ]);
 
 const INTERNAL_SET = new Set<Type>([
@@ -135,6 +143,19 @@ const NumberFormatOptions =
     .field('group', 'Boolean')
     .field('numberSystem', 'String');
 
+const Quantity =
+  new Option('Quantity')
+    .field('value', 'Decimal')
+    .field('unit', 'UnitType')
+    .field('per', 'UnitType')
+    .field('times', 'UnitType');
+
+const UnitFormatOptions =
+  new Option('UnitFormatOptions', 'NumberFormatOptions')
+    .field('divisor', 'Integer')
+    .field('style', 'UnitFormatStyleType')
+    .field('length', 'UnitLength');
+
 const INDEX = [
   CalendarFieldsOptions,
   CurrencyDisplayNameOptions,
@@ -147,6 +168,8 @@ const INDEX = [
   MathContext,
   MessageFormatterOptions,
   NumberFormatOptions,
+  Quantity,
+  UnitFormatOptions
 ].reduce((p, c) => {
   p[c.name] = c;
   return p;
@@ -264,6 +287,11 @@ const setters = (cls: string, fields: Field[]) => {
   let s = '';
   for (const { name, type } of fields) {
     s += `  public ${cls} ${name}(${type} arg) {\n`;
+    s += `    this.${name}.set(arg);\n`;
+    s += `    return this;\n`;
+    s += `  }\n\n`;
+
+    s += `  public ${cls} ${name}(Option<${type}> arg) {\n`;
     s += `    this.${name}.set(arg);\n`;
     s += `    return this;\n`;
     s += `  }\n\n`;

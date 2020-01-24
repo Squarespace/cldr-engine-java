@@ -24,7 +24,7 @@ public class Option<T> {
   }
 
   public void setIf(Option<T> opt) {
-    if (opt.ok()) {
+    if (!ok()) {
       this.value = opt.get();
     }
   }

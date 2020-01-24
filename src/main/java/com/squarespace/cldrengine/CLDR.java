@@ -8,6 +8,7 @@ import com.squarespace.cldrengine.api.Calendars;
 import com.squarespace.cldrengine.api.General;
 import com.squarespace.cldrengine.api.LanguageTag;
 import com.squarespace.cldrengine.api.Numbers;
+import com.squarespace.cldrengine.api.Units;
 import com.squarespace.cldrengine.calendars.CalendarsImpl;
 import com.squarespace.cldrengine.general.GeneralImpl;
 import com.squarespace.cldrengine.internal.Internals;
@@ -21,6 +22,7 @@ import com.squarespace.cldrengine.locale.CLocaleImpl;
 import com.squarespace.cldrengine.locale.LanguageTagParser;
 import com.squarespace.cldrengine.locale.LocaleResolver;
 import com.squarespace.cldrengine.numbers.NumbersImpl;
+import com.squarespace.cldrengine.units.UnitsImpl;
 
 /**
  * Contains all functionality for a given locale.
@@ -37,12 +39,14 @@ public class CLDR {
   public final Calendars Calendars;
   public final Numbers Numbers;
   public final Schema Schema;
+  public final Units Units;
 
   protected CLDR(CLocale locale, Bundle bundle) {
     PrivateApi privateApi = new PrivateApi(bundle, INTERNALS);
     this.General = new GeneralImpl(bundle, locale, INTERNALS);
     this.Calendars = new CalendarsImpl(bundle, INTERNALS, privateApi);
     this.Numbers = new NumbersImpl(bundle, INTERNALS, privateApi);
+    this.Units = new UnitsImpl(bundle, INTERNALS, privateApi);
     this.Schema = Meta.SCHEMA;
   }
 

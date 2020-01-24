@@ -23,7 +23,7 @@ public class KeyIndex<T> {
     return i == null ? -1 : i;
   }
 
-  T[] keys() {
+  public T[] keys() {
     return this.elements;
   }
 }

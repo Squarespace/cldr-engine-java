@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.LanguageTag;
-import com.squarespace.cldrengine.plurals.PluralRules;
+import com.squarespace.cldrengine.api.PluralRules;
 import com.squarespace.cldrengine.plurals.Plurals;
 
 public class StringBundle implements Bundle {

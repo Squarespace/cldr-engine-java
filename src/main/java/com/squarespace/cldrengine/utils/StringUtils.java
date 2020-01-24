@@ -2,6 +2,7 @@ package com.squarespace.cldrengine.utils;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -41,14 +42,13 @@ public class StringUtils {
     return s.substring(len -1, len);
   }
 
-  public static final String join(List<String> list, String sep) {
+  public static final String join(Collection<String> list, String sep) {
     StringBuilder buf = new StringBuilder();
-    int size = list.size();
-    for (int i = 0; i < size; i++) {
-      if (i > 0) {
+    for (String s : list) {
+      if (buf.length() > 0) {
         buf.append(sep);
       }
-      buf.append(list.get(i));
+      buf.append(s);
     }
     return buf.toString();
   }

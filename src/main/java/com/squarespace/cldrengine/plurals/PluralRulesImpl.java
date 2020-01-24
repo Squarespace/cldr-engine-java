@@ -3,6 +3,7 @@ package com.squarespace.cldrengine.plurals;
 import java.util.List;
 
 import com.squarespace.cldrengine.api.Decimal;
+import com.squarespace.cldrengine.api.PluralRules;
 import com.squarespace.cldrengine.api.PluralType;
 
 import lombok.AllArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.AllArgsConstructor;
  * Set of all cardinal and ordinal plural rules, and the array of expression fragments the rules reference.
  */
 @AllArgsConstructor
-public class PluralRules {
+public class PluralRulesImpl implements PluralRules {
 
   // Notation for categories in compact plural rules
   private static final PluralType[] CATEGORIES = new PluralType[] {

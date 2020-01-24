@@ -10,10 +10,10 @@ public class Plurals {
   /**
    * Get the plural rules for a given language and optional region.
    */
-  public static PluralRules get(String language, String region) {
+  public static PluralRulesImpl get(String language, String region) {
     Rule[] cardinals = resolve(PluralData.CARDINALS, language, region);
     Rule[] ordinals = resolve(PluralData.ORDINALS, language, region);
-    return new PluralRules(cardinals, ordinals);
+    return new PluralRulesImpl(cardinals, ordinals);
   }
 
   private static Rule[] resolve(Map<String, Rule[]> map, String language, String region) {

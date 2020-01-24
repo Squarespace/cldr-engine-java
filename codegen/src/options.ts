@@ -14,6 +14,7 @@ type Type =
   | 'FieldWidthType'
   | 'FormatWidthType'
   | 'MessageFormatFuncMap'
+  | 'PluralRules'
   | 'RoundingModeType'
   | 'Integer'
   | 'String'
@@ -33,6 +34,7 @@ const API_SET = new Set<Type>([
   'FieldWidthType',
   'FormatWidthType',
   'MessageFormatFuncMap',
+  'PluralRules',
   'RoundingModeType',
 ]);
 
@@ -124,7 +126,9 @@ const MessageFormatterOptions =
   new Option('MessageFormatterOptions')
     .field('language', 'String')
     .field('region', 'String')
-    .field('formatters', 'MessageFormatFuncMap');
+    .field('plurals', 'PluralRules')
+    .field('formatters', 'MessageFormatFuncMap')
+    .field('cacheSize', 'Integer');
 
 const NumberFormatOptions =
   new Option('NumberFormatOptions', 'DecimalAdjustOptions')

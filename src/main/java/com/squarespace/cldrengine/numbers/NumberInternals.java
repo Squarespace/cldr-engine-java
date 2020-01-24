@@ -30,6 +30,7 @@ import com.squarespace.cldrengine.internal.DecimalFormats;
 import com.squarespace.cldrengine.internal.DigitsArrow;
 import com.squarespace.cldrengine.internal.FieldArrow;
 import com.squarespace.cldrengine.internal.Internals;
+import com.squarespace.cldrengine.internal.NumberExternalData;
 import com.squarespace.cldrengine.internal.NumberSystemInfo;
 import com.squarespace.cldrengine.internal.NumbersSchema;
 import com.squarespace.cldrengine.parsing.NumberPattern;
@@ -37,6 +38,7 @@ import com.squarespace.cldrengine.parsing.NumberPatternParser;
 import com.squarespace.cldrengine.plurals.PluralRules;
 import com.squarespace.cldrengine.utils.Cache;
 import com.squarespace.cldrengine.utils.Pair;
+import com.squarespace.cldrengine.utils.StringUtils;
 
 public class NumberInternals {
 
@@ -52,7 +54,14 @@ public class NumberInternals {
       new CurrencyFractions(2, 0, 2, 0);
 
   static {
-
+    String[] parts = NumberExternalData.CURRENCYFRACTIONSRAW.split("\\|");
+    for (String part : parts) {
+      String[] row = part.split(":");
+      CurrencyType code = CurrencyType.fromString(row[0]);
+      int[] values = StringUtils.intArray(row[1]);
+      CURRENCY_FRACTIONS.put(code, new CurrencyFractions(
+          values[0], values[1], values[2], values[3]));
+    }
   }
 
   private final Internals internals;

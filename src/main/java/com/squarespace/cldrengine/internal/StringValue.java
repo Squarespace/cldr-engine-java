@@ -25,12 +25,11 @@ public class StringValue implements AbstractValue<String> {
   }
 
   public void insert(int i, String _type, String value) {
-    StringBuilder tmp = this.buf;
-    String prefix = tmp.substring(0, i);
-    String suffix = tmp.substring(i);
+    String prefix = buf.substring(0, i);
+    String suffix = buf.substring(i);
     this.buf = new StringBuilder();
     this.buf.append(prefix);
-    this.buf.append(tmp);
+    this.buf.append(value);
     this.buf.append(suffix);
   }
 

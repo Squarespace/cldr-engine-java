@@ -82,6 +82,15 @@ public class StringUtils {
         .mapToLong(v -> v).toArray();
   }
 
+  public static int[] intArray(String str) {
+    return intArray(str, 36);
+  }
+
+  public static int[] intArray(String str, int base) {
+    return Arrays.stream(parseArray(str, Integer.class, s -> Integer.valueOf(s, base)))
+        .mapToInt(v -> v).toArray();
+  }
+
   @SuppressWarnings("unchecked")
   public static <R> R[] parseArray(String str, Class<R> cls, Function<String, R> parse) {
     if (str.isEmpty() ) {

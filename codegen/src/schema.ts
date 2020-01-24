@@ -23,6 +23,7 @@ import * as timezonedata from '@phensley/timezone/lib/autogen.zonedata';
 import * as zonealiases from '@phensley/cldr-core/lib/systems/calendars/autogen.aliases';
 
 import * as decimalnumbers from '@phensley/cldr-core/lib/systems/numbering/autogen.names';
+import * as currencies from '@phensley/cldr-core/lib/internals/numbers/autogen.currencies';
 
 import * as plural from '@phensley/plurals/lib/autogen.rules';
 
@@ -171,7 +172,8 @@ export const generateSchema = () => {
   });
 
   writeConstants(internalDir, 'NumberExternalData', {
-    ...decimalnumbers
+    ...decimalnumbers,
+    ...currencies
   });
 
   writeConstants(internalDir, 'TimeZoneExternalData', {

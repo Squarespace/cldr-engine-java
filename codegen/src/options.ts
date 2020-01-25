@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import { join } from 'path';
 import { makedirs, write } from './utils';
+import { field } from '@phensley/cldr-schema';
 
 type Type =
   | 'AltType'
@@ -120,6 +121,13 @@ const DecimalFormatOptions =
     .field('context', 'ContextType')
     .field('errors', 'String');
 
+const DateIntervalFormatOptions =
+  new Option('DateIntervalFormatOptions')
+    .field('skeleton', 'String')
+    .field('context', 'ContextType')
+    .field('calendar', 'CalendarType')
+    .field('numberSystem', 'String');
+
 const DisplayNameOptions =
   new Option('DisplayNameOptions')
     .field('type', 'AltType')
@@ -169,6 +177,7 @@ const INDEX = [
   CurrencyFormatOptions,
   DateFieldFormatOptions,
   DateFormatOptions,
+  DateIntervalFormatOptions,
   DecimalAdjustOptions,
   DecimalFormatOptions,
   DisplayNameOptions,

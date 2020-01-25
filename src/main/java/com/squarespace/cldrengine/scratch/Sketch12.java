@@ -1,40 +1,22 @@
 package com.squarespace.cldrengine.scratch;
 
-import java.util.Arrays;
-import java.util.List;
-
 import com.squarespace.cldrengine.CLDR;
-import com.squarespace.cldrengine.api.Decimal;
-import com.squarespace.cldrengine.api.Part;
-import com.squarespace.cldrengine.api.Quantity;
-import com.squarespace.cldrengine.api.UnitFormatOptions;
-import com.squarespace.cldrengine.api.UnitLength;
-import com.squarespace.cldrengine.api.UnitType;
+import com.squarespace.cldrengine.api.CalendarDate;
+import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
+import com.squarespace.cldrengine.api.GregorianDate;
 
 public class Sketch12 {
 
   public static void main(String[] args) {
     CLDR cldr = CLDR.get("en");
-    UnitFormatOptions options = UnitFormatOptions.build()
-        .length(UnitLength.SHORT);
-    Quantity qty = Quantity.build().value(new Decimal("13.4559"))
-        .unit(UnitType.METER_PER_SECOND);
-    String s = cldr.Units.formatQuantity(qty, options);
-    System.out.println(s);
+    DateIntervalFormatOptions options = DateIntervalFormatOptions.build()
+        .skeleton("EEEEyMMMd");
+    String zoneId = "America/New_York";
+    long epoch = 1513513513535L;
+    CalendarDate start = GregorianDate.fromUnixEpoch(epoch, zoneId, 1, 1);
+    CalendarDate end = GregorianDate.fromUnixEpoch(epoch + (3 * 86400000), zoneId, 1, 1);
 
-    List<Part> parts = cldr.Units.formatQuantityToParts(qty, options);
-    for (Part part : parts) {
-      System.out.println(part);
-    }
-
-    List<Quantity> seq = Arrays.asList(
-        Quantity.build()
-          .value(new Decimal("2"))
-          .unit(UnitType.MILE),
-        Quantity.build()
-          .value(new Decimal("17.4"))
-          .unit(UnitType.YARD));
-    s = cldr.Units.formatQuantitySequence(seq, options);
+    String s = cldr.Calendars.formatDateInterval(start, end, options);
     System.out.println(s);
   }
 }

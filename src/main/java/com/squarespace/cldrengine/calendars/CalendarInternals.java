@@ -83,6 +83,10 @@ public class CalendarInternals {
     return this.calendarFormatterCache.get(type.value);
   }
 
+  public DateTimePattern parseDatePatterh(String raw) {
+    return this.patternCache.get(raw);
+  }
+
   public DateTimePattern getHourPattern(String raw, boolean negative) {
      return this.hourPatternCache.get(raw)[negative ? 1 : 0];
   }
@@ -118,6 +122,19 @@ public class CalendarInternals {
       return value.render();
     }
     return _date != null ? _date : _time != null ? _time : value.empty();
+  }
+
+  public <R> R formatInterval(CalendarType calendar, CalendarContext<CalendarDate> ctx,
+      AbstractValue<R> value, CalendarDate end, DateTimePattern pattern) {
+
+    int i = DateTimePattern.intervalPatternBoundary(pattern);
+    List<Object> nodes = pattern.nodes;
+    DateTimePattern startPattern = new DateTimePattern(nodes.subList(0, i), "");
+    DateTimePattern endPattern = new DateTimePattern(nodes.subList(i, nodes.size()), "");
+    R s = this.formatDateTime(calendar, ctx, value, startPattern, null, null);
+    ctx.date = end;
+    R e = this.formatDateTime(calendar, ctx, value, endPattern, null, null);
+    return value.join(Arrays.asList(s, e));
   }
 
   public CalendarType selectCalendar(Bundle bundle, CalendarType type) {

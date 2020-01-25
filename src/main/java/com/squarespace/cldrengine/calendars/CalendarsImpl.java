@@ -1,5 +1,9 @@
 package com.squarespace.cldrengine.calendars;
 
+import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
+import static com.squarespace.cldrengine.utils.TypeUtils.defaulter;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +15,7 @@ import com.squarespace.cldrengine.api.Calendars;
 import com.squarespace.cldrengine.api.ContextTransformFieldType;
 import com.squarespace.cldrengine.api.ContextType;
 import com.squarespace.cldrengine.api.DateFormatOptions;
+import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
 import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.GregorianDate;
 import com.squarespace.cldrengine.api.ISO8601Date;
@@ -24,12 +29,18 @@ import com.squarespace.cldrengine.internal.PartsValue;
 import com.squarespace.cldrengine.internal.PrivateApi;
 import com.squarespace.cldrengine.internal.StringValue;
 import com.squarespace.cldrengine.numbers.NumberParams;
+import com.squarespace.cldrengine.parsing.WrapperPattern;
 
 public class CalendarsImpl implements Calendars {
 
-  private static final DateFormatOptions DATE_FORMAT_OPTIONS_DEFAULT = DateFormatOptions
-      .build()
-      .date(FormatWidthType.FULL);
+  private static final DateFormatOptions DATE_FORMAT_OPTIONS_DEFAULT =
+      DateFormatOptions
+          .build()
+          .date(FormatWidthType.FULL);
+
+  private static final DateIntervalFormatOptions DATE_INTERVAL_OPTIONS_DEFAULT =
+      DateIntervalFormatOptions.build()
+          .skeleton("yMd");
 
   private final Bundle bundle;
   private final Internals internals;
@@ -74,12 +85,11 @@ public class CalendarsImpl implements Calendars {
   }
 
   /**
-   * Find the field of visual difference between two dates. For example, the
-   * dates "2019-03-31" and "2019-04-01" differ visually in the month field,
-   * even though the dates are only 1 day apart.
+   * Find the field of visual difference between two dates. For example, the dates "2019-03-31" and "2019-04-01" differ
+   * visually in the month field, even though the dates are only 1 day apart.
    *
-   * This can be used by applications to select an appropriate skeleton for date
-   * interval formatting, e.g. to format "March 31 - April 01, 2019"
+   * This can be used by applications to select an appropriate skeleton for date interval formatting, e.g. to format
+   * "March 31 - April 01, 2019"
    */
   public DateTimePatternFieldType fieldOfVisualDifference(CalendarDate a, CalendarDate b) {
 
@@ -104,6 +114,10 @@ public class CalendarsImpl implements Calendars {
     return this._formatDate(new PartsValue(), date, options);
   }
 
+  public String formatDateInterval(CalendarDate start, CalendarDate end, DateIntervalFormatOptions options) {
+    return this._formatInterval(new StringValue(), start, end, options);
+  }
+
   @Override
   public List<String> timeZoneIds() {
     return TimeZoneData.zoneIds();
@@ -115,12 +129,64 @@ public class CalendarsImpl implements Calendars {
   }
 
   protected <R> R _formatDate(AbstractValue<R> value, CalendarDate date, DateFormatOptions options) {
-    options = (options == null ? DateFormatOptions.build() : options).mergeIf(DATE_FORMAT_OPTIONS_DEFAULT);
-    CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar.get());
+    options = defaulter(options, DateFormatOptions::build).mergeIf(DATE_FORMAT_OPTIONS_DEFAULT);
+    CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     DateFormatRequest req = this.manager.getDateFormatRequest(date, options, params);
     CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get());
     return this.internals.calendars.formatDateTime(calendar, ctx, value, req.date, req.time, req.wrapper);
+  }
+
+  protected <R> R _formatInterval(AbstractValue<R> value, CalendarDate start, CalendarDate end,
+      DateIntervalFormatOptions options) {
+    options = defaulter(options, DateIntervalFormatOptions::build)
+        .mergeIf(DATE_INTERVAL_OPTIONS_DEFAULT);
+    CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
+    DateTimePatternFieldType fieldDiff = this.fieldOfVisualDifference(start, end);
+    NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
+    DateIntervalFormatRequest req = this.manager.getDateIntervalFormatRequest(calendar, start, fieldDiff, options, params);
+
+    if (!isEmpty(req.skeleton)) {
+      DateFormatOptions opts = DateFormatOptions.build()
+          .calendar(options.calendar)
+          .numberSystem(options.numberSystem)
+          .skeleton(req.skeleton);
+      DateFormatRequest r = this.manager.getDateFormatRequest(start, opts, params);
+      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get());
+      R _start = this.internals.calendars.formatDateTime(calendar, ctx, value, r.date, r.time, r.wrapper);
+      ctx.date = end;
+      R _end = this.internals.calendars.formatDateTime(calendar, ctx, value, r.date, r.time, r.wrapper);
+      WrapperPattern wrapper = this.internals.general.parseWrapper(req.wrapper);
+      value.wrap(wrapper, Arrays.asList(_start, _end));
+      return value.render();
+    }
+
+    R _date = null;
+    if (req.date != null) {
+      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get());
+      _date = this.internals.calendars.formatDateTime(calendar, ctx, value, req.date, null, null);
+    }
+
+    if (req.range != null) {
+      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get());
+      R _range = this.internals.calendars.formatInterval(calendar, ctx, value, end, req.range);
+      if (_date == null) {
+        return _range;
+      }
+
+      // Note: This case is covered in ICU but not mentioned in the CLDR docs. Use the MEDIUM
+      // dateTimeFormat to join a common date with a time range.
+      // Ticket referencing the discrepancy:
+      // https://www.unicode.org/cldr/trac/ticket/11158
+      // Docs don't mention this edge case:
+      // https://www.unicode.org/reports/tr35/tr35-dates.html#intervalFormats
+      CalendarPatterns patterns = this.manager.getCalendarPatterns(calendar.value);
+      WrapperPattern wrapper = this.internals.general.parseWrapper(patterns.getWrapperPattern(FormatWidthType.MEDIUM));
+      value.wrap(wrapper, Arrays.asList(_range, _date));
+      return value.render();
+    }
+
+    return _date == null ? value.empty() : _date;
   }
 
   protected <T extends CalendarDate> CalendarContext<T> _context(T date, NumberParams params, ContextType context) {

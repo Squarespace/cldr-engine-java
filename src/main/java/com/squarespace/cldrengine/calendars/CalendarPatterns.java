@@ -1,5 +1,6 @@
 package com.squarespace.cldrengine.calendars;
 
+import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 import static com.squarespace.cldrengine.utils.StringUtils.parseArray;
 
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.internal.CalendarExternalData;
 import com.squarespace.cldrengine.internal.CalendarSchema;
+import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.utils.JsonUtils;
@@ -58,23 +60,25 @@ class CalendarPatterns {
   private final String language;
   private final String region;
   private final Internals internals;
-  private final CalendarSchema schema;
 
   private final DateSkeletonParser skeletonParser;
   private final LRU<String, CachedSkeletonRequest> skeletonRequestCache = new LRU<>(512);
+  private final LRU<String, CachedIntervalRequest> intervalRequestCache = new LRU<>(512);
   private final Map<FormatWidthType, String> dateFormats;
   private final Map<FormatWidthType, String> timeFormats;
   private final Map<FormatWidthType, String> wrapperFormats;
 
   private final DatePatternMatcher availableMatcher = new DatePatternMatcher();
+  private final Map<DateTimePatternFieldType, DatePatternMatcher> intervalMatcher = new HashMap<>();
   private final Map<String, String> rawAvailableFormats;
   private final Map<PluralType, Map<String, String>> rawPluralFormats;
+  private final Map<DateTimePatternFieldType, Map<String, String>> rawIntervalFormats;
+  private final String intervalFallback;
 
   public CalendarPatterns(Bundle bundle, Internals internals, CalendarSchema schema) {
     this.language = bundle.language();
     this.region = bundle.region();
     this.internals = internals;
-    this.schema = schema;
 
     this.dateFormats = schema.dateFormats.mapping(bundle);
     this.timeFormats = schema.timeFormats.mapping(bundle);
@@ -83,7 +87,11 @@ class CalendarPatterns {
 
     this.rawAvailableFormats = schema.availableFormats.mapping(bundle);
     this.rawPluralFormats = schema.pluralFormats.mapping(bundle);
+    this.rawIntervalFormats = schema.intervalFormats.mapping(bundle);
     this.buildAvailableMatcher();
+    this.buildIntervalMatcher();
+
+    this.intervalFallback = schema.intervalFormatFallback.get(bundle);
   }
 
   public DateSkeleton parseSkeleton(String raw) {
@@ -108,6 +116,14 @@ class CalendarPatterns {
     this.skeletonRequestCache.set(key, req);
   }
 
+  public CachedIntervalRequest getCachedIntervalRequest(String key) {
+    return this.intervalRequestCache.get(key);
+  }
+
+  public void setCachedIntervalRequest(String key, CachedIntervalRequest req) {
+    this.intervalRequestCache.set(key, req);
+  }
+
   public String getWrapperPattern(FormatWidthType width) {
     return this.wrapperFormats.getOrDefault(width, "");
   }
@@ -124,12 +140,29 @@ class CalendarPatterns {
     return DateTimePattern.parse(pattern == null ? "" : pattern);
   }
 
+  public DateTimePattern getIntervalPatern(DateTimePatternFieldType field, String skeleton) {
+    Map<String, String> group = this.rawIntervalFormats.get(field);
+    String raw = group == null ? "" : group.get(skeleton);
+    return this.internals.calendars.parseDatePatterh(raw == null ? "" : raw);
+  }
+
+  public String getIntervalFallback() {
+    return this.intervalFallback;
+  }
+
   public DateTimePattern adjustPattern(DateTimePattern pattern, DateSkeleton skeleton, String decimal) {
     return this.availableMatcher.adjust(pattern, skeleton, decimal);
   }
 
   public DateSkeleton matchAvailable(DateSkeleton skeleton) {
     return this.availableMatcher.match(skeleton);
+  }
+
+  public DateSkeleton matchInterval(DateSkeleton skeleton, DateTimePatternFieldType field) {
+    if (field == DateTimePatternFieldType.SECOND) {
+      field = DateTimePatternFieldType.MINUTE;
+    }
+    return this.intervalMatcher.get(field).match(skeleton);
   }
 
   protected TimeData getTimeData() {
@@ -177,4 +210,20 @@ class CalendarPatterns {
     }
   }
 
+  protected void buildIntervalMatcher() {
+    for (DateTimePatternFieldType field : this.rawIntervalFormats.keySet()) {
+      Map<String, String> group = this.rawIntervalFormats.get(field);
+      DatePatternMatcher matcher = new DatePatternMatcher();
+      for (String skeleton : group.keySet()) {
+        // Only add skeletons which point to valid formats for this locale. Not all
+        // skeletons are implemented for all locales.
+        String raw = group.get(skeleton);
+        if (!isEmpty(raw)) {
+          DateSkeleton parsed = this.skeletonParser.parse(skeleton, false);
+          matcher.add(parsed, null);
+        }
+      }
+      this.intervalMatcher.put(field, matcher);
+    }
+  }
 }

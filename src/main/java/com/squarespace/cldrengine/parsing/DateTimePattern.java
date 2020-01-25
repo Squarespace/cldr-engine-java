@@ -14,10 +14,12 @@ public class DateTimePattern {
   public final List<Object> nodes;
   public final String raw;
 
-  public static final Set<Character> DATE_PATTERN_CHARS = new HashSet<>(Arrays.asList(
+  private static final List<Character> _CHARS = Arrays.asList(
       'G', 'y', 'Y', 'u', 'U', 'r', 'Q', 'q', 'M', 'L', 'l', 'w', 'W', 'd', 'D',
       'F', 'g', 'E', 'e', 'c', 'a', 'b', 'B', 'h', 'H', 'K', 'k', 'j', 'J', 'C',
-      'm', 's', 'S', 'A', 'z', 'Z', 'O', 'v', 'V', 'X', 'x'));
+      'm', 's', 'S', 'A', 'z', 'Z', 'O', 'v', 'V', 'X', 'x');
+
+  public static final Set<Character> DATE_PATTERN_CHARS = new HashSet<>(_CHARS);
 
   public static DateTimePattern parse(String raw) {
     List<Object> nodes = new ArrayList<>();
@@ -81,6 +83,24 @@ public class DateTimePattern {
       nodes.add(buf.toString());
     }
     return new DateTimePattern(nodes, raw);
+  }
+
+  /**
+   * Scan the date interval pattern and return the index of the first repeated field.
+   */
+  public static int intervalPatternBoundary(DateTimePattern pattern) {
+    Set<Character> set = new HashSet<>();
+    for (int i = 0; i < pattern.nodes.size(); i++) {
+      Object node = pattern.nodes.get(i);
+      if (node instanceof DateTimeNode) {
+        char field = ((DateTimeNode)node).field;
+        if (set.contains(field)) {
+          return i;
+        }
+        set.add(field);
+      }
+    }
+    return -1;
   }
 
   @AllArgsConstructor

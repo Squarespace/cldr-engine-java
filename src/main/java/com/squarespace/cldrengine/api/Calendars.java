@@ -43,7 +43,10 @@ public interface Calendars {
    */
   List<Part> formatDateToParts(CalendarDate date, DateFormatOptions options);
 
-  // formatDateInterval
+  /**
+   * Formats a date interval with a start and end.
+   */
+  String formatDateInterval(CalendarDate start, CalendarDate end, DateIntervalFormatOptions options);
 
   // formatDateIntevalToParts
 

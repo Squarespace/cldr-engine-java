@@ -27,6 +27,7 @@ import com.squarespace.cldrengine.api.PersianDate;
 import com.squarespace.cldrengine.api.RelativeTimeFieldFormatOptions;
 import com.squarespace.cldrengine.api.RelativeTimeFieldType;
 import com.squarespace.cldrengine.api.RelativeTimeFormatOptions;
+import com.squarespace.cldrengine.api.TimePeriodField;
 import com.squarespace.cldrengine.internal.AbstractValue;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.Internals;
@@ -35,6 +36,7 @@ import com.squarespace.cldrengine.internal.PrivateApi;
 import com.squarespace.cldrengine.internal.StringValue;
 import com.squarespace.cldrengine.numbers.NumberParams;
 import com.squarespace.cldrengine.parsing.WrapperPattern;
+import com.squarespace.cldrengine.utils.Pair;
 
 public class CalendarsImpl implements Calendars {
 
@@ -150,8 +152,27 @@ public class CalendarsImpl implements Calendars {
 
   @Override
   public String formatRelativeTime(CalendarDate start, CalendarDate end, RelativeTimeFormatOptions options) {
-    // TODO Auto-generated method stub
-    return null;
+    options = defaulter(options, RelativeTimeFormatOptions::build)
+        .mergeIf(RELATIVE_OPTIONS_DEFAULT);
+    Pair<TimePeriodField, Double> res = start.relativeTime(end, options.field.get());
+    TimePeriodField field = res._1;
+    double amount = res._2;
+    if (start.compare(end) == 1) {
+      amount *= -1;
+    }
+
+    if (field == TimePeriodField.MILLIS) {
+      amount /= 1000.0;
+      field = TimePeriodField.SECOND;
+    }
+    RelativeTimeFieldType relField = translateRelativeFieldType(field);
+    // See if we can use day of the week formatting
+    boolean dayOfWeek = options.dayOfWeek.or(false);
+    if (dayOfWeek && relField == RelativeTimeFieldType.WEEK && start.dayOfWeek() == end.dayOfWeek()) {
+      long dow = end.dayOfWeek() - 1;
+      relField = DOW_FIELDS[(int)dow];
+    }
+    return formatRelativeTimeField(new Decimal(amount), relField, options);
   }
 
   @Override
@@ -162,6 +183,36 @@ public class CalendarsImpl implements Calendars {
   @Override
   public String resolveTimeZoneId(String zoneId) {
     return TimeZoneData.resolveId(zoneId);
+  }
+
+  protected static final RelativeTimeFieldType[] DOW_FIELDS = new RelativeTimeFieldType[] {
+      RelativeTimeFieldType.SUN,
+      RelativeTimeFieldType.MON,
+      RelativeTimeFieldType.TUE,
+      RelativeTimeFieldType.WED,
+      RelativeTimeFieldType.THU,
+      RelativeTimeFieldType.FRI,
+      RelativeTimeFieldType.SAT,
+  };
+
+  protected RelativeTimeFieldType translateRelativeFieldType(TimePeriodField field) {
+    switch (field) {
+      case YEAR:
+        return RelativeTimeFieldType.YEAR;
+      case MONTH:
+        return RelativeTimeFieldType.MONTH;
+      case WEEK:
+        return RelativeTimeFieldType.WEEK;
+      case DAY:
+        return RelativeTimeFieldType.DAY;
+      case HOUR:
+        return RelativeTimeFieldType.HOUR;
+      case MINUTE:
+        return RelativeTimeFieldType.MINUTE;
+      case SECOND:
+      default:
+        return RelativeTimeFieldType.SECOND;
+    }
   }
 
   protected <R> R _formatDate(AbstractValue<R> value, CalendarDate date, DateFormatOptions options) {

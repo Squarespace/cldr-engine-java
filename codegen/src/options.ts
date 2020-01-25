@@ -13,6 +13,7 @@ type Type =
   | 'DateFieldWidthType'
   | 'Decimal'
   | 'DecimalFormatStyleType'
+  | 'Double'
   | 'EraWidthType'
   | 'FieldWidthType'
   | 'FormatWidthType'
@@ -168,14 +169,10 @@ const Quantity =
     .field('times', 'UnitType');
 
 const RelativeTimeFormatOptions =
-  new Option('RelativeTimeFormatOptions', 'NumberFormatOptions')
-    .field('width', 'DateFieldWidthType')
-    .field('context', 'ContextType')
+  new Option('RelativeTimeFormatOptions', 'RelativeTimeFieldFormatOptions')
     .field('calendar', 'CalendarType')
     .field('dayOfWeek', 'Boolean')
-    .field('field', 'TimePeriodField')
-    .field('numericOnly', 'Boolean')
-    .field('alwaysNow', 'Boolean');
+    .field('field', 'TimePeriodField');
 
 const RelativeTimeFieldFormatOptions =
   new Option('RelativeTimeFieldFormatOptions', 'NumberFormatOptions')
@@ -183,6 +180,17 @@ const RelativeTimeFieldFormatOptions =
     .field('context', 'ContextType')
     .field('numericOnly', 'Boolean')
     .field('alwaysNow', 'Boolean');
+
+const TimePeriod =
+  new Option('TimePeriod')
+    .field('year', 'Double')
+    .field('month', 'Double')
+    .field('week', 'Double')
+    .field('day', 'Double')
+    .field('hour', 'Double')
+    .field('minute', 'Double')
+    .field('second', 'Double')
+    .field('millis', 'Double');
 
 const UnitFormatOptions =
   new Option('UnitFormatOptions', 'NumberFormatOptions')
@@ -207,6 +215,7 @@ const INDEX = [
   Quantity,
   RelativeTimeFormatOptions,
   RelativeTimeFieldFormatOptions,
+  TimePeriod,
   UnitFormatOptions
 ].reduce((p, c) => {
   p[c.name] = c;

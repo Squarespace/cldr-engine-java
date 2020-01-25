@@ -1,5 +1,6 @@
 package com.squarespace.cldrengine.scratch;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.squarespace.cldrengine.CLDR;
@@ -25,5 +26,15 @@ public class Sketch12 {
     for (Part part : parts) {
       System.out.println(part);
     }
+
+    List<Quantity> seq = Arrays.asList(
+        Quantity.build()
+          .value(new Decimal("2"))
+          .unit(UnitType.MILE),
+        Quantity.build()
+          .value(new Decimal("17.4"))
+          .unit(UnitType.YARD));
+    s = cldr.Units.formatQuantitySequence(seq, options);
+    System.out.println(s);
   }
 }

@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.api;
 
+import java.util.List;
+
 public interface General {
 
   /**
@@ -46,4 +48,15 @@ public interface General {
    */
   MeasurementSystem measurementSystem(MeasurementCategory category);
 
+  /**
+   * Format a list of items with the given type.
+   */
+  String formatList(List<String> items, ListPatternType type);
+
+  /**
+   * Format a list of items with the given type to an array of parts.
+   */
+  List<Part> formatListToParts(List<String> items, ListPatternType type);
+
+  String getLanguageDisplayName(String code, DisplayNameOptions options);
 }

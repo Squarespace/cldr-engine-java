@@ -17,7 +17,6 @@ import com.squarespace.cldrengine.api.ISO8601Date;
 import com.squarespace.cldrengine.api.JapaneseDate;
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.PersianDate;
-import com.squarespace.cldrengine.calendars.TimeZoneData.TZInfo;
 import com.squarespace.cldrengine.internal.AbstractValue;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.Internals;
@@ -116,7 +115,7 @@ public class CalendarsImpl implements Calendars {
   }
 
   protected <R> R _formatDate(AbstractValue<R> value, CalendarDate date, DateFormatOptions options) {
-    options = (options == null ? DateFormatOptions.build() : options).merge(DATE_FORMAT_OPTIONS_DEFAULT);
+    options = (options == null ? DateFormatOptions.build() : options).mergeIf(DATE_FORMAT_OPTIONS_DEFAULT);
     CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar.get());
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     DateFormatRequest req = this.manager.getDateFormatRequest(date, options, params);

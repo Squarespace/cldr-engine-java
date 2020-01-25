@@ -86,7 +86,7 @@ public class NumberInternals {
 
   public Decimal adjustDecimal(Decimal num, DecimalAdjustOptions options) {
     options = defaulter(options, DecimalAdjustOptions::build)
-        .merge(ADJUST_OPTIONS);
+        .mergeIf(ADJUST_OPTIONS);
     NumberContext ctx = new NumberContext(options, options.round.get(), false, false);
     ctx.setPattern(ADJUST_PATTERN, false);
     return ctx.adjust(num);

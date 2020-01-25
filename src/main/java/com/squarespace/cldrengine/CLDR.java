@@ -43,7 +43,7 @@ public class CLDR {
 
   protected CLDR(CLocale locale, Bundle bundle) {
     PrivateApi privateApi = new PrivateApi(bundle, INTERNALS);
-    this.General = new GeneralImpl(bundle, locale, INTERNALS);
+    this.General = new GeneralImpl(bundle, locale, INTERNALS, privateApi);
     this.Calendars = new CalendarsImpl(bundle, INTERNALS, privateApi);
     this.Numbers = new NumbersImpl(bundle, INTERNALS, privateApi);
     this.Units = new UnitsImpl(bundle, INTERNALS, privateApi);

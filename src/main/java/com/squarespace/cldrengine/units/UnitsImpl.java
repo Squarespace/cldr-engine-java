@@ -2,8 +2,10 @@ package com.squarespace.cldrengine.units;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.ListPatternType;
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.Quantity;
 import com.squarespace.cldrengine.api.UnitFormatOptions;
@@ -13,6 +15,7 @@ import com.squarespace.cldrengine.api.UnitType;
 import com.squarespace.cldrengine.api.Units;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.Meta;
+import com.squarespace.cldrengine.internal.PartsValue;
 import com.squarespace.cldrengine.internal.PrivateApi;
 import com.squarespace.cldrengine.numbers.NumberParams;
 import com.squarespace.cldrengine.numbers.NumberRenderer;
@@ -60,5 +63,37 @@ public class UnitsImpl implements Units {
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), null);
     NumberRenderer<List<Part>> renderer = this.internal.numbers.partsRenderer(params);
     return this.internal.units.format(bundle, renderer, qty, options, params);
+  }
+
+  @Override
+  public String formatQuantitySequence(List<Quantity> qty, UnitFormatOptions options) {
+    final UnitFormatOptions uoptions = (options == null ? DEFAULT_OPTIONS : options).merge(DEFAULT_OPTIONS);
+    List<String> items = qty.stream().map(q -> this.formatQuantity(q, uoptions))
+        .collect(Collectors.toList());
+    ListPatternType type = this.selectListType(uoptions);
+    return this.internal.general.formatList(bundle, items, type);
+  }
+
+  @Override
+  public List<Part> formatQuantitySequenceToParts(List<Quantity> qty, UnitFormatOptions options) {
+    final UnitFormatOptions uoptions = (options == null ? DEFAULT_OPTIONS : options).merge(DEFAULT_OPTIONS);
+    List<List<Part>> parts = qty.stream().map(q -> this.formatQuantityToParts(q, uoptions))
+        .collect(Collectors.toList());
+    ListPatternType type = this.selectListType(uoptions);
+    return this.internal.general.formatListImpl(bundle, new PartsValue(), parts, type);
+  }
+
+  protected ListPatternType selectListType(UnitFormatOptions options) {
+    if (options.length.ok()) {
+      switch (options.length.get()) {
+        case NARROW:
+          return ListPatternType.UNIT_NARROW;
+        case SHORT:
+          return ListPatternType.UNIT_SHORT;
+        default:
+          break;
+      }
+    }
+    return ListPatternType.UNIT_LONG;
   }
 }

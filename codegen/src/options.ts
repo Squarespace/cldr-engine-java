@@ -3,6 +3,7 @@ import { join } from 'path';
 import { makedirs, write } from './utils';
 
 type Type =
+  | 'AltType'
   | 'Boolean'
   | 'CalendarType'
   | 'ContextType'
@@ -28,6 +29,7 @@ const API_PACKAGE = 'com.squarespace.cldrengine.api';
 const INTERNAL_PACKAGE = 'com.squarespace.cldrengine.internal';
 
 const API_SET = new Set<Type>([
+  'AltType',
   'CalendarType',
   'ContextType',
   'CurrencyFormatStyleType',
@@ -118,6 +120,11 @@ const DecimalFormatOptions =
     .field('context', 'ContextType')
     .field('errors', 'String');
 
+const DisplayNameOptions =
+  new Option('DisplayNameOptions')
+    .field('type', 'AltType')
+    .field('context', 'ContextType');
+
 const EraFieldOptions =
   new Option('EraFieldsOptions')
     .field('calendar', 'CalendarType')
@@ -164,6 +171,7 @@ const INDEX = [
   DateFormatOptions,
   DecimalAdjustOptions,
   DecimalFormatOptions,
+  DisplayNameOptions,
   EraFieldOptions,
   MathContext,
   MessageFormatterOptions,
@@ -195,7 +203,8 @@ const make = (pkg: string, opt: Option) => {
   s += setters(opt.name, opt.fields);
   s += makeExtend(opt.name, opt.extend);
   s += builder(opt.name);
-  s += merger(opt);
+  s += merger(opt, true);
+  s += merger(opt, false);
   s += '\n';
   s += tostring(opt);
   s += '\n}\n';
@@ -263,21 +272,23 @@ const builder = (cls: string) => {
   return s;
 };
 
-const merger = (opt: Option) => {
+const merger = (opt: Option, merge: boolean) => {
+  const method = merge ? 'mergeIf' : 'merge';
+  const set = merge ? 'setIf' : 'set';
   let s = '';
-  s += `  public ${opt.name} merge(${opt.name} ...args) {\n`;
+  s += `  public ${opt.name} ${method}(${opt.name} ...args) {\n`;
   s += `    ${opt.name} o = new ${opt.name}(this);\n`;
   s += `    for (${opt.name} arg : args) {\n`;
-  s += `      o._merge(arg);\n`;
+  s += `      o._${method}(arg);\n`;
   s += `    }\n`;
   s += `    return o;\n`;
   s += '  }\n\n';
-  s += `  public void _merge(${opt.name} o) {\n`;
+  s += `  protected void _${method}(${opt.name} o) {\n`;
   if (opt.extend) {
-    s += `    super._merge(o);\n`;
+    s += `    super._${method}(o);\n`;
   }
   for (const f of opt.fields) {
-    s += `    this.${f.name}.setIf(o.${f.name});\n`;
+    s += `    this.${f.name}.${set}(o.${f.name});\n`;
   }
   s += `  }\n\n`;
   return s;

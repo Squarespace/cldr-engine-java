@@ -65,7 +65,7 @@ public interface Calendars {
    */
   String resolveTimeZoneId(String zoneId);
 
-  // timeZOneInfo
+  // timeZoneInfo
 
   // timePeriodToQuantity
 

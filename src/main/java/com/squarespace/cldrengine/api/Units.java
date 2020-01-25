@@ -22,12 +22,12 @@ public interface Units {
   /**
    * Formats the given unit quantity sequence to string.
    */
-//  String formatQuantitySequence(List<Quantity> qty, UnitFormatOptions options);
+  String formatQuantitySequence(List<Quantity> qty, UnitFormatOptions options);
 
   /**
    * Formats the given unit quantity sequence to an array of parts.
    */
-//  List<Part> formatQuantitySequenceToParts(List<Quantity> qty, UnitFormatOptions options);
+  List<Part> formatQuantitySequenceToParts(List<Quantity> qty, UnitFormatOptions options);
 
   /**
    * Returns the display name for the given unit.

@@ -9,14 +9,10 @@ import com.squarespace.cldrengine.numbers.NumberParamsCache;
 
 public class PrivateApi {
 
-  private final Bundle bundle;
-  private final Internals internals;
   private final NumberParamsCache numberParamsCache;
   private final Map<ContextTransformFieldType, String> contextTransforms;
 
   public PrivateApi(Bundle bundle, Internals internals) {
-    this.bundle = bundle;
-    this.internals = internals;
     this.numberParamsCache = new NumberParamsCache(bundle, internals);
     this.contextTransforms = internals.schema.ContextTransforms.contextTransforms.mapping(bundle);
   }

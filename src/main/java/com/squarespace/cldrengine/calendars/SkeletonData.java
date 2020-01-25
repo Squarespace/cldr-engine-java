@@ -33,7 +33,7 @@ public class SkeletonData {
 
   private static final int DELTA = 0x10;
   private static final int NUMERIC = 0x100;
-  private static final int NONE = 0;
+//  private static final int NONE = 0;
   private static final int NARROW = -0x101;
   private static final int SHORTER = -0x102;
   private static final int SHORT = -0x103;

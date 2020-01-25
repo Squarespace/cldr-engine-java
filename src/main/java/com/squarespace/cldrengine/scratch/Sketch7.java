@@ -9,7 +9,7 @@ public class Sketch7 {
   public static void main(String[] args) {
     String zoneId = "America/New_York";
     CalendarDate start = GregorianDate.fromUnixEpoch(1579634069000L, zoneId, 1, 1);
-    CalendarDate end = start.add(TimePeriod.builder().month(1).day(10).build());
+    CalendarDate end = start.add(TimePeriod.build().month(1D).day(10D));
     System.out.println(start);
     System.out.println(end);
   }

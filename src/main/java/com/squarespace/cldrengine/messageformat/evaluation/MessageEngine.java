@@ -20,7 +20,6 @@ import com.squarespace.cldrengine.messageformat.parsing.MessageTextCode;
 import com.squarespace.cldrengine.messageformat.parsing.PluralChoice;
 import com.squarespace.cldrengine.messageformat.parsing.PluralNumberType;
 import com.squarespace.cldrengine.messageformat.parsing.SelectChoice;
-import com.squarespace.cldrengine.plurals.PluralRulesImpl;
 
 public class MessageEngine {
 

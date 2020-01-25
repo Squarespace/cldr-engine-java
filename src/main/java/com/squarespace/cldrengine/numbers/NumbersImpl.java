@@ -28,9 +28,6 @@ public class NumbersImpl implements Numbers {
   private static final DecimalFormatOptions FORCE_ERRORS = DecimalFormatOptions.build()
       .errors("nan infinity");
 
-  private static final CurrencyDisplayNameOptions DEFAULT_CURRENCY_OPTIONS =
-      CurrencyDisplayNameOptions.build().context(ContextType.BEGIN_SENTENCE);
-
   public final Bundle bundle;
   public final NumberInternals numbers;
   public final GeneralInternals general;

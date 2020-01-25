@@ -336,16 +336,22 @@ const merger = (opt: Option, merge: boolean) => {
 const setters = (cls: string, fields: Field[]) => {
   let s = '';
   for (const { name, type } of fields) {
-    s += `  public ${cls} ${name}(${type} arg) {\n`;
-    s += `    this.${name}.set(arg);\n`;
-    s += `    return this;\n`;
-    s += `  }\n\n`;
-
-    s += `  public ${cls} ${name}(Option<${type}> arg) {\n`;
-    s += `    this.${name}.set(arg);\n`;
-    s += `    return this;\n`;
-    s += `  }\n\n`;
+    s += setter(cls, name, type);
   }
+  return s;
+};
+
+const setter = (cls: string, name: string, type: string) => {
+  let s = '';
+  s += `  public ${cls} ${name}(${type} arg) {\n`;
+  s += `    this.${name}.set(arg);\n`;
+  s += `    return this;\n`;
+  s += `  }\n\n`;
+
+  s += `  public ${cls} ${name}(Option<${type}> arg) {\n`;
+  s += `    this.${name}.set(arg);\n`;
+  s += `    return this;\n`;
+  s += `  }\n\n`;
   return s;
 };
 

@@ -1,6 +1,7 @@
 package com.squarespace.cldrengine.internal;
 
 import com.squarespace.cldrengine.calendars.CalendarInternals;
+import com.squarespace.cldrengine.calendars.DateFieldInternals;
 import com.squarespace.cldrengine.general.GeneralInternals;
 import com.squarespace.cldrengine.numbers.NumberInternals;
 import com.squarespace.cldrengine.units.UnitInternals;
@@ -14,6 +15,7 @@ public class Internals {
   public final Schema schema;
 
   public final CalendarInternals calendars;
+  public final DateFieldInternals dateFields;
   public final GeneralInternals general;
   public final NumberInternals numbers;
   public final UnitInternals units;
@@ -24,6 +26,7 @@ public class Internals {
     this.checksum = config.checksum(version);
     this.schema = Meta.SCHEMA;
     this.calendars = new CalendarInternals(this);
+    this.dateFields = new DateFieldInternals(this);
     this.general = new GeneralInternals(this);
     this.numbers = new NumberInternals(this);
     this.units = new UnitInternals(this);

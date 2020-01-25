@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.squarespace.cldrengine.calendars.DayOfWeek;
-import com.squarespace.cldrengine.calendars.TimePeriodField;
 import com.squarespace.cldrengine.calendars.TimeZoneData;
 import com.squarespace.cldrengine.calendars.ZoneInfo;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
@@ -267,6 +266,17 @@ public abstract class CalendarDate {
     long a = this.unixEpoch();
     long b = other.unixEpoch();
     return a < b ? -1 : a > b ? 1 : 0;
+  }
+
+  /**
+   * Calculate the relative time between two dates. If a field is specified
+   * the time will be calculated in terms of that single field. Otherwise
+   * the field of greatest difference will be used.
+   */
+  public Pair<TimePeriodField, Integer> relativeTime(CalendarDate other, TimePeriodField field) {
+    Swap swap = this.swap(other);
+    // TODO:
+    return null;
   }
 
   public abstract CalendarDate add(TimePeriod fields);

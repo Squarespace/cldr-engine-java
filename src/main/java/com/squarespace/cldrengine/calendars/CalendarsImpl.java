@@ -14,14 +14,19 @@ import com.squarespace.cldrengine.api.CalendarType;
 import com.squarespace.cldrengine.api.Calendars;
 import com.squarespace.cldrengine.api.ContextTransformFieldType;
 import com.squarespace.cldrengine.api.ContextType;
+import com.squarespace.cldrengine.api.DateFieldWidthType;
 import com.squarespace.cldrengine.api.DateFormatOptions;
 import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
+import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.GregorianDate;
 import com.squarespace.cldrengine.api.ISO8601Date;
 import com.squarespace.cldrengine.api.JapaneseDate;
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.PersianDate;
+import com.squarespace.cldrengine.api.RelativeTimeFieldFormatOptions;
+import com.squarespace.cldrengine.api.RelativeTimeFieldType;
+import com.squarespace.cldrengine.api.RelativeTimeFormatOptions;
 import com.squarespace.cldrengine.internal.AbstractValue;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.Internals;
@@ -41,6 +46,16 @@ public class CalendarsImpl implements Calendars {
   private static final DateIntervalFormatOptions DATE_INTERVAL_OPTIONS_DEFAULT =
       DateIntervalFormatOptions.build()
           .skeleton("yMd");
+
+  private static final RelativeTimeFieldFormatOptions RELATIVE_FIELD_OPTIONS_DEFAULT =
+      RelativeTimeFieldFormatOptions.build()
+      .width(DateFieldWidthType.WIDE);
+
+  private static final RelativeTimeFormatOptions RELATIVE_OPTIONS_DEFAULT =
+      RelativeTimeFormatOptions.build()
+      .width(DateFieldWidthType.WIDE)
+      .maximumFractionDigits(0)
+      .group(true);
 
   private final Bundle bundle;
   private final Internals internals;
@@ -114,8 +129,29 @@ public class CalendarsImpl implements Calendars {
     return this._formatDate(new PartsValue(), date, options);
   }
 
+  @Override
   public String formatDateInterval(CalendarDate start, CalendarDate end, DateIntervalFormatOptions options) {
     return this._formatInterval(new StringValue(), start, end, options);
+  }
+
+  @Override
+  public List<Part> formatDateIntervalToParts(CalendarDate start, CalendarDate end, DateIntervalFormatOptions options) {
+    return this._formatInterval(new PartsValue(), start, end, options);
+  }
+
+  @Override
+  public String formatRelativeTimeField(Decimal value, RelativeTimeFieldType field, RelativeTimeFieldFormatOptions options) {
+    options = defaulter(options, RelativeTimeFieldFormatOptions::build)
+        .mergeIf(RELATIVE_FIELD_OPTIONS_DEFAULT);
+    Map<ContextTransformFieldType, String> transform = this.privateApi.getContextTransformInfo();
+    NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), null);
+    return this.internals.dateFields.formatRelativeTimeField(bundle, value, field, options, params, transform);
+  }
+
+  @Override
+  public String formatRelativeTime(CalendarDate start, CalendarDate end, RelativeTimeFormatOptions options) {
+    // TODO Auto-generated method stub
+    return null;
   }
 
   @Override

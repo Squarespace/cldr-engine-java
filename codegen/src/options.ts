@@ -21,6 +21,7 @@ type Type =
   | 'RoundingModeType'
   | 'Integer'
   | 'String'
+  | 'TimePeriodField'
   | 'UnitFormatStyleType'
   | 'UnitLength'
   | 'UnitType'
@@ -44,6 +45,7 @@ const API_SET = new Set<Type>([
   'MessageFormatFuncMap',
   'PluralRules',
   'RoundingModeType',
+  'TimePeriodField',
   'UnitFormatStyleType',
   'UnitLength',
   'UnitType'
@@ -165,6 +167,23 @@ const Quantity =
     .field('per', 'UnitType')
     .field('times', 'UnitType');
 
+const RelativeTimeFormatOptions =
+  new Option('RelativeTimeFormatOptions', 'NumberFormatOptions')
+    .field('width', 'DateFieldWidthType')
+    .field('context', 'ContextType')
+    .field('calendar', 'CalendarType')
+    .field('dayOfWeek', 'Boolean')
+    .field('field', 'TimePeriodField')
+    .field('numericOnly', 'Boolean')
+    .field('alwaysNow', 'Boolean');
+
+const RelativeTimeFieldFormatOptions =
+  new Option('RelativeTimeFieldFormatOptions', 'NumberFormatOptions')
+    .field('width', 'DateFieldWidthType')
+    .field('context', 'ContextType')
+    .field('numericOnly', 'Boolean')
+    .field('alwaysNow', 'Boolean');
+
 const UnitFormatOptions =
   new Option('UnitFormatOptions', 'NumberFormatOptions')
     .field('divisor', 'Integer')
@@ -186,6 +205,8 @@ const INDEX = [
   MessageFormatterOptions,
   NumberFormatOptions,
   Quantity,
+  RelativeTimeFormatOptions,
+  RelativeTimeFieldFormatOptions,
   UnitFormatOptions
 ].reduce((p, c) => {
   p[c.name] = c;

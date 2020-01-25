@@ -48,11 +48,20 @@ public interface Calendars {
    */
   String formatDateInterval(CalendarDate start, CalendarDate end, DateIntervalFormatOptions options);
 
-  // formatDateIntevalToParts
+  /**
+   * Formats a date-time interval for the given skeleton to an array of parts.
+   */
+  List<Part> formatDateIntervalToParts(CalendarDate start, CalendarDate end, DateIntervalFormatOptions options);
 
-  // formatRelativeTimeField
+  /**
+   * Formats a relative time field to string.
+   */
+  String formatRelativeTimeField(Decimal value, RelativeTimeFieldType field, RelativeTimeFieldFormatOptions options);
 
-  // formatRelativeTime
+  /**
+   * Formats the relative time from a start to end date.
+   */
+  String formatRelativeTime(CalendarDate start, CalendarDate end, RelativeTimeFormatOptions options);
 
   // formatDateRaw
 

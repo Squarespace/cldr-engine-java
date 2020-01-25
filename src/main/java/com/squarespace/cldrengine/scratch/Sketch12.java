@@ -1,9 +1,12 @@
 package com.squarespace.cldrengine.scratch;
 
+import java.util.List;
+
 import com.squarespace.cldrengine.CLDR;
 import com.squarespace.cldrengine.api.CalendarDate;
 import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
 import com.squarespace.cldrengine.api.GregorianDate;
+import com.squarespace.cldrengine.api.Part;
 
 public class Sketch12 {
 
@@ -18,5 +21,10 @@ public class Sketch12 {
 
     String s = cldr.Calendars.formatDateInterval(start, end, options);
     System.out.println(s);
+
+    List<Part> parts = cldr.Calendars.formatDateIntervalToParts(start, end, options);
+    for (Part part : parts) {
+      System.out.println(part);
+    }
   }
 }

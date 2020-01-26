@@ -82,7 +82,7 @@ public class NumberContext {
       }
     }
 
-    if (this.useSignificant && this.minSig > 0 && this.maxSig > 0) {
+    if (this.useSignificant && this.minSig >= 0 && this.maxSig > 0) {
       if (n.precision() > this.maxSig) {
         // Scale the number to have at most the maximum significant digits.
         int scale = this.maxSig - n.precision() + n.scale();

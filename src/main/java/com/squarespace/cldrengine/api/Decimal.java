@@ -971,9 +971,11 @@ public class Decimal {
 
     long hiprev = 0;
     int ph = Constants.POWERS10[Constants.RDIGITS - (int)r];
-    DecimalMath.divpow10(div, data[(int)q], (int)r);
-    hiprev = div[0];
-    rest = div[1];
+    if (q < data.length) {
+      DecimalMath.divpow10(div, data[(int)q], (int)r);
+      hiprev = div[0];
+      rest = div[1];
+    }
 
     DecimalMath.divpow10(div, rest,  (int)(r - 1));
     rnd = div[0];

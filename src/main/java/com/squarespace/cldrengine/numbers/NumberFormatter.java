@@ -121,7 +121,7 @@ public abstract class NumberFormatter<R> implements NumberRenderer<R> {
 
           case EXPONENT:
             // Don't emit the exponent if undefined or zero
-            if (exponent != null) {
+            if (exponent != null && exponent != 0) {
               res.add("exponent", symbols.get(NumberSymbolType.EXPONENTIAL));
               if (exponent < 0) {
                 res.add("minus", symbols.get(NumberSymbolType.MINUSSIGN));

@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,5 +24,10 @@ public class FileUtils {
     }
   }
 
+  public static String loadFile(String path) throws FileNotFoundException, IOException {
+    try (InputStream stream = new FileInputStream(new File(path))) {
+      return IOUtils.toString(stream, "UTF-8");
+    }
+  }
 }
 

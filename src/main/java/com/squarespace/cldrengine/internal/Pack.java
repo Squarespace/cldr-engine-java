@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.internal;
 
+import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,11 +114,13 @@ public class Pack {
         return null;
       }
       Map<Integer, Integer> index = new HashMap<>();
-      String[] parts = raw.split("\\s+");
-      for (int i = 0; i < parts.length; i += 2) {
-        Integer k = Integer.valueOf(parts[i], 36);
-        Integer v = Integer.valueOf(parts[i + 1], 36);
-        index.put(k, v);
+      if (!isEmpty(raw)) {
+        String[] parts = raw.split("\\s+");
+        for (int i = 0; i < parts.length; i += 2) {
+          Integer k = Integer.valueOf(parts[i], 36);
+          Integer v = Integer.valueOf(parts[i + 1], 36);
+          index.put(k, v);
+        }
       }
       this.cache.put(region, index);
       return index;

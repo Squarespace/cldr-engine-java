@@ -1,7 +1,5 @@
-import * as fs from 'fs';
 import { join } from 'path';
 import { makedirs, write } from './utils';
-import { field } from '@phensley/cldr-schema';
 
 type Type =
   | 'AltType'
@@ -224,13 +222,11 @@ const INDEX = [
 
 const make = (pkg: string, opt: Option) => {
   const _imports = new Set<string>();
-  const imp = imports(_imports, opt);
+  imports(_imports, opt);
 
   let s = `package ${pkg};\n\n`;
-  // s += 'import lombok.ToString;\n';
   _imports.forEach(i => s += `import ${i};\n`);
   s += '\n';
-  // s += '@ToString\n';
   s += `public class ${opt.name} `;
   if (opt.extend) {
     s += `extends ${opt.extend} `;
@@ -391,5 +387,3 @@ export const generateOptions = () => {
     write(dest, code);
   }
 };
-
-generateOptions();

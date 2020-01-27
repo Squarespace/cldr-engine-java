@@ -9,8 +9,8 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc -w --preserveWatchOutput",
-    "generate": "npm run build && node ./lib/main.js",
-    "suite": "npm run build && node ./lib/suite/index.js"
+    "generate": "node ./lib/main.js",
+    "suite": "node ./lib/suite/index.js"
   },
   "devDependencies": {
     "@phenomnomnominal/tsquery": "^3.0.0",

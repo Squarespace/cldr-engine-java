@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { join } from 'path';
 
 import {
   CLDR,
@@ -92,6 +93,7 @@ type DecimalFunc = <T>(cldr: CLDR, n: Decimal, o: T) => string;
 type CurrencyFunc = <T>(cldr: CLDR, n: Decimal, code: CurrencyType, opts: T) => string;
 
 const buildDecimal = <T>(name: string, dims: Dimension<T>[], meth: DecimalFunc) => {
+  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
   const items = dims.map(e => e.build());
   const numbers = NUMBERS.concat(NUMBERS.map(n => `-${n}`));
@@ -131,6 +133,7 @@ const buildDecimal = <T>(name: string, dims: Dimension<T>[], meth: DecimalFunc) 
 };
 
 const buildCurrency = <T>(name: string, dims: Dimension<T>[], currencies: CurrencyType[], meth: CurrencyFunc) => {
+  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
   const items = dims.map(e => e.build());
   const numbers = NUMBERS.concat(NUMBERS.map(n => `-${n}`));
@@ -172,41 +175,38 @@ const buildCurrency = <T>(name: string, dims: Dimension<T>[], currencies: Curren
   fs.closeSync(fd);
 };
 
-const currencyFormatCases = () => {
+export const currencySuite = (root: string) => {
   let dims: Dimension<CurrencyFormatOptions>[];
   const f = (c: CLDR, n: Decimal, code: CurrencyType, opts: CurrencyFormatOptions) =>
     c.Numbers.formatCurrency(n, code, opts);
 
   dims = [CURFMT_CASH, CURFMT_STYLE, CURFMT_SYMBOLWIDTH, NUMFMT_GROUP];
-  buildCurrency('currencyformat.txt', dims, CURRENCIES, f);
+  buildCurrency(join(root, 'currencyformat.txt'), dims, CURRENCIES, f);
 
   dims = [CURFMT_CASH, CURFMT_STYLE_COMPACT, CURFMT_DIVISOR, CURFMT_SYMBOLWIDTH, NUMFMT_GROUP];
-  buildCurrency('currencyformat-compact.txt', dims, CURRENCIES, f);
+  buildCurrency(join(root, 'currencyformat-compact.txt'), dims, CURRENCIES, f);
 };
 
-const decimalFormatCases = () => {
+export const decimalSuite = (root: string) => {
   let dims: Dimension<DecimalFormatOptions>[];
   const f = (c: CLDR, n: Decimal, o: DecimalFormatOptions) =>
     c.Numbers.formatDecimal(n, o);
 
   dims = [DECFMT_STYLE, DECADJ_ROUND, NUMFMT_GROUP,
     DECFMT_MININT, DECADJ_MINFRAC, DECADJ_MAXFRAC];
-  buildDecimal('decimalformat.txt', dims, f);
+  buildDecimal(join(root, 'decimalformat.txt'), dims, f);
 
   dims = [DECFMT_NEGZERO, DECADJ_ROUND, DECFMT_MININT];
-  buildDecimal('decimalformat-negzero.txt', dims, f);
+  buildDecimal(join(root, 'decimalformat-negzero.txt'), dims, f);
 
   dims = [DECADJ_ROUND, DECFMT_MININT, DECADJ_MAXSIG, DECADJ_MINSIG];
-  buildDecimal('decimalformat-sig.txt', dims, f);
+  buildDecimal(join(root, 'decimalformat-sig.txt'), dims, f);
 
   dims = [DECFMT_DIVISOR, DECFMT_COMPACT_STYLE,
     DECADJ_ROUND, DECFMT_MININT, DECADJ_MINFRAC, DECADJ_MAXFRAC];
-  buildDecimal('decimalformat-compact.txt', dims, f);
+  buildDecimal(join(root, 'decimalformat-compact.txt'), dims, f);
 
   dims = [DECADJ_ROUND, DECFMT_COMPACT_STYLE, DECFMT_MININT,
     DECADJ_MAXSIG, DECADJ_MINSIG];
-  buildDecimal('decimalformat-compact-sig.txt', dims, f);
+  buildDecimal(join(root, 'decimalformat-compact-sig.txt'), dims, f);
 };
-
-currencyFormatCases();
-decimalFormatCases();

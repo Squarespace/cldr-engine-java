@@ -1,5 +1,6 @@
 plugins {
-  //id 'me.champeau.gradle.jmh' version '0.3.0'
+    id 'me.champeau.gradle.jmh' version '0.5.0'
+	id 'jacoco'
 }
 
 repositories {
@@ -7,11 +8,10 @@ repositories {
 	mavenCentral()
 }
 
-//apply plugin: 'me.champeau.gradle.jmh'
+apply plugin: 'me.champeau.gradle.jmh'
 apply plugin: 'java'
-//apply plugin: 'maven'
 apply plugin: 'eclipse'
-//apply plugin: 'jacoco'
+apply plugin: 'jacoco'
 
 group = 'com.squarespace.cldr-engine'
 
@@ -21,14 +21,11 @@ targetCompatibility = 1.8
 project.ext {
 	ccVersion = '1.0.6'
 	gsonVersion = '2.8.6'
-	//hamcrestVersion = '2.2'
 	lombokVersion = '1.18.10'
  	testngVersion = '7.1.0'
 }
 
 dependencies {
-  //compile "com.squarespace.compiler:compiler-core:${ccVersion}"
-  
   implementation "com.google.code.gson:gson:${gsonVersion}"
 
   compileOnly "org.projectlombok:lombok:${lombokVersion}"
@@ -36,20 +33,21 @@ dependencies {
  
   testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
   testImplementation "org.testng:testng:${testngVersion}"
-  //testCompile "org.hamcrest:java-hamcrest:${hamcrestVersion}"
   testImplementation 'commons-io:commons-io:2.1'
   testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
-/*
 jmh {
-  jmhVersion '1.19'
+  jmhVersion '1.23'
   forceGC = true
   includeTests = false
   zip64 = true
   //include = '.*LanguageMatcher.*'
 }
-*/
+
+plugins.withType(EclipsePlugin) {
+  project.eclipse.classpath.plusConfigurations += [ configurations.jmh ]
+}
 
 sourceSets.main.java.srcDirs = ['src/main/java', 'src/generated/java']
 sourceSets.main.resources.srcDirs = ['src/main/resources', 'src/generated/resources']
@@ -70,24 +68,12 @@ clean {
 
 test {
 	useTestNG()
-	//jacoco {
-  //		append = false
-	//}
 }
 
-//jacoco {
-//	toolVersion = '0.7.9'
-//}
-
-/*
 jacocoTestReport {
-	group = 'Reporting'
-	additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
-	reports {
-		xml.enabled = true
-		html.enabled = true
-		html.destination = "${buildDir}/jacoco-report"
-	}
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacoco-report")
+    }
 }
-*/
-

@@ -1,6 +1,7 @@
 /.settings/
 /.classpath
 /.project
+/.cldrsuite
 
 .DS_Store
 *.swp

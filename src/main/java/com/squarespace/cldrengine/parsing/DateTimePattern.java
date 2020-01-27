@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
 public class DateTimePattern {
@@ -104,6 +105,7 @@ public class DateTimePattern {
   }
 
   @AllArgsConstructor
+  @ToString
   public static class DateTimeNode {
     public final char field;
     public final int width;

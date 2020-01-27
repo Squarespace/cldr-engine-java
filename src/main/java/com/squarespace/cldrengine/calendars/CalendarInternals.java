@@ -14,6 +14,7 @@ import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.CalendarDate;
 import com.squarespace.cldrengine.api.CalendarType;
+import com.squarespace.cldrengine.api.DayPeriodType;
 import com.squarespace.cldrengine.internal.AbstractValue;
 import com.squarespace.cldrengine.internal.CalendarExternalData;
 import com.squarespace.cldrengine.internal.CalendarSchema;
@@ -61,6 +62,7 @@ public class CalendarInternals {
   public final Schema schema;
 
   public final Cache<CalendarFormatter<CalendarDate>> calendarFormatterCache;
+  public final DayPeriodRules dayPeriodRules;
   public final Cache<DateTimePattern> patternCache;
   public final Cache<DateTimePattern[]> hourPatternCache;
   public final Set<String> availableCalendars;
@@ -68,6 +70,7 @@ public class CalendarInternals {
   public CalendarInternals(Internals internals) {
     this.internals = internals;
     this.schema = internals.schema;
+    this.dayPeriodRules = new DayPeriodRules();
     this.patternCache = new Cache<>(DateTimePattern::parse, 1024);
     this.hourPatternCache = new Cache<>(s -> {
       String[] parts = s.split(";");
@@ -77,6 +80,10 @@ public class CalendarInternals {
     }, 50);
     this.calendarFormatterCache = new Cache<>(this::buildFormatter, 1024);
     this.availableCalendars = new HashSet<>(internals.config.get("calendars"));
+  }
+
+  public String flexDayPeriod(Bundle bundle, long minutes) {
+    return this.dayPeriodRules.get(bundle, minutes);
   }
 
   public CalendarFormatter<CalendarDate> getCalendarFormatter(CalendarType type) {

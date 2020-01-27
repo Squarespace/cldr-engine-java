@@ -203,6 +203,12 @@ public class CalendarFormatter<T extends CalendarDate> {
           value = this.dayPeriodExt(ctx, d);
           break;
 
+        // DAY PERIOD FLEXIBLE
+        case 'B':
+          type = "dayperiod";
+          value = this.dayPeriodFlex(ctx, d);
+          break;
+
         // HOUR 1-12 AND 0-23
         case 'h':
         case 'H':
@@ -354,12 +360,13 @@ public class CalendarFormatter<T extends CalendarDate> {
   }
 
   protected String dayPeriodFlex(CalendarContext<T> ctx, DateTimeNode node) {
-    boolean twelve = node.field == 'h';
-    long hour = twelve ? ctx.date.hour() : ctx.date.hourOfDay();
-    if (twelve && hour == 0) {
-      hour = 12;
+    long minutes = (ctx.date.hourOfDay() * 60) + ctx.date.minute();
+    String key = this.internals.calendars.flexDayPeriod(ctx.bundle, minutes);
+    String res = null;
+    if (key != null) {
+      res = this.cal.format.dayPeriods.get(ctx.bundle, widthKey(node.width), key);
     }
-    return _num(ctx, hour, Math.min(node.width, 2));
+    return isEmpty(res) ? this.dayPeriodExt(ctx, node) : res;
   }
 
   protected String hour(CalendarContext<T> ctx, DateTimeNode node) {

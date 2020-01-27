@@ -1,5 +1,8 @@
 package com.squarespace.cldrengine.calendars;
 
+import static com.squarespace.cldrengine.utils.JsonUtils.decodeArray;
+import static com.squarespace.cldrengine.utils.JsonUtils.decodeObject;
+
 import java.util.Arrays;
 import java.util.Map;
 
@@ -13,14 +16,14 @@ import com.squarespace.cldrengine.utils.StringUtils;
 
 import lombok.AllArgsConstructor;
 
-public class DayPeriodRules {
+class DayPeriodRules {
 
   private static final String[] DAY_PERIOD_KEYS;
   private static Map<String, String> DAY_PERIOD_RULES;
 
   static {
-    DAY_PERIOD_KEYS = JsonUtils.decodeArray(JsonParser.parseString(CalendarExternalData.DAYPERIODKEYS));
-    DAY_PERIOD_RULES = JsonUtils.decodeObject(JsonParser.parseString(CalendarExternalData.DAYPERIODRULES));
+    DAY_PERIOD_KEYS = decodeArray(JsonParser.parseString(CalendarExternalData.DAYPERIODKEYS));
+    DAY_PERIOD_RULES = decodeObject(JsonParser.parseString(CalendarExternalData.DAYPERIODRULES));
   }
 
   private final Cache<Rule> cache;

@@ -72,7 +72,7 @@ public class DateSkeletonParser {
     } else if (hour != null) {
       // If we have a 12-hour-cycle but no dayperiod, add the default.
       if (hour.field == 'h' || hour.field == 'K') {
-        if (dayPeriod != null) {
+        if (dayPeriod == null) {
           // Add the default day period
           FieldType row = SkeletonData.FIELD_INDEX.get('a').get(0);
           s.type[Field.DAYPERIOD.ordinal()] = row.subfield;

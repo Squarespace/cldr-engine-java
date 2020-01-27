@@ -1,8 +1,7 @@
-package com.squarespace.cldrengine.scratch;
+package com.squarespace.cldrengine.calendars;
 
 import com.squarespace.cldrengine.CLDR;
 import com.squarespace.cldrengine.api.Bundle;
-import com.squarespace.cldrengine.calendars.DayPeriodRules;
 
 public class DayPeriodTest {
 

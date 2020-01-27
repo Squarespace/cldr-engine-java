@@ -73,7 +73,7 @@ public class CalendarSuiteTest extends CoverageSuite {
                   CalendarDate date = cldr.Calendars.toGregorianDate(epoch, zoneId);
                   try {
                     String actual = cldr.Calendars.formatDate(date, opts);
-                    Assert.assertEquals(actual, expected);
+                    Assert.assertEquals(actual, expected, String.format("epoch=%s zone=%s opts=%s", epoch, zoneId, opts));
                     cases++;
                   } catch (Exception ex) {
                     String msg = String.format("Unexpected error on inputs: epoch=%s zone=%s opts=%s",

@@ -6,6 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 /**
  * High coverage by comparing output against the TypeScript library as
@@ -27,6 +33,38 @@ public class CoverageSuite {
       throw new RuntimeException("Test suite must be generated using the codegen tool");
     }
     return new BufferedReader(new FileReader(file));
+  }
+
+  public static Boolean boolValue(JsonElement e) {
+    return e.isJsonNull() ? null : e.getAsBoolean();
+  }
+
+  public static Integer intValue(JsonElement e) {
+    return e.isJsonNull() ? null : e.getAsInt();
+  }
+
+  public static <T> T typeValue(JsonElement e, Function<String, T> f) {
+    return e.isJsonNull() ? null : f.apply(e.getAsString());
+  }
+
+  public static List<Long> longArray(JsonElement json) {
+    JsonArray arr = json.getAsJsonArray();
+    List<Long> result = new ArrayList<>();
+    for (int i = 0; i < arr.size(); i++) {
+      Long value = arr.get(i).getAsLong();
+      result.add(value);
+    }
+    return result;
+  }
+
+  public static List<String> stringArray(JsonElement json) {
+    JsonArray arr = json.getAsJsonArray();
+    List<String> result = new ArrayList<>();
+    for (int i = 0; i < arr.size(); i++) {
+      String value = arr.get(i).getAsString();
+      result.add(value);
+    }
+    return result;
   }
 
 }

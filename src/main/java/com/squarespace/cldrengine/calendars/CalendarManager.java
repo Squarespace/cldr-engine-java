@@ -31,7 +31,7 @@ class CalendarManager {
     this.bundle = bundle;
     this.internals = internals;
     Schema schema = internals.schema;
-    this.availableCalendars = new HashSet<>();
+    this.availableCalendars = new HashSet<>(internals.config.get("calendars"));
     this.patternCache = new Cache<>(calendar -> {
       if (this.availableCalendars.contains(calendar)) {
         switch (calendar) {
@@ -276,22 +276,4 @@ class CalendarManager {
     }
     return patterns.getWrapperPattern(wrapKey);
   }
-
-//  protected FormatWidthType supportedOption(FormatWidthType ...keys) {
-//    for (FormatWidthType key : keys) {
-//      if (key == null) {
-//        continue;
-//      }
-//      switch (key) {
-//        case FULL:
-//        case LONG:
-//        case MEDIUM:
-//        case SHORT:
-//          return key;
-//       default:
-//         break;
-//      }
-//    }
-//    return null;
-//  }
 }

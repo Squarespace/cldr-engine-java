@@ -1,9 +1,7 @@
 package com.squarespace.cldrengine;
 
 import java.io.BufferedReader;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.testng.Assert;
@@ -25,7 +23,7 @@ import com.squarespace.cldrengine.api.RoundingModeType;
 /**
  * Coverage testing for the numbers API.
  */
-public class NumbersSuiteTest extends CoverageSuite {
+public class NumberSuiteTest extends CoverageSuite {
 
   @Test
   public void testCurrencyFormat() throws Exception {
@@ -65,15 +63,16 @@ public class NumbersSuiteTest extends CoverageSuite {
   protected void run(String name) throws Exception {
     CLDR en = CLDR.get("en");
     int cases = 0;
-    try (BufferedReader reader = getTestCase(name)) {
-      String method = null;
-      List<String> locales = null;
-      List<String> numbers = null;
-      List<String> properties = null;
-      List<CurrencyType> currencies = null;
-      List<CLDR> cldrs = null;
 
-      boolean header = false;
+    String method = null;
+    List<String> locales = null;
+    List<String> numbers = null;
+    List<String> properties = null;
+    List<CurrencyType> currencies = null;
+    List<CLDR> cldrs = null;
+    boolean header = false;
+
+    try (BufferedReader reader = getTestCase(name)) {
       for (;;) {
         String line = reader.readLine();
         if (line == null) {
@@ -114,7 +113,7 @@ public class NumbersSuiteTest extends CoverageSuite {
                 try {
                   String actual = cldr.Numbers.formatDecimal(n, opts);
                   Assert.assertEquals(actual, expected);
-                    cases++;
+                  cases++;
                 } catch (Exception ex) {
                   String msg = String.format("Unexpected error on inputs: n=%s opts=%s",
                       numbers.get(j), opts);
@@ -156,7 +155,7 @@ public class NumbersSuiteTest extends CoverageSuite {
       }
     }
     System.out.println(name + ": " +
-        en.Numbers.formatDecimal(new Decimal(cases), null) + " successful cases\n");
+        en.Numbers.formatDecimal(new Decimal(cases), null) + " successful cases");
   }
 
   private static DecimalFormatOptions decimalFormatOptions(JsonElement json, List<String> properties) {
@@ -228,25 +227,4 @@ public class NumbersSuiteTest extends CoverageSuite {
     return opts;
   }
 
-  private static Boolean boolValue(JsonElement e) {
-    return e.isJsonNull() ? null : e.getAsBoolean();
-  }
-
-  private static Integer intValue(JsonElement e) {
-    return e.isJsonNull() ? null : e.getAsInt();
-  }
-
-  private static <T> T typeValue(JsonElement e, Function<String, T> f) {
-    return e.isJsonNull() ? null : f.apply(e.getAsString());
-  }
-
-  private static List<String> stringArray(JsonElement json) {
-    JsonArray arr = json.getAsJsonArray();
-    List<String> result = new ArrayList<>();
-    for (int i = 0; i < arr.size(); i++) {
-      String value = arr.get(i).getAsString();
-      result.add(value);
-    }
-    return result;
-  }
 }

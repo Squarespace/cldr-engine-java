@@ -4,6 +4,7 @@ import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 import static com.squarespace.cldrengine.utils.TypeUtils.defaulter;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -51,13 +52,13 @@ public class CalendarsImpl implements Calendars {
 
   private static final RelativeTimeFieldFormatOptions RELATIVE_FIELD_OPTIONS_DEFAULT =
       RelativeTimeFieldFormatOptions.build()
-      .width(DateFieldWidthType.WIDE);
+          .width(DateFieldWidthType.WIDE);
 
   private static final RelativeTimeFormatOptions RELATIVE_OPTIONS_DEFAULT =
       RelativeTimeFormatOptions.build()
-      .width(DateFieldWidthType.WIDE)
-      .maximumFractionDigits(0)
-      .group(true);
+          .width(DateFieldWidthType.WIDE)
+          .maximumFractionDigits(0)
+          .group(true);
 
   private final Bundle bundle;
   private final Internals internals;
@@ -77,28 +78,78 @@ public class CalendarsImpl implements Calendars {
   }
 
   @Override
+  public BuddhistDate toBuddhistDate(long epoch, String zoneId) {
+    return BuddhistDate.fromUnixEpoch(epoch, zoneId, firstDay, minDays);
+  }
+
+  @Override
+  public BuddhistDate toBuddhistDate(Date date, String zoneId) {
+    return toBuddhistDate(date.getTime(), zoneId);
+  }
+
+  @Override
   public BuddhistDate toBuddhistDate(CalendarDate date) {
-    return BuddhistDate.fromUnixEpoch(date.unixEpoch(), date.timeZoneId(), this.firstDay, this.minDays);
+    return toBuddhistDate(date.unixEpoch(), date.timeZoneId());
+  }
+
+  @Override
+  public GregorianDate toGregorianDate(long epoch, String zoneId) {
+    return GregorianDate.fromUnixEpoch(epoch, zoneId, firstDay, minDays);
+  }
+
+  @Override
+  public GregorianDate toGregorianDate(Date date, String zoneId) {
+    return toGregorianDate(date.getTime(), zoneId);
   }
 
   @Override
   public GregorianDate toGregorianDate(CalendarDate date) {
-    return GregorianDate.fromUnixEpoch(date.unixEpoch(), date.timeZoneId(), this.firstDay, this.minDays);
+    return toGregorianDate(date.unixEpoch(), date.timeZoneId());
+  }
+
+  @Override
+  public ISO8601Date toISO8601Date(long epoch, String zoneId) {
+    return ISO8601Date.fromUnixEpoch(epoch, zoneId, firstDay, minDays);
+  }
+
+  @Override
+  public ISO8601Date toISO8601Date(Date date, String zoneId) {
+    return toISO8601Date(date.getTime(), zoneId);
   }
 
   @Override
   public ISO8601Date toISO8601Date(CalendarDate date) {
-    return ISO8601Date.fromUnixEpoch(date.unixEpoch(), date.timeZoneId(), this.firstDay, this.minDays);
+    return toISO8601Date(date.unixEpoch(), date.timeZoneId());
+  }
+
+  @Override
+  public JapaneseDate toJapaneseDate(long epoch, String zoneId) {
+    return JapaneseDate.fromUnixEpoch(epoch, zoneId, firstDay, minDays);
+  }
+
+  @Override
+  public JapaneseDate toJapaneseDate(Date date, String zoneId) {
+    return toJapaneseDate(date.getTime(), zoneId);
   }
 
   @Override
   public JapaneseDate toJapaneseDate(CalendarDate date) {
-    return JapaneseDate.fromUnixEpoch(date.unixEpoch(), date.timeZoneId(), this.firstDay, this.minDays);
+    return toJapaneseDate(date.unixEpoch(), date.timeZoneId());
+  }
+
+  @Override
+  public PersianDate toPersianDate(long epoch, String zoneId) {
+    return PersianDate.fromUnixEpoch(epoch, zoneId, firstDay, minDays);
+  }
+
+  @Override
+  public PersianDate toPersianDate(Date date, String zoneId) {
+    return toPersianDate(date.getTime(), zoneId);
   }
 
   @Override
   public PersianDate toPersianDate(CalendarDate date) {
-    return PersianDate.fromUnixEpoch(date.unixEpoch(), date.timeZoneId(), this.firstDay, this.minDays);
+    return toPersianDate(date.unixEpoch(), date.timeZoneId());
   }
 
   /**
@@ -142,7 +193,8 @@ public class CalendarsImpl implements Calendars {
   }
 
   @Override
-  public String formatRelativeTimeField(Decimal value, RelativeTimeFieldType field, RelativeTimeFieldFormatOptions options) {
+  public String formatRelativeTimeField(Decimal value, RelativeTimeFieldType field,
+      RelativeTimeFieldFormatOptions options) {
     options = defaulter(options, RelativeTimeFieldFormatOptions::build)
         .mergeIf(RELATIVE_FIELD_OPTIONS_DEFAULT);
     Map<ContextTransformFieldType, String> transform = this.privateApi.getContextTransformInfo();
@@ -216,8 +268,9 @@ public class CalendarsImpl implements Calendars {
   }
 
   protected <R> R _formatDate(AbstractValue<R> value, CalendarDate date, DateFormatOptions options) {
-    options = defaulter(options, DateFormatOptions::build).mergeIf(DATE_FORMAT_OPTIONS_DEFAULT);
+    options = defaulter(options, () -> DATE_FORMAT_OPTIONS_DEFAULT);
     CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
+    date = convertDateTo(calendar, date);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     DateFormatRequest req = this.manager.getDateFormatRequest(date, options, params);
     CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get());
@@ -231,7 +284,8 @@ public class CalendarsImpl implements Calendars {
     CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
     DateTimePatternFieldType fieldDiff = this.fieldOfVisualDifference(start, end);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
-    DateIntervalFormatRequest req = this.manager.getDateIntervalFormatRequest(calendar, start, fieldDiff, options, params);
+    DateIntervalFormatRequest req =
+        this.manager.getDateIntervalFormatRequest(calendar, start, fieldDiff, options, params);
 
     if (!isEmpty(req.skeleton)) {
       DateFormatOptions opts = DateFormatOptions.build()
@@ -283,17 +337,19 @@ public class CalendarsImpl implements Calendars {
   }
 
   protected CalendarDate convertDateTo(CalendarType type, CalendarDate date) {
-    switch (type) {
-      case BUDDHIST:
-        return this.toBuddhistDate(date);
-      case GREGORY:
-        return this.toGregorianDate(date);
-      case ISO8601:
-        return this.toISO8601Date(date);
-      case JAPANESE:
-        return this.toJapaneseDate(date);
-      case PERSIAN:
-        return this.toPersianDate(date);
+    if (type != null && date.type() != type) {
+      switch (type) {
+        case BUDDHIST:
+          return this.toBuddhistDate(date);
+        case GREGORY:
+          return this.toGregorianDate(date);
+        case ISO8601:
+          return this.toISO8601Date(date);
+        case JAPANESE:
+          return this.toJapaneseDate(date);
+        case PERSIAN:
+          return this.toPersianDate(date);
+      }
     }
     return date;
   }

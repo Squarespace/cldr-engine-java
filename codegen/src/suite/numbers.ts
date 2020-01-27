@@ -43,7 +43,7 @@ const ROUND: (RoundingModeType | undefined)[] = [
 
 const MIN_MAX: (number | undefined)[] = [undefined, 0, 1, 3, 5];
 const NUM_SYSTEMS: (NumberSystemType | undefined)[] = [
-  undefined, 'latn', 'beng', 'default'
+  undefined, 'latn', 'beng', 'guru'
 ];
 const NUM_STYLE: (NumberFormatStyleType | undefined)[] = [
   undefined, 'decimal', 'scientific'
@@ -74,7 +74,7 @@ const DECADJ_MINSIG = new Dimension<DecimalAdjustOptions>('minimumSignificantDig
 const DECADJ_MAXSIG = new Dimension<DecimalAdjustOptions>('maximumSignificantDigits', MIN_MAX);
 
 const NUMFMT_GROUP = new Dimension<NumberFormatOptions>('group', BOOLEANS);
-const NUMFMT_NU = new Dimension<NumberFormatOptions>('nu', NUM_SYSTEMS);
+const NUMFMT_NUM_SYSTEMS = new Dimension<NumberFormatOptions>('nu', NUM_SYSTEMS);
 
 const DECFMT_DIVISOR = new Dimension<DecimalFormatOptions>('divisor', DIVISORS);
 const DECFMT_NEGZERO = new Dimension<DecimalFormatOptions>('negativeZero', BOOLEANS);
@@ -191,6 +191,9 @@ export const decimalSuite = (root: string) => {
   let dims: Dimension<DecimalFormatOptions>[];
   const f = (c: CLDR, n: Decimal, o: DecimalFormatOptions) =>
     c.Numbers.formatDecimal(n, o);
+
+  dims = [NUMFMT_NUM_SYSTEMS, NUMFMT_GROUP];
+  buildDecimal(join(root, 'decimalformat-numsystems.txt'), dims, f);
 
   dims = [DECFMT_STYLE, DECADJ_ROUND, NUMFMT_GROUP,
     DECFMT_MININT, DECADJ_MINFRAC, DECADJ_MAXFRAC];

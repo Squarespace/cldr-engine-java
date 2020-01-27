@@ -56,7 +56,7 @@ public abstract class CalendarDate {
    * Unix epoch with no timezone offset.
    */
   public long unixEpoch() {
-    return this.fields[DateField.LOCAL_MILLIS] + this.zoneInfo.offset;
+    return this.fields[DateField.LOCAL_MILLIS] - this.zoneInfo.offset;
   }
 
 
@@ -922,15 +922,15 @@ public abstract class CalendarDate {
     f[DateField.MILLIS_IN_DAY] = msDay;
     f[DateField.MILLIS] = msDay % 1000;
 
-    msDay = msDay / 1000 | 0;
+    msDay = msDay / 1000;
     f[DateField.SECOND] = msDay % 60;
 
-    msDay = msDay / 60 | 0;
+    msDay = msDay / 60;
     f[DateField.MINUTE] = msDay % 60;
 
-    msDay = msDay / 60 | 0;
+    msDay = msDay / 60;
     f[DateField.HOUR_OF_DAY] = msDay;
-    f[DateField.AM_PM] = msDay / 12 | 0;
+    f[DateField.AM_PM] = msDay / 12;
     f[DateField.HOUR] = msDay % 12;
 
     long dow = (jd + DayOfWeek.MONDAY) % 7;

@@ -39,14 +39,20 @@ public class JapaneseDate extends GregorianDate {
 
   protected JapaneseDate _initFromUnixEpoch(long epoch, String zoneId) {
     super.initFromUnixEpoch(epoch, zoneId);
-    computeJapaneseFields(this.fields);
+    this.initFields(this.fields);
     return this;
   }
 
   protected JapaneseDate _initFromJD(long jd, long msDay, String zoneId) {
     super.initFromJD(jd, msDay, zoneId);
-    computeJapaneseFields(this.fields);
+    this.initFields(this.fields);
     return this;
+  }
+
+  @Override
+  protected void initFields(long[] f) {
+    super.initFields(f);
+    computeJapaneseFields(f);
   }
 
   protected void computeJapaneseFields(long[] f) {

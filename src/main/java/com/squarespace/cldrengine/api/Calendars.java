@@ -1,8 +1,21 @@
 package com.squarespace.cldrengine.api;
 
+import java.util.Date;
 import java.util.List;
 
 public interface Calendars {
+
+  /**
+   * Convert a date time into a date in the Buddhist calendar, with locale-specific
+   * week data.
+   */
+  BuddhistDate toBuddhistDate(long epoch, String zoneId);
+
+  /**
+   * Convert a date time into a date in the Buddhist calendar, with locale-specific
+   * week data.
+   */
+  BuddhistDate toBuddhistDate(Date date, String zoneId);
 
   /**
    * Convert a date time into a date in the Buddhist calendar, with locale-specific
@@ -14,7 +27,29 @@ public interface Calendars {
    * Convert a date time into a date in the Gregorian calendar, with locale-specific
    * week data.
    */
+  GregorianDate toGregorianDate(long epoch, String zoneId);
+
+  /**
+   * Convert a date time into a date in the Gregorian calendar, with locale-specific
+   * week data.
+   */
+  GregorianDate toGregorianDate(Date date, String zoneId);
+
+  /**
+   * Convert a date time into a date in the Gregorian calendar, with locale-specific
+   * week data.
+   */
   GregorianDate toGregorianDate(CalendarDate date);
+
+  /**
+   * Convert a date time into a date in the ISO-8601 calendar, with ISO week data.
+   */
+  ISO8601Date toISO8601Date(long epoch, String zoneId);
+
+  /**
+   * Convert a date time into a date in the ISO-8601 calendar, with ISO week data.
+   */
+  ISO8601Date toISO8601Date(Date date, String zoneId);
 
   /**
    * Convert a date time into a date in the ISO-8601 calendar, with ISO week data.
@@ -25,7 +60,31 @@ public interface Calendars {
    * Convert a date time into a date in the Japanese calendar, with locale-specific
    * week data.
    */
+  JapaneseDate toJapaneseDate(long epoch, String zoneId);
+
+  /**
+   * Convert a date time into a date in the Japanese calendar, with locale-specific
+   * week data.
+   */
+  JapaneseDate toJapaneseDate(Date date, String zoneId);
+
+  /**
+   * Convert a date time into a date in the Japanese calendar, with locale-specific
+   * week data.
+   */
   JapaneseDate toJapaneseDate(CalendarDate date);
+
+  /**
+   * Convert a date time into a date in the Persian calendar, with locale-specific
+   * week data.
+   */
+  PersianDate toPersianDate(long epoch, String zoneId);
+
+  /**
+   * Convert a date time into a date in the Persian calendar, with locale-specific
+   * week data.
+   */
+  PersianDate toPersianDate(Date date, String zoneId);
 
   /**
    * Convert a date time into a date in the Persian calendar, with locale-specific

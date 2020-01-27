@@ -1,5 +1,6 @@
 package com.squarespace.cldrengine;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.squarespace.cldrengine.api.Bundle;
@@ -50,15 +51,18 @@ public class CLDR {
     this.Schema = Meta.SCHEMA;
   }
 
+  public static List<String> availableLocales() {
+    return ResourcePacks.availableLocales();
+  }
+
   public static CLDR get(String id) {
     CLocale locale = resolveLocale(id);
     return get(locale);
   }
 
   public static CLDR get(CLocale locale) {
-    LanguageTag tag = locale.tag();
-    String key = locale.tag().compact();
-    Bundle bundle = BUNDLES.computeIfAbsent(key, (k) -> {
+    Bundle bundle = BUNDLES.computeIfAbsent(locale.id(), (k) -> {
+      LanguageTag tag = locale.tag();
       Pack pack = ResourcePacks.get(tag.language());
       return pack.get(locale.tag());
     });

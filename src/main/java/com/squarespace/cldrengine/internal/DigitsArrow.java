@@ -13,10 +13,12 @@ public class DigitsArrow<R> {
 
   private int offset;
   private KeyIndex<R> index;
+  private int size2;
 
   public DigitsArrow(int offset, KeyIndex<R> index) {
     this.offset = offset;
     this.index = index;
+    this.size2 = DIGITS_LEN * 2; // store pattern and divisor as a pair
   }
 
   public Pair<String, Integer> get(PrimitiveBundle bundle, R key, int digits) {
@@ -26,7 +28,7 @@ public class DigitsArrow<R> {
     if (digits > 0) {
       int i = this.index.get(key);
       if (i != -1) {
-        int k = this.offset + (i * DIGITS_LEN) + ((digits - 1) * 2);
+        int k = this.offset + (i * this.size2) + ((digits - 1) * 2);
         String p = bundle.get(k);
         String d = bundle.get(k + 1);
         return Pair.of(p, Integer.valueOf(d));

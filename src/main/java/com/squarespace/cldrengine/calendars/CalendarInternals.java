@@ -14,7 +14,6 @@ import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.CalendarDate;
 import com.squarespace.cldrengine.api.CalendarType;
-import com.squarespace.cldrengine.api.DayPeriodType;
 import com.squarespace.cldrengine.internal.AbstractValue;
 import com.squarespace.cldrengine.internal.CalendarExternalData;
 import com.squarespace.cldrengine.internal.CalendarSchema;

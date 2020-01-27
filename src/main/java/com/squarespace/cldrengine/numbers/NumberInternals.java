@@ -273,7 +273,7 @@ public class NumberInternals {
     CurrencyFractions fractions = getCurrencyFractions(code);
     RoundingModeType round = options.round.or(RoundingModeType.HALF_EVEN);
 
-    if (options.cash.ok() && fractions.cashRounding > 1) {
+    if (options.cash.or(false) && fractions.cashRounding > 1) {
       Decimal cr = new Decimal(fractions.cashRounding);
       MathContext cx = MathContext.build().round(RoundingModeType.HALF_EVEN);
       // Simple cash rounding to nearest "cash digits" increment

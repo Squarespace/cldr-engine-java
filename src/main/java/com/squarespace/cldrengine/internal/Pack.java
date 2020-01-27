@@ -4,12 +4,14 @@ import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.LanguageTag;
+import com.squarespace.cldrengine.locale.LanguageTagParser;
 import com.squarespace.cldrengine.locale.LocaleResolver;
 import com.squarespace.cldrengine.utils.JsonUtils;
 
@@ -29,10 +31,7 @@ public class Pack {
     this.version = data.get("version").getAsString();
     this.cldrVersion = data.get("cldr").getAsString();
     this.language = data.get("language").getAsString();
-
-    // TODO:
-//    this.defaultTag = data.get("defaultTag").getAsString();
-    this.defaultTag = null;
+    this.defaultTag = LanguageTagParser.parse(data.get("defaultTag").getAsString());
     JsonObject scripts = data.get("scripts").getAsJsonObject();
     this.scripts = new HashMap<>();
     for (Map.Entry<String, JsonElement> entry : scripts.entrySet()) {
@@ -80,39 +79,35 @@ public class Pack {
     final String[] strings;
     final String[] exceptions;
     final Map<String, String> regions;
-    final Map<String, Map<Integer, Integer>> cache;
     final String defaultRegion;
+    final ConcurrentHashMap<String, Map<Integer, Integer>> cache;
 
     PackScript(JsonObject obj) {
       this.strings = obj.get("strings").getAsString().split(SEP);
       this.exceptions = obj.get("exceptions").getAsString().split(SEP);
       this.regions = JsonUtils.decodeObject(obj.get("regions"));
-      this.cache = new HashMap<>();
       this.defaultRegion = obj.get("defaultRegion").getAsString();
+      this.cache = new ConcurrentHashMap<>();
     }
 
     Bundle get(LanguageTag tag) {
+      Map<Integer, Integer> index;
       String region = tag.region();
-      Map<Integer, Integer> index = this.cache.get(region);
-      if (index == null) {
-        index = this.decode(region);
+      if (regions.containsKey(region)) {
+        index = this.cache.computeIfAbsent(region, r -> decode(r));
+        return new StringBundle(tag.compact(), tag, this.strings, this.exceptions, index);
       }
-      if (index == null) {
-        region = this.defaultRegion;
-        tag = new LanguageTag(tag.language(), tag.script(), region, tag.variant(), tag.extensions(), tag.privateUse());
-        index = this.cache.get(region);
-        if (index == null) {
-          index = this.decode(region);
-        }
-      }
+
+      // Use default region
+      region = this.defaultRegion;
+      tag = new LanguageTag(tag.language(), tag.script(), region, tag.variant(), tag.extensions(), tag.privateUse());
+      index = this.cache.computeIfAbsent(region, r -> decode(r));
       return new StringBundle(tag.compact(), tag, this.strings, this.exceptions, index);
     }
 
     private Map<Integer, Integer> decode(String region) {
+      // raw will always be defined here
       String raw = this.regions.get(region);
-      if (raw == null) {
-        return null;
-      }
       Map<Integer, Integer> index = new HashMap<>();
       if (!isEmpty(raw)) {
         String[] parts = raw.split("\\s+");
@@ -122,7 +117,6 @@ public class Pack {
           index.put(k, v);
         }
       }
-      this.cache.put(region, index);
       return index;
     }
 

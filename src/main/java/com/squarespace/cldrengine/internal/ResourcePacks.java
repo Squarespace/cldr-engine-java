@@ -26,7 +26,6 @@ public class ResourcePacks {
       String name = language + ".json";
       try {
         JsonObject obj = JsonUtils.loadJson(ResourcePacks.class, name);
-        System.out.println(" load " + name);
         return new Pack(obj);
       } catch (IOException e) {
         throw new RuntimeException("Fatal: failed to load resource pack: '" + name + "'", e);

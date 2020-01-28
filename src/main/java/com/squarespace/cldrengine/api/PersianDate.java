@@ -7,8 +7,6 @@ import com.squarespace.cldrengine.utils.Pair;
  * Construct a date using the rules of the Persian calendar.
  *
  * type: persian
- *
- * @alpha
  */
 public class PersianDate extends CalendarDate {
 

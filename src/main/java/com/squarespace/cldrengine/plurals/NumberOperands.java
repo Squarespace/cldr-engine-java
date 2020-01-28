@@ -15,8 +15,6 @@ import lombok.ToString;
  * number of visible fraction digits in n, with trailing zeros w number of visible fraction digits in n, without
  * trailing zeros f visible fractional digits in n, with trailing zeros t visible fractional digits in n, without
  * trailing zeros
- *
- * @alpha
  */
 @ToString
 public class NumberOperands {

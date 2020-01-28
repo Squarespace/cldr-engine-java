@@ -1105,7 +1105,6 @@ public class Decimal {
 
   /**
    * Return true of this instance is odd.
-   * @return
    */
   protected boolean isodd() {
     return this.data.length > 0 && (this.data[0] % 2 == 1);

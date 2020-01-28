@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 
 /**
  * A single part of a multi-part value.
- *
- * @alpha
  */
 @AllArgsConstructor
 public class Part {

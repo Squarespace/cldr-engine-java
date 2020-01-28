@@ -92,6 +92,15 @@ jacocoTestReport {
     }
 }
 
+// Disable Javadoc linting under Java 8+
+if (JavaVersion.current().isJava8Compatible()) {
+  allprojects {
+    tasks.withType(Javadoc) {
+      options.addStringOption('Xdoclint:none', '-quiet')
+    }
+  }
+}
+
 release {
 }
 
@@ -122,6 +131,11 @@ task runCodegen(type: YarnTask) {
 
 compileJava.dependsOn 'runCodegen'
 runCodegen.dependsOn 'buildCodegen'
+
+java {
+  withSourcesJar()
+  withJavadocJar()
+}
 
 publishing {
     publications {

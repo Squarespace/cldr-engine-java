@@ -25,6 +25,7 @@ import com.squarespace.cldrengine.api.TimeZoneNameType;
 import com.squarespace.cldrengine.api.UnitType;
 import com.squarespace.cldrengine.internal.Meta;
 import com.squarespace.cldrengine.internal.Pack;
+import com.squarespace.cldrengine.internal.ResourcePacks;
 import com.squarespace.cldrengine.utils.Pair;
 
 /**
@@ -34,17 +35,17 @@ import com.squarespace.cldrengine.utils.Pair;
 public class Sketch {
 
   public static void main(String[] args) throws Exception {
-    JsonObject root = load("en.json");
-    Pack pack = new Pack(root);
+//    JsonObject root = load("en.json");
+//    Pack pack = new Pack(root);
 
+    Pack pack = ResourcePacks.get("en");
     LanguageTag tag = new LanguageTag("en", "Latn", "US");
-
     Bundle bundle = pack.get(tag);
 
     String s;
     Pair<String, Integer> d;
 
-    s = Meta.SCHEMA.Names.scripts.displayName.get(bundle, ScriptIdType.LATN);
+    s = Meta.SCHEMA.Names.scripts.displayName.get(bundle, AltType.NONE, ScriptIdType.LATN);
     expect(s, "Latin");
 
     s = Meta.SCHEMA.Names.regions.displayName.get(bundle, AltType.NONE, RegionIdType.US);

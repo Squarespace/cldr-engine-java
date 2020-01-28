@@ -58,5 +58,33 @@ public interface General {
    */
   List<Part> formatListToParts(List<String> items, ListPatternType type);
 
+  /**
+   * Returns the display name for the given language code.
+   */
   String getLanguageDisplayName(String code, DisplayNameOptions options);
+
+  /**
+   * Returns the display name for the given language code.
+   */
+  String getLanguageDisplayName(LanguageTag tag, DisplayNameOptions options);
+
+  /**
+   * Returns the display name for the given script code.
+   */
+  String getScriptDisplayName(String code, DisplayNameOptions options);
+
+  /**
+   * Returns the display name for the given script code.
+   */
+  String getScriptDisplayName(LanguageTag tag, DisplayNameOptions options);
+
+  /**
+   * Returns the display name for the given region code.
+   */
+  String getRegionDisplayName(String code, DisplayNameOptions options);
+
+  /**
+   * Returns the display name for the given region code.
+   */
+  String getRegionDisplayName(LanguageTag tag, DisplayNameOptions options);
 }

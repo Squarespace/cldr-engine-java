@@ -11,6 +11,7 @@
 
 /bin/
 /build/
+/src/generated/resources
 /test-output/
 
 

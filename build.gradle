@@ -1,6 +1,10 @@
 plugins {
-    id 'me.champeau.gradle.jmh' version '0.5.0'
+  id 'me.champeau.gradle.jmh' version '0.5.0'
+  id 'net.researchgate.release' version '2.6.0'
 	id 'jacoco'
+  id 'java-library'
+  id 'maven-publish'
+  id 'signing'
 }
 
 repositories {
@@ -19,10 +23,17 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 project.ext {
-	ccVersion = '1.0.6'
-	gsonVersion = '2.8.6'
-	lombokVersion = '1.18.10'
- 	testngVersion = '7.1.0'
+  ccVersion = '1.0.6'
+  gsonVersion = '2.8.6'
+  lombokVersion = '1.18.10'
+  testngVersion = '7.1.0'
+
+  buildDate = new java.util.Date()
+  buildCommit = ('git rev-parse HEAD').execute().text.trim()
+
+  isRelease = !version.endsWith('SNAPSHOT')
+  isUpload = false
+  isSign = false
 }
 
 dependencies {
@@ -30,7 +41,7 @@ dependencies {
 
   compileOnly "org.projectlombok:lombok:${lombokVersion}"
   annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
- 
+
   testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
   testImplementation "org.testng:testng:${testngVersion}"
   testImplementation 'commons-io:commons-io:2.1'
@@ -76,4 +87,59 @@ jacocoTestReport {
         csv.enabled false
         html.destination file("${buildDir}/jacoco-report")
     }
+}
+
+release {
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'cldr-engine'
+            from components.java
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name = 'cldr-engine'
+                description = 'Squarespace cldr-engine'
+                url = 'https://github.com/squarespace/template-compiler'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'pathensley'
+                        name = 'Patrick Hensley'
+                        email = 'pathensley@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git@github.com:Squarespace/cldr-engine-java.git'
+                    developerConnection = 'scm:git:git@github.com:Squarespace/cldr-engine-java.git'
+                    url = 'https://github.com/squarespace/template-compiler'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            // change URLs to point to your repos, e.g. http://my.org/repo
+            def releasesRepoUrl = "$buildDir/repos/releases"
+            def snapshotsRepoUrl = "$buildDir/repos/snapshots"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }

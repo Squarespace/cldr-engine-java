@@ -186,7 +186,7 @@ publishing {
             releasesRepoUrl = NEXUS_INTERNAL_RELEASE_URL
             snapshotsRepoUrl = NEXUS_INTERNAL_SNAPSHOT_URL
             _username = NEXUS_USERNAME
-            _password = NEXUS_PASSWORD
+            _password = System.getenv('NEXUS_PASSWORD')
           }
 
           url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl

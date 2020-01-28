@@ -1,6 +1,7 @@
 package com.squarespace.cldrengine.internal;
 
 
+
 public class Schema {
 
   public final NamesSchema Names;

@@ -2,6 +2,7 @@ package com.squarespace.cldrengine.internal;
 
 
 import com.squarespace.cldrengine.api.ListPatternPositionType;
+
 public class ListPatternsSchema {
 
   public final Vector1Arrow<ListPatternPositionType> and;

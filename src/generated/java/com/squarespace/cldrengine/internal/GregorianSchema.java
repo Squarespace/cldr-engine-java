@@ -4,6 +4,7 @@ package com.squarespace.cldrengine.internal;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.EraWidthType;
+
 public class GregorianSchema extends CalendarSchema {
 
   public GregorianSchema(

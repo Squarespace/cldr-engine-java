@@ -3,6 +3,7 @@ package com.squarespace.cldrengine.internal;
 
 import com.squarespace.cldrengine.api.TimeZoneNameType;
 import com.squarespace.cldrengine.api.MetaZoneType;
+
 public class MetaZoneInfo {
 
   public final Vector2Arrow<TimeZoneNameType, MetaZoneType> short_;

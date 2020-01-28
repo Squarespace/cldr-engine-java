@@ -16,7 +16,6 @@ import com.squarespace.cldrengine.api.RelativeTimeFieldType;
 import com.squarespace.cldrengine.api.DateFieldWidthType;
 import com.squarespace.cldrengine.api.DateFieldType;
 import com.squarespace.cldrengine.api.FormatWidthType;
-import com.squarespace.cldrengine.api.FieldWidthType;
 import com.squarespace.cldrengine.api.EraWidthType;
 import com.squarespace.cldrengine.api.UnitType;
 import com.squarespace.cldrengine.api.MetaZoneType;

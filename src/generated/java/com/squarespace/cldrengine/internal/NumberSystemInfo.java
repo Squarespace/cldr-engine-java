@@ -3,6 +3,7 @@ package com.squarespace.cldrengine.internal;
 
 import com.squarespace.cldrengine.api.NumberMiscPatternType;
 import com.squarespace.cldrengine.api.NumberSymbolType;
+
 public class NumberSystemInfo {
 
   public final Vector1Arrow<NumberSymbolType> symbols;

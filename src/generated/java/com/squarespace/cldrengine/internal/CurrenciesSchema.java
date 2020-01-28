@@ -4,6 +4,7 @@ package com.squarespace.cldrengine.internal;
 import com.squarespace.cldrengine.api.AltType;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.CurrencyType;
+
 public class CurrenciesSchema {
 
   public final Vector1Arrow<CurrencyType> displayName;

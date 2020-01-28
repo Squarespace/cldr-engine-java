@@ -1,6 +1,7 @@
 package com.squarespace.cldrengine.internal;
 
 
+
 public class LayoutSchema {
 
   public final FieldArrow characterOrder;

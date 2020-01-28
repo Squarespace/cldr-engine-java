@@ -1,6 +1,7 @@
 package com.squarespace.cldrengine.internal;
 
 
+
 public class CalendarFields {
 
   public final Vector2Arrow<String, String> weekdays;

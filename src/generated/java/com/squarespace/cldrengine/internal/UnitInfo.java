@@ -3,6 +3,7 @@ package com.squarespace.cldrengine.internal;
 
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.UnitType;
+
 public class UnitInfo {
 
   public final Vector2Arrow<PluralType, UnitType> unitPattern;

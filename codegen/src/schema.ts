@@ -111,7 +111,8 @@ export const generateSchema = () => {
     if (IGNORE.has(e.name)) {
       continue;
     }
-    if (!seen.has(e.name) && code.indexOf(e.name) !== -1) {
+    const re = new RegExp('\\b' + e.name);
+    if (!seen.has(e.name) && re.test(code)) {
       code = `import com.squarespace.cldrengine.api.${e.name};\n` + code;
       seen.add(e.name);
     }
@@ -135,7 +136,9 @@ export const generateSchema = () => {
       if (IGNORE.has(e.name)) {
         continue;
       }
-      if (!seen.has(e.name) && code.indexOf(e.name) !== -1) {
+      // Check for type after a word boundary
+      const re = new RegExp('\\b' + e.name);
+      if (!seen.has(e.name) && re.test(code)) {
         code = `import com.squarespace.cldrengine.api.${e.name};\n` + code;
         seen.add(e.name);
       }

@@ -3,6 +3,7 @@ package com.squarespace.cldrengine.internal;
 
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.RelativeTimeFieldType;
+
 public class RelativeTimeFields {
 
   public final Vector1Arrow<RelativeTimeFieldType> previous2;

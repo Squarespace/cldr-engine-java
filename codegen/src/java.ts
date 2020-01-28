@@ -23,7 +23,7 @@ export const tojava = (n: any, types?: any): string => {
       }
 
     case 'interface':
-      r += `public class ${n.name} `;
+      r += `\npublic class ${n.name} `;
       if (n.extends.length) {
         r += `extends ${n.extends.join(', ')} `;
       }

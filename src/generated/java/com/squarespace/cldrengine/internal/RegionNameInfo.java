@@ -3,6 +3,7 @@ package com.squarespace.cldrengine.internal;
 
 import com.squarespace.cldrengine.api.AltType;
 import com.squarespace.cldrengine.api.RegionIdType;
+
 public class RegionNameInfo {
 
   public final Vector2Arrow<AltType, RegionIdType> displayName;

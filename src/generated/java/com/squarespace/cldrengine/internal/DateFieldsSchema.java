@@ -3,7 +3,7 @@ package com.squarespace.cldrengine.internal;
 
 import com.squarespace.cldrengine.api.DateFieldWidthType;
 import com.squarespace.cldrengine.api.DateFieldType;
-import com.squarespace.cldrengine.api.FieldWidthType;
+
 public class DateFieldsSchema {
 
   public final RelativeTimes relativeTimes;

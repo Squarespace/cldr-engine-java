@@ -2,6 +2,7 @@ package com.squarespace.cldrengine.internal;
 
 
 import com.squarespace.cldrengine.api.PluralType;
+
 public class DecimalFormats {
 
   public final FieldArrow standard;

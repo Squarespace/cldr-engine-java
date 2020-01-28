@@ -3,6 +3,7 @@ package com.squarespace.cldrengine.internal;
 
 import com.squarespace.cldrengine.api.NumberSystemCategory;
 import java.util.Map;
+
 public class NumbersSchema {
 
   public final FieldArrow minimumGroupingDigits;

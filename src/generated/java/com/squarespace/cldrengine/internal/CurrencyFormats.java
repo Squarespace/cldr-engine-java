@@ -4,6 +4,7 @@ package com.squarespace.cldrengine.internal;
 import com.squarespace.cldrengine.api.CurrencySpacingPattern;
 import com.squarespace.cldrengine.api.CurrencySpacingPos;
 import com.squarespace.cldrengine.api.PluralType;
+
 public class CurrencyFormats {
 
   public final FieldArrow standard;

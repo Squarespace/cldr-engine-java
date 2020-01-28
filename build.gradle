@@ -54,7 +54,7 @@ sourceSets.main.resources.srcDirs = ['src/main/resources', 'src/generated/resour
 
 eclipse {
 	project {
-		name = 'squarespace-cldr-engine'
+		name = 'cldr-engine-java'
 	}
 }
 

@@ -33,8 +33,7 @@ public class GregorianDate extends CalendarDate {
   @Override
   public GregorianDate withZone(String zoneId) {
     GregorianDate d = new GregorianDate(CalendarType.GREGORY, this.firstDay, this.minDays);
-    d.initFromUnixEpoch(this.unixEpoch(), zoneId);
-    return d;
+    return d._initFromUnixEpoch(this.unixEpoch(), zoneId);
   }
 
   @Override

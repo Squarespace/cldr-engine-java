@@ -14,7 +14,7 @@ public class ISO8601Date extends GregorianDate {
   public ISO8601Date add(TimePeriod fields) {
     Pair<Long, Double> result = this._add(fields);
     ISO8601Date d = new ISO8601Date();
-    d.initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
+    d._initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
     return d;
   }
 
@@ -24,12 +24,10 @@ public class ISO8601Date extends GregorianDate {
   }
 
   public static ISO8601Date fromUnixEpoch(long epoch, String zoneId, int firstDay, int minDays) {
-    return new ISO8601Date()._initFromUnixEpoch(epoch, zoneId);
+    ISO8601Date d = new ISO8601Date();
+    d._initFromUnixEpoch(epoch, zoneId);
+    return d;
   }
 
-  protected ISO8601Date _initFromUnixEpoch(long epoch, String zoneId) {
-    super.initFromUnixEpoch(epoch, zoneId);
-    return this;
-  }
 }
 

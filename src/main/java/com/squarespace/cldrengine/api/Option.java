@@ -15,6 +15,10 @@ public class Option<T> {
     return new Option<>(value);
   }
 
+  public void clear() {
+    this.value = null;
+  }
+
   public void set(T value) {
     this.value = value;
   }

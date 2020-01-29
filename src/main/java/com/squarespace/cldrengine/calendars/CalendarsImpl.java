@@ -46,10 +46,6 @@ public class CalendarsImpl implements Calendars {
           .build()
           .date(FormatWidthType.FULL);
 
-  private static final DateIntervalFormatOptions DATE_INTERVAL_OPTIONS_DEFAULT =
-      DateIntervalFormatOptions.build()
-          .skeleton("yMd");
-
   private static final RelativeTimeFieldFormatOptions RELATIVE_FIELD_OPTIONS_DEFAULT =
       RelativeTimeFieldFormatOptions.build()
           .width(DateFieldWidthType.WIDE);
@@ -279,8 +275,7 @@ public class CalendarsImpl implements Calendars {
 
   protected <R> R _formatInterval(AbstractValue<R> value, CalendarDate start, CalendarDate end,
       DateIntervalFormatOptions options) {
-    options = defaulter(options, DateIntervalFormatOptions::build)
-        .mergeIf(DATE_INTERVAL_OPTIONS_DEFAULT);
+    options = defaulter(options, DateIntervalFormatOptions::build);
     CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
     DateTimePatternFieldType fieldDiff = this.fieldOfVisualDifference(start, end);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");

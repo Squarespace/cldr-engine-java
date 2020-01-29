@@ -22,14 +22,14 @@ public class JapaneseDate extends GregorianDate {
   public JapaneseDate add(TimePeriod fields) {
     Pair<Long, Double> result = this._add(fields);
     JapaneseDate d = new JapaneseDate(this.firstDay, this.minDays);
-    d.initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
+    d._initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
     return d;
   }
 
   @Override
   public GregorianDate withZone(String zoneId) {
     JapaneseDate d = new JapaneseDate(this.firstDay, this.minDays);
-    d.initFromUnixEpoch(this.unixEpoch(), zoneId);
+    d._initFromUnixEpoch(this.unixEpoch(), zoneId);
     return d;
   }
 
@@ -38,13 +38,13 @@ public class JapaneseDate extends GregorianDate {
   }
 
   protected JapaneseDate _initFromUnixEpoch(long epoch, String zoneId) {
-    super.initFromUnixEpoch(epoch, zoneId);
+    super._initFromUnixEpoch(epoch, zoneId);
     this.initFields(this.fields);
     return this;
   }
 
   protected JapaneseDate _initFromJD(long jd, long msDay, String zoneId) {
-    super.initFromJD(jd, msDay, zoneId);
+    super._initFromJD(jd, msDay, zoneId);
     this.initFields(this.fields);
     return this;
   }

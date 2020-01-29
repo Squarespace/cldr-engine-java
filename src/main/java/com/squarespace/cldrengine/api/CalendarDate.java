@@ -689,9 +689,9 @@ public abstract class CalendarDate {
 
     // Capture days and time fields (in milliseconds) for future use.
     // We do this here since we'll be re-initializing the date fields below.
-    Pair<Long, Long> daysms = this._addTime(fields);
-    long _days = daysms._1;
-    long _ms = daysms._2;
+    Pair<Long, Double> daysms = this._addTime(fields);
+    double _days = daysms._1;
+    double _ms = daysms._2;
     _days += fields.day.or(0.0) + (fields.week.or(0.0) * 7);
 
     // YEARS
@@ -745,8 +745,8 @@ public abstract class CalendarDate {
     }
 
     // Compute updated julian day from year and fractional month
-    int dim = (int)(this.daysInMonth(year, (int)month) * monthf);
-    split = splitfrac(dim);
+    double dim = this.daysInMonth(year, (int)month) * monthf;
+    split = splitfrac(_days + dim);
     day = split._1;
     dayf = split._2;
     jd = this.monthStart(year, month, false) + f[DateField.DAY_OF_MONTH];
@@ -754,7 +754,6 @@ public abstract class CalendarDate {
     // DAY AND TIME FIELDS
 
     // Adjust julian day by fractional day and time fields
-    day += _days;
     ms += Math.round(_ms + (dayf * CalendarConstants.ONE_DAY_MS));
     if (ms >= CalendarConstants.ONE_DAY_MS) {
       double d = Math.floor(ms / CalendarConstants.ONE_DAY_MS);
@@ -768,14 +767,14 @@ public abstract class CalendarDate {
   /**
    * Converts all time fields into [days, milliseconds].
    */
-  protected Pair<Long, Long> _addTime(TimePeriod fields) {
-    long msDay = this.fields[DateField.MILLIS_IN_DAY] - this.timeZoneOffset();
+  protected Pair<Long, Double> _addTime(TimePeriod fields) {
+    double msDay = this.fields[DateField.MILLIS_IN_DAY] - this.timeZoneOffset();
     msDay += (fields.hour.or(0.0) * CalendarConstants.ONE_HOUR_MS) +
         (fields.minute.or(0.0) * CalendarConstants.ONE_MINUTE_MS) +
         (fields.second.or(0.0) * CalendarConstants.ONE_SECOND_MS) +
         fields.millis.or(0.0);
-    long days = msDay / CalendarConstants.ONE_DAY_MS;
-    long ms = msDay - (days * CalendarConstants.ONE_DAY_MS);
+    long days = (long) (msDay / CalendarConstants.ONE_DAY_MS);
+    double ms = msDay - (days * CalendarConstants.ONE_DAY_MS);
     return Pair.of(days, ms);
   }
 

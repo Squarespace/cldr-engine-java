@@ -31,6 +31,16 @@ public class TimePeriod {
     return this;
   }
 
+  public TimePeriod year(Long arg) {
+    this.year.set(arg.doubleValue());
+    return this;
+  }
+
+  public TimePeriod year(Integer arg) {
+    this.year.set(arg.doubleValue());
+    return this;
+  }
+
   public TimePeriod year(Option<Double> arg) {
     this.year.set(arg);
     return this;
@@ -38,6 +48,16 @@ public class TimePeriod {
 
   public TimePeriod month(Double arg) {
     this.month.set(arg);
+    return this;
+  }
+
+  public TimePeriod month(Long arg) {
+    this.month.set(arg.doubleValue());
+    return this;
+  }
+
+  public TimePeriod month(Integer arg) {
+    this.month.set(arg.doubleValue());
     return this;
   }
 
@@ -51,6 +71,16 @@ public class TimePeriod {
     return this;
   }
 
+  public TimePeriod week(Long arg) {
+    this.week.set(arg.doubleValue());
+    return this;
+  }
+
+  public TimePeriod week(Integer arg) {
+    this.week.set(arg.doubleValue());
+    return this;
+  }
+
   public TimePeriod week(Option<Double> arg) {
     this.week.set(arg);
     return this;
@@ -58,6 +88,16 @@ public class TimePeriod {
 
   public TimePeriod day(Double arg) {
     this.day.set(arg);
+    return this;
+  }
+
+  public TimePeriod day(Long arg) {
+    this.day.set(arg.doubleValue());
+    return this;
+  }
+
+  public TimePeriod day(Integer arg) {
+    this.day.set(arg.doubleValue());
     return this;
   }
 
@@ -71,6 +111,16 @@ public class TimePeriod {
     return this;
   }
 
+  public TimePeriod hour(Long arg) {
+    this.hour.set(arg.doubleValue());
+    return this;
+  }
+
+  public TimePeriod hour(Integer arg) {
+    this.hour.set(arg.doubleValue());
+    return this;
+  }
+
   public TimePeriod hour(Option<Double> arg) {
     this.hour.set(arg);
     return this;
@@ -78,6 +128,16 @@ public class TimePeriod {
 
   public TimePeriod minute(Double arg) {
     this.minute.set(arg);
+    return this;
+  }
+
+  public TimePeriod minute(Long arg) {
+    this.minute.set(arg.doubleValue());
+    return this;
+  }
+
+  public TimePeriod minute(Integer arg) {
+    this.minute.set(arg.doubleValue());
     return this;
   }
 
@@ -91,6 +151,16 @@ public class TimePeriod {
     return this;
   }
 
+  public TimePeriod second(Long arg) {
+    this.second.set(arg.doubleValue());
+    return this;
+  }
+
+  public TimePeriod second(Integer arg) {
+    this.second.set(arg.doubleValue());
+    return this;
+  }
+
   public TimePeriod second(Option<Double> arg) {
     this.second.set(arg);
     return this;
@@ -98,6 +168,16 @@ public class TimePeriod {
 
   public TimePeriod millis(Double arg) {
     this.millis.set(arg);
+    return this;
+  }
+
+  public TimePeriod millis(Long arg) {
+    this.millis.set(arg.doubleValue());
+    return this;
+  }
+
+  public TimePeriod millis(Integer arg) {
+    this.millis.set(arg.doubleValue());
     return this;
   }
 

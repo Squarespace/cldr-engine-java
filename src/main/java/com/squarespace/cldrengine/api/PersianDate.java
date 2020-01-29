@@ -23,7 +23,7 @@ public class PersianDate extends CalendarDate {
   public CalendarDate add(TimePeriod fields) {
     Pair<Long, Double> result = this._add(fields);
     PersianDate d = new PersianDate(this.firstDay, this.minDays);
-    d.initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
+    d._initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
     return d;
   }
 
@@ -35,7 +35,7 @@ public class PersianDate extends CalendarDate {
   @Override
   public CalendarDate withZone(String zoneId) {
     PersianDate d = new PersianDate(this.firstDay, this.minDays);
-    d.initFromUnixEpoch(this.unixEpoch(), zoneId);
+    d._initFromUnixEpoch(this.unixEpoch(), zoneId);
     return d;
   }
 
@@ -52,6 +52,11 @@ public class PersianDate extends CalendarDate {
   @Override
   protected int monthCount() {
     return 12;
+  }
+
+  @Override
+  public String toString() {
+    return _toString("Persian");
   }
 
   public static PersianDate fromUnixEpoch(long epoch, String zoneId, int firstDay, int minDays) {
@@ -77,7 +82,7 @@ public class PersianDate extends CalendarDate {
 
   @Override
   protected long monthStart(long eyear, double month, boolean useMonth) {
-    long jd = CalendarConstants.JD_GREGORIAN_EPOCH - 1 + 365 * (eyear - 1) +
+    long jd = CalendarConstants.JD_PERSIAN_EPOCH - 1 + 365 * (eyear - 1) +
           (long)Math.floor((8 * eyear + 21) / 33);
     if (month != 0) {
       int m = (int)Math.floor(month);

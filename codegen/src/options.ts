@@ -345,7 +345,14 @@ const setter = (cls: string, name: string, type: string) => {
   s += `    this.${name}.set(arg);\n`;
   s += `    return this;\n`;
   s += `  }\n\n`;
-
+  if (type == 'Double') {
+    for (const t of ['Long', 'Integer']) {
+      s += `  public ${cls} ${name}(${t} arg) {\n`;
+      s += `    this.${name}.set(arg.doubleValue());\n`;
+      s += `    return this;\n`;
+      s += `  }\n\n`;
+    }
+  }
   s += `  public ${cls} ${name}(Option<${type}> arg) {\n`;
   s += `    this.${name}.set(arg);\n`;
   s += `    return this;\n`;

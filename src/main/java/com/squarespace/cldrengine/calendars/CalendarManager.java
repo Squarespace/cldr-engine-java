@@ -166,7 +166,19 @@ class CalendarManager {
     req.params = params;
     req.wrapper = wrapper;
 
-    String origSkeleton = options.skeleton.or("yMd");
+    String origSkeleton = options.skeleton.get();
+    if (origSkeleton == null) {
+      if (dateDiffers && options.date.ok()) {
+        origSkeleton = options.date.get();
+      } else {
+        origSkeleton = options.time.get();
+      }
+    }
+
+    // If the skeleton is still undefined, select a reasonable default
+    if (origSkeleton == null) {
+      origSkeleton = dateDiffers ? "yMMMd" : "hmsa";
+    }
     String skeleton = origSkeleton;
 
     // Cache key consists of the input skeleton and the field of greatest difference between
@@ -198,7 +210,13 @@ class CalendarManager {
 
     if (!query.isDate && dateDiffers) {
       // 3c. prepend "yMd" and proceed
-      skeleton = "yMd" + skeleton;
+      if (fieldDiff == DateTimePatternFieldType.YEAR) {
+        skeleton = "yMd" + skeleton;
+      } else if (fieldDiff == DateTimePatternFieldType.MONTH) {
+        skeleton = "Md" + skeleton;
+      } else {
+        skeleton = "d" + skeleton;
+      }
     }
 
     if (!origSkeleton.equals(skeleton)) {

@@ -1,11 +1,5 @@
 package com.squarespace.cldrengine.scratch;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.AltType;
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.CurrencyType;
@@ -95,13 +89,6 @@ public class Sketch {
 
     s = Meta.SCHEMA.Gregorian.dateFormats.get(bundle, FormatWidthType.FULL);
     expect(s, "EEEE, MMMM d, y");
-  }
-
-
-  private static JsonObject load(String path) throws IOException {
-    try (InputStream stream = Bundle.class.getResourceAsStream(path)) {
-      return (JsonObject) JsonParser.parseReader(new InputStreamReader(stream));
-    }
   }
 
   private static void expect(String actual, String expected) throws Exception {

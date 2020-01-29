@@ -125,6 +125,8 @@ const DecimalFormatOptions =
 const DateIntervalFormatOptions =
   new Option('DateIntervalFormatOptions')
     .field('skeleton', 'String')
+    .field('date', 'String')
+    .field('time', 'String')
     .field('context', 'ContextType')
     .field('calendar', 'CalendarType')
     .field('numberSystem', 'String');

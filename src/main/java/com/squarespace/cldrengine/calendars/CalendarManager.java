@@ -94,7 +94,7 @@ class CalendarManager {
     if (entry != null) {
       req.date = entry.date;
       req.time = entry.time;
-      if (wrapKey != null && entry.dateSkel != null && req.date != null && req.time != null) {
+      if (wrapKey == null && entry.dateSkel != null && req.date != null && req.time != null) {
         // If wrapper not explicitly requested, select based on skeleton date fields
         req.wrapper = this.selectWrapper(patterns, entry.dateSkel, req.date);
       }

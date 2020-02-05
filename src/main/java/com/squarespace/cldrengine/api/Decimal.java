@@ -144,6 +144,20 @@ public class Decimal {
     return this.flag == DecimalFlag.INFINITY;
   }
 
+  @Override
+  public boolean equals(Object other) {
+    if (other instanceof Decimal) {
+      Decimal o = (Decimal) other;
+      // This does strict equals vs compare(other) == 0 which accounts for
+      // adjusted precision and exponents
+      return this.flag == o.flag
+          && this.exp == o.exp
+          && this.sign == o.sign
+          && Arrays.equals(this.data, o.data);
+    }
+    return false;
+  }
+
   public int compare(Decimal v) {
     return compare(v, false);
   }
@@ -350,47 +364,32 @@ public class Decimal {
 
     MathCtx ctx = DecimalMath.parseMathContext(RoundingModeType.HALF_EVEN, context);
 
+    Decimal w = new Decimal(0);
     Decimal u = this;
-    if (!ctx.usePrecision) {
-      // Shift the numerator to ensure the result has the desired scale.
-      int sh = ctx.scaleprec + v.scale();
-      if (sh > 0) {
-        u = u.shiftleft(sh);
-        u.exp -= sh;
-      }
-    }
+    int sign = u.sign == v.sign ? 1 : -1;
 
-    Decimal w = new Decimal(ZERO);
+    int shift = ctx.usePrecision
+        ? (v.precision() - u.precision()) + ctx.scaleprec + 2
+        : v.precision() + u.precision() + Math.abs(ctx.scaleprec) + 2;
 
-    // Shift in extra digits for rounding.
-    int shift = 2;
-
-    // In precision mode, ensure shift takes into account target precision
-    if (ctx.usePrecision) {
-      shift += (v.precision() - u.precision()) + ctx.scaleprec;
-    }
-
-    // Calculate the exponent on the result
     int exp = (u.exp - v.exp) - shift;
 
-    // Shift numerator or denominator
     if (shift > 0) {
       u = u.shiftleft(shift);
     } else if (shift < 0) {
       v = v.shiftleft(-shift);
     }
 
-    // Perform the division
-    DivideResult result = DecimalMath.divide(u.data, v.data, false);
+    DivideResult result = DecimalMath.divide(u.data, v.data, true);
     long[] quo = result.quotient;
     long[] rem = result.remainder;
 
     w.data = quo;
-    w.sign = u.sign == v.sign ? 1 : -1;
+    w.sign = sign;
     w.exp = exp;
     w.trim();
 
-    boolean hasrem = rem.length > 0 && rem[rem.length - 1] != 0;
+    boolean hasrem = rem.length != 0 && rem[rem.length - 1] != 0;
     if (hasrem) {
       long lsd = w.data[0] % 10;
       if (lsd == 0 || lsd == 5) {

@@ -52,6 +52,15 @@ public class NumbersApiTest {
   }
 
   @Test
+  public void testFormatCurrencyNumberSystems() {
+    CurrencyFormatOptions opts = CurrencyFormatOptions.build()
+        .numberSystem("beng").style(CurrencyFormatStyleType.CODE);
+    Decimal n = dec("0");
+    String r = EN.Numbers.formatCurrency(n, CurrencyType.USD, opts);
+    assertEquals(r, "০.০০ USD");
+  }
+
+  @Test
   public void testFormatCurrencyToParts() {
     Decimal n = dec("1234.5678");
     List<Part> r = EN.Numbers.formatCurrencyToParts(n, CurrencyType.USD);
@@ -94,6 +103,10 @@ public class NumbersApiTest {
     } catch (Exception e) {
       // ok
     }
+
+    opts.numberSystem("sund");
+    r = EN.Numbers.formatDecimal(n, opts);
+    assertEquals(r, "᮱,᮲᮳᮴.᮶");
   }
 
   @Test

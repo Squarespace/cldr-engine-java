@@ -36,6 +36,11 @@ public class NumberSuiteTest extends CoverageSuite {
   }
 
   @Test
+  public void testCurrencyFormatNumberSystems() throws Exception {
+    run("currencyformat-numsystems");
+  }
+
+  @Test
   public void testDecimalFormat() throws Exception {
     run("decimalformat");
   }
@@ -117,7 +122,7 @@ public class NumberSuiteTest extends CoverageSuite {
                 String expected = result.get(j);
                 try {
                   String actual = cldr.Numbers.formatDecimal(n, opts);
-                  Assert.assertEquals(actual, expected);
+                  Assert.assertEquals(actual, expected, String.format("n=%s opts=%s", n, opts));
                   cases++;
                 } catch (Exception ex) {
                   String msg = String.format("Unexpected error on inputs: n=%s opts=%s",
@@ -144,7 +149,7 @@ public class NumberSuiteTest extends CoverageSuite {
                   String expected = result.get((j * currencies.size()) + k);
                   try {
                     String actual = cldr.Numbers.formatCurrency(n, code, opts);
-                    Assert.assertEquals(actual, expected);
+                    Assert.assertEquals(actual, expected, String.format("n=%s code=%s opts=%s", n, code, opts));
                     cases++;
                   } catch (Exception ex) {
                     String msg = String.format("Unexpected error on inputs: n=%s code=%s opts=%s",
@@ -229,6 +234,9 @@ public class NumberSuiteTest extends CoverageSuite {
           break;
         case "group":
           opts.group(boolValue(raw));
+          break;
+        case "nu":
+          opts.numberSystem(stringValue(raw));
           break;
       }
     }

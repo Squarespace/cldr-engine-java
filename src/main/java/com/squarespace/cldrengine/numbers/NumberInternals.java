@@ -189,7 +189,7 @@ public class NumberInternals {
       case PERMILLE_SCALED: {
         // Get percent pattern
         String raw = info.percentFormat.get(bundle);
-        if (raw == null) {
+        if (isEmpty(raw)) {
           raw = latnInfo.percentFormat.get(bundle);
         }
         NumberPattern pattern = this.getNumberPattern(raw, n.isNegative());
@@ -333,13 +333,13 @@ public class NumberInternals {
         // Wrap number and unit together.
         // TODO: implement a more concise fallback to 'other' for pluralized lookups
         String unitWrapper = currencyFormats.unitPattern.get(bundle, plural);
-        if (unitWrapper == null) {
+        if (isEmpty(unitWrapper)) {
           unitWrapper = currencyFormats.unitPattern.get(bundle, PluralType.OTHER);
         }
-        if (unitWrapper == null) {
+        if (isEmpty(unitWrapper)) {
           unitWrapper = latnInfo.currencyFormats.unitPattern.get(bundle, plural);
         }
-        if (unitWrapper == null) {
+        if (isEmpty(unitWrapper)) {
           unitWrapper = latnInfo.currencyFormats.unitPattern.get(bundle, PluralType.OTHER);
         }
         return renderer.wrap(this.internals.general, unitWrapper, Arrays.asList(num, renderer.make("unit", unit)));

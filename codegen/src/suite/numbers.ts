@@ -184,6 +184,9 @@ export const currencySuite = (root: string) => {
   const f = (c: CLDR, n: Decimal, code: CurrencyType, opts: CurrencyFormatOptions) =>
     c.Numbers.formatCurrency(n, code, opts);
 
+  dims = [CURFMT_STYLE, NUMFMT_NUM_SYSTEMS, NUMFMT_GROUP];
+  buildCurrency(join(root, 'currencyformat-numsystems.txt'), dims, CURRENCIES, f);
+
   dims = [CURFMT_CASH, CURFMT_STYLE, CURFMT_SYMBOLWIDTH, NUMFMT_GROUP];
   buildCurrency(join(root, 'currencyformat.txt'), dims, CURRENCIES, f);
 

@@ -87,6 +87,11 @@ public class DecimalMathSuiteTest extends CoverageSuite {
     JsonArray arr = json.getAsJsonArray();
     List<MathContext> result = new ArrayList<>();
     for (int i = 0; i < arr.size(); i++) {
+      JsonElement elem = arr.get(i);
+      if (elem.isJsonNull() ) {
+        result.add(null);
+        continue;
+      }
       JsonObject obj = arr.get(i).getAsJsonObject();
       MathContext ctx = MathContext.build();
       for (String key : obj.keySet()) {

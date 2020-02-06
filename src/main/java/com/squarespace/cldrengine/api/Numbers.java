@@ -7,7 +7,17 @@ public interface Numbers {
   /**
    * Adjusts a decimal number using the given options.
    */
+  Decimal adjustDecimal(Decimal num);
+
+  /**
+   * Adjusts a decimal number using the given options.
+   */
   Decimal adjustDecimal(Decimal num, DecimalAdjustOptions options);
+
+  /**
+   * Formats a decimal number to string.
+   */
+  String formatDecimal(Decimal n);
 
   /**
    * Formats a decimal number to string.
@@ -17,7 +27,17 @@ public interface Numbers {
   /**
    * Formats a decimal number to an array of parts.
    */
+  List<Part> formatDecimalToParts(Decimal n);
+
+  /**
+   * Formats a decimal number to an array of parts.
+   */
   List<Part> formatDecimalToParts(Decimal n, DecimalFormatOptions options);
+
+  /**
+   * Formats a currency value to string.
+   */
+  String formatCurrency(Decimal n, CurrencyType code);
 
   /**
    * Formats a currency value to string.
@@ -27,7 +47,17 @@ public interface Numbers {
   /**
    * Formats a currency value to an array of parts.
    */
+  List<Part> formatCurrencyToParts(Decimal n, CurrencyType code);
+
+  /**
+   * Formats a currency value to an array of parts.
+   */
   List<Part> formatCurrencyToParts(Decimal n, CurrencyType code, CurrencyFormatOptions options);
+
+  /**
+   * Returns the currency symbol of the given width.
+   */
+  String getCurrencySymbol(CurrencyType code);
 
   /**
    * Returns the currency symbol of the given width.
@@ -37,7 +67,17 @@ public interface Numbers {
   /**
    * Returns the display name of the currency.
    */
+  String getCurrencyDisplayName(CurrencyType code);
+
+  /**
+   * Returns the display name of the currency.
+   */
   String getCurrencyDisplayName(CurrencyType code, CurrencyDisplayNameOptions options);
+
+  /**
+   * Returns the pluralized display name of the currency.
+   */
+  String getCurrencyPluralName(Decimal n, CurrencyType code);
 
   /**
    * Returns the pluralized display name of the currency.
@@ -57,7 +97,17 @@ public interface Numbers {
   /**
    * Returns the plural cardinal category of the given decimal number.
    */
+  PluralType getPluralCardinal(Decimal n);
+
+  /**
+   * Returns the plural cardinal category of the given decimal number.
+   */
   PluralType getPluralCardinal(Decimal n, DecimalAdjustOptions options);
+
+  /**
+   * Returns the plural ordinal category of the given decimal number.
+   */
+  PluralType getPluralOrdinal(Decimal n);
 
   /**
    * Returns the plural ordinal category of the given decimal number.

@@ -43,7 +43,11 @@ const ROUND: (RoundingModeType | undefined)[] = [
 
 const MIN_MAX: (number | undefined)[] = [undefined, 0, 1, 3, 5];
 const NUM_SYSTEMS: (NumberSystemType | undefined)[] = [
-  undefined, 'latn', 'beng', 'guru'
+  undefined,
+  'latn',
+  'beng',
+  'guru',
+  'sund' // sund has digits but no system-specific formats, so will fall back to latn
 ];
 const NUM_STYLE: (NumberFormatStyleType | undefined)[] = [
   undefined, 'decimal', 'scientific'

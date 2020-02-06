@@ -25,9 +25,6 @@ import com.squarespace.cldrengine.utils.Pair;
 
 public class NumbersImpl implements Numbers {
 
-  private static final DecimalFormatOptions FORCE_ERRORS = DecimalFormatOptions.build()
-      .errors("nan infinity");
-
   public final Bundle bundle;
   public final NumberInternals numbers;
   public final GeneralInternals general;
@@ -40,8 +37,16 @@ public class NumbersImpl implements Numbers {
     this.privateApi = privateApi;
   }
 
+  public Decimal adjustDecimal(Decimal num) {
+    return this.numbers.adjustDecimal(num, null);
+  }
+
   public Decimal adjustDecimal(Decimal num, DecimalAdjustOptions options) {
     return this.numbers.adjustDecimal(num, options);
+  }
+
+  public String formatDecimal(Decimal n) {
+    return formatDecimal(n, null);
   }
 
   public String formatDecimal(Decimal n, DecimalFormatOptions options) {
@@ -51,11 +56,19 @@ public class NumbersImpl implements Numbers {
     return this.formatDecimalImpl(renderer, params, n, options);
   }
 
+  public List<Part> formatDecimalToParts(Decimal n) {
+    return formatDecimalToParts(n, null);
+  }
+
   public List<Part> formatDecimalToParts(Decimal n, DecimalFormatOptions options) {
     options = (options == null ? DecimalFormatOptions.build() : options);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), null);
     NumberRenderer<List<Part>> renderer = this.numbers.partsRenderer(params);
     return this.formatDecimalImpl(renderer, params, n, options);
+  }
+
+  public String formatCurrency(Decimal n, CurrencyType code) {
+    return formatCurrency(n, code, null);
   }
 
   public String formatCurrency(Decimal n, CurrencyType code, CurrencyFormatOptions options) {
@@ -65,6 +78,10 @@ public class NumbersImpl implements Numbers {
     return this.formatCurrencyImpl(renderer, params, n, code, options);
   }
 
+  public List<Part> formatCurrencyToParts(Decimal n, CurrencyType code) {
+    return formatCurrencyToParts(n, code, null);
+  }
+
   public List<Part> formatCurrencyToParts(Decimal n, CurrencyType code, CurrencyFormatOptions options) {
     options = (options == null ? CurrencyFormatOptions.build() : options);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "finance");
@@ -72,8 +89,16 @@ public class NumbersImpl implements Numbers {
     return this.formatCurrencyImpl(renderer, params, n, code, options);
   }
 
+  public String getCurrencySymbol(CurrencyType code) {
+    return getCurrencySymbol(code, null);
+  }
+
   public String getCurrencySymbol(CurrencyType code, CurrencySymbolWidthType width) {
     return this.numbers.getCurrencySymbol(bundle, code, width);
+  }
+
+  public String getCurrencyDisplayName(CurrencyType code) {
+    return getCurrencyDisplayName(code, null);
   }
 
   public String getCurrencyDisplayName(CurrencyType code, CurrencyDisplayNameOptions options) {
@@ -82,6 +107,10 @@ public class NumbersImpl implements Numbers {
     String name = this.numbers.getCurrencyDisplayName(this.bundle, code);
     Map<ContextTransformFieldType, String> transform = this.privateApi.getContextTransformInfo();
     return this.general.contextTransform(name, transform, context, ContextTransformFieldType.CURRENCYNAME);
+  }
+
+  public String getCurrencyPluralName(Decimal n, CurrencyType code) {
+    return getCurrencyPluralName(n, code, null);
   }
 
   public String getCurrencyPluralName(Decimal n, CurrencyType code, CurrencyDisplayNameOptions options) {
@@ -102,11 +131,19 @@ public class NumbersImpl implements Numbers {
     return this.numbers.getCurrencyForRegion(region);
   }
 
+  public PluralType getPluralCardinal(Decimal n) {
+    return getPluralCardinal(n, null);
+  }
+
   public PluralType getPluralCardinal(Decimal n, DecimalAdjustOptions options) {
     if (options != null) {
       n = this.adjustDecimal(n, options);
     }
     return this.bundle.plurals().cardinal(n);
+  }
+
+  public PluralType getPluralOrdinal(Decimal n) {
+    return getPluralOrdinal(n, null);
   }
 
   public PluralType getPluralOrdinal(Decimal n, DecimalAdjustOptions options) {
@@ -130,7 +167,11 @@ public class NumbersImpl implements Numbers {
 
   protected <T> T formatCurrencyImpl(NumberRenderer<T> renderer, NumberParams params,
       Decimal n, CurrencyType code, CurrencyFormatOptions options) {
-    validate(n, FORCE_ERRORS, renderer, params);
+    if (n.isNaN()) {
+      throw new IllegalArgumentException("Invalid argument: NaN");
+    } else if (n.isInfinity()) {
+      throw new IllegalArgumentException("Invalid argument: Infinity");
+    }
     return this.numbers.formatCurrency(this.bundle, renderer, n, code, options, params);
   }
 
@@ -149,10 +190,10 @@ public class NumbersImpl implements Numbers {
     if (errors != null) {
       // Check if we should throw an error on either of these
       if (isnan && arrayContains(errors, "nan")) {
-        throw new RuntimeException("Invalid argument: NaN");
+        throw new IllegalArgumentException("Invalid argument: NaN");
       }
       if (isinfinity && arrayContains(errors, "infinity")) {
-        throw new RuntimeException("Invalid argument: Infinity");
+        throw new IllegalArgumentException("Invalid argument: Infinity");
       }
     }
     if (isnan) {

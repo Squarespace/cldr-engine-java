@@ -60,9 +60,9 @@ public class NumberInternals {
     for (String part : parts) {
       String[] row = part.split(":");
       CurrencyType code = CurrencyType.fromString(row[0]);
-      int[] values = StringUtils.intArray(row[1]);
-      CURRENCY_FRACTIONS.put(code, new CurrencyFractions(
-          values[0], values[1], values[2], values[3]));
+      int[] values = StringUtils.intArray(row[1], 10);
+      CurrencyFractions frac = new CurrencyFractions(values[0], values[1], values[2], values[3]);
+      CURRENCY_FRACTIONS.put(code, frac);
     }
 
     parts = NumberExternalData.CURRENCYREGIONSRAW.split("\\|");

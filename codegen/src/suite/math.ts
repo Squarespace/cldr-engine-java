@@ -38,7 +38,8 @@ RAW_NUMBERS.split(/\n/).map(s => s.trim())
   .forEach(
     r => r.filter(s => s.length).forEach(s => NUMBERS.push(new Decimal(s))));
 
-const ROUNDING: RoundingModeType[] = [
+const ROUNDING: (RoundingModeType | undefined)[] = [
+  undefined,
   'ceiling',
   'up',
   'down',

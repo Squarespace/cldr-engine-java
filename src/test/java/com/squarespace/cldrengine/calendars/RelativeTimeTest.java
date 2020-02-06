@@ -35,5 +35,5 @@ public class RelativeTimeTest {
     opts.field(TimePeriodField.MINUTE);
     actual = cldr.Calendars.formatRelativeTime(start, end, opts);
     assertEquals(actual, "in 7,311,305 minutes");
-}
+  }
 }

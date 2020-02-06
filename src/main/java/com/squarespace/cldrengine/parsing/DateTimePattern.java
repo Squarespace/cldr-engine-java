@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 @AllArgsConstructor
+@ToString
 public class DateTimePattern {
 
   public final List<Object> nodes;

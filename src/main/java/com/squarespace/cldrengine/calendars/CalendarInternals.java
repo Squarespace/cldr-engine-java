@@ -89,7 +89,7 @@ public class CalendarInternals {
     return this.calendarFormatterCache.get(type.value);
   }
 
-  public DateTimePattern parseDatePatterh(String raw) {
+  public DateTimePattern parseDatePattern(String raw) {
     return this.patternCache.get(raw);
   }
 
@@ -143,11 +143,11 @@ public class CalendarInternals {
     return value.join(Arrays.asList(s, e));
   }
 
-  public CalendarType selectCalendar(Bundle bundle, CalendarType type) {
-    return selectCalendar(bundle, type == null ? "gregory" : type.value);
-  }
+//  public CalendarType selectCalendar(Bundle bundle, CalendarType type) {
+//    return selectCalendar(bundle, type == null ? "gregory" : type.value);
+//  }
 
-  public CalendarType selectCalendar(Bundle bundle, String calendar) {
+  public CalendarType selectCalendar(Bundle bundle, CalendarType calendar) {
     CalendarType cal = this.supportedCalendar(calendar);
     if (cal == null) {
       cal = this.supportedCalendar(bundle.calendarSystem());
@@ -170,7 +170,15 @@ public class CalendarInternals {
     return cal;
   }
 
-  protected CalendarType supportedCalendar(String c) {
+  protected CalendarType supportedCalendar(String cal) {
+    return supportedCalendar(CalendarType.fromString(cal));
+  }
+
+  protected CalendarType supportedCalendar(CalendarType cal) {
+    if (cal == null) {
+      return null;
+    }
+    String c = cal.value;
     if (c != null && this.availableCalendars.contains(c)) {
       switch (c) {
         case "buddhist":

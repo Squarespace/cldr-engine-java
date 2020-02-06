@@ -143,7 +143,7 @@ class CalendarPatterns {
   public DateTimePattern getIntervalPatern(DateTimePatternFieldType field, String skeleton) {
     Map<String, String> group = this.rawIntervalFormats.get(field);
     String raw = group == null ? "" : group.get(skeleton);
-    return this.internals.calendars.parseDatePatterh(raw == null ? "" : raw);
+    return this.internals.calendars.parseDatePattern(raw == null ? "" : raw);
   }
 
   public String getIntervalFallback() {

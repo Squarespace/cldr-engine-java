@@ -284,6 +284,9 @@ public class CalendarsImpl implements Calendars {
       DateIntervalFormatOptions options) {
     options = defaulter(options, DateIntervalFormatOptions::build);
     CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
+    start = convertDateTo(calendar, start);
+    end = convertDateTo(calendar, end);
+
     DateTimePatternFieldType fieldDiff = this.fieldOfVisualDifference(start, end);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     DateIntervalFormatRequest req =
@@ -338,8 +341,9 @@ public class CalendarsImpl implements Calendars {
       return value.empty();
     }
 
-    DateTimePattern pattern = this.internals.calendars.parseDatePatterh(raw);
+    DateTimePattern pattern = this.internals.calendars.parseDatePattern(raw);
     CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
+    date = convertDateTo(calendar, date);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get());
     return this.internals.calendars.formatDateTime(calendar, ctx, value, pattern, null, null);

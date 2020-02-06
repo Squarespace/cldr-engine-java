@@ -5,8 +5,8 @@ import {
   CLDR,
   DateFormatOptions,
   FormatWidthType,
-  ContextType,
   CalendarDate,
+  DateIntervalFormatOptions,
 
 } from '@phensley/cldr';
 
@@ -41,7 +41,8 @@ const ZONES: string[] = [
   'Pacific/Pago_Pago',
 ];
 
-const SKELETONS: string[] = ['yMMMd', 'hmsv', 'EEEyMMMd', 'GyMd', 'Bhhmm', 'EEEMMMMd'];
+const SKELETONS: (string | undefined)[] = [
+  undefined, 'yMMMd', 'hmsv', 'EEEyMMMd', 'GyMd', 'Bhhmm', 'EEEMMMMd'];
 const FORMAT_WIDTHS: (FormatWidthType | undefined)[] = [
   undefined, 'full', 'long', 'medium', 'short'];
 const DATE_PATTERN_FIELDS: string[] = [
@@ -60,10 +61,14 @@ const DIM_TIME = new Dimension<DateFormatOptions>('time', FORMAT_WIDTHS);
 const DIM_SKEL = new Dimension<DateFormatOptions>('skeleton', SKELETONS);
 const DIM_CONTEXT = new Dimension<DateFormatOptions>('context', ['begin-sentence']);
 
+const INT_SKELETON = new Dimension<DateIntervalFormatOptions>('skeleton', [undefined,
+  'yMMd', 'EEEyMMMMd', 'Bh', 'hmsv', 'hma', 'EEEyMMMdhms'
+]);
 
-type DateFunc = <T>(cldr: CLDR, date: CalendarDate, o: T) => string;
+type DateFunc<R> = <T>(cldr: CLDR, date: CalendarDate, o: T) => R;
+type DateIntFunc<R> = <T>(cldr: CLDR, start: CalendarDate, end: CalendarDate, o: T) => R;
 
-const buildDateFormat = <T>(name: string, dims: Dimension<T>[], meth: DateFunc) => {
+const buildDateFormat = <T, R>(name: string, method: string, dims: Dimension<T>[], meth: DateFunc<R>) => {
   console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
   const items = dims.map(e => e.build());
@@ -72,7 +77,7 @@ const buildDateFormat = <T>(name: string, dims: Dimension<T>[], meth: DateFunc) 
   const cldrs = LOCALES.map(id => framework.get(id));
 
   let r = JSON.stringify({
-    method: 'formatDate',
+    method,
     locales: LOCALES,
     dates: DATES,
     zones: ZONES,
@@ -84,7 +89,7 @@ const buildDateFormat = <T>(name: string, dims: Dimension<T>[], meth: DateFunc) 
   for (const o of options) {
     const results: any[] = [];
     for (const cldr of cldrs) {
-      const res: string[] = [];
+      const res: any[] = [];
       for (let i = 0; i < DATES.length; i++) {
         for (let j = 0; j < ZONES.length; j++) {
           const d = cldr.Calendars.toGregorianDate({ date: DATES[i], zoneId: ZONES[j] });
@@ -100,6 +105,55 @@ const buildDateFormat = <T>(name: string, dims: Dimension<T>[], meth: DateFunc) 
     });
     fs.writeSync(fd, r);
     fs.writeSync(fd, '\n');
+  }
+  fs.closeSync(fd);
+};
+
+const buildDateIntervalFormat = <T, R>(name: string, method: string, dims: Dimension<T>[], meth: DateIntFunc<R>) => {
+  console.log(`writing ${name}`);
+  const fd = fs.openSync(name, 'w');
+  const items = dims.map(e => e.build());
+  const properties = dims.map(d => d.property);
+  const options = reduce(product(items));
+  const cldrs = LOCALES.map(id => framework.get(id));
+
+  let r = JSON.stringify({
+    method,
+    locales: LOCALES,
+    dates: DATES,
+    zones: ZONES,
+    options,
+  });
+  fs.writeSync(fd, r);
+  fs.writeSync(fd, '\n');
+
+  for (let i = 0; i < cldrs.length; i++) {
+    const cldr = cldrs[i];
+    for (let j = 0; j < DATES.length; j++) {
+      for (let k = 0; k < DATES.length; k++) {
+        for (let m = 0; m < ZONES.length; m++) {
+          const zoneId = ZONES[m];
+          const start = cldr.Calendars.toGregorianDate({ date: DATES[j], zoneId })
+          const end = cldr.Calendars.toGregorianDate({ date: DATES[k], zoneId });
+          const res: any[] = [];
+          for (let n = 0; n < options.length; n++) {
+            const o = options[n];
+            const s = meth(cldr, start, end, o);
+            res.push(s);
+          }
+          r = JSON.stringify({
+            i,
+            j,
+            k,
+            m,
+            results: res
+          });
+
+          fs.writeSync(fd, r);
+          fs.writeSync(fd, '\n');
+        }
+      }
+    }
   }
   fs.closeSync(fd);
 };
@@ -131,7 +185,6 @@ const buildRawFormat = (name: string) => {
         for (let m = 0; m < DATE_PATTERN_FIELDS.length; m++) {
           const field = DATE_PATTERN_FIELDS[m];
           for (let n = 0; n < DATE_PATTERN_WIDTHS.length; n++) {
-            const q = (m * DATE_PATTERN_WIDTHS.length) + n;
             const width = DATE_PATTERN_WIDTHS[n];
             const pattern = field.repeat(width);
             const d = cldr.Calendars.toGregorianDate({ date, zoneId });
@@ -154,13 +207,24 @@ const buildRawFormat = (name: string) => {
 };
 
 export const dateSuite = (root: string) => {
-  let dims: Dimension<DateFormatOptions>[];
+  let datedims: Dimension<DateFormatOptions>[];
 
-  const f = (c: CLDR, date: CalendarDate, opts: DateFormatOptions) =>
+  const f1 = (c: CLDR, date: CalendarDate, opts: DateFormatOptions): string =>
     c.Calendars.formatDate(date, opts);
 
-  dims = [DIM_CALENDAR, DIM_DATETIME, DIM_DATE, DIM_TIME, DIM_SKEL, DIM_CONTEXT];
-  buildDateFormat(join(root, 'dateformat.txt'), dims, f);
+  datedims = [DIM_CALENDAR, DIM_DATETIME, DIM_DATE, DIM_TIME, DIM_SKEL, DIM_CONTEXT];
+  buildDateFormat(join(root, 'dateformat.txt'), 'formatDate', datedims, f1);
 
+  const f2 = (c: CLDR, date: CalendarDate, opts: DateFormatOptions) =>
+    c.Calendars.formatDateToParts(date, opts);
+  buildDateFormat(join(root, 'dateformat-parts.txt'), 'formatDateToParts', datedims, f2);
+
+  let intdims: Dimension<DateIntervalFormatOptions>[];
+
+  const f3 = (c: CLDR, start: CalendarDate, end: CalendarDate, opts: DateIntervalFormatOptions) =>
+    c.Calendars.formatDateInterval(start, end, opts);
+
+  intdims = [INT_SKELETON];
+  buildDateIntervalFormat(join(root, 'dateinterval.txt'), 'formatDateInterval', intdims, f3);
   buildRawFormat(join(root, 'dateformat-raw.txt'));
 };

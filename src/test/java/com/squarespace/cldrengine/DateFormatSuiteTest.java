@@ -21,7 +21,7 @@ import com.squarespace.cldrengine.api.DateRawFormatOptions;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.FormatWidthType;
 
-public class CalendarSuiteTest extends CoverageSuite {
+public class DateFormatSuiteTest extends CoverageSuite {
 
   @Test
   public void testDateFormat() throws Exception {

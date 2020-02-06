@@ -52,6 +52,17 @@ public class CoverageSuite {
     return e.isJsonNull() ? null : f.apply(e.getAsString());
   }
 
+  public static <T> List<T> typeArray(JsonElement e, Function<JsonElement, T> f) {
+    List<T> results = new ArrayList<>();
+    JsonArray arr = e.getAsJsonArray();
+    for (int i = 0; i < arr.size(); i++) {
+      JsonElement elem = arr.get(i);
+      T value = e.isJsonNull() ? null : f.apply(elem.getAsJsonObject());
+      results.add(value);
+    }
+    return results;
+  }
+
   public static String repeat(String s, int count) {
     StringBuilder buf = new StringBuilder();
     for (int i = 0; i < count; i++) {

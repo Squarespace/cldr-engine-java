@@ -146,7 +146,6 @@ public enum UnitType implements StringEnum<UnitType> {
   FAHRENHEIT("fahrenheit"),
   GENERIC("generic"),
   KELVIN("kelvin"),
-  TIMES("times"),
   NEWTON_METER("newton-meter"),
   POUND_FOOT("pound-foot"),
   ACRE_FOOT("acre-foot"),

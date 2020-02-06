@@ -2672,7 +2672,6 @@ public final class Meta extends MetaBase {
     UnitType.TERABIT,
     UnitType.TERABYTE,
     UnitType.THERM_US,
-    UnitType.TIMES,
     UnitType.TON,
     UnitType.VOLT,
     UnitType.WATT,
@@ -3717,28 +3716,28 @@ public final class Meta extends MetaBase {
     /* Units = */ new UnitsSchema(
       /* long = */ new UnitInfo(
         /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(27266, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(28281, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(28451, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(28621),
-        /* timesPattern = */ new FieldArrow(28622)        
+        /* displayName = */ new Vector1Arrow<UnitType>(28275, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(28444, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(28613),
+        /* timesPattern = */ new FieldArrow(28614)        
       ),
       /* narrow = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(28623, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(29638, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(29808, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(29978),
-        /* timesPattern = */ new FieldArrow(29979)        
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(28615, KEY_PLURAL_KEY, KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(29624, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(29793, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(29962),
+        /* timesPattern = */ new FieldArrow(29963)        
       ),
       /* short = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(29980, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(30995, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(31165, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(31335),
-        /* timesPattern = */ new FieldArrow(31336)        
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(29964, KEY_PLURAL_KEY, KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(30973, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(31142, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(31311),
+        /* timesPattern = */ new FieldArrow(31312)        
       )      
     ),
     /* ContextTransforms = */ new ContextTransformsSchema(
-      /* contextTransforms = */ new Vector1Arrow<ContextTransformFieldType>(31337, KEY_CONTEXT_TRANSFORM_FIELD)      
+      /* contextTransforms = */ new Vector1Arrow<ContextTransformFieldType>(31313, KEY_CONTEXT_TRANSFORM_FIELD)      
     )  );
 
 }

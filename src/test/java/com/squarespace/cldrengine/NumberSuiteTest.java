@@ -46,6 +46,11 @@ public class NumberSuiteTest extends CoverageSuite {
   }
 
   @Test
+  public void testDecimalFormatNumberSystems() throws Exception {
+    run("decimalformat-numsystems");
+  }
+
+  @Test
   public void testDecimalFormatSig() throws Exception {
     run("decimalformat-sig");
   }
@@ -170,6 +175,9 @@ public class NumberSuiteTest extends CoverageSuite {
           break;
         case "negativeZero":
           opts.negativeZero(boolValue(raw));
+          break;
+        case "nu":
+          opts.numberSystem(stringValue(raw));
           break;
         case "style":
           opts.style(typeValue(raw, DecimalFormatStyleType::fromString));

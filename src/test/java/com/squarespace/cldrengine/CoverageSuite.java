@@ -44,6 +44,10 @@ public class CoverageSuite {
     return e.isJsonNull() ? null : e.getAsInt();
   }
 
+  public static String stringValue(JsonElement e) {
+    return e.isJsonNull() ? null : e.getAsString();
+  }
+
   public static <T> T typeValue(JsonElement e, Function<String, T> f) {
     return e.isJsonNull() ? null : f.apply(e.getAsString());
   }

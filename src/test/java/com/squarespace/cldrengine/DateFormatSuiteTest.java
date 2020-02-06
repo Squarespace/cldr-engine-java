@@ -155,7 +155,7 @@ public class DateFormatSuiteTest extends CoverageSuite {
           opts.time(typeValue(raw, FormatWidthType::fromString));
           break;
         case "skeleton":
-          opts.skeleton(raw.getAsString());
+          opts.skeleton(raw.isJsonNull() ? null : raw.getAsString());
           break;
         case "context":
           opts.context(typeValue(raw, ContextType::fromString));

@@ -292,6 +292,7 @@ public abstract class CalendarDate {
   public TimePeriod difference(CalendarDate other, List<TimePeriodField> fields) {
     Swap swap = this.swap(other);
     TimePeriod res = this._diff(swap.start, swap.startFields, swap.endFields);
+    System.out.println("res " + res);
     if (fields != null) {
       return this._rollup(res, swap.startFields, swap.endFields, fields);
     }
@@ -346,7 +347,7 @@ public abstract class CalendarDate {
       case HOUR:
         return period.hour.or(0.0);
       case MINUTE:
-        return period.month.or(0.0);
+        return period.minute.or(0.0);
       case SECOND:
         return period.second.or(0.0);
       default:
@@ -407,7 +408,7 @@ public abstract class CalendarDate {
 
     double year = span.year.or(0.0);
     double month = span.month.or(0.0);
-    double day = span.day.or(0.0);
+    double day = (span.week.or(0.0) * 7) + span.day.or(0.0);
     double ms = (span.hour.or(0.0) * CalendarConstants.ONE_HOUR_MS) +
         (span.minute.or(0.0) * CalendarConstants.ONE_MINUTE_MS) +
         (span.second.or(0.0) * CalendarConstants.ONE_SECOND_MS) +

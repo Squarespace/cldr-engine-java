@@ -35,7 +35,7 @@ public class DecimalNumberingSystem extends NumberingSystem {
   }
 
   protected String formatDecimal(Decimal n, boolean groupDigits, int minInt) {
-    String group = groupDigits ? this.symbols.getOrDefault("group", "") : "";
+    String group = groupDigits ? this.symbols.getOrDefault(NumberSymbolType.GROUP, "") : "";
     String decimal = this.symbols.getOrDefault(NumberSymbolType.DECIMAL, "");
     StringDecimalFormatter fmt = new StringDecimalFormatter();
     n.format(fmt, decimal, group, minInt, this.minimumGroupingDigits,

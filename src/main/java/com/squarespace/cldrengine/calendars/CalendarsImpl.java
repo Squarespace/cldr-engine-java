@@ -18,6 +18,7 @@ import com.squarespace.cldrengine.api.ContextType;
 import com.squarespace.cldrengine.api.DateFieldWidthType;
 import com.squarespace.cldrengine.api.DateFormatOptions;
 import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
+import com.squarespace.cldrengine.api.DateRawFormatOptions;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.GregorianDate;
@@ -36,6 +37,7 @@ import com.squarespace.cldrengine.internal.PartsValue;
 import com.squarespace.cldrengine.internal.PrivateApi;
 import com.squarespace.cldrengine.internal.StringValue;
 import com.squarespace.cldrengine.numbers.NumberParams;
+import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.parsing.WrapperPattern;
 import com.squarespace.cldrengine.utils.Pair;
 
@@ -176,6 +178,11 @@ public class CalendarsImpl implements Calendars {
   @Override
   public List<Part> formatDateToParts(CalendarDate date, DateFormatOptions options) {
     return this._formatDate(new PartsValue(), date, options);
+  }
+
+  @Override
+  public String formatDateRaw(CalendarDate date, DateRawFormatOptions options) {
+    return _formatDateRaw(new StringValue(), date, options);
   }
 
   @Override
@@ -323,6 +330,19 @@ public class CalendarsImpl implements Calendars {
     }
 
     return _date == null ? value.empty() : _date;
+  }
+
+  private <R> R _formatDateRaw(AbstractValue<R> value, CalendarDate date, DateRawFormatOptions options) {
+    String raw = options == null ? "" : options.pattern.or("");
+    if (isEmpty(raw)) {
+      return value.empty();
+    }
+
+    DateTimePattern pattern = this.internals.calendars.parseDatePatterh(raw);
+    CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
+    NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
+    CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get());
+    return this.internals.calendars.formatDateTime(calendar, ctx, value, pattern, null, null);
   }
 
   protected <T extends CalendarDate> CalendarContext<T> _context(T date, NumberParams params, ContextType context) {

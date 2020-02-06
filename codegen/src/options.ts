@@ -105,6 +105,13 @@ const DateFormatOptions =
     .field('calendar', 'CalendarType')
     .field('numberSystem', 'String');
 
+const DateRawFormatOptions =
+  new Option('DateRawFormatOptions')
+    .field('pattern', 'String')
+    .field('calendar', 'CalendarType')
+    .field('numberSystem', 'String')
+    .field('context', 'ContextType');
+
 const DecimalAdjustOptions =
   new Option('DecimalAdjustOptions')
     .field('round', 'RoundingModeType')
@@ -204,6 +211,7 @@ const INDEX = [
   CurrencyFormatOptions,
   DateFieldFormatOptions,
   DateFormatOptions,
+  DateRawFormatOptions,
   DateIntervalFormatOptions,
   DecimalAdjustOptions,
   DecimalFormatOptions,

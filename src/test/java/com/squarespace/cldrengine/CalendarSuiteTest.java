@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine;
 
+import static org.testng.Assert.assertEquals;
+
 import java.io.BufferedReader;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +17,7 @@ import com.squarespace.cldrengine.api.CalendarDate;
 import com.squarespace.cldrengine.api.CalendarType;
 import com.squarespace.cldrengine.api.ContextType;
 import com.squarespace.cldrengine.api.DateFormatOptions;
+import com.squarespace.cldrengine.api.DateRawFormatOptions;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.FormatWidthType;
 
@@ -25,6 +28,11 @@ public class CalendarSuiteTest extends CoverageSuite {
     run("dateformat");
   }
 
+  @Test
+  public void testDateRawFormat() throws Exception {
+    run("dateformat-raw");
+  }
+
   protected void run(String name) throws Exception {
     CLDR en = CLDR.get("en");
     int cases = 0;
@@ -32,6 +40,8 @@ public class CalendarSuiteTest extends CoverageSuite {
     String method = null;
     List<String> locales = null;
     List<String> properties = null;
+    List<String> fields = null;
+    List<Integer> widths = null;
     List<Long> dates = null;
     List<String> zones = null;
     List<CLDR> cldrs = null;
@@ -44,22 +54,27 @@ public class CalendarSuiteTest extends CoverageSuite {
           break;
         }
 
-        JsonObject row = JsonParser.parseString(line).getAsJsonObject();
         if (!header) {
           // Decode header row
+          JsonObject row = JsonParser.parseString(line).getAsJsonObject();
           method = row.get("method").getAsString();
           locales = stringArray(row.get("locales"));
           cldrs = locales.stream().map(id -> CLDR.get(id)).collect(Collectors.toList());
           dates = longArray(row.get("dates"));
           zones = stringArray(row.get("zones"));
-          properties = stringArray(row.get("properties"));
+          if (method.equals("formatDate")) {
+            properties = stringArray(row.get("properties"));
+          } else {
+            fields = stringArray(row.get("fields"));
+            widths = intArray(row.get("widths"));
+          }
           header = true;
           continue;
         }
 
         switch (method) {
           case "formatDate": {
-
+            JsonObject row = JsonParser.parseString(line).getAsJsonObject();
             JsonArray results = row.get("results").getAsJsonArray();
             DateFormatOptions opts = dateFormatOptions(row.get("options"), properties);
             for (int i = 0; i < results.size(); i++) {
@@ -87,6 +102,32 @@ public class CalendarSuiteTest extends CoverageSuite {
             break;
           }
 
+          case "formatDateRaw": {
+            JsonObject row = JsonParser.parseString(line).getAsJsonObject();
+
+            int i = row.get("i").getAsInt();
+            int j = row.get("j").getAsInt();
+            int k = row.get("k").getAsInt();
+            List<String> results = stringArray(row.get("results"));
+
+            CLDR cldr = cldrs.get(i);
+            long epoch = dates.get(j);
+            String zoneId = zones.get(k);
+            CalendarDate date = cldr.Calendars.toGregorianDate(epoch, zoneId);
+
+            for (int m = 0; m < fields.size(); m++) {
+              String field = fields.get(m);
+              for (int n = 0; n < widths.size(); n++) {
+                int width = widths.get(n);
+                String expected = results.get((m * widths.size()) + n);
+                String pattern = repeat(field, width);
+                DateRawFormatOptions opts = DateRawFormatOptions.build().pattern(pattern);
+                String actual = cldr.Calendars.formatDateRaw(date, opts);
+                assertEquals(actual, expected, date + " " + opts + " pattern=" + pattern);
+                cases++;
+              }
+            }
+          }
         }
       }
     }

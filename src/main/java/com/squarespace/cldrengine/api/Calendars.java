@@ -93,6 +93,13 @@ public interface Calendars {
   PersianDate toPersianDate(CalendarDate date);
 
   /**
+   * Formats a date-time value to string using a raw date-time pattern.
+   *
+   * Warning: You should not use this for general formatting.
+   */
+  String formatDateRaw(CalendarDate date, DateRawFormatOptions options);
+
+  /**
    * Formats a date-time value to string.
    */
   String formatDate(CalendarDate date, DateFormatOptions options);
@@ -101,6 +108,8 @@ public interface Calendars {
    * Formats a date-time value to an array of parts.
    */
   List<Part> formatDateToParts(CalendarDate date, DateFormatOptions options);
+
+
 
   /**
    * Formats a date interval with a start and end.

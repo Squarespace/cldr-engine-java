@@ -194,7 +194,8 @@ public class CalendarFormatter<T extends CalendarDate> {
         // DAY PERIOD AM/PM
         case 'a':
           type = "dayperiod";
-          value = this.cal.format.dayPeriods.get(ctx.bundle, widthKey(w), ctx.date.hourOfDay() < 12 ? "am" : "pm");
+          value = this.cal.format.dayPeriods.get(ctx.bundle, widthKey(w),
+              ctx.date.hourOfDay() < 12 ? "am" : "pm");
           break;
 
         // DAY PERIOD EXTENDED

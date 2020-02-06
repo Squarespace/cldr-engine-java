@@ -75,7 +75,7 @@ public class DecimalMathSuiteTest extends CoverageSuite {
 
         cases++;
         if (cases % 100000 == 0) {
-          System.out.println(cases + " cases");
+          System.out.println(name + " " + cases + " cases");
         }
       }
     }

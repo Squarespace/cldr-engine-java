@@ -17,25 +17,41 @@ import { Dimension, product, reduce } from './dimension';
 const LOCALES = ['en'];
 
 const DATES: number[] = [
-  // Oct 9 1582 12:34:56 PM GMT - middle of Gregorian switchover
-  -12219765904000,
+  // Mon, February 6, 1956 4:54:57 PM
+  -438678303000,
   // Thursday, January 1, 1970 12:00:00 AM GMT
   0,
+  // Wed, September 23, 1987 5:03:24 PM
+  559415004000,
+  // Sat, May 11, 1996 3:55:31 AM
+  831786931000,
   // Monday, January 27, 2020 12:34:56 PM GMT
   1580128496000
-
 ];
 
 const ZONES: string[] = [
   'America/Catamarca',
+  'America/Inuvik',
   'America/New_York',
-  'Europe/Rome',
   'Asia/Tokyo',
+  'Australia/Melbourne',
+  'Europe/Bucharest',
+  'Europe/Rome',
+  'Europe/London',
+  'Pacific/Pago_Pago',
 ];
 
 const SKELETONS: string[] = ['yMMMd', 'hmsv', 'EEEyMMMd', 'GyMd', 'Bhhmm', 'EEEMMMMd'];
 const FORMAT_WIDTHS: (FormatWidthType | undefined)[] = [
   undefined, 'full', 'long', 'medium', 'short'];
+const DATE_PATTERN_FIELDS: string[] = [
+  'G', 'y', 'Y', 'u', 'U', 'r', 'Q', 'q', 'M', 'L', 'l', 'w', 'W',
+  'd', 'D', 'F', 'g', 'E', 'e', 'c', 'a', 'b', 'B', 'h', 'H', 'K', 'k',
+  'j', 'J', 'C', 'm', 's', 'S', 'A', 'z', 'Z', 'O', 'v', 'V', 'X', 'x'
+];
+const DATE_PATTERN_WIDTHS: number[] = [
+  1, 2, 3, 4, 5, 6
+];
 
 const DIM_CALENDAR = new Dimension<DateFormatOptions>('ca', [undefined, 'buddhist', 'japanese', 'persian', 'iso8601']);
 const DIM_DATETIME = new Dimension<DateFormatOptions>('datetime', FORMAT_WIDTHS);
@@ -43,6 +59,7 @@ const DIM_DATE = new Dimension<DateFormatOptions>('date', FORMAT_WIDTHS);
 const DIM_TIME = new Dimension<DateFormatOptions>('time', FORMAT_WIDTHS);
 const DIM_SKEL = new Dimension<DateFormatOptions>('skeleton', SKELETONS);
 const DIM_CONTEXT = new Dimension<DateFormatOptions>('context', ['begin-sentence']);
+
 
 type DateFunc = <T>(cldr: CLDR, date: CalendarDate, o: T) => string;
 
@@ -87,14 +104,63 @@ const buildDateFormat = <T>(name: string, dims: Dimension<T>[], meth: DateFunc) 
   fs.closeSync(fd);
 };
 
+const buildRawFormat = (name: string) => {
+  console.log(`writing ${name}`);
+  const fd = fs.openSync(name, 'w');
+
+  const cldrs = LOCALES.map(id => framework.get(id));
+
+  let r = JSON.stringify({
+    method: 'formatDateRaw',
+    locales: LOCALES,
+    dates: DATES,
+    zones: ZONES,
+    fields: DATE_PATTERN_FIELDS,
+    widths: DATE_PATTERN_WIDTHS
+  });
+  fs.writeSync(fd, r);
+  fs.writeSync(fd, '\n');
+
+  for (let i = 0; i < cldrs.length; i++) {
+    const cldr = cldrs[i];
+    for (let j = 0; j < DATES.length; j++) {
+      const date = DATES[j];
+      for (let k = 0; k < ZONES.length; k++) {
+        const zoneId = ZONES[k];
+        let results: any = [];
+        for (let m = 0; m < DATE_PATTERN_FIELDS.length; m++) {
+          const field = DATE_PATTERN_FIELDS[m];
+          for (let n = 0; n < DATE_PATTERN_WIDTHS.length; n++) {
+            const q = (m * DATE_PATTERN_WIDTHS.length) + n;
+            const width = DATE_PATTERN_WIDTHS[n];
+            const pattern = field.repeat(width);
+            const d = cldr.Calendars.toGregorianDate({ date, zoneId });
+            const s = cldr.Calendars.formatDateRaw(d, { pattern });
+            results.push(s);
+          }
+        }
+        r = JSON.stringify({
+          i,
+          j,
+          k,
+          results
+        });
+        fs.writeSync(fd, r);
+        fs.writeSync(fd, '\n');
+      }
+    }
+  }
+  fs.closeSync(fd);
+};
+
 export const dateSuite = (root: string) => {
   let dims: Dimension<DateFormatOptions>[];
 
   const f = (c: CLDR, date: CalendarDate, opts: DateFormatOptions) =>
     c.Calendars.formatDate(date, opts);
 
-  dims = [
-    DIM_CALENDAR, DIM_DATETIME, DIM_DATE, DIM_TIME, DIM_SKEL, DIM_CONTEXT
-  ];
+  dims = [DIM_CALENDAR, DIM_DATETIME, DIM_DATE, DIM_TIME, DIM_SKEL, DIM_CONTEXT];
   buildDateFormat(join(root, 'dateformat.txt'), dims, f);
+
+  buildRawFormat(join(root, 'dateformat-raw.txt'));
 };

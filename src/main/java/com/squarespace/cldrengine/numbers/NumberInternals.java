@@ -469,8 +469,8 @@ public class NumberInternals {
         // of the number at its correct scale. Otherwise we would end up with
         // 999,999 becoming 0.999999 and half-even rounding truncating the
         // number to '0M' instead of '1M'.
-        q1 = n.shiftright(divisor, RoundingModeType.HALF_EVEN);
-        q1 = q1.movePoint(-divisor);
+        q1 = n.movePoint(-divisor);
+        q1 = q1.shiftright(divisor, RoundingModeType.HALF_EVEN);
         ctx.setCompact(pattern, q1.integerDigits(), divisor, fracDigits);
         q2 = ctx.adjust(q1);
       }

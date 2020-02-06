@@ -31,6 +31,8 @@ const NUMBERS: string[] = [
   '3.9999999999',
   '15.59',
   '12345.67890',
+  '99900.5',
+  '999900',
   '654321.456789',
   '1000000000000000',
   String(Number.MAX_SAFE_INTEGER)
@@ -199,7 +201,7 @@ export const decimalSuite = (root: string) => {
   const f = (c: CLDR, n: Decimal, o: DecimalFormatOptions) =>
     c.Numbers.formatDecimal(n, o);
 
-  dims = [NUMFMT_NUM_SYSTEMS, NUMFMT_GROUP];
+  dims = [NUMFMT_NUM_SYSTEMS, DECFMT_STYLE, NUMFMT_GROUP];
   buildDecimal(join(root, 'decimalformat-numsystems.txt'), dims, f);
 
   dims = [DECFMT_STYLE, DECADJ_ROUND, NUMFMT_GROUP,

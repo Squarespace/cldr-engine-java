@@ -93,7 +93,6 @@ public class NumbersApiTest {
     r = EN.Numbers.formatDecimal(n, opts);
     assertEquals(r, "1,234.6");
 
-
     r = EN.Numbers.formatDecimal(dec("-infinity"), opts.errors("nan"));
     assertEquals(r, "∞");
 
@@ -107,6 +106,22 @@ public class NumbersApiTest {
     opts.numberSystem("sund");
     r = EN.Numbers.formatDecimal(n, opts);
     assertEquals(r, "᮱,᮲᮳᮴.᮶");
+  }
+
+  @Test
+  public void testFormatDecimalCompactRounding() {
+    DecimalFormatOptions opts = DecimalFormatOptions.build().style(DecimalFormatStyleType.SHORT);
+    String r;
+
+    // When rounded up the compact divisor changes, going from 3 digit format "999K" to 1 digit "1M"
+    r = EN.Numbers.formatDecimal(dec("999900"), opts);
+    assertEquals(r, "1M");
+
+    r = EN.Numbers.formatDecimal(dec("999900"), opts.minimumFractionDigits(1));
+    assertEquals(r, "999.9K");
+
+    r = EN.Numbers.formatDecimal(dec("999900"), opts.minimumFractionDigits(2));
+    assertEquals(r, "999.90K");
   }
 
   @Test

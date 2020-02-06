@@ -17,6 +17,7 @@ import com.squarespace.cldrengine.decimal.DecimalMath.MathCtx;
 import com.squarespace.cldrengine.decimal.StringDecimalFormatter;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 /**
  * Arbitrary precision decimal type.
@@ -57,6 +58,7 @@ public class Decimal {
   private static final Decimal POSITIVE_INFINITY = new Decimal("infinity");
 
   @AllArgsConstructor
+  @ToString
   public static class Properties {
     public final long[] data;
     public final int sign;
@@ -105,7 +107,7 @@ public class Decimal {
     parse(Double.toString(n));
   }
 
-  protected Decimal(int sign, int exp, long[] data, int flag) {
+  public Decimal(int sign, int exp, long[] data, int flag) {
     this.sign = sign;
     this.exp = exp;
     this.data = Arrays.copyOf(data, data.length);
@@ -302,7 +304,13 @@ public class Decimal {
    */
   public Decimal add(Decimal v) {
     Decimal r = handleFlags(Op.ADDITION, v);
-    return r == null ? this.addsub(this, v, v.sign) : r;
+    if (r == null) {
+      if (this.isZero()) {
+        return v;
+      }
+      return v.isZero() ? this : this.addsub(this, v, v.sign);
+    }
+    return r;
   }
 
   /**
@@ -310,7 +318,13 @@ public class Decimal {
    */
   public Decimal subtract(Decimal v) {
     Decimal r = handleFlags(Op.SUBTRACTION, v);
-    return r == null ? this.addsub(this, v, -v.sign) : r;
+    if (r == null) {
+      if (this.isZero()) {
+        return v.negate();
+      }
+      return v.isZero() ? this : this.addsub(this, v, -v.sign);
+    }
+    return r;
   }
 
   /**
@@ -331,9 +345,13 @@ public class Decimal {
     boolean uz = u.isZero();
     boolean vz = v.isZero();
     if (uz || vz) {
+//      if (ctx.usePrecision) {
+//
+//      } else {
       if (!ctx.usePrecision) {
         w._setScale(ctx.scaleprec, RoundingModeType.HALF_EVEN);
       }
+//      System.out.println("> " + w.properties());
       return w;
     }
 
@@ -847,9 +865,6 @@ public class Decimal {
     return null;
   }
 
-
-  // TODO: fromRaw
-
   /**
    * Mutating in-place shift left.
    */
@@ -864,8 +879,8 @@ public class Decimal {
     int m = data.length;
 
     // Compute the shift in terms of our radix.
-    int q = (shift / Constants.RDIGITS);
-    int r = shift - q * Constants.RDIGITS;
+    int q = shift / Constants.RDIGITS;
+    int r = shift - (q * Constants.RDIGITS);
 
     // Expand w to hold shifted result and zero all elements.
     int n = size(prec + shift);
@@ -934,14 +949,30 @@ public class Decimal {
       this.exp += shift;
       return;
     }
+
     Decimal w = this;
-    long[] data = Arrays.copyOf(w.data, w.data.length);
-    Arrays.fill(w.data, 0);
+    int prec = w.precision();
+
+    // Check if shift exceeds precision, so all digits are shifted to
+    // zero with no rounding possible. Just set zero and bump the exponent.
+    if (prec < shift) {
+      w.data = new long[] { 0 };
+      w.exp += shift;
+      return;
+    }
+
+    // We only want to round up when there is a free zero integer
+    // digit to the left. We do this when the number is < 0 or
+    // we're not shifting out all of the digits.
+    boolean round = w.alignexp() < 0 || prec != shift;
 
     long[] div = new long[] { 0, 0 };
     DecimalMath.divword(div, shift, Constants.RDIGITS);
     long q = div[0];
     long r = div[1];
+
+    long[] data = Arrays.copyOf(w.data, w.data.length);
+    Arrays.fill(w.data, 0);
 
     int i = 0;
     int j = 0;
@@ -960,46 +991,41 @@ public class Decimal {
       for (j = 0; j < data.length - q; j++) {
         w.data[j] = data[(int)(q + j)];
       }
-      w.exp += shift;
-      if (w.round(rnd, rest, mode)) {
-        w._increment();
+    } else {
+      long hiprev = 0;
+      int ph = Constants.POWERS10[Constants.RDIGITS - (int)r];
+      if (q < data.length) {
+        DecimalMath.divpow10(div, data[(int)q], (int)r);
+        hiprev = div[0];
+        rest = div[1];
       }
-      w.trim();
-      return;
-    }
 
-    long hiprev = 0;
-    int ph = Constants.POWERS10[Constants.RDIGITS - (int)r];
-    if (q < data.length) {
-      DecimalMath.divpow10(div, data[(int)q], (int)r);
-      hiprev = div[0];
+      DecimalMath.divpow10(div, rest,  (int)(r - 1));
+      rnd = div[0];
       rest = div[1];
+      if (rest == 0 && q > 0) {
+        rest = !DecimalMath.allzero(data, (int)q) ? 1 : 0;
+      }
+
+      for (j = 0, i = (int)(q + 1); i < data.length; i++, j++) {
+        DecimalMath.divpow10(div, data[i], (int)r);
+        long hi = div[0];
+        long lo = div[1];
+        w.data[j] = ph * lo + hiprev;
+        hiprev = hi;
+      }
+
+      if (hiprev != 0) {
+        w.data[j] = hiprev;
+      }
     }
 
-    DecimalMath.divpow10(div, rest,  (int)(r - 1));
-    rnd = div[0];
-    rest = div[1];
-    if (rest == 0 && q > 0) {
-      rest = !DecimalMath.allzero(data, (int)q) ? 1 : 0;
-    }
-
-    for (j = 0, i = (int)(q + 1); i < data.length; i++, j++) {
-      DecimalMath.divpow10(div, data[i], (int)r);
-      long hi = div[0];
-      long lo = div[1];
-      w.data[j] = ph * lo + hiprev;
-      hiprev = hi;
-    }
-
-    if (hiprev != 0) {
-      w.data[j] = hiprev;
-    }
-
+    w.trim();
     w.exp += shift;
-    if (w.round(rnd, rest, mode)) {
+
+    if (round && w.round(rnd, rest, mode)) {
       w._increment();
     }
-    w.trim();
   }
 
   protected void _setScale(int scale, RoundingModeType mode) {
@@ -1010,6 +1036,7 @@ public class Decimal {
       this._shiftright(-diff, mode);
     }
     this.exp = scale == 0 ? 0 : -scale;
+    this.trim();
   }
 
   protected void _stripTrailingZeros() {
@@ -1050,7 +1077,6 @@ public class Decimal {
    * Increment the least-significant digit of the coefficient.
    */
   protected void _increment() {
-    boolean z = this.isZero();
     int len = this.data.length;
     long s = 0;
     int k = 1;
@@ -1061,10 +1087,6 @@ public class Decimal {
     }
     if (k == 1) {
       this.data = DecimalMath.push(this.data, 1);
-    }
-    // Check if we incremented from zero
-    if (z) {
-      this.sign = 1;
     }
   }
 

@@ -47,28 +47,40 @@ public class DecimalMath {
    * Numbers must already be aligned and length u >= length v.
    */
   public static long[] subtract(long[] u, long[] v) {
-    int vlen = v.length;
-    int n = u.length;
-    long[] w = new long[n];
+    int m = u.length;
+    int n = v.length;
+    long[] w = new long[m];
 
     // S1. Initialize
     int j = 0;
-    long k = 0;
+
+    // borrow flag
+    int k = 0;
+
+    // S2. Subtract digits
     while (j < n) {
-      // v may be shorter than u
-      long vj = j < vlen ? v[j] : 0;
-
-      // S2. Subtract digits
-      long z = u[j] - vj + k;
+      long z = u[j] - v[j] - k;
       w[j] = z < 0 ? z + Constants.RADIX : z;
-
-      // .. k is set to -1 or 0, to borrow
-      k = z < 0 ? -1 : 0;
-
-      // S3. Loop on j
+      // borrow
+      k = z < 0 ? 1 : 0;
       j++;
     }
-    return u;
+
+    // Propagate the borrow flag up
+    while (k > 0 && j < m) {
+      long z = u[j] - k;
+      w[j] = z < 0 ? z + Constants.RADIX : z;
+      k = z < 0 ? 1 : 0;
+      j++;
+    }
+
+    // Borrow done, copy remainder of larger number
+    while (j < m) {
+      w[j] = u[j];
+      j++;
+    }
+
+    return w;
   }
 
   /**
@@ -156,7 +168,6 @@ public class DecimalMath {
 
     // Storage for quotient and remainder.
     long[] q = new long[nplusm + 1];
-    long[] r = new long[m];
 
     // D1. Normalize
     long d = Constants.RADIX / (v[n - 1] + 1);
@@ -197,11 +208,10 @@ public class DecimalMath {
         }
       }
 
-
       // D4. Multiply and subtract
       int i = 0;
       k = 0;
-      for (i = 0; i < n; i++) {
+      for (i = 0; i <= n; i++) {
         // Multiply.
         p = qhat * v[i] + k;
         hi = p / Constants.RADIX;
@@ -230,9 +240,10 @@ public class DecimalMath {
 
     // D8. Unnormalize remainder.
     if (remainder) {
+      long[] r = new long[n];
       k = 0;
       for (int i = n - 1; i >= 0; i--) {
-        p = u[i] + (k + Constants.RADIX);
+        p = u[i] + (k * Constants.RADIX);
         r[i] = p / d;
         k = p - r[i] * d;
       }
@@ -378,6 +389,9 @@ public class DecimalMath {
   }
 
   public static boolean allzero(long[] data, int len) {
+    if (len > data.length) {
+      return true;
+    }
     while (--len >= 0) {
       if (data[len] != 0) {
         return false;

@@ -12,6 +12,7 @@ import java.util.function.Function;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.squarespace.cldrengine.api.Decimal;
 
 /**
  * High coverage by comparing output against the TypeScript library as
@@ -63,6 +64,21 @@ public class CoverageSuite {
     for (int i = 0; i < arr.size(); i++) {
       String value = arr.get(i).getAsString();
       result.add(value);
+    }
+    return result;
+  }
+
+  public static List<Decimal> decimalArray(JsonElement json) {
+    List<Decimal> result = new ArrayList<>();
+    JsonArray arr = json.getAsJsonArray();
+    for (int i = 0; i < arr.size(); i++) {
+      JsonArray raw = arr.get(i).getAsJsonArray();
+      long[] data = longArray(raw.get(0)).stream().mapToLong(e -> e).toArray();
+      int sign = raw.get(1).getAsInt();
+      int exp = raw.get(2).getAsInt();
+      int flag = raw.get(3).getAsInt();
+      Decimal n = new Decimal(sign, exp, data, flag);
+      result.add(n);
     }
     return result;
   }

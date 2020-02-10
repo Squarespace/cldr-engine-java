@@ -12,5 +12,9 @@ public class Sketch11 {
     MessageFormatter formatter = new MessageFormatter(options);
     String result = formatter.format("Hi {0}", MessageArgs.build().add("Bob"));
     System.out.println(result);
-  }
+
+    result = formatter.format("Hi {-0}{0}{-1}", MessageArgs.build()
+        .add("Bob"));
+    System.out.println(result);
+}
 }

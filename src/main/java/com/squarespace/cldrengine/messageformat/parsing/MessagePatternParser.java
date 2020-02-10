@@ -34,6 +34,7 @@ public class MessagePatternParser {
 
   private static final char LEFT = '{';
   private static final char RIGHT = '}';
+  private static final char MINUS = '-';
   private static final char APOS = '\'';
   private static final char POUND = '#';
 
@@ -71,10 +72,19 @@ public class MessagePatternParser {
             buf = new StringBuilder();
           }
 
+          int sn = r.s + 1;
+          boolean hidden = sn < str.length() && str.charAt(sn) == MINUS;
+
           int k = seek(r.s, r.e);
           if (k == -1) {
             n.add(textarg(str.substring(r.s, r.e), argsub));
             r.s = r.e;
+          } else if (hidden) {
+            // Tag is hidden from processor, emit as text
+            n.add(new MessageTextCode(LEFT + str.substring(r.s + 2, k + 1)));
+
+            // Skip over hidden tag
+            r.s = k;
           } else {
             // Process tag interior
             MessageCode child = inner(new MessageMatcher.State(r.s + 1, k));
@@ -191,11 +201,16 @@ public class MessagePatternParser {
       return null;
     }
 
+    int sn = r.s + 1;
+    boolean hidden = sn < this.str.length() && this.str.charAt(sn) == MINUS;
+
     // Find matching end delimiter
     int k = this.seek(r.s, r.e);
 
     // Parse nested block and skip over it.
-    MessageCode node = this.outer(new MessageMatcher.State(r.s + 1, k), argsub);
+    MessageCode node = hidden
+        ? new MessageTextCode(LEFT + this.str.substring(r.s + 2, k + 1))
+        : this.outer(new MessageMatcher.State(r.s + 1, k), argsub);
     r.s = k + 1;
     return node;
   }

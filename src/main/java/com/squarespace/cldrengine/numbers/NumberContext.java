@@ -82,8 +82,11 @@ public class NumberContext {
       }
     }
 
-    if (this.useSignificant && this.minSig >= 0 && this.maxSig > 0) {
-      if (n.precision() > this.maxSig) {
+    if (this.useSignificant && this.minSig >= 0) {
+      // By default we assume maximum significant digits will equal the
+      // number's default precision. So if the option's maxSig == -1
+      // we ignore reducing the precision.
+      if (this.maxSig != -1 && n.precision() > this.maxSig) {
         // Scale the number to have at most the maximum significant digits.
         int scale = this.maxSig - n.precision() + n.scale();
         n = n.setScale(scale, this.roundingMode);
@@ -163,12 +166,18 @@ public class NumberContext {
       int minSig = scientific ? optMinSig.or(pattern.minFrac) : optMinSig.or(minSigDigits);
       int maxSig = scientific ? optMaxSig.or(pattern.maxFrac) : optMaxSig.or(maxSigDigits);
 
-      if (minSig != -1 && minSig > maxSig) {
+      if (minSig != -1 && maxSig != -1 && minSig > maxSig) {
         maxSig = minSig;
       }
+      if (maxSig != -1 && maxSig < minSig) {
+        minSig = maxSig;
+      }
+      if (minSig == -1) {
+        minSig = maxSig;
+      }
 
-      this.minSig = minSig == -1 ? maxSig : minSig;
-      this.maxSig = maxSig == -1 ? minSig : maxSig;
+      this.minSig = minSig;
+      this.maxSig = maxSig;
     } else {
       this.minSig = -1;
       this.maxSig = -1;

@@ -13,6 +13,7 @@ const { PI } = DecimalConstants;
 const RAW_NUMBERS: string = `
   infinity nan 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
   0.000 0.0000000000001
+  0.05 0.33333
   1e-10 1e-30
   9e-10 9e-30
   1e10 1e30

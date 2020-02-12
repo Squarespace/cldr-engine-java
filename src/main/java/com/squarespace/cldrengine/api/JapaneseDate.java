@@ -20,7 +20,7 @@ public class JapaneseDate extends GregorianDate {
   public JapaneseDate add(TimePeriod fields) {
     Pair<Long, Double> result = this._add(fields);
     JapaneseDate d = new JapaneseDate(this.firstDay, this.minDays);
-    d._initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
+    d._initFromJD(result._1, Math.round(result._2), this.timeZoneId());
     return d;
   }
 

@@ -32,12 +32,12 @@ public class TimePeriod {
   }
 
   public TimePeriod year(Long arg) {
-    this.year.set(arg.doubleValue());
+    this.year.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
   public TimePeriod year(Integer arg) {
-    this.year.set(arg.doubleValue());
+    this.year.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
@@ -52,12 +52,12 @@ public class TimePeriod {
   }
 
   public TimePeriod month(Long arg) {
-    this.month.set(arg.doubleValue());
+    this.month.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
   public TimePeriod month(Integer arg) {
-    this.month.set(arg.doubleValue());
+    this.month.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
@@ -72,12 +72,12 @@ public class TimePeriod {
   }
 
   public TimePeriod week(Long arg) {
-    this.week.set(arg.doubleValue());
+    this.week.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
   public TimePeriod week(Integer arg) {
-    this.week.set(arg.doubleValue());
+    this.week.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
@@ -92,12 +92,12 @@ public class TimePeriod {
   }
 
   public TimePeriod day(Long arg) {
-    this.day.set(arg.doubleValue());
+    this.day.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
   public TimePeriod day(Integer arg) {
-    this.day.set(arg.doubleValue());
+    this.day.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
@@ -112,12 +112,12 @@ public class TimePeriod {
   }
 
   public TimePeriod hour(Long arg) {
-    this.hour.set(arg.doubleValue());
+    this.hour.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
   public TimePeriod hour(Integer arg) {
-    this.hour.set(arg.doubleValue());
+    this.hour.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
@@ -132,12 +132,12 @@ public class TimePeriod {
   }
 
   public TimePeriod minute(Long arg) {
-    this.minute.set(arg.doubleValue());
+    this.minute.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
   public TimePeriod minute(Integer arg) {
-    this.minute.set(arg.doubleValue());
+    this.minute.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
@@ -152,12 +152,12 @@ public class TimePeriod {
   }
 
   public TimePeriod second(Long arg) {
-    this.second.set(arg.doubleValue());
+    this.second.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
   public TimePeriod second(Integer arg) {
-    this.second.set(arg.doubleValue());
+    this.second.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
@@ -172,12 +172,12 @@ public class TimePeriod {
   }
 
   public TimePeriod millis(Long arg) {
-    this.millis.set(arg.doubleValue());
+    this.millis.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
   public TimePeriod millis(Integer arg) {
-    this.millis.set(arg.doubleValue());
+    this.millis.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 

@@ -44,6 +44,10 @@ public class CoverageSuite {
     return e.isJsonNull() ? null : e.getAsInt();
   }
 
+  public static Double doubleValue(JsonElement e) {
+    return e.isJsonNull() ? null : e.getAsDouble();
+  }
+
   public static String stringValue(JsonElement e) {
     return e.isJsonNull() ? null : e.getAsString();
   }

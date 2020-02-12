@@ -364,15 +364,15 @@ public abstract class CalendarDate {
     r.minute(invert(f.minute));
     r.second(invert(f.second));
     r.millis(invert(f.millis));
-    return f;
+    return r;
   }
 
-  private double invert(Option<Double> d) {
+  private Double invert(Option<Double> d) {
     if (d.ok()) {
       double v = d.get();
       return v == 0 ? v : -v;
     }
-    return 0;
+    return null;
   }
 
   @AllArgsConstructor
@@ -760,7 +760,6 @@ public abstract class CalendarDate {
       ms -= d * CalendarConstants.ONE_DAY_MS;
       day += d;
     }
-
     return Pair.of(jd + day, ms);
   }
 
@@ -773,7 +772,7 @@ public abstract class CalendarDate {
         (fields.minute.or(0.0) * CalendarConstants.ONE_MINUTE_MS) +
         (fields.second.or(0.0) * CalendarConstants.ONE_SECOND_MS) +
         fields.millis.or(0.0);
-    long days = (long) (msDay / CalendarConstants.ONE_DAY_MS);
+    long days = (long) Math.floor(msDay / CalendarConstants.ONE_DAY_MS);
     double ms = msDay - (days * CalendarConstants.ONE_DAY_MS);
     return Pair.of(days, ms);
   }

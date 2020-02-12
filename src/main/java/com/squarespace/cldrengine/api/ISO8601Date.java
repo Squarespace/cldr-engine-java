@@ -13,7 +13,7 @@ public class ISO8601Date extends GregorianDate {
   public ISO8601Date add(TimePeriod fields) {
     Pair<Long, Double> result = this._add(fields);
     ISO8601Date d = new ISO8601Date();
-    d._initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
+    d._initFromJD(result._1, Math.round(result._2), this.timeZoneId());
     return d;
   }
 

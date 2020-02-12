@@ -15,7 +15,7 @@ public class BuddhistDate extends GregorianDate {
   public BuddhistDate add(TimePeriod fields) {
     Pair<Long, Double> result = this._add(fields);
     return new BuddhistDate(this.firstDay, this.minDays)
-        ._initFromJD(result._1, (long)result._2.doubleValue(), this.timeZoneId());
+        ._initFromJD(result._1, Math.round(result._2), this.timeZoneId());
   }
 
   @Override

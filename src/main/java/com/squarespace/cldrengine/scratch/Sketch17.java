@@ -4,8 +4,6 @@ import com.squarespace.cldrengine.CLDR;
 import com.squarespace.cldrengine.api.CalendarDate;
 import com.squarespace.cldrengine.api.ContextType;
 import com.squarespace.cldrengine.api.DateFormatOptions;
-import com.squarespace.cldrengine.calendars.DateSkeleton;
-import com.squarespace.cldrengine.calendars.DateSkeletonParser;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 
 public class Sketch17 {
@@ -20,9 +18,9 @@ public class Sketch17 {
     DateTimePattern p1 = DateTimePattern.parse("h");
     DateTimePattern p2 = DateTimePattern.parse("h");
 
-    DateSkeletonParser parser = new DateSkeletonParser(p1.nodes, p2.nodes);
-    DateSkeleton skel = parser.parse("Bhhmm", false);
-    System.out.println(skel.canonical());
+//    DateSkeletonParser parser = new DateSkeletonParser(p1.nodes, p2.nodes);
+//    DateSkeleton skel = parser.parse("Bhhmm", false);
+//    System.out.println(skel.canonical());
 
 //    System.exit(1);
 

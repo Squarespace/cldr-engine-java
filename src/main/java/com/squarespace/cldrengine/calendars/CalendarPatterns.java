@@ -23,6 +23,9 @@ import com.squarespace.cldrengine.utils.StringUtils;
 
 import lombok.AllArgsConstructor;
 
+/**
+ * Manages patterns for a given calendar.
+ */
 class CalendarPatterns {
 
   @AllArgsConstructor
@@ -59,7 +62,6 @@ class CalendarPatterns {
 
   private final String language;
   private final String region;
-  private final Internals internals;
 
   private final DateSkeletonParser skeletonParser;
   private final LRU<String, CachedSkeletonRequest> skeletonRequestCache = new LRU<>(512);
@@ -70,12 +72,16 @@ class CalendarPatterns {
 
   private final DatePatternMatcher availableMatcher = new DatePatternMatcher();
   private final Map<DateTimePatternFieldType, DatePatternMatcher> intervalMatcher = new HashMap<>();
-  private final Map<String, String> rawAvailableFormats;
-  private final Map<PluralType, Map<String, String>> rawPluralFormats;
   private final Map<DateTimePatternFieldType, Map<String, String>> rawIntervalFormats;
   private final String intervalFallback;
 
+  protected final Bundle bundle;
+  protected final Internals internals;
+  protected final Map<String, String> rawAvailableFormats;
+  protected final Map<PluralType, Map<String, String>> rawPluralFormats;
+
   public CalendarPatterns(Bundle bundle, Internals internals, CalendarSchema schema) {
+    this.bundle = bundle;
     this.language = bundle.language();
     this.region = bundle.region();
     this.internals = internals;

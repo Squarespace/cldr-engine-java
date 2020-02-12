@@ -11,7 +11,7 @@ import com.squarespace.cldrengine.parsing.DateTimePattern.DateTimeNode;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class DateSkeletonParser {
+class DateSkeletonParser {
 
   private final List<Object> preferredFlex;
   private final List<Object> allowedFlex;

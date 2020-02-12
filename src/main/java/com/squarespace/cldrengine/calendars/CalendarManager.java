@@ -20,6 +20,9 @@ import com.squarespace.cldrengine.numbers.NumberParams;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.utils.Cache;
 
+/**
+ * Manages calendar-specific patterns and construction of formatting requests.
+ */
 class CalendarManager {
 
   private final Bundle bundle;

@@ -21,7 +21,10 @@ import com.squarespace.cldrengine.parsing.DateTimePattern.DateTimeNode;
 
 import lombok.AllArgsConstructor;
 
-public class CalendarFormatter<T extends CalendarDate> {
+/**
+ * Formats a date-time pattern using a given calendar context.
+ */
+class CalendarFormatter<T extends CalendarDate> {
 
   public final Internals internals;
   public final GeneralInternals general;

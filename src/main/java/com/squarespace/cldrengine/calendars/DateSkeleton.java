@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 @ToString
-public class DateSkeleton {
+class DateSkeleton {
 
   public int[] type = SkeletonData.skeletonFields();
   public SkeletonField[] info = new SkeletonField[type.length];

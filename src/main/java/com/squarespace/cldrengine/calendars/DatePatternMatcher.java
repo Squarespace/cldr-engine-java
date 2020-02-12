@@ -11,7 +11,10 @@ import com.squarespace.cldrengine.calendars.SkeletonData.FieldType;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.parsing.DateTimePattern.DateTimeNode;
 
-public class DatePatternMatcher {
+/**
+ * Matches a skeleton against available patterns.
+ */
+class DatePatternMatcher {
 
   // Save some work for exact matches.
   private final Map<String, DateSkeleton> EXACT = new HashMap<>();

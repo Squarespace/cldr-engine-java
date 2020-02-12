@@ -1,7 +1,9 @@
 package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.CalendarType;
+import lombok.Generated;
 
+@Generated
 public class DateRawFormatOptions {
 
   public final Option<String> pattern = Option.option();

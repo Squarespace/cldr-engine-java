@@ -1,7 +1,9 @@
 package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.RoundingModeType;
+import lombok.Generated;
 
+@Generated
 public class MathContext {
 
   public final Option<Integer> scale = Option.option();

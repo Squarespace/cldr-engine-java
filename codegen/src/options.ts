@@ -236,7 +236,9 @@ const make = (pkg: string, opt: Option) => {
 
   let s = `package ${pkg};\n\n`;
   _imports.forEach(i => s += `import ${i};\n`);
+  s += 'import lombok.Generated;\n';
   s += '\n';
+  s += `@Generated\n`;
   s += `public class ${opt.name} `;
   if (opt.extend) {
     s += `extends ${opt.extend} `;

@@ -2,7 +2,9 @@ package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.CurrencyFormatStyleType;
 import com.squarespace.cldrengine.api.RoundingModeType;
+import lombok.Generated;
 
+@Generated
 public class CurrencyFormatOptions extends NumberFormatOptions {
 
   public final Option<Integer> divisor = Option.option();

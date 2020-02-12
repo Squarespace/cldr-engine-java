@@ -1,7 +1,9 @@
 package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.ContextType;
+import lombok.Generated;
 
+@Generated
 public class DateFormatOptions {
 
   public final Option<ContextType> context = Option.option();

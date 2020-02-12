@@ -1,7 +1,9 @@
 package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.CalendarType;
+import lombok.Generated;
 
+@Generated
 public class CalendarFieldsOptions {
 
   public final Option<CalendarType> calendar = Option.option();

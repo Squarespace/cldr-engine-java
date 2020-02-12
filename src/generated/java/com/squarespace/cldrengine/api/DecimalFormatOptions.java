@@ -2,7 +2,9 @@ package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.DecimalFormatStyleType;
 import com.squarespace.cldrengine.api.RoundingModeType;
+import lombok.Generated;
 
+@Generated
 public class DecimalFormatOptions extends NumberFormatOptions {
 
   public final Option<DecimalFormatStyleType> style = Option.option();

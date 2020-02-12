@@ -1,7 +1,9 @@
 package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.AltType;
+import lombok.Generated;
 
+@Generated
 public class DisplayNameOptions {
 
   public final Option<AltType> type = Option.option();

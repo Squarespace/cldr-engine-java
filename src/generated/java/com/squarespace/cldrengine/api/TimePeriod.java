@@ -1,6 +1,8 @@
 package com.squarespace.cldrengine.api;
 
+import lombok.Generated;
 
+@Generated
 public class TimePeriod {
 
   public final Option<Double> year = Option.option();

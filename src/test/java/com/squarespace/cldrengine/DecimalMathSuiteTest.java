@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.MathContext;
+import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.api.RoundingModeType;
 
 public class DecimalMathSuiteTest extends CoverageSuite {
@@ -72,6 +73,26 @@ public class DecimalMathSuiteTest extends CoverageSuite {
         String div = n.divide(m, c).toString();
         String divex = result.get(6).getAsString();
         assertEquals(div, divex, n + " / " + m + " :: " + c);
+
+        int cmp = n.compare(m);
+        int cmpex = result.get(7).getAsInt();
+        assertEquals(cmp, cmpex, n + " compare " + m);
+
+        String dec = n.decrement().toString();
+        String decex = result.get(8).getAsString();
+        assertEquals(dec, decex, n + " decrement");
+
+        String inc = n.increment().toString();
+        String incex = result.get(9).getAsString();
+        assertEquals(inc, incex, n + " increment");
+
+        Pair<Decimal, Decimal> divmod = n.divmod(m);
+        String dmq = divmod._1.toString();
+        String dmr = divmod._2.toString();
+        String dmqex = result.get(10).getAsString();
+        String dmrex = result.get(11).getAsString();
+        assertEquals(dmq, dmqex, n + " divmod " + m + " quotient mismatch");
+        assertEquals(dmr, dmrex, n + " divmod " + m + " remainder mismatch");
 
         cases++;
         if (cases % 100000 == 0) {

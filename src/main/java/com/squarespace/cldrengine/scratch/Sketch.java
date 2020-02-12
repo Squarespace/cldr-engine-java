@@ -11,6 +11,7 @@ import com.squarespace.cldrengine.api.LanguageTag;
 import com.squarespace.cldrengine.api.ListPatternPositionType;
 import com.squarespace.cldrengine.api.MetaZoneType;
 import com.squarespace.cldrengine.api.NumberSystemCategory;
+import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.RegionIdType;
 import com.squarespace.cldrengine.api.RelativeTimeFieldType;
@@ -20,7 +21,6 @@ import com.squarespace.cldrengine.api.UnitType;
 import com.squarespace.cldrengine.internal.Meta;
 import com.squarespace.cldrengine.internal.Pack;
 import com.squarespace.cldrengine.internal.ResourcePacks;
-import com.squarespace.cldrengine.utils.Pair;
 
 /**
  * Quick verification that the schema generator's offsets are in sync with

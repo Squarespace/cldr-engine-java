@@ -1,7 +1,7 @@
 package com.squarespace.cldrengine.api;
 
 
-import static com.squarespace.cldrengine.utils.Pair.of;
+import static com.squarespace.cldrengine.api.Pair.of;
 
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -12,7 +12,6 @@ import com.squarespace.cldrengine.calendars.DayOfWeek;
 import com.squarespace.cldrengine.calendars.TimeZoneData;
 import com.squarespace.cldrengine.calendars.ZoneInfo;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
-import com.squarespace.cldrengine.utils.Pair;
 
 import lombok.AllArgsConstructor;
 

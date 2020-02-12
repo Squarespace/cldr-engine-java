@@ -16,12 +16,12 @@ import com.squarespace.cldrengine.api.DecimalAdjustOptions;
 import com.squarespace.cldrengine.api.DecimalFormatOptions;
 import com.squarespace.cldrengine.api.NumberSymbolType;
 import com.squarespace.cldrengine.api.Numbers;
+import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.general.GeneralInternals;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.PrivateApi;
-import com.squarespace.cldrengine.utils.Pair;
 
 public class NumbersImpl implements Numbers {
 

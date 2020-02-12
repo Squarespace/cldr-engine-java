@@ -1,7 +1,5 @@
 package com.squarespace.cldrengine.api;
 
-import com.squarespace.cldrengine.utils.Pair;
-
 /**
  * A date in the Buddhist calendar.
  *

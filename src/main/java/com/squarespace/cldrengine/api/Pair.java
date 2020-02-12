@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.utils;
+package com.squarespace.cldrengine.api;
 
 import lombok.EqualsAndHashCode;
 

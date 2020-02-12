@@ -21,6 +21,7 @@ import com.squarespace.cldrengine.api.DecimalFormatOptions;
 import com.squarespace.cldrengine.api.DecimalFormatStyleType;
 import com.squarespace.cldrengine.api.MathContext;
 import com.squarespace.cldrengine.api.NumberSymbolType;
+import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.PluralRules;
 import com.squarespace.cldrengine.api.PluralType;
@@ -37,7 +38,6 @@ import com.squarespace.cldrengine.internal.NumbersSchema;
 import com.squarespace.cldrengine.parsing.NumberPattern;
 import com.squarespace.cldrengine.parsing.NumberPatternParser;
 import com.squarespace.cldrengine.utils.Cache;
-import com.squarespace.cldrengine.utils.Pair;
 import com.squarespace.cldrengine.utils.StringUtils;
 
 public class NumberInternals {

@@ -8,6 +8,7 @@ import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.DecimalFormatOptions;
 import com.squarespace.cldrengine.api.DecimalFormatStyleType;
+import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.Quantity;
 import com.squarespace.cldrengine.api.UnitFormatOptions;
@@ -19,7 +20,6 @@ import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.UnitInfo;
 import com.squarespace.cldrengine.numbers.NumberParams;
 import com.squarespace.cldrengine.numbers.NumberRenderer;
-import com.squarespace.cldrengine.utils.Pair;
 
 public class UnitInternals {
 

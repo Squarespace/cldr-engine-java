@@ -1,6 +1,6 @@
 package com.squarespace.cldrengine.internal;
 
-import com.squarespace.cldrengine.utils.Pair;
+import com.squarespace.cldrengine.api.Pair;
 
 public class DigitsArrow<R> {
 

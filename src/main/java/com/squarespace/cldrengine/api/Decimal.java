@@ -431,9 +431,51 @@ public class Decimal {
     return w;
   }
 
-  // TODO: divmod
+  /**
+   * Divide by v and return the quotient and remainder.
+   */
+  public Pair<Decimal, Decimal> divmod(Decimal v) {
+    Decimal rq = this.handleFlags(Op.DIVISION, v);
+    if (rq != null) {
+      Decimal rm = this.handleFlags(Op.MOD, v);
+      return Pair.of(rq, rm);
+    }
 
-  // TODO: mod
+    Decimal u = this;
+    int exp = u.exp > v.exp ? v.exp : u.exp;
+    if (u.exp != v.exp) {
+      int shift = u.exp - v.exp;
+      if (shift > 0) {
+        u = u.shiftleft(shift);
+      } else {
+        v = v.shiftleft(-shift);
+      }
+    }
+
+    // Ensure u digits are >= v
+    int dsize = v.data.length - u.data.length;
+    if (dsize > 0) {
+      if (u == this) {
+        u = new Decimal(u);
+      }
+      u.data = Arrays.copyOf(u.data, u.data.length + dsize);
+    }
+
+    DivideResult res = DecimalMath.divide(u.data, v.data, true);
+
+    int qsign = u.sign == v.sign ? 1 : -1;
+    Decimal q = new Decimal(qsign, 0, res.quotient, 0);
+    Decimal r = new Decimal(u.sign, exp, res.remainder, 0);
+    return Pair.of(q.trim(), r.trim());
+  }
+
+  /**
+   * Divide by v and return the remainder.
+   */
+  public Decimal mod(Decimal v) {
+    Decimal r = this.handleFlags(Op.MOD, v);
+    return r == null ? this.divmod(v)._2 : r;
+  }
 
   /**
    * Number of trailing zeros.

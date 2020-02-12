@@ -50,13 +50,16 @@ const ROUNDING: (RoundingModeType | undefined)[] = [
 ];
 
 const CONTEXTS: MathContext[] = [];
+const PRECISION: number[] = [0, 1, 2, 3, 4, 5, 8, 12, 15, 40];
+const SCALE: number[] = [-4, -2, -1, 0, 1, 2, 3, 5];
 
 for (const round of ROUNDING) {
-  for (let i = 0; i < 40; i += 3) {
-    CONTEXTS.push({ precision: i, round });
+  CONTEXTS.push({ round });
+  for (const precision of PRECISION) {
+    CONTEXTS.push({ precision, round });
   }
-  for (let i = -10; i < 12; i += 2) {
-    CONTEXTS.push({ scale: i, round });
+  for (const scale of SCALE) {
+    CONTEXTS.push({ scale, round });
   }
 }
 
@@ -68,6 +71,11 @@ const buildMath = (name: string) => {
   let sub: Decimal;
   let mul: Decimal;
   let div: Decimal;
+  let cmp: number;
+  let dec: Decimal;
+  let inc: Decimal;
+  let dmq: Decimal;
+  let dmr: Decimal;
 
   const numbers: Decimal[] = NUMBERS.concat(NUMBERS.map(n => n.negate()));
   let r = JSON.stringify({
@@ -79,6 +87,7 @@ const buildMath = (name: string) => {
   fs.writeSync(fd, '\n');
 
   for (let i = 0; i < numbers.length; i++) {
+    console.log(`math round ${i} of ${numbers.length}`);
     for (let j = 0; j < numbers.length; j++) {
       for (let k = 0; k < CONTEXTS.length; k++) {
         const n = numbers[i];
@@ -89,6 +98,10 @@ const buildMath = (name: string) => {
         sub = n.subtract(m);
         mul = n.multiply(m, c);
         div = n.divide(m, c);
+        cmp = n.compare(m);
+        dec = n.decrement();
+        inc = n.increment();
+        [dmq, dmr] = n.divmod(m);
 
         const res: any[] = [
           i,
@@ -97,7 +110,12 @@ const buildMath = (name: string) => {
           add.toString(),
           sub.toString(),
           mul.toString(),
-          div.toString()
+          div.toString(),
+          cmp,
+          dec.toString(),
+          inc.toString(),
+          dmq.toString(),
+          dmr.toString()
         ];
         fs.writeSync(fd, JSON.stringify(res));
         fs.writeSync(fd, '\n');

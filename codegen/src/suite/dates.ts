@@ -34,7 +34,6 @@ const buildDates = (name: string, dims: Dimension<TimePeriod>[]) => {
   const properties = dims.map(d => d.property);
   const options = reduce(product(items));
 
-  // console.log('permutations: ' + BASES.length * options.length);
   let r = JSON.stringify({
     dates: BASES,
     properties
@@ -45,13 +44,21 @@ const buildDates = (name: string, dims: Dimension<TimePeriod>[]) => {
   const cldr = framework.get('en');
   const zoneId = 'UTC';
   for (const o of options) {
-    const results: number[] = [];
+    const results: any[] = [];
     for (const base of BASES) {
       const start = cldr.Calendars.toGregorianDate({ date: base, zoneId });
       const e1 = start.add(o as TimePeriod);
       const e2 = start.subtract(o as TimePeriod);
+      const d1 = start.difference(e1);
+      const d2 = start.difference(e2);
       results.push(e1.unixEpoch());
       results.push(e2.unixEpoch());
+      results.push(d1);
+      results.push(d2);
+      for (const field of FIELDS) {
+        const d3 = start.difference(e1, [field]);
+        results.push(d3);
+      }
     }
     r = JSON.stringify({
       options: properties.map((k: any) => o[k]),

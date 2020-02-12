@@ -3,6 +3,7 @@ package com.squarespace.cldrengine;
 import static org.testng.Assert.assertEquals;
 
 import java.io.BufferedReader;
+import java.util.Arrays;
 import java.util.List;
 
 import org.testng.annotations.Test;
@@ -14,6 +15,7 @@ import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.CalendarDate;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.TimePeriod;
+import com.squarespace.cldrengine.api.TimePeriodField;
 
 public class DateMathSuiteTest extends CoverageSuite {
 
@@ -26,6 +28,17 @@ public class DateMathSuiteTest extends CoverageSuite {
   public void testDateMathTimes() throws Exception {
     run("datemath-times");
   }
+
+  private static final TimePeriodField FIELDS[] = new TimePeriodField[] {
+    TimePeriodField.YEAR,
+    TimePeriodField.MONTH,
+    TimePeriodField.WEEK,
+    TimePeriodField.DAY,
+    TimePeriodField.HOUR,
+    TimePeriodField.MINUTE,
+    TimePeriodField.SECOND,
+    TimePeriodField.MILLIS
+  };
 
   protected void run(String name) throws Exception {
     CLDR en = CLDR.get("en");
@@ -53,20 +66,36 @@ public class DateMathSuiteTest extends CoverageSuite {
 
         JsonObject row = JsonParser.parseString(line).getAsJsonObject();
         TimePeriod period = timePeriod(row.get("options"), properties);
-        List<Long> results = longArray(row.get("results"));
+        JsonArray results = row.get("results").getAsJsonArray();
         for (int i = 0; i < dates.size(); i++) {
-          int j = i * 2;
+          int j = i * (4 + FIELDS.length);
           long date = dates.get(i);
           CalendarDate start = en.Calendars.toGregorianDate(date, "UTC");
           CalendarDate e1 = start.add(period);
           CalendarDate e2 = start.subtract(period);
-          long e1ex = results.get(j);
-          long e2ex = results.get(j + 1);
-//          System.out.println(e1.unixEpoch() + " " + e1ex);
-//          System.out.println(e2.unixEpoch() + " " + e2ex);
+          long e1ex = results.get(j).getAsLong();
+          long e2ex = results.get(j + 1).getAsLong();
+          TimePeriod d1ex = decodePeriod(results.get(j + 2));
+          TimePeriod d2ex = decodePeriod(results.get(j + 3));
+          TimePeriod d1 = start.difference(e1, null);
+          TimePeriod d2 = start.difference(e2, null);
+
           assertEquals(e1.unixEpoch(), e1ex, date + " " + period + " add");
           assertEquals(e2.unixEpoch(), e2ex, date + " " + period + " subtract");
+          assertEquals(d1.toString(), d1ex.toString());
+          assertEquals(d2.toString(), d2ex.toString());
+
+          for (int k = 0; k < FIELDS.length; k++) {
+            TimePeriod d3ex = decodePeriod(results.get(j + 4 + k));
+            TimePeriod d3 = start.difference(e1, Arrays.asList(FIELDS[k]));
+            assertEquals(d3.toString(), d3ex.toString(),
+                start.unixEpoch() + " " + e1.unixEpoch() + " " + FIELDS[k]);
+          }
+
           cases++;
+          if ((cases % 100000) == 0) {
+            System.out.println(name + " " + cases);
+          }
         }
       }
     }
@@ -75,39 +104,52 @@ public class DateMathSuiteTest extends CoverageSuite {
         en.Numbers.formatDecimal(new Decimal(cases), null) + " successful cases");
   }
 
+  protected static TimePeriod decodePeriod(JsonElement elem) {
+    JsonObject obj = elem.getAsJsonObject();
+    TimePeriod res = TimePeriod.build();
+    for (String key : obj.keySet()) {
+      updatePeriod(res, key, obj.get(key).getAsDouble());
+    }
+    return res;
+  }
+
   protected static TimePeriod timePeriod(JsonElement elem, List<String> properties) {
     JsonArray arr = elem.getAsJsonArray();
     TimePeriod res = TimePeriod.build();
     for (int i = 0; i < properties.size(); i++) {
       String property = properties.get(i);
       Double val = doubleValue(arr.get(i));
-      switch (property) {
-        case "year":
-          res.year(val);
-          break;
-        case "month":
-          res.month(val);
-          break;
-        case "week":
-          res.week(val);
-          break;
-        case "day":
-          res.day(val);
-          break;
-        case "hour":
-          res.hour(val);
-          break;
-        case "minute":
-          res.minute(val);
-          break;
-        case "second":
-          res.second(val);
-          break;
-        case "millis":
-          res.millis(val);
-          break;
-      }
+      updatePeriod(res, property, val);
     }
     return res;
+  }
+
+  protected static void updatePeriod(TimePeriod p, String property, Double val) {
+    switch (property) {
+      case "year":
+        p.year(val);
+        break;
+      case "month":
+        p.month(val);
+        break;
+      case "week":
+        p.week(val);
+        break;
+      case "day":
+        p.day(val);
+        break;
+      case "hour":
+        p.hour(val);
+        break;
+      case "minute":
+        p.minute(val);
+        break;
+      case "second":
+        p.second(val);
+        break;
+      case "millis":
+        p.millis(val);
+        break;
+    }
   }
 }

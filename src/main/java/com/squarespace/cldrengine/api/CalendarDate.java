@@ -291,7 +291,6 @@ public abstract class CalendarDate {
   public TimePeriod difference(CalendarDate other, List<TimePeriodField> fields) {
     Swap swap = this.swap(other);
     TimePeriod res = this._diff(swap.start, swap.startFields, swap.endFields);
-    System.out.println("res " + res);
     if (fields != null) {
       return this._rollup(res, swap.startFields, swap.endFields, fields);
     }
@@ -504,23 +503,23 @@ public abstract class CalendarDate {
 
     // Roll down
     if ((f & FLAG_WEEK) != 0) {
-      week = ms / onewk;
+      week = Math.floor(ms / onewk);
       ms -= week * onewk;
     }
     if ((f & FLAG_DAY) != 0) {
-      day = ms / onedy;
+      day = Math.floor(ms / onedy);
       ms -= day * onedy;
     }
     if ((f & FLAG_HOUR) != 0) {
-      hour = ms / onehr;
+      hour = Math.floor(ms / onehr);
       ms -= hour * onehr;
     }
     if ((f & FLAG_MINUTE) != 0) {
-      minute = ms / onemn;
+      minute = Math.floor(ms / onemn);
       ms -= minute * onemn;
     }
     if ((f & FLAG_SECOND) != 0) {
-      second = ms / 1000;
+      second = Math.floor(ms / 1000);
       ms -= second * 1000;
     }
     if ((f & FLAG_MILLIS) != 0) {

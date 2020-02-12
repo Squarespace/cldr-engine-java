@@ -19,33 +19,6 @@ import {
   ZONES
 } from './data';
 
-// const LOCALES = ['en', 'es-419', 'de', 'ja', 'pt-PT', 'zh'];
-
-// const DATES: number[] = [
-//   // Mon, February 6, 1956 4:54:57 PM
-//   -438678303000,
-//   // Thursday, January 1, 1970 12:00:00 AM GMT
-//   0,
-//   // Wed, September 23, 1987 5:03:24 PM
-//   559415004000,
-//   // Sat, May 11, 1996 3:55:31 AM
-//   831786931000,
-//   // Monday, January 27, 2020 12:34:56 PM GMT
-//   1580128496000
-// ];
-
-// const ZONES: string[] = [
-//   'America/Catamarca',
-//   'America/Inuvik',
-//   'America/New_York',
-//   'Asia/Tokyo',
-//   'Australia/Melbourne',
-//   'Europe/Bucharest',
-//   'Europe/Rome',
-//   'Europe/London',
-//   'Pacific/Pago_Pago',
-// ];
-
 const SKELETONS: (string | undefined)[] = [
   undefined, 'yMMMd', 'hmsv', 'EEEyMMMd', 'GyMd', 'Bhhmm', 'EEEMMMMd'];
 const FORMAT_WIDTHS: (FormatWidthType | undefined)[] = [
@@ -118,7 +91,6 @@ const buildDateIntervalFormat = <T, R>(name: string, method: string, dims: Dimen
   console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
   const items = dims.map(e => e.build());
-  // const properties = dims.map(d => d.property);
   const options = reduce(product(items));
   const cldrs = LOCALES.map(id => framework.get(id));
 

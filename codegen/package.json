@@ -10,7 +10,9 @@
     "build": "tsc",
     "build:watch": "tsc -w --preserveWatchOutput",
     "generate": "node ./lib/main.js",
-    "suite": "node ./lib/suite/index.js"
+    "suite": "node ./lib/suite/index.js",
+    "link-all": "ls --color=none node_modules/@phensley | xargs -I % yarn link @phensley/%",
+    "unlink-all": "ls --color=none node_modules/@phensley | xargs -I % yarn unlink @phensley/%"
   },
   "devDependencies": {
     "@phenomnomnominal/tsquery": "^3.0.0",

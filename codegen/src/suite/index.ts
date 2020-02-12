@@ -11,7 +11,7 @@ if (!fs.existsSync(root)) {
 }
 
 mathSuite(root);
-// currencySuite(root);
-// decimalSuite(root);
-// dateSuite(root);
-// relativeSuite(root);
+currencySuite(root);
+decimalSuite(root);
+dateSuite(root);
+relativeSuite(root);

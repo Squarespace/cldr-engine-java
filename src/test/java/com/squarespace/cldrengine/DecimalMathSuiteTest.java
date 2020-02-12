@@ -94,6 +94,26 @@ public class DecimalMathSuiteTest extends CoverageSuite {
         assertEquals(dmq, dmqex, n + " divmod " + m + " quotient mismatch");
         assertEquals(dmr, dmrex, n + " divmod " + m + " remainder mismatch");
 
+        String mod = n.mod(m).toString();
+        String modex = result.get(12).getAsString();
+        assertEquals(mod, modex, n + " mod " + m);
+
+        int sig = n.signum();
+        int sigex = result.get(13).getAsInt();
+        assertEquals(sig, sigex, n + " signum");
+
+        boolean _int = n.isInteger();
+        boolean _intex = result.get(14).getAsBoolean();
+        assertEquals(_int, _intex, n + " isInteger");
+
+        String shl = n.shiftleft(j).toString();
+        String shlex = result.get(15).getAsString();
+        assertEquals(shl, shlex, n + " shiftleft " + j);
+
+        String shr = n.shiftright(j, c.round.get()).toString();
+        String shrex = result.get(16).getAsString();
+        assertEquals(shr, shrex, n + " shiftright " + j + " " + c.round);
+
         cases++;
         if (cases % 100000 == 0) {
           System.out.println(name + " " + cases + " cases");

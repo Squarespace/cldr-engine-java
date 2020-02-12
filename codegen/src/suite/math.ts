@@ -76,6 +76,11 @@ const buildMath = (name: string) => {
   let inc: Decimal;
   let dmq: Decimal;
   let dmr: Decimal;
+  let mod: Decimal;
+  let sig: number;
+  let int: boolean;
+  let shl: Decimal;
+  let shr: Decimal;
 
   const numbers: Decimal[] = NUMBERS.concat(NUMBERS.map(n => n.negate()));
   let r = JSON.stringify({
@@ -87,7 +92,6 @@ const buildMath = (name: string) => {
   fs.writeSync(fd, '\n');
 
   for (let i = 0; i < numbers.length; i++) {
-    console.log(`math round ${i} of ${numbers.length}`);
     for (let j = 0; j < numbers.length; j++) {
       for (let k = 0; k < CONTEXTS.length; k++) {
         const n = numbers[i];
@@ -102,6 +106,11 @@ const buildMath = (name: string) => {
         dec = n.decrement();
         inc = n.increment();
         [dmq, dmr] = n.divmod(m);
+        mod = n.mod(m);
+        sig = n.signum();
+        int = n.isInteger();
+        shl = n.shiftleft(j);
+        shr = n.shiftright(j, c.round);
 
         const res: any[] = [
           i,
@@ -115,7 +124,12 @@ const buildMath = (name: string) => {
           dec.toString(),
           inc.toString(),
           dmq.toString(),
-          dmr.toString()
+          dmr.toString(),
+          mod.toString(),
+          sig,
+          int,
+          shl.toString(),
+          shr.toString()
         ];
         fs.writeSync(fd, JSON.stringify(res));
         fs.writeSync(fd, '\n');

@@ -992,6 +992,10 @@ public class Decimal {
       return;
     }
 
+    if (mode == null) {
+      mode = RoundingModeType.HALF_EVEN;
+    }
+
     Decimal w = this;
     int prec = w.precision();
 

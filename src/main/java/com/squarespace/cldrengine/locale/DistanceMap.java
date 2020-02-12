@@ -11,7 +11,7 @@ import com.squarespace.cldrengine.locale.DistanceMap.Node;
  * two keys and a distance between them, and an optional child map with
  * further comparisons.
  */
-public class DistanceMap implements Iterable<Node> {
+class DistanceMap implements Iterable<Node> {
 
   public static final String ANY = "\ufffd";
 

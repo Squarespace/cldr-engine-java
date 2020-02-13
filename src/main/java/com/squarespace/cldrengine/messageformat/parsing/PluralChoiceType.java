@@ -1,7 +1,7 @@
 package com.squarespace.cldrengine.messageformat.parsing;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum PluralChoiceType {
 
@@ -9,13 +9,11 @@ public enum PluralChoiceType {
   CATEGORY(1)
   ;
 
-  private static final List<PluralChoiceType> REVERSE_INT;
+  private static final Map<Integer, PluralChoiceType> REVERSE_INT = new HashMap<>();
 
   static {
-    int len = PluralChoiceType.values().length;
-    REVERSE_INT = new ArrayList<>(len);
     for (PluralChoiceType p : PluralChoiceType.values()) {
-      REVERSE_INT.set(p.value, p);
+      REVERSE_INT.put(p.value, p);
     }
   }
 

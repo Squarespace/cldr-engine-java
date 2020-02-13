@@ -50,6 +50,9 @@ public class MessageMatcher {
 
   public MessageMatcher(Collection<String> formatters, String raw) {
     this.raw = raw;
+    if (formatters.stream().anyMatch(s -> StringUtils.isEmpty(s))) {
+      throw new IllegalArgumentException("formatter names must not be zero-length");
+    }
     this._fmt = Pattern.compile("(plural|select(ordinal)?|" + StringUtils.join(formatters, "|") + ")");
     this.arg = ARG.matcher(raw);
     this.choice = CHOICE.matcher(raw);

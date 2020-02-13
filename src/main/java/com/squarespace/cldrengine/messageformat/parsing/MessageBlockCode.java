@@ -28,10 +28,12 @@ public class MessageBlockCode extends MessageCode {
 
   @Override
   protected void _toJson(JsonArray arr) {
+    JsonArray outer = new JsonArray();
     for (MessageCode code : block) {
       JsonArray _code = code.toJson();
-      arr.add(_code);
+      outer.add(_code);
     }
+    arr.add(outer);
   }
 
 }

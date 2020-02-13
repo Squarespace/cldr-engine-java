@@ -1,7 +1,7 @@
 package com.squarespace.cldrengine.messageformat.parsing;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum PluralNumberType {
 
@@ -9,11 +9,11 @@ public enum PluralNumberType {
   ORDINAL(1)
   ;
 
-  private static final List<PluralNumberType> REVERSE = new ArrayList<>(PluralNumberType.values().length);
+  private static final Map<Integer, PluralNumberType> REVERSE = new HashMap<>();
 
   static {
     for (PluralNumberType p : PluralNumberType.values()) {
-      REVERSE.set(p.value, p);
+      REVERSE.put(p.value, p);
     }
   }
 
@@ -30,5 +30,6 @@ public enum PluralNumberType {
   public static PluralNumberType fromInt(int i) {
     return REVERSE.get(i);
   }
+
 
 }

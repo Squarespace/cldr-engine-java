@@ -29,14 +29,16 @@ public class MessageCode implements ToJson {
 
   protected JsonArray arrayOf(List<?> objects) {
     JsonArray arr = new JsonArray();
-    for (Object obj : objects) {
-      if (obj instanceof String) {
-        arr.add( (String) obj );
-      } else if (obj instanceof Number) {
-        arr.add( (Number) obj );
-      } else if (obj instanceof ToJson) {
-        ToJson json = (ToJson) obj;
-        arr.add(json.toJson());
+    if (objects != null) {
+      for (Object obj : objects) {
+        if (obj instanceof String) {
+          arr.add( (String) obj );
+        } else if (obj instanceof Number) {
+          arr.add( (Number) obj );
+        } else if (obj instanceof ToJson) {
+          ToJson json = (ToJson) obj;
+          arr.add(json.toJson());
+        }
       }
     }
     return arr;

@@ -189,6 +189,9 @@ public class MessageEngine {
   }
 
   protected Decimal asdecimal(Object arg) {
+    if (arg == null) {
+      return DecimalConstants.ZERO;
+    }
     if (arg instanceof Decimal) {
       return (Decimal)arg;
     } else if (arg instanceof Boolean) {

@@ -141,7 +141,6 @@ const buildMath = (name: string) => {
 };
 
 export const mathSuite = (root: string) => {
-  // TODO: shifts, compares, etc
   buildMath(join(root, 'math.txt'));
 };
 

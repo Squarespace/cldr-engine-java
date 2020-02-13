@@ -95,6 +95,16 @@ public class CoverageSuite {
     return result;
   }
 
+  public static List<Double> doubleArray(JsonElement json) {
+    JsonArray arr = json.getAsJsonArray();
+    List<Double> result = new ArrayList<>();
+    for (int i = 0; i < arr.size(); i++) {
+      Double value = arr.get(i).getAsDouble();
+      result.add(value);
+    }
+    return result;
+  }
+
   public static List<String> stringArray(JsonElement json) {
     JsonArray arr = json.getAsJsonArray();
     List<String> result = new ArrayList<>();

@@ -12,7 +12,7 @@ if (!fs.existsSync(root)) {
   fs.mkdirSync(root);
 }
 
-const MODULES = ['numbers', 'math', 'mathrand', 'calendars', 'dates', 'relativetime'];
+const MODULES = ['numbers', 'math', 'mathrand', 'calendars', 'dates', 'dateconv', 'relativetime'];
 
 for (const mod of MODULES) {
   proc.fork(join(__dirname, mod), [root]);

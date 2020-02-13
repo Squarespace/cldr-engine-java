@@ -7,8 +7,6 @@ import { Dimension, product, reduce } from './dimension';
 
 import {
   DATES,
-  LOCALES,
-  ZONES,
 } from './data';
 
 const FIELDS: TimePeriodField[] = [
@@ -16,10 +14,8 @@ const FIELDS: TimePeriodField[] = [
   'hour', 'minute', 'second', 'millis'
 ];
 
-const VALUES: (undefined | number)[] = [
-  undefined, 0.1, 0.7, 1, 1.3, 1.5, 2, 2.2, 3,
-  5, 7, 9, 10, 12, 13, 25, 29, 30, 31, 45, 89, 90, 91, 100
-];
+const VALUES: (undefined | number)[] =
+  [undefined, 0.1, 0.3, 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 13, 21, 34, 55, 89, 144];
 
 const BASES: number[] = [
   ...DATES,

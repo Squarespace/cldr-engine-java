@@ -14,14 +14,14 @@ import { RNG } from './rng';
 
 const VALID: string[] = [
   '{0 upper}',
-  '{1 plural =1 {1} one {one} many {many} other {other}}',
+  '{1 plural =1 {1} one {# is one} many {# is many} other {# is other}}',
   '{1 plural offset:1 =1 {1} other{other}}',
-  '{1 selectordinal one{st} other{th}}',
+  '{1 selectordinal one{#st} other{#th}}',
   '{2 select foo {FOO} bar {BAR} other {OTHER}}',
 ];
 
 const GARBAGE = [
-  ',', ' ', '{', '}', '*'
+  "'", "''", '-', '{-', ',', ' ', '{', '}', '*'
 ];
 
 const buildMessage = (name: string) => {
@@ -59,7 +59,7 @@ const buildMessage = (name: string) => {
   const NUMS = [0, 1.0, 1, 5];
   const SELECT = ['foo', 'bar', 'other'];
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 300; i++) {
     const args = [
       STRS[i % STRS.length],
       NUMS[i % NUMS.length],
@@ -77,7 +77,7 @@ const buildMessage = (name: string) => {
     fs.writeSync(fd, '\n');
   }
 
-  for (let i = 0; i < 200000; i++) {
+  for (let i = 0; i < 500000; i++) {
     for (const threshold of [0.3, 0.10]) {
       const m = generate(i, threshold);
       const c = parseMessagePattern(m, matcher);

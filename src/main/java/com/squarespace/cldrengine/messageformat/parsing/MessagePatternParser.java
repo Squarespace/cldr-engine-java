@@ -327,12 +327,12 @@ public class MessagePatternParser {
           break;
 
         case APOS:
-          if (i < len && c == str.charAt(i + 1)) {
+          if (i + 1 < len && c == str.charAt(i + 1)) {
             // Skip single escaped apostrophe
             i++;
           } else {
             // Find matching apostrophe
-            int k = str.indexOf(c, i + 1);
+            int k = i + 1 < len ? str.indexOf(c, i + 1) : -1;
             if (k == -1) {
               // No apostrophe, assume rest of string is escaped
               return -1;
@@ -340,7 +340,7 @@ public class MessagePatternParser {
             // Skip over matching apostrophe
             i = k;
           }
-          break;
+        break;
       }
 
       i++;

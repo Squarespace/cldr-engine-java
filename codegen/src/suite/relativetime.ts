@@ -133,3 +133,5 @@ export const relativeSuite = (root: string) => {
 
   buildRelativeTimeField(join(root, 'relativetime-field.txt'), [DIM_CONTEXT, DIM_WIDTH, DIM_ALWNOW, DIM_NUMONLY]);
 };
+
+relativeSuite(process.argv[2]);

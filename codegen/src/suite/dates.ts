@@ -89,3 +89,5 @@ export const dateMathSuite = (root: string) => {
 
   buildDates(join(root, 'datemath-times.txt'), timedims);
 };
+
+dateMathSuite(process.argv[2]);

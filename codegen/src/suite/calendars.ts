@@ -205,3 +205,5 @@ export const dateSuite = (root: string) => {
   buildDateIntervalFormat(join(root, 'dateinterval.txt'), 'formatDateInterval', intdims, f3);
   buildRawFormat(join(root, 'dateformat-raw.txt'));
 };
+
+dateSuite(process.argv[2]);

@@ -144,3 +144,5 @@ export const mathSuite = (root: string) => {
   // TODO: shifts, compares, etc
   buildMath(join(root, 'math.txt'));
 };
+
+mathSuite(process.argv[2]);

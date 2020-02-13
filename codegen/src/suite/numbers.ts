@@ -222,3 +222,5 @@ export const decimalSuite = (root: string) => {
     DECADJ_MAXSIG, DECADJ_MINSIG];
   buildDecimal(join(root, 'decimalformat-compact-sig.txt'), dims, f);
 };
+
+decimalSuite(process.argv[2]);

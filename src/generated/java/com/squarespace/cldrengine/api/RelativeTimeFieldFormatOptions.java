@@ -3,8 +3,10 @@ package com.squarespace.cldrengine.api;
 import com.squarespace.cldrengine.api.DateFieldWidthType;
 import com.squarespace.cldrengine.api.RoundingModeType;
 import lombok.Generated;
+import lombok.EqualsAndHashCode;
 
 @Generated
+@EqualsAndHashCode(callSuper = true)
 public class RelativeTimeFieldFormatOptions extends NumberFormatOptions {
 
   public final Option<DateFieldWidthType> width = Option.option();

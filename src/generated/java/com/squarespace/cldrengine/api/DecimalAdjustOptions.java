@@ -2,8 +2,10 @@ package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.RoundingModeType;
 import lombok.Generated;
+import lombok.EqualsAndHashCode;
 
 @Generated
+@EqualsAndHashCode
 public class DecimalAdjustOptions {
 
   public final Option<RoundingModeType> round = Option.option();

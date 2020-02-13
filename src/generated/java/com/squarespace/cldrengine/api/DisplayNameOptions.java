@@ -2,8 +2,10 @@ package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.AltType;
 import lombok.Generated;
+import lombok.EqualsAndHashCode;
 
 @Generated
+@EqualsAndHashCode
 public class DisplayNameOptions {
 
   public final Option<AltType> type = Option.option();

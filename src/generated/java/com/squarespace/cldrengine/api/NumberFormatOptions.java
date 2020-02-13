@@ -2,8 +2,10 @@ package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.RoundingModeType;
 import lombok.Generated;
+import lombok.EqualsAndHashCode;
 
 @Generated
+@EqualsAndHashCode(callSuper = true)
 public class NumberFormatOptions extends DecimalAdjustOptions {
 
   public final Option<Boolean> group = Option.option();

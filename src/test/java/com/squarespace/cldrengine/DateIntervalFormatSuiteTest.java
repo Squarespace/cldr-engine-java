@@ -76,6 +76,9 @@ public class DateIntervalFormatSuiteTest extends CoverageSuite {
               assertEquals(actual, expected, "case " + cases + " id=" + locales.get(i) +
                   " " + start + "  " + end + " " + opts);
               cases++;
+              if ((cases % 100000) == 0) {
+                System.out.println(name + " " + cases);
+              }
             }
             break;
           }

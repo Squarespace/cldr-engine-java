@@ -230,15 +230,27 @@ const INDEX = [
   return p;
 }, {} as OptionMap);
 
+const LOMBOK: string[] = [
+  'Generated',
+  'EqualsAndHashCode',
+];
+
 const make = (pkg: string, opt: Option) => {
   const _imports = new Set<string>();
   imports(_imports, opt);
 
   let s = `package ${pkg};\n\n`;
   _imports.forEach(i => s += `import ${i};\n`);
-  s += 'import lombok.Generated;\n';
+  for (const ann of LOMBOK) {
+    s += `import lombok.${ann};\n`;
+  }
   s += '\n';
-  s += `@Generated\n`;
+  s += '@Generated\n';
+  s += '@EqualsAndHashCode';
+  if (opt.extend) {
+    s += '(callSuper = true)';
+  }
+  s += '\n';
   s += `public class ${opt.name} `;
   if (opt.extend) {
     s += `extends ${opt.extend} `;

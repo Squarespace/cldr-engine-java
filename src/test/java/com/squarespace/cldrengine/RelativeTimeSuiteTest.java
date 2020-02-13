@@ -14,7 +14,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.CalendarDate;
 import com.squarespace.cldrengine.api.Decimal;
-import com.squarespace.cldrengine.api.RelativeTimeFieldFormatOptions;
 import com.squarespace.cldrengine.api.RelativeTimeFormatOptions;
 import com.squarespace.cldrengine.api.TimePeriodField;
 
@@ -78,6 +77,10 @@ public class RelativeTimeSuiteTest extends CoverageSuite {
               String actual = cldr.Calendars.formatRelativeTime(start, end, opts);
               assertEquals(actual, expected, start + "  " + end + " " + opts);
               cases++;
+
+              if ((cases % 100000) == 0) {
+                System.out.println(name + " " + cases);
+              }
             }
 
             break;

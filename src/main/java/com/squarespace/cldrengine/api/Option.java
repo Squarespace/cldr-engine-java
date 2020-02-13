@@ -1,8 +1,10 @@
 package com.squarespace.cldrengine.api;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Option<T> {
 
   private T value;

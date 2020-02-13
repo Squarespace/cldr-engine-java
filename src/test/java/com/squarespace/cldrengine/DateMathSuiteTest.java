@@ -82,13 +82,13 @@ public class DateMathSuiteTest extends CoverageSuite {
 
           assertEquals(e1.unixEpoch(), e1ex, date + " " + period + " add");
           assertEquals(e2.unixEpoch(), e2ex, date + " " + period + " subtract");
-          assertEquals(d1.toString(), d1ex.toString());
-          assertEquals(d2.toString(), d2ex.toString());
+          assertEquals(d1, d1ex);
+          assertEquals(d2, d2ex);
 
           for (int k = 0; k < FIELDS.length; k++) {
             TimePeriod d3ex = decodePeriod(results.get(j + 4 + k));
             TimePeriod d3 = start.difference(e1, Arrays.asList(FIELDS[k]));
-            assertEquals(d3.toString(), d3ex.toString(),
+            assertEquals(d3, d3ex,
                 start.unixEpoch() + " " + e1.unixEpoch() + " " + FIELDS[k]);
           }
 

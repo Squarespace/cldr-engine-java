@@ -2,8 +2,10 @@ package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.ContextType;
 import lombok.Generated;
+import lombok.EqualsAndHashCode;
 
 @Generated
+@EqualsAndHashCode
 public class CurrencyDisplayNameOptions {
 
   public final Option<ContextType> context = Option.option();

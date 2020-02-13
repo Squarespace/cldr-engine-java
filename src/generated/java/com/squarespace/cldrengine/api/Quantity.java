@@ -2,8 +2,10 @@ package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.api.Decimal;
 import lombok.Generated;
+import lombok.EqualsAndHashCode;
 
 @Generated
+@EqualsAndHashCode
 public class Quantity {
 
   public final Option<Decimal> value = Option.option();

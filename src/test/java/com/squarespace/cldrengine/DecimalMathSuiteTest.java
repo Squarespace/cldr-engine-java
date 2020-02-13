@@ -115,8 +115,8 @@ public class DecimalMathSuiteTest extends CoverageSuite {
         assertEquals(shr, shrex, n + " shiftright " + j + " " + c.round);
 
         cases++;
-        if (cases % 100000 == 0) {
-          System.out.println(name + " " + cases + " cases");
+        if ((cases % 100000) == 0) {
+          System.out.println(name + " " + cases);
         }
       }
     }

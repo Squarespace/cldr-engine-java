@@ -4,8 +4,10 @@ import com.squarespace.cldrengine.api.CalendarType;
 import com.squarespace.cldrengine.api.DateFieldWidthType;
 import com.squarespace.cldrengine.api.RoundingModeType;
 import lombok.Generated;
+import lombok.EqualsAndHashCode;
 
 @Generated
+@EqualsAndHashCode(callSuper = true)
 public class RelativeTimeFormatOptions extends RelativeTimeFieldFormatOptions {
 
   public final Option<CalendarType> calendar = Option.option();

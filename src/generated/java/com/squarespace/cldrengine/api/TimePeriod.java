@@ -1,8 +1,10 @@
 package com.squarespace.cldrengine.api;
 
 import lombok.Generated;
+import lombok.EqualsAndHashCode;
 
 @Generated
+@EqualsAndHashCode
 public class TimePeriod {
 
   public final Option<Double> year = Option.option();

@@ -90,6 +90,10 @@ public class DateFormatSuiteTest extends CoverageSuite {
                     String actual = cldr.Calendars.formatDate(date, opts);
                     Assert.assertEquals(actual, expected, String.format("epoch=%s zone=%s opts=%s", epoch, zoneId, opts));
                     cases++;
+                    if ((cases % 100000) == 0) {
+                      System.out.println(name + " " + cases);
+                    }
+
                   } catch (Exception ex) {
                     String msg = String.format("Unexpected error on inputs: epoch=%s zone=%s opts=%s",
                         epoch, zoneId, opts);
@@ -125,6 +129,10 @@ public class DateFormatSuiteTest extends CoverageSuite {
                 String actual = cldr.Calendars.formatDateRaw(date, opts);
                 assertEquals(actual, expected, date + " " + opts + " pattern=" + pattern);
                 cases++;
+                if ((cases % 100000) == 0) {
+                  System.out.println(name + " " + cases);
+                }
+
               }
             }
           }

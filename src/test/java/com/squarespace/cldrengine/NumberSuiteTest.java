@@ -124,6 +124,11 @@ public class NumberSuiteTest extends CoverageSuite {
                   String actual = cldr.Numbers.formatDecimal(n, opts);
                   Assert.assertEquals(actual, expected, String.format("n=%s opts=%s", n, opts));
                   cases++;
+
+                  if ((cases % 100000) == 0) {
+                    System.out.println(name + " " + cases);
+                  }
+
                 } catch (Exception ex) {
                   String msg = String.format("Unexpected error on inputs: n=%s opts=%s",
                       numbers.get(j), opts);
@@ -151,6 +156,11 @@ public class NumberSuiteTest extends CoverageSuite {
                     String actual = cldr.Numbers.formatCurrency(n, code, opts);
                     Assert.assertEquals(actual, expected, String.format("n=%s code=%s opts=%s", n, code, opts));
                     cases++;
+
+                    if ((cases % 100000) == 0) {
+                      System.out.println(name + " " + cases);
+                    }
+
                   } catch (Exception ex) {
                     String msg = String.format("Unexpected error on inputs: n=%s code=%s opts=%s",
                         numbers.get(j), code, opts);

@@ -81,7 +81,8 @@ clean {
 }
 
 test {
-	useTestNG()
+  useTestNG()
+  maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
 }
 
 jacocoTestReport {

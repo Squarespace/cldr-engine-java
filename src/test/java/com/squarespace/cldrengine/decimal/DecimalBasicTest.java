@@ -19,6 +19,41 @@ public class DecimalBasicTest {
     assertEquals(dec("3").compare(dec("3")), 0);
     assertEquals(dec("2").compare(dec("3")), -1);
     assertEquals(dec("4").compare(dec("3")), 1);
+
+    // 14 digits, evenly divisible by radix
+    Decimal a = dec("100000000000000");
+    Decimal b = dec("100000000000001");
+    Decimal c = new Decimal(a);
+
+    assertEquals(a.compare(b), -1);
+    assertEquals(b.compare(a), 1);
+    assertEquals(a.compare(c), 0);
+
+    Decimal d = dec("900000000000000");
+    assertEquals(a.compare(d), -1);
+    assertEquals(d.compare(a), 1);
+
+    // 15 digits
+    a = dec("1e15");
+    b = dec("1000000000000001");
+    c = new Decimal(a);
+
+    assertEquals(a.compare(b), -1);
+    assertEquals(b.compare(a), 1);
+    assertEquals(a.compare(c), 0);
+
+    d = dec("9e15");
+    assertEquals(a.compare(d), -1);
+    assertEquals(d.compare(a), 1);
+  }
+
+  @Test
+  public void testCompare2() {
+    assertEquals(dec("100000.2345666666e-7").compare(dec("100000.23457e-7")), -1);
+    assertEquals(dec("100000.2345666666e-7").compare(dec("100000.23447e-7")), 1);
+    assertEquals(dec("100000000.2345666666e-7").compare(dec("100020000.23447e-7")), -1);
+    assertEquals(dec("10000000000.2345666666e-7").compare(dec("10000000000.23457e-7")), -1);
+    assertEquals(dec("10000000000.234566666666e-6").compare(dec("10000000000.23457e-6")), -1);
   }
 
   @Test

@@ -114,24 +114,8 @@ public class Decimal {
     this.flag = flag;
   }
 
-  public static Decimal coerce(String n) {
-    return new Decimal(n);
-  }
-
-  public static Decimal coerce(int n) {
-    return new Decimal(n);
-  }
-
-  public static Decimal coerce(long n) {
-    return new Decimal(n);
-  }
-
-  public static Decimal coerce(float n) {
-    return new Decimal(n);
-  }
-
-  public static Decimal coerce(double n) {
-    return new Decimal(n);
+  public int exp() {
+    return this.exp;
   }
 
   public boolean isNaN() {
@@ -575,10 +559,6 @@ public class Decimal {
     Decimal r = new Decimal(this);
     r._setScale(scale, mode);
     return r;
-  }
-
-  public int exp() {
-    return this.exp;
   }
 
   /**

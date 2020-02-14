@@ -1,6 +1,7 @@
 package com.squarespace.cldrengine.decimal;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
@@ -17,6 +18,30 @@ public class DecimalBasicTest {
     assertEquals(dec("-1.56789").toString(), "-1.56789");
     assertEquals(dec("+1.56789").toString(), "1.56789");
     assertEquals(dec("1.35").add(dec("7.213")).toString(), "8.563");
+
+    assertEquals(dec("-1.56789").abs().toString(), "1.56789");
+
+    assertEquals(new Decimal(1.5f).toString(), "1.5");
+    assertEquals(new Decimal(1.567).toString(), "1.567");
+    assertEquals(new Decimal(123456L).toString(), "123456");
+    assertEquals(new Decimal(123456).toString(), "123456");
+
+    assertEquals(new Decimal(Double.NaN).toString(), "NaN");
+    assertEquals(new Decimal(Double.NEGATIVE_INFINITY).toString(), "-Infinity");
+    assertEquals(new Decimal(Double.POSITIVE_INFINITY).toString(), "Infinity");
+
+    Decimal d = new Decimal(-1, -5, new long[] { 1, 2 }, 0);
+    assertEquals(d.toString(), "-200.00001");
+    assertEquals(d.exp(), -5);
+    assertEquals(d.isNaN(), false);
+    assertEquals(d.isFinite(), true);
+    assertEquals(d.isInfinity(), false);
+
+    d = new Decimal(123);
+    assertNotEquals(d, "123");
+    assertNotEquals(d, 123);
+    assertNotEquals(d, 123f);
+    assertNotEquals(d, 123d);
   }
 
   @Test
@@ -140,7 +165,7 @@ public class DecimalBasicTest {
   }
 
   private static Decimal dec(String s) {
-    return Decimal.coerce(s);
+    return new Decimal(s);
   }
 
 }

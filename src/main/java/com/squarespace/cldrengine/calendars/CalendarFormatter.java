@@ -567,7 +567,7 @@ class CalendarFormatter<T extends CalendarDate> {
   }
 
   private String _num(CalendarContext<T> ctx, long n, int minInt) {
-    return ctx.system.formatString(Decimal.coerce(n), false, minInt);
+    return ctx.system.formatString(new Decimal(n), false, minInt);
   }
 
   private String _year(CalendarContext<T> ctx, long year, int width) {

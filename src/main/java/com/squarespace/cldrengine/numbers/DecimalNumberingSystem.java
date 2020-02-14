@@ -23,7 +23,7 @@ public class DecimalNumberingSystem extends NumberingSystem {
 
   @Override
   public String formatString(long n, boolean groupDigits, int minInt) {
-    return formatString(Decimal.coerce(n), groupDigits, minInt);
+    return formatString(new Decimal(n), groupDigits, minInt);
   }
 
   @Override

@@ -213,7 +213,7 @@ public class LocaleMatcher {
     return new Entry(id, UNDEFINED);
   }
 
-  static class Entry implements CLocale {
+  static class Entry {
 
     private final String id;
     private final LanguageTag tag;
@@ -223,20 +223,6 @@ public class LocaleMatcher {
       this.id = id;
       this.tag = tag;
       this.compact = tag.compact();
-    }
-
-    @Override
-    public String id() {
-      return this.id;
-    }
-
-    @Override
-    public LanguageTag tag() {
-      return this.tag;
-    }
-
-    public String compact() {
-      return this.compact;
     }
   }
 

@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.locale;
 
+import static com.squarespace.cldrengine.utils.StringUtils.join;
+import static java.util.Arrays.asList;
 import static org.testng.Assert.assertEquals;
 
 import java.io.BufferedReader;
@@ -9,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.squarespace.cldrengine.api.LocaleMatcher;
@@ -23,8 +24,30 @@ public class LocaleMatcherTest {
 
   @Test
   public void testBasic() {
-    LocaleMatcher matcher = new LocaleMatcher("en, en_GB, zh, pt_AR, es-419");
-    LocaleMatch m = matcher.match("en-AU");
+    String[] supported = new String[] { "en", "en_GB", "zh", "pt_AR", "es-419" };
+    String[] desired = new String[] { "en-AU" };
+
+    LocaleMatcher matcher = new LocaleMatcher(join(asList(supported), ", "));
+    LocaleMatch m = matcher.match(join(asList(desired), ", "));
+    assertEquals(m.distance, 3);
+    assertEquals(m.locale.id(), "en_GB");
+
+    int threshold = 90;
+    matcher = new LocaleMatcher(asList(supported));
+    m = matcher.match(asList(desired));
+    assertEquals(m.distance, 3);
+    assertEquals(m.locale.id(), "en_GB");
+
+    m = matcher.match(asList(desired), threshold);
+    assertEquals(m.distance, 3);
+    assertEquals(m.locale.id(), "en_GB");
+
+    matcher = new LocaleMatcher(supported);
+    m = matcher.match(desired);
+    assertEquals(m.distance, 3);
+    assertEquals(m.locale.id(), "en_GB");
+
+    m = matcher.match(desired, threshold);
     assertEquals(m.distance, 3);
     assertEquals(m.locale.id(), "en_GB");
   }

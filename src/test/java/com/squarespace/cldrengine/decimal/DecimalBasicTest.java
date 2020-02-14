@@ -1,6 +1,8 @@
 package com.squarespace.cldrengine.decimal;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 import org.testng.annotations.Test;
 
@@ -11,6 +13,9 @@ public class DecimalBasicTest {
 
   @Test
   public void testBasic() {
+    assertEquals(dec("1.56789").toString(), "1.56789");
+    assertEquals(dec("-1.56789").toString(), "-1.56789");
+    assertEquals(dec("+1.56789").toString(), "1.56789");
     assertEquals(dec("1.35").add(dec("7.213")).toString(), "8.563");
   }
 
@@ -73,6 +78,65 @@ public class DecimalBasicTest {
     assertEquals(a.divide(b, c.scale(10)), dec("0.0000000019"));
     assertEquals(a.divide(b, c.scale(11)), dec("0.00000000186"));
     assertEquals(a.divide(b, c.scale(12)), dec("0.000000001864"));
+  }
+
+  @Test
+  public void testParse() {
+    try {
+      new Decimal("1.e");
+      fail("Expected exception");
+    } catch (IllegalArgumentException e) {
+      assertTrue(e.toString().contains("Exponent not provided"));
+    }
+
+    try {
+      new Decimal("1.e1e1");
+      fail("Expected exception");
+    } catch (IllegalArgumentException e) {
+      assertTrue(e.toString().contains("Extra exponent"));
+    }
+
+    try {
+      new Decimal("--1");
+      fail("Expected exception");
+    } catch (IllegalArgumentException e) {
+      assertTrue(e.toString().contains("Duplicate sign"));
+    }
+
+    try {
+      new Decimal("+");
+      fail("Expected exception");
+    } catch (IllegalArgumentException e) {
+      assertTrue(e.toString().contains("bare sign"));
+    }
+
+    try {
+      new Decimal("1..2");
+      fail("Expected exception");
+    } catch (IllegalArgumentException e) {
+      assertTrue(e.toString().contains("Extra radix"));
+    }
+
+    try {
+      new Decimal("1x2");
+      fail("Expcected exception");
+    } catch (IllegalArgumentException e) {
+      assertTrue(e.toString().contains("Unexpected character"));
+    }
+
+    try {
+      new Decimal("");
+      fail("Expected exception");
+    } catch (IllegalArgumentException e) {
+      assertTrue(e.toString().contains("must include at least 1 digit"));
+    }
+
+    try {
+      new Decimal("1e100000000000");
+      fail("Expected exception");
+    } catch (IllegalArgumentException e) {
+      assertTrue(e.toString().contains("Exponent too large"));
+    }
   }
 
   private static Decimal dec(String s) {

@@ -1233,13 +1233,7 @@ public class Decimal {
   private void parse(String s) {
     String msg = this._parse(s);
     if (msg != null) {
-      this.data = new long[] { 0 };
-      this.sign = 1;
-      this.exp = 0;
-      this.flag = 0;
-      return;
-      // TODO: address error handling
-      //      throw new RuntimeException(msg);
+      throw new IllegalArgumentException(msg);
     }
   }
 

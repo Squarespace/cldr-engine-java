@@ -1,13 +1,17 @@
 package com.squarespace.cldrengine.units.conversion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
+import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.Rational;
 import com.squarespace.cldrengine.api.UnitType;
 import com.squarespace.cldrengine.utils.Heap;
@@ -36,8 +40,17 @@ public class UnitFactors {
   public final List<UnitType> units;
   private final List<FactorDef> factors;
   private final Map<UnitType, Map<UnitType, Rational>> graph = new EnumMap<>(UnitType.class);
+  private final ConcurrentMap<UnitType, ConcurrentMap<UnitType, UnitConversion>> cache =
+      new ConcurrentHashMap<>();
 
   public UnitFactors(List<FactorDef> factors) {
+    this(factors, false);
+  }
+
+  /**
+   * Build a unit converter graph using the given factors.
+   */
+  public UnitFactors(List<FactorDef> factors, boolean memoize) {
     this.factors = factors;
     int size = factors.size();
     for (int i = 0; i < size; i++) {
@@ -68,16 +81,16 @@ public class UnitFactors {
   /**
    * Return the factor that converts units of 'src' into 'dst'.
    */
-  public Rational get(UnitType src, UnitType dst) {
+  public UnitConversion get(UnitType src, UnitType dst) {
     // Units are the same, conversion is 1
     if (src == dst) {
-      return ONE;
+      return new UnitConversion(Arrays.asList(src, dst), Arrays.asList(ONE));
     }
 
     // See if a direct conversion exists.
     Rational fac = this.graph.get(src).get(dst);
     if (fac != null) {
-      return fac;
+      return new UnitConversion(Arrays.asList(src, dst), Arrays.asList(fac));
     }
 
     // Find the shortest, lowest-cost conversion path between
@@ -85,25 +98,29 @@ public class UnitFactors {
     List<UnitType> path = this.shortestPath(src, dst);
     if (path != null) {
       // Multiply the factors together
-      fac = ONE;
+      List<Rational> factors = new ArrayList<>();
       UnitType curr = path.get(0);
       for (int i = 1; i < path.size(); i++) {
         UnitType next = path.get(i);
         Rational nextfac = this.graph.get(curr).get(next);
-        fac = fac.multiply(nextfac, null);
+        factors.add(nextfac);
         curr = next;
       }
 
       // Record this factor in the graph
-      this.graph.get(src).put(dst, fac);
-
-      // If the inverse conversion factor is unknown, add it.
-      Map<UnitType, Rational> m = this.graph.get(dst);
-      if (!m.containsKey(src)) {
-        m.put(src, fac.inverse());
+      ConcurrentMap<UnitType, UnitConversion> m = this.cache.get(src);
+      if (m == null) {
+        m = new ConcurrentHashMap<>();
+        this.cache.put(src, m);
       }
 
-      return fac;
+      UnitConversion res = m.get(dst);
+      if (res == null) {
+        res = new UnitConversion(path, factors);
+        m.put(dst, res);
+      }
+
+      return res;
     }
 
     // No conversion factor exists
@@ -183,7 +200,9 @@ public class UnitFactors {
   }
 
   private static int precision(Rational r) {
-    return Math.max(r.numerator().precision(), r.denominator().precision());
+    Decimal n = r.numerator();
+    Decimal d = r.denominator();
+    return (n.precision() + n.alignexp()) + (d.precision() + d.alignexp());
   }
 
   private static List<UnitType> extractPath(Map<UnitType, Cost> edges, UnitType dst) {

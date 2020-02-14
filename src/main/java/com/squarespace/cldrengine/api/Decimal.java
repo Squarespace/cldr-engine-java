@@ -577,6 +577,10 @@ public class Decimal {
     return r;
   }
 
+  public int exp() {
+    return this.exp;
+  }
+
   /**
    * Adjusted exponent for alignment. Two numbers with the same aligned exponent are
    * aligned for arithmetic operations. If the aligned exponents do not match one

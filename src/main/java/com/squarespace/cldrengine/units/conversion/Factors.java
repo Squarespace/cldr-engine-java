@@ -39,12 +39,13 @@ public class Factors {
   public static final List<FactorDef> CONSUMPTION = Arrays.asList(
       def(UnitType.LITER_PER_100KILOMETERS, "1/100", UnitType.LITER_PER_KILOMETER));
 
-  public static final List<FactorDef> DIGITAL_BASE = kfactors("1000",
+  public static final List<FactorDef> DIGITAL_BASE = concat(Arrays.asList(
+      def(UnitType.BYTE, "8", UnitType.BIT)), kfactors("1000",
       UnitType.TERABIT,
       UnitType.GIGABIT,
       UnitType.MEGABIT,
       UnitType.KILOBIT,
-      UnitType.BIT);
+      UnitType.BIT));
 
   public static final List<FactorDef> DIGITAL = concat(
       DIGITAL_BASE, kfactors("1024",
@@ -87,7 +88,7 @@ public class Factors {
       def(UnitType.KILOWATT_HOUR, "3600000", UnitType.JOULE),
       def(UnitType.CALORIE, "4.1868", UnitType.JOULE),
       def(UnitType.FOODCALORIE, "523 / 125", UnitType.JOULE),
-      def(UnitType.KILOJOULE, "1000", UnitType.CALORIE));
+      def(UnitType.KILOCALORIE, "1000", UnitType.CALORIE));
 
   public static final List<FactorDef> FORCE = Arrays.asList(
       def(UnitType.POUND_FORCE, "4.448222", UnitType.NEWTON));
@@ -177,6 +178,7 @@ public class Factors {
       def(UnitType.CUBIC_MILE, "5451776000", UnitType.CUBIC_YARD),
       def(UnitType.CUBIC_YARD, "27", UnitType.CUBIC_FOOT),
       def(UnitType.CUBIC_FOOT, "1 / 35.31466672148859", UnitType.CUBIC_METER),
+      def(UnitType.CUBIC_FOOT, "28.316846592", UnitType.LITER),
       def(UnitType.CUBIC_INCH, "1 / 1728", UnitType.CUBIC_FOOT),
 
       def(UnitType.ACRE_FOOT, "43560", UnitType.CUBIC_FOOT),

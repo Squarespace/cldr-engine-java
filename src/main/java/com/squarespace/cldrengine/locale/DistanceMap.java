@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 
 import com.squarespace.cldrengine.locale.DistanceMap.Node;
 
+import lombok.Generated;
+
 /**
  * Map for storing language distances where each level of the map represents
  * two keys and a distance between them, and an optional child map with
@@ -105,6 +107,8 @@ class DistanceMap implements Iterable<Node> {
     return h ^ (h >>> 16);
   }
 
+  // TODO: better way to exclude from coverage
+  @Generated
   @Override
   public String toString() {
     StringBuilder buf = new StringBuilder();
@@ -114,6 +118,8 @@ class DistanceMap implements Iterable<Node> {
 
   private static final String INDENT = "               ";
 
+  // TODO: better way to exclude from coverage
+  @Generated
   private void render(StringBuilder buf, int level) {
     Node[] temp = new Node[nodes.length];
     System.arraycopy(nodes, 0, temp, 0, nodes.length);
@@ -170,10 +176,14 @@ class DistanceMap implements Iterable<Node> {
     }
   }
 
+  // TODO: better way to exclude from coverage
+  @Generated
   private static String wildcard(String v) {
     return v.codePointAt(0) == 0xFFFD ? "*" : v;
   }
 
+  // TODO: better way to exclude from coverage
+  @Generated
   private static void pad(StringBuilder buf, int width, String v) {
     int delta = width - v.length();
     for (int i = 0; i < delta; i++) {

@@ -11,6 +11,8 @@ import com.squarespace.cldrengine.internal.LocaleExternalData;
 
 public class LocaleResolver {
 
+  private static final LanguageTag UND = new LanguageTag();
+
   // Markers that let us quickly determine that a given FastTag field is undefined,
   // while still having the ability to call equals() and hashCode() on it.
   private static final Integer LANGUAGE = 0;
@@ -92,7 +94,7 @@ public class LocaleResolver {
       addLikelySubtags(max);
     }
 
-    FastTag tmp = new FastTag(max);
+    FastTag tmp = new FastTag(UND);
 
     // Using "en-Latn-US" as an example...
     // 1. Match "en-Zzzz-ZZ"

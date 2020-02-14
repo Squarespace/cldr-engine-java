@@ -5,7 +5,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
+
+import com.squarespace.cldrengine.utils.StringUtils;
 
 /**
  * IETF BCP 47 language tag with static methods for parsing, adding likely
@@ -84,6 +87,22 @@ public class LanguageTag {
     };
     this.extensions = extensions;
     this.privateUse = privateUse;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj instanceof LanguageTag) {
+      LanguageTag other = (LanguageTag) obj;
+      boolean res = Arrays.equals(core, other.core);
+      res = res && ((extensions == null || extensions.isEmpty())
+          ? (other.extensions == null || other.extensions.isEmpty())
+          : Objects.equals(extensions, other.extensions));
+      res = res && (StringUtils.isEmpty(privateUse)
+          ? StringUtils.isEmpty(other.privateUse)
+          : privateUse.equals(other.privateUse));
+      return res;
+    }
+    return false;
   }
 
   /**

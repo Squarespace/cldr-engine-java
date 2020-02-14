@@ -8,15 +8,16 @@ if (!fs.existsSync(root)) {
 }
 
 const MODULES = [
-  'calendars',
-  'dates',
-  'dateconv',
-  'math',
-  'mathrand',
-  'message',
-  'numbers',
-  'relativetime',
-  'unitconv'
+  // 'calendars',
+  // 'dates',
+  // 'dateconv',
+  // 'math',
+  // 'mathrand',
+  // 'message',
+  'names',
+  // 'numbers',
+  // 'relativetime',
+  // 'unitconv'
 ];
 
 for (const mod of MODULES) {

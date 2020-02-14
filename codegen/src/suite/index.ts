@@ -15,7 +15,8 @@ const MODULES = [
   'mathrand',
   'message',
   'numbers',
-  'relativetime'
+  'relativetime',
+  'unitconv'
 ];
 
 for (const mod of MODULES) {

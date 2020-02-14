@@ -3,8 +3,10 @@ package com.squarespace.cldrengine.api;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.Generated;
 import com.squarespace.cldrengine.internal.StringEnum;
 
+@Generated
 public enum AltType implements StringEnum<AltType> {
 
   NONE("none"),

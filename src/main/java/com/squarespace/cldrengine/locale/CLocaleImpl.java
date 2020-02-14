@@ -3,6 +3,11 @@ package com.squarespace.cldrengine.locale;
 import com.squarespace.cldrengine.api.CLocale;
 import com.squarespace.cldrengine.api.LanguageTag;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+@EqualsAndHashCode
+@ToString
 public class CLocaleImpl implements CLocale {
 
   private final String id;

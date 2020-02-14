@@ -2,8 +2,10 @@ package com.squarespace.cldrengine.api;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Generated;
 import lombok.ToString;
 
+@Generated
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString

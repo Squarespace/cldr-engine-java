@@ -1,7 +1,9 @@
 package com.squarespace.cldrengine.api;
 
 import lombok.EqualsAndHashCode;
+import lombok.Generated;
 
+@Generated
 @EqualsAndHashCode
 public class Pair<F, S> {
 

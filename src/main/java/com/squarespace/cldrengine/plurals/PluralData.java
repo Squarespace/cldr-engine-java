@@ -88,8 +88,4 @@ class PluralData {
     return res.stream().toArray(int[][]::new);
   }
 
-  public static void main(String[] args) {
-    System.out.println(ORDINALS.keySet());
-  }
-
 }

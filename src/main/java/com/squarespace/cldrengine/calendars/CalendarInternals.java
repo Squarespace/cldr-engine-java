@@ -143,10 +143,6 @@ public class CalendarInternals {
     return value.join(Arrays.asList(s, e));
   }
 
-//  public CalendarType selectCalendar(Bundle bundle, CalendarType type) {
-//    return selectCalendar(bundle, type == null ? "gregory" : type.value);
-//  }
-
   public CalendarType selectCalendar(Bundle bundle, CalendarType calendar) {
     CalendarType cal = this.supportedCalendar(calendar);
     if (cal == null) {

@@ -107,20 +107,9 @@ public class UnitFactors {
         curr = next;
       }
 
-      // Record this factor in the graph
-      ConcurrentMap<UnitType, UnitConversion> m = this.cache.get(src);
-      if (m == null) {
-        m = new ConcurrentHashMap<>();
-        this.cache.put(src, m);
-      }
-
-      UnitConversion res = m.get(dst);
-      if (res == null) {
-        res = new UnitConversion(path, factors);
-        m.put(dst, res);
-      }
-
-      return res;
+      // Cache this conversion path
+      ConcurrentMap<UnitType, UnitConversion> m = this.cache.computeIfAbsent(src, s -> new ConcurrentHashMap<>());
+      return m.computeIfAbsent(dst, s -> new UnitConversion(path, factors));
     }
 
     // No conversion factor exists

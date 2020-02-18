@@ -2,7 +2,6 @@ package com.squarespace.cldrengine.calendars;
 
 import static org.testng.Assert.assertEquals;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.squarespace.cldrengine.CLDR;
@@ -15,7 +14,7 @@ public class DateSkeletonTest {
   private static final long MARCH_11_2018_070025_UTC = 1520751625000L;
 
   //March 1, 2018 6:45:17 PM UTC
-  private static final long MARCH_01_2018_184517_UTC = 1519929917000L;
+//  private static final long MARCH_01_2018_184517_UTC = 1519929917000L;
 
   private static final String LA = "America/Los_Angeles";
 

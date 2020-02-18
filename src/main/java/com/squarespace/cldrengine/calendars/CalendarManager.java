@@ -58,7 +58,6 @@ class CalendarManager {
     CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, options.calendar.get());
     CalendarPatterns patterns = this.getCalendarPatterns(calendar.value);
 
-    // TODO:
     FormatWidthType dateKey = options.datetime.or(options.date.get());
     FormatWidthType timeKey = options.datetime.or(options.time.get());
     FormatWidthType wrapKey = options.wrap.get();
@@ -85,31 +84,59 @@ class CalendarManager {
       req.time = patterns.getTimePattern(timeKey);
     }
 
-    // Standard format
-    if (req.date != null || req.time != null) {
+    DateSkeleton query = null;
+
+    // We have both standard formats, we're done
+    if (req.date != null && req.time != null) {
       return req;
+    }
+
+    // We have at least a date/time standard format.
+    if (req.date != null || req.time != null) {
+
+      // If no skeleton specified, we're done
+      if (isEmpty(skelKey)) {
+        return req;
+      }
+
+      // We have a standard date or time pattern along with a skeleton.
+      // We split the skeleton into date/time parts, then use the one
+      // that doesn't conflict with the specified standard format
+      query = patterns.parseSkeleton(skelKey);
+
+      // Use the part of the skeleton that does not conflict
+      DateSkeleton time = query.split();
+      if (req.date != null) {
+        query = time;
+      }
+
+      // Update skeleton key with only the used fields
+      skelKey = query.canonical();
+    } else {
+      // No standard format specified, so just parse the skeleton
+      query = patterns.parseSkeleton(skelKey);
     }
 
     // Perform a best-fit match on the skeleton
 
+    // TODO: skeleton caching disabled for now due to mixed formats
     // Check if we've cached the patterns for this skeleton before
-    CachedSkeletonRequest entry = patterns.getCachedSkeletonRequest(skelKey);
-    if (entry != null) {
-      req.date = entry.date;
-      req.time = entry.time;
-      if (wrapKey == null && entry.dateSkel != null && req.date != null && req.time != null) {
-        // If wrapper not explicitly requested, select based on skeleton date fields
-        req.wrapper = this.selectWrapper(patterns, entry.dateSkel, req.date);
-      }
-      return req;
-    }
+//    CachedSkeletonRequest entry = patterns.getCachedSkeletonRequest(skelKey);
+//    if (entry != null) {
+//      req.date = entry.date;
+//      req.time = entry.time;
+//      if (wrapKey == null && entry.dateSkel != null && req.date != null && req.time != null) {
+//        // If wrapper not explicitly requested, select based on skeleton date fields
+//        req.wrapper = this.selectWrapper(patterns, entry.dateSkel, req.date);
+//      }
+//      return req;
+//    }
 
     DateSkeleton timeQuery = null;
     DateSkeleton dateSkel = null;
     DateSkeleton timeSkel = null;
 
     // Check if skeleton specifies date or time fields, or both.
-    DateSkeleton query = patterns.parseSkeleton(skelKey);
     if (query.compound()) {
       // Separate into a date and a time skeleton.
       timeQuery = query.split();
@@ -122,17 +149,24 @@ class CalendarManager {
       timeSkel = patterns.matchAvailable(query);
     }
 
-    req.date = dateSkel != null ?
-        this.getAvailablePattern(patterns, date, query, dateSkel, params) : null;
-    req.time = timeQuery != null && timeSkel != null ?
-        this.getAvailablePattern(patterns, date, timeQuery, timeSkel, params) : null;
-
-    if (wrapKey == null && dateSkel != null && req.date != null && req.time != null) {
-      req.wrapper = this.selectWrapper(patterns, dateSkel, req.date);
+    if (dateSkel != null) {
+      req.date = this.getAvailablePattern(patterns, date, query, dateSkel, params);
+    }
+    if (timeQuery != null && timeSkel != null) {
+      req.time = this.getAvailablePattern(patterns, date, timeQuery, timeSkel, params);
     }
 
-    entry = new CachedSkeletonRequest(dateSkel, req.date, req.time);
-    patterns.setCachedSkeletonRequest(skelKey, entry);
+    if (wrapKey == null) {
+      if (dateSkel != null && req.date != null && req.time != null) {
+        req.wrapper = this.selectWrapper(patterns, dateSkel, req.date);
+      } else {
+        req.wrapper = patterns.getWrapperPattern(dateKey == null ? FormatWidthType.SHORT : dateKey);
+      }
+    }
+
+    // TODO: skeleton caching disabled for now due to mixed formats
+//    entry = new CachedSkeletonRequest(dateSkel, req.date, req.time);
+//    patterns.setCachedSkeletonRequest(skelKey, entry);
     return req;
   }
 

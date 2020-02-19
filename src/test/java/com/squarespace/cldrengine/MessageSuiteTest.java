@@ -14,15 +14,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.squarespace.cldrengine.api.Decimal;
+import com.squarespace.cldrengine.api.MessageArgs;
 import com.squarespace.cldrengine.api.MessageFormatFuncMap;
 import com.squarespace.cldrengine.api.MessageFormatter;
 import com.squarespace.cldrengine.api.MessageFormatterOptions;
-import com.squarespace.cldrengine.messageformat.evaluation.MessageArgs;
 import com.squarespace.cldrengine.messageformat.parsing.MessageCode;
 import com.squarespace.cldrengine.messageformat.parsing.MessagePatternParser;
 
 public class MessageSuiteTest extends CoverageSuite {
-
 
   @Test
   public void testMessages() throws Exception {
@@ -32,7 +31,6 @@ public class MessageSuiteTest extends CoverageSuite {
   protected String upper(List<Object> args, List<String> options) {
     return !args.isEmpty() ? args.get(0).toString().toUpperCase() : "";
   }
-
 
   protected void run(String name) throws Exception {
     CLDR en = CLDR.get("en");

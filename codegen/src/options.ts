@@ -15,6 +15,7 @@ type Type =
   | 'EraWidthType'
   | 'FieldWidthType'
   | 'FormatWidthType'
+  | 'MessageArgConverter'
   | 'MessageFormatFuncMap'
   | 'PluralRules'
   | 'RoundingModeType'
@@ -160,6 +161,7 @@ const MessageFormatterOptions =
     .field('language', 'String')
     .field('region', 'String')
     .field('plurals', 'PluralRules')
+    .field('converter', 'MessageArgConverter')
     .field('formatters', 'MessageFormatFuncMap')
     .field('cacheSize', 'Integer');
 

@@ -11,6 +11,7 @@ public class MessageFormatterOptions {
   public final Option<String> language = Option.option();
   public final Option<String> region = Option.option();
   public final Option<PluralRules> plurals = Option.option();
+  public final Option<MessageArgConverter> converter = Option.option();
   public final Option<MessageFormatFuncMap> formatters = Option.option();
   public final Option<Integer> cacheSize = Option.option();
 
@@ -21,6 +22,7 @@ public class MessageFormatterOptions {
     this.language.set(arg.language);
     this.region.set(arg.region);
     this.plurals.set(arg.plurals);
+    this.converter.set(arg.converter);
     this.formatters.set(arg.formatters);
     this.cacheSize.set(arg.cacheSize);
   }
@@ -52,6 +54,16 @@ public class MessageFormatterOptions {
 
   public MessageFormatterOptions plurals(Option<PluralRules> arg) {
     this.plurals.set(arg);
+    return this;
+  }
+
+  public MessageFormatterOptions converter(MessageArgConverter arg) {
+    this.converter.set(arg);
+    return this;
+  }
+
+  public MessageFormatterOptions converter(Option<MessageArgConverter> arg) {
+    this.converter.set(arg);
     return this;
   }
 
@@ -95,6 +107,7 @@ public class MessageFormatterOptions {
     this.language.setIf(o.language);
     this.region.setIf(o.region);
     this.plurals.setIf(o.plurals);
+    this.converter.setIf(o.converter);
     this.formatters.setIf(o.formatters);
     this.cacheSize.setIf(o.cacheSize);
   }
@@ -111,6 +124,7 @@ public class MessageFormatterOptions {
     this.language.set(o.language);
     this.region.set(o.region);
     this.plurals.set(o.plurals);
+    this.converter.set(o.converter);
     this.formatters.set(o.formatters);
     this.cacheSize.set(o.cacheSize);
   }
@@ -132,6 +146,9 @@ public class MessageFormatterOptions {
     }
     if (plurals.ok()) {
       buf.append("plurals=").append(plurals).append(' ');
+    }
+    if (converter.ok()) {
+      buf.append("converter=").append(converter).append(' ');
     }
     if (formatters.ok()) {
       buf.append("formatters=").append(formatters).append(' ');

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.squarespace.cldrengine.api.Decimal;
+import com.squarespace.cldrengine.api.MessageArgConverter;
+import com.squarespace.cldrengine.api.MessageArgs;
 import com.squarespace.cldrengine.api.MessageFormatFunc;
 import com.squarespace.cldrengine.api.MessageFormatFuncMap;
 import com.squarespace.cldrengine.api.PluralRules;
@@ -33,11 +35,17 @@ public class MessageEngine {
 
   private final StringBuilder buf = new StringBuilder();
   private final PluralRules plurals;
+  private final MessageArgConverter converter;
   private final MessageFormatFuncMap formatters;
   private final MessageCode code;
 
-  public MessageEngine(PluralRules plurals, MessageFormatFuncMap formatters, MessageCode code) {
+  public MessageEngine(
+      PluralRules plurals,
+      MessageArgConverter converter,
+      MessageFormatFuncMap formatters,
+      MessageCode code) {
     this.plurals = plurals;
+    this.converter = converter;
     this.formatters = formatters;
     this.code = code;
   }
@@ -66,12 +74,12 @@ public class MessageEngine {
       case ARG: {
         Object key = ((MessageArgCode)code).arg();
         Object arg = getarg(args, key);
-        this.buf.append(asstring(arg));
+        this.buf.append(this.converter.asString(arg));
         break;
       }
 
       case ARGSUB: {
-        this.buf.append(asstring(argsub));
+        this.buf.append(this.converter.asString(argsub));
         break;
       }
 
@@ -79,7 +87,7 @@ public class MessageEngine {
         MessagePluralCode pcode = (MessagePluralCode)code;
         Object arg = getarg(args, pcode.args().get(0));
         int offset = pcode.offset();
-        Decimal num = asdecimal(arg);
+        Decimal num = this.converter.asDecimal(arg);
         Decimal darg = offset != 0 ? num.subtract(new Decimal(offset)) : num;
         String category = pcode.pluralType() == PluralNumberType.CARDINAL
             ? this.plurals.cardinal(darg).value()
@@ -126,7 +134,7 @@ public class MessageEngine {
       case SELECT: {
         MessageSelectCode scode = (MessageSelectCode)code;
         Object arg = getarg(args, scode.args().get(0));
-        String str = asstring(arg);
+        String str = this.converter.asString(arg);
 
         MessageCode other = null;
         boolean found = false;
@@ -176,30 +184,6 @@ public class MessageEngine {
       return args.get((String)key);
     }
     return args.get((int)key);
-  }
-
-  protected String asstring(Object arg) {
-    if (arg == null) {
-      return "";
-    }
-    if (arg instanceof String) {
-      return (String)arg;
-    }
-    return arg.toString();
-  }
-
-  protected Decimal asdecimal(Object arg) {
-    if (arg == null) {
-      return DecimalConstants.ZERO;
-    }
-    if (arg instanceof Decimal) {
-      return (Decimal)arg;
-    } else if (arg instanceof Boolean) {
-      return ((boolean)arg) ? DecimalConstants.ONE : DecimalConstants.ZERO;
-    } else if (arg instanceof Number) {
-      return new Decimal(((Number)arg).toString());
-    }
-    return new Decimal(arg.toString());
   }
 
 }

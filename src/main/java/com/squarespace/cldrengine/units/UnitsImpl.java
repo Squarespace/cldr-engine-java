@@ -51,7 +51,7 @@ public class UnitsImpl implements Units {
 
   @Override
   public String formatQuantity(Quantity qty, UnitFormatOptions options) {
-    options = (options == null ? DEFAULT_OPTIONS : options).merge(DEFAULT_OPTIONS);
+    options = (options == null ? DEFAULT_OPTIONS : options).mergeIf(DEFAULT_OPTIONS);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), null);
     NumberRenderer<String> renderer = this.internal.numbers.stringRenderer(params);
     return this.internal.units.format(bundle, renderer, qty, options, params);
@@ -59,7 +59,7 @@ public class UnitsImpl implements Units {
 
   @Override
   public List<Part> formatQuantityToParts(Quantity qty, UnitFormatOptions options) {
-    options = (options == null ? DEFAULT_OPTIONS : options).merge(DEFAULT_OPTIONS);
+    options = (options == null ? DEFAULT_OPTIONS : options).mergeIf(DEFAULT_OPTIONS);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), null);
     NumberRenderer<List<Part>> renderer = this.internal.numbers.partsRenderer(params);
     return this.internal.units.format(bundle, renderer, qty, options, params);
@@ -67,7 +67,7 @@ public class UnitsImpl implements Units {
 
   @Override
   public String formatQuantitySequence(List<Quantity> qty, UnitFormatOptions options) {
-    final UnitFormatOptions uoptions = (options == null ? DEFAULT_OPTIONS : options).merge(DEFAULT_OPTIONS);
+    final UnitFormatOptions uoptions = (options == null ? DEFAULT_OPTIONS : options).mergeIf(DEFAULT_OPTIONS);
     List<String> items = qty.stream().map(q -> this.formatQuantity(q, uoptions))
         .collect(Collectors.toList());
     ListPatternType type = this.selectListType(uoptions);
@@ -76,7 +76,7 @@ public class UnitsImpl implements Units {
 
   @Override
   public List<Part> formatQuantitySequenceToParts(List<Quantity> qty, UnitFormatOptions options) {
-    final UnitFormatOptions uoptions = (options == null ? DEFAULT_OPTIONS : options).merge(DEFAULT_OPTIONS);
+    final UnitFormatOptions uoptions = (options == null ? DEFAULT_OPTIONS : options).mergeIf(DEFAULT_OPTIONS);
     List<List<Part>> parts = qty.stream().map(q -> this.formatQuantityToParts(q, uoptions))
         .collect(Collectors.toList());
     ListPatternType type = this.selectListType(uoptions);

@@ -34,7 +34,7 @@ public class CLDR {
   private static final SchemaConfig CONFIG = new SchemaConfig();
   private static final Internals INTERNALS = new Internals(CONFIG, VERSION, false);
 
-  private static final ConcurrentHashMap<String, Bundle> BUNDLES = new ConcurrentHashMap<>(100);
+  private static final ConcurrentHashMap<String, CLDR> CLDRS = new ConcurrentHashMap<>(100);
 
   public final General General;
   public final Calendars Calendars;
@@ -51,26 +51,50 @@ public class CLDR {
     this.Schema = Meta.SCHEMA;
   }
 
+  public static SchemaConfig config() {
+    return CONFIG;
+  }
+
   public static List<String> availableLocales() {
     return ResourcePacks.availableLocales();
   }
 
+  /**
+   * Fetch the CLDR instance for the given locale id. If not an exact
+   * match, the id will be resolved before fetching.
+   */
   public static CLDR get(String id) {
-    CLocale locale = resolveLocale(id);
-    return get(locale);
+    CLDR cldr = CLDRS.get(id);
+    return cldr == null ? get(resolveLocale(id), false) : cldr;
   }
 
+  /**
+   * Fetch the CLDR instance for the given locale id. If not an exact
+   * match, the id will be resolved before fetching.
+   */
   public static CLDR get(CLocale locale) {
-    Bundle bundle = BUNDLES.computeIfAbsent(locale.id(), (k) -> {
-      LanguageTag tag = locale.tag();
-      Pack pack = ResourcePacks.get(tag.language());
-      return pack.get(locale.tag());
-    });
-    return new CLDR(locale, bundle);
+    CLDR cldr = CLDRS.get(locale.id());
+    return cldr == null ? get(locale, true) : cldr;
   }
 
+  /**
+   * Fetch the CLDR instance for the given locale.
+   */
   public static CLDR get(java.util.Locale locale) {
     return get(locale.toLanguageTag());
+  }
+
+  private static CLDR get(CLocale locale, boolean resolve) {
+    // Always resolve the locale before fetching to ensure the "id" is
+    // the minimal bundle identifier. This ensures the BUNDLES map
+    // does not grow without bound.
+    CLocale resolved = resolve ? resolveLocale(locale.tag()) : locale;
+    return CLDRS.computeIfAbsent(resolved.id(), (id) -> {
+      LanguageTag tag = resolved.tag();
+      Pack pack = ResourcePacks.get(tag.language());
+      Bundle bundle = pack.get(tag);
+      return new CLDR(resolved, bundle);
+    });
   }
 
   /**

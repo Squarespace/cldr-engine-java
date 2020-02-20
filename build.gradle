@@ -154,7 +154,7 @@ publishing {
             pom {
                 name = 'cldr-engine'
                 description = 'Squarespace cldr-engine'
-                url = 'https://github.com/squarespace/template-compiler'
+                url = 'https://github.com/squarespace/cldr-engine-java'
                 licenses {
                     license {
                         name = 'The Apache License, Version 2.0'
@@ -171,7 +171,7 @@ publishing {
                 scm {
                     connection = 'scm:git:git@github.com:Squarespace/cldr-engine-java.git'
                     developerConnection = 'scm:git:git@github.com:Squarespace/cldr-engine-java.git'
-                    url = 'https://github.com/squarespace/template-compiler'
+                    url = 'https://github.com/squarespace/cldr-engine-java'
                 }
             }
         }
@@ -195,11 +195,6 @@ publishing {
             username = _username
             password = _password
           }
-
-          // change URLs to point to your repos, e.g. http://my.org/repo
-          // def releasesRepoUrl = "$buildDir/repos/releases"
-          // def snapshotsRepoUrl = "$buildDir/repos/snapshots"
-          // url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
         }
     }
 }

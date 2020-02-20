@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.squarespace.cldrengine.api.MessageArgs;
 import com.squarespace.cldrengine.api.MessageFormatter;
 import com.squarespace.cldrengine.api.MessageFormatterOptions;
-import com.squarespace.cldrengine.messageformat.evaluation.DefaultMessageArgConverter;
+import com.squarespace.cldrengine.message.DefaultMessageArgConverter;
 
 public class MessageFormatTest {
 

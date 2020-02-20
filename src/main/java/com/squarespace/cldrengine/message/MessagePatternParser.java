@@ -1,10 +1,10 @@
-package com.squarespace.cldrengine.messageformat.parsing;
+package com.squarespace.cldrengine.message;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.squarespace.cldrengine.messageformat.parsing.MessageMatcher.State;
+import com.squarespace.cldrengine.message.MessageMatcher.State;
 
 /**
  * Hand-implemented parser for ICU message format. Designed to be compact and fast vs. other implementations. The parser

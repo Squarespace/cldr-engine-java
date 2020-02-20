@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.messageformat.evaluation;
+package com.squarespace.cldrengine.message;
 
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.MessageArgConverter;

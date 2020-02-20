@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.messageformat.parsing;
+package com.squarespace.cldrengine.message;
 
 import java.util.HashMap;
 import java.util.Map;

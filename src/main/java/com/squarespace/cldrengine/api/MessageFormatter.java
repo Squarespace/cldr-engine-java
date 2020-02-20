@@ -4,10 +4,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.squarespace.cldrengine.messageformat.evaluation.DefaultMessageArgConverter;
-import com.squarespace.cldrengine.messageformat.evaluation.MessageEngine;
-import com.squarespace.cldrengine.messageformat.parsing.MessageCode;
-import com.squarespace.cldrengine.messageformat.parsing.MessagePatternParser;
+import com.squarespace.cldrengine.message.DefaultMessageArgConverter;
+import com.squarespace.cldrengine.message.MessageCode;
+import com.squarespace.cldrengine.message.MessageEngine;
+import com.squarespace.cldrengine.message.MessagePatternParser;
 import com.squarespace.cldrengine.plurals.Plurals;
 import com.squarespace.cldrengine.utils.Cache;
 

@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.messageformat.parsing;
+package com.squarespace.cldrengine.message;
 
 import com.google.gson.JsonElement;
 

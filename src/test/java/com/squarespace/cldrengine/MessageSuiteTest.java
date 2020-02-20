@@ -18,8 +18,8 @@ import com.squarespace.cldrengine.api.MessageArgs;
 import com.squarespace.cldrengine.api.MessageFormatFuncMap;
 import com.squarespace.cldrengine.api.MessageFormatter;
 import com.squarespace.cldrengine.api.MessageFormatterOptions;
-import com.squarespace.cldrengine.messageformat.parsing.MessageCode;
-import com.squarespace.cldrengine.messageformat.parsing.MessagePatternParser;
+import com.squarespace.cldrengine.message.MessageCode;
+import com.squarespace.cldrengine.message.MessagePatternParser;
 
 public class MessageSuiteTest extends CoverageSuite {
 

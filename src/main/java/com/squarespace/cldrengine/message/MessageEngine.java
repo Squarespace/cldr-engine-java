@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.messageformat.evaluation;
+package com.squarespace.cldrengine.message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,16 +12,6 @@ import com.squarespace.cldrengine.api.MessageFormatFunc;
 import com.squarespace.cldrengine.api.MessageFormatFuncMap;
 import com.squarespace.cldrengine.api.PluralRules;
 import com.squarespace.cldrengine.decimal.DecimalConstants;
-import com.squarespace.cldrengine.messageformat.parsing.MessageArgCode;
-import com.squarespace.cldrengine.messageformat.parsing.MessageBlockCode;
-import com.squarespace.cldrengine.messageformat.parsing.MessageCode;
-import com.squarespace.cldrengine.messageformat.parsing.MessagePluralCode;
-import com.squarespace.cldrengine.messageformat.parsing.MessageSelectCode;
-import com.squarespace.cldrengine.messageformat.parsing.MessageSimpleCode;
-import com.squarespace.cldrengine.messageformat.parsing.MessageTextCode;
-import com.squarespace.cldrengine.messageformat.parsing.PluralChoice;
-import com.squarespace.cldrengine.messageformat.parsing.PluralNumberType;
-import com.squarespace.cldrengine.messageformat.parsing.SelectChoice;
 
 public class MessageEngine {
 

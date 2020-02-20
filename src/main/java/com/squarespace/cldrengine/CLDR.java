@@ -71,10 +71,17 @@ public class CLDR {
     return MiscData.VERSION;
   }
 
+  /**
+   * Return the schema used to configure the library. This contains arrays of
+   * raw identifiers for locales, languages, etc.
+   */
   public static SchemaConfig config() {
     return CONFIG;
   }
 
+  /**
+   * Return a list of the available locales.
+   */
   public static List<String> availableLocales() {
     return ResourcePacks.availableLocales();
   }
@@ -104,6 +111,35 @@ public class CLDR {
     return get(locale.toLanguageTag());
   }
 
+  /**
+   * Parse a locale identifier and resolve it. This returns a Locale object
+   * that includes the original id string or tag's compact form, and
+   * a resolved LanguageTag.
+   */
+  public static CLocale resolveLocale(String id) {
+    LanguageTag tag = LocaleResolver.resolve(id);
+    return new CLocaleImpl(id, tag);
+  }
+
+  /**
+   * Parse a locale identifier and resolve it. This returns a Locale object
+   * that includes the original id string or tag's compact form, and
+   * a resolved LanguageTag.
+   */
+  public static CLocale resolveLocale(LanguageTag tag) {
+    tag = LocaleResolver.resolve(tag);
+    return new CLocaleImpl(tag.compact(), tag);
+  }
+
+  /**
+   * Parse a locale identifier and resolve it. This returns a Locale object
+   * that includes the original id string or tag's compact form, and
+   * a resolved LanguageTag.
+   */
+  public static LanguageTag parseLanguageTag(String tag) {
+    return LanguageTagParser.parse(tag);
+  }
+
   private static CLDR get(CLocale locale, boolean resolve) {
     // Always resolve the locale before fetching to ensure the "id" is
     // the minimal bundle identifier. This ensures the BUNDLES map
@@ -122,22 +158,4 @@ public class CLDR {
     });
   }
 
-  /**
-   * Parse a locale identifier and resolve it. This returns a Locale object
-   * that includes the original id string or tag's compact form, and
-   * a resolved LanguageTag.
-   */
-  public static CLocale resolveLocale(String id) {
-    LanguageTag tag = LocaleResolver.resolve(id);
-    return new CLocaleImpl(id, tag);
-  }
-
-  public static CLocale resolveLocale(LanguageTag tag) {
-    tag = LocaleResolver.resolve(tag);
-    return new CLocaleImpl(tag.compact(), tag);
-  }
-
-  public static LanguageTag parseLanguageTag(String tag) {
-    return LanguageTagParser.parse(tag);
-  }
 }

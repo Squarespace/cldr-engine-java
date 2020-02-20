@@ -1,10 +1,12 @@
-import { dirname, join } from 'path';
+import { join } from 'path';
 import * as fs from 'fs';
 import * as glob from 'fast-glob';
 import * as ts from 'typescript';
 import { tsquery } from '@phenomnomnominal/tsquery';
 
 import { makedirs, write } from './utils';
+
+import { VERSION } from '@phensley/cldr-core/lib/utils/version';
 
 import * as calprefs from '@phensley/cldr-core/lib/internals/calendars/autogen.calprefs';
 import * as dayperiods from '@phensley/cldr-core/lib/internals/calendars/autogen.dayperiods';
@@ -156,6 +158,10 @@ export const generateSchema = () => {
     code += tojava(o);
     write(join(apiDir, `${o.name}.java`), code);
   }
+
+  writeConstants(internalDir, 'MiscData', {
+    VERSION
+  });
 
   writeConstants(internalDir, 'CalendarExternalData', {
     ...calprefs,

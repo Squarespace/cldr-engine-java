@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.squarespace.cldrengine.api.Bundle;
+import com.squarespace.cldrengine.api.CLDRException;
 import com.squarespace.cldrengine.api.CLocale;
 import com.squarespace.cldrengine.api.Calendars;
 import com.squarespace.cldrengine.api.General;
@@ -14,6 +15,7 @@ import com.squarespace.cldrengine.calendars.CalendarsImpl;
 import com.squarespace.cldrengine.general.GeneralImpl;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.Meta;
+import com.squarespace.cldrengine.internal.MiscData;
 import com.squarespace.cldrengine.internal.Pack;
 import com.squarespace.cldrengine.internal.PrivateApi;
 import com.squarespace.cldrengine.internal.ResourcePacks;
@@ -30,9 +32,10 @@ import com.squarespace.cldrengine.units.UnitsImpl;
  */
 public class CLDR {
 
-  private static final String VERSION = "0.14.1";
   private static final SchemaConfig CONFIG = new SchemaConfig();
-  private static final Internals INTERNALS = new Internals(CONFIG, VERSION, false);
+  private static final Internals INTERNALS = new Internals(CONFIG, MiscData.VERSION, false);
+  private static final String CHECKSUM_ERROR = "Checksum mismatch on resource pack! The schema config used to " +
+      "generate the resource pack must be identical to the one used at runtime.";
 
   private static final ConcurrentHashMap<String, CLDR> CLDRS = new ConcurrentHashMap<>(100);
 
@@ -41,14 +44,31 @@ public class CLDR {
   public final Numbers Numbers;
   public final Schema Schema;
   public final Units Units;
+  private final String cldrVersion;
 
-  protected CLDR(CLocale locale, Bundle bundle) {
+  protected CLDR(CLocale locale, Bundle bundle, String cldrVersion) {
     PrivateApi privateApi = new PrivateApi(bundle, INTERNALS);
     this.General = new GeneralImpl(bundle, locale, INTERNALS, privateApi);
     this.Calendars = new CalendarsImpl(bundle, INTERNALS, privateApi);
     this.Numbers = new NumbersImpl(bundle, INTERNALS, privateApi);
     this.Units = new UnitsImpl(bundle, INTERNALS, privateApi);
     this.Schema = Meta.SCHEMA;
+    this.cldrVersion = cldrVersion;
+  }
+
+  /**
+   * Returns the version of the CLDR used by this library.
+   */
+  public String cldrVersion() {
+    return this.cldrVersion;
+  }
+
+  /**
+   * The compatibility version identifies which version of the TypeScript
+   * phensley/cldr library this build is compatible with.
+   */
+  public static String compatVersion() {
+    return MiscData.VERSION;
   }
 
   public static SchemaConfig config() {
@@ -92,8 +112,13 @@ public class CLDR {
     return CLDRS.computeIfAbsent(resolved.id(), (id) -> {
       LanguageTag tag = resolved.tag();
       Pack pack = ResourcePacks.get(tag.language());
+      // If checksum mismatch, severe error. Means the library was
+      // distributed with the wrong CLDR resource packs.
+      if (!INTERNALS.checksum.equals(pack.checksum())) {
+        throw new CLDRException(CHECKSUM_ERROR);
+      }
       Bundle bundle = pack.get(tag);
-      return new CLDR(resolved, bundle);
+      return new CLDR(resolved, bundle, pack.cldrVersion());
     });
   }
 

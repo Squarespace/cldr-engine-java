@@ -19,6 +19,7 @@ public class Pack {
 
   private final String version;
   private final String cldrVersion;
+  private final String checksum;
   private final String language;
   private final LanguageTag defaultTag;
   private final Map<String, PackScript> scripts;
@@ -30,6 +31,7 @@ public class Pack {
   public Pack(JsonObject data) {
     this.version = data.get("version").getAsString();
     this.cldrVersion = data.get("cldr").getAsString();
+    this.checksum = data.get("checksum").getAsString();
     this.language = data.get("language").getAsString();
     this.defaultTag = LanguageTagParser.parse(data.get("defaultTag").getAsString());
     JsonObject scripts = data.get("scripts").getAsJsonObject();
@@ -47,6 +49,10 @@ public class Pack {
 
   public String cldrVersion() {
     return this.cldrVersion;
+  }
+
+  public String checksum() {
+    return this.checksum;
   }
 
   public String language() {

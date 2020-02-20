@@ -12,7 +12,17 @@ public interface Units {
   /**
    * Formats the given unit quantity to string.
    */
+  String formatQuantity(Quantity qty);
+
+  /**
+   * Formats the given unit quantity to string.
+   */
   String formatQuantity(Quantity qty, UnitFormatOptions options);
+
+  /**
+   * Formats the given unit quantity to an array of parts.
+   */
+  List<Part> formatQuantityToParts(Quantity qty);
 
   /**
    * Formats the given unit quantity to an array of parts.
@@ -22,7 +32,17 @@ public interface Units {
   /**
    * Formats the given unit quantity sequence to string.
    */
+  String formatQuantitySequence(List<Quantity> qty);
+
+  /**
+   * Formats the given unit quantity sequence to string.
+   */
   String formatQuantitySequence(List<Quantity> qty, UnitFormatOptions options);
+
+  /**
+   * Formats the given unit quantity sequence to an array of parts.
+   */
+  List<Part> formatQuantitySequenceToParts(List<Quantity> qty);
 
   /**
    * Formats the given unit quantity sequence to an array of parts.

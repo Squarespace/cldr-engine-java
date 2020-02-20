@@ -50,11 +50,21 @@ public class UnitsImpl implements Units {
   }
 
   @Override
+  public String formatQuantity(Quantity qty) {
+    return formatQuantity(qty, null);
+  }
+
+  @Override
   public String formatQuantity(Quantity qty, UnitFormatOptions options) {
     options = (options == null ? DEFAULT_OPTIONS : options).mergeIf(DEFAULT_OPTIONS);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), null);
     NumberRenderer<String> renderer = this.internal.numbers.stringRenderer(params);
     return this.internal.units.format(bundle, renderer, qty, options, params);
+  }
+
+  @Override
+  public List<Part> formatQuantityToParts(Quantity qty) {
+    return formatQuantityToParts(qty, null);
   }
 
   @Override
@@ -66,12 +76,22 @@ public class UnitsImpl implements Units {
   }
 
   @Override
+  public String formatQuantitySequence(List<Quantity> qty) {
+    return formatQuantitySequence(qty, null);
+  }
+
+  @Override
   public String formatQuantitySequence(List<Quantity> qty, UnitFormatOptions options) {
     final UnitFormatOptions uoptions = (options == null ? DEFAULT_OPTIONS : options).mergeIf(DEFAULT_OPTIONS);
     List<String> items = qty.stream().map(q -> this.formatQuantity(q, uoptions))
         .collect(Collectors.toList());
     ListPatternType type = this.selectListType(uoptions);
     return this.internal.general.formatList(bundle, items, type);
+  }
+
+  @Override
+  public List<Part> formatQuantitySequenceToParts(List<Quantity> qty) {
+    return formatQuantitySequenceToParts(qty, null);
   }
 
   @Override

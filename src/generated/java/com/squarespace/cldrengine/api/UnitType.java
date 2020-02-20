@@ -146,7 +146,7 @@ public enum UnitType implements StringEnum<UnitType> {
   MILE_PER_HOUR("mile-per-hour"),
   CELSIUS("celsius"),
   FAHRENHEIT("fahrenheit"),
-  GENERIC("generic"),
+  TEMPERATURE("temperature"),
   KELVIN("kelvin"),
   NEWTON_METER("newton-meter"),
   POUND_FOOT("pound-foot"),

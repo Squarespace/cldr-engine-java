@@ -223,4 +223,5 @@ export const decimalSuite = (root: string) => {
   buildDecimal(join(root, 'decimalformat-compact-sig.txt'), dims, f);
 };
 
+currencySuite(process.argv[2]);
 decimalSuite(process.argv[2]);

@@ -64,7 +64,7 @@ class CalendarPatterns {
   private final String region;
 
   private final DateSkeletonParser skeletonParser;
-  private final LRU<String, CachedSkeletonRequest> skeletonRequestCache = new LRU<>(512);
+//  private final LRU<String, CachedSkeletonRequest> skeletonRequestCache = new LRU<>(512);
   private final LRU<String, CachedIntervalRequest> intervalRequestCache = new LRU<>(512);
   private final Map<FormatWidthType, String> dateFormats;
   private final Map<FormatWidthType, String> timeFormats;
@@ -114,13 +114,13 @@ class CalendarPatterns {
     return DateTimePattern.parse(pattern);
   }
 
-  public CachedSkeletonRequest getCachedSkeletonRequest(String key) {
-    return this.skeletonRequestCache.get(key);
-  }
-
-  public void setCachedSkeletonRequest(String key, CachedSkeletonRequest req) {
-    this.skeletonRequestCache.set(key, req);
-  }
+//  public CachedSkeletonRequest getCachedSkeletonRequest(String key) {
+//    return this.skeletonRequestCache.get(key);
+//  }
+//
+//  public void setCachedSkeletonRequest(String key, CachedSkeletonRequest req) {
+//    this.skeletonRequestCache.set(key, req);
+//  }
 
   public CachedIntervalRequest getCachedIntervalRequest(String key) {
     return this.intervalRequestCache.get(key);

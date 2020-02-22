@@ -29,6 +29,8 @@ class DatePatternMatcher {
       this.EXACT.put(key, skeleton);
       this.ENTRIES.add(skeleton);
     }
+    // Sort by length so we scan the shorter skeletons first
+    this.ENTRIES.sort((a, b) -> Integer.compare(a.skeleton.length(), b.skeleton.length()));
   }
 
   public DateSkeleton match(DateSkeleton input) {

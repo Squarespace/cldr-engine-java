@@ -24,6 +24,7 @@ import com.squarespace.cldrengine.internal.StringValue;
 import com.squarespace.cldrengine.internal.Vector1Arrow;
 import com.squarespace.cldrengine.parsing.WrapperPattern;
 import com.squarespace.cldrengine.utils.Cache;
+import com.squarespace.cldrengine.utils.StringUtils;
 
 public class GeneralInternals {
 
@@ -69,10 +70,10 @@ public class GeneralInternals {
         title = true;
         break;
       case STANDALONE:
-        title = flag != null && (flag.charAt(0) == 'T');
+        title = !StringUtils.isEmpty(flag) && (flag.charAt(0) == 'T');
         break;
       case UI_LIST_OR_MENU:
-        title = flag != null && (flag.charAt(1) == 'T');
+        title = !StringUtils.isEmpty(flag) && (flag.charAt(1) == 'T');
         break;
       default:
         break;

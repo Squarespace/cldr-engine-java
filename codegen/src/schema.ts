@@ -62,6 +62,8 @@ const IGNORE = new Set<string>([
   'Vector2Arrow'
 ]);
 
+const COMMENTS = /\/\*.*\*\//gi;
+
 export const buildSchema = (origin: Origin) => {
   const builder = new Builder({});
   builder.construct(origin);
@@ -108,13 +110,14 @@ export const generateSchema = () => {
   builder.construct(origin);
   let code = builder.buf.join('');
 
+  const tmp = code.replace(COMMENTS, '');
   const seen = new Set<String>();
   for (const e of enums) {
     if (IGNORE.has(e.name)) {
       continue;
     }
     const re = new RegExp('\\b' + e.name);
-    if (!seen.has(e.name) && re.test(code)) {
+    if (!seen.has(e.name) && re.test(tmp)) {
       code = `import com.squarespace.cldrengine.api.${e.name};\n` + code;
       seen.add(e.name);
     }
@@ -133,14 +136,18 @@ export const generateSchema = () => {
     if (code.indexOf('Map<') !== -1) {
       code = 'import java.util.Map;\n' + code;
     }
+
+    const tmp = code.replace(COMMENTS, '');
+
     const seen = new Set<string>();
     for (const e of enums) {
       if (IGNORE.has(e.name)) {
         continue;
       }
+
       // Check for type after a word boundary
       const re = new RegExp('\\b' + e.name);
-      if (!seen.has(e.name) && re.test(code)) {
+      if (!seen.has(e.name) && re.test(tmp)) {
         code = `import com.squarespace.cldrengine.api.${e.name};\n` + code;
         seen.add(e.name);
       }

@@ -5,7 +5,6 @@ package com.squarespace.cldrengine.internal;
 import com.squarespace.cldrengine.api.TimeZoneNameType;
 import com.squarespace.cldrengine.api.NumberMiscPatternType;
 import com.squarespace.cldrengine.api.NumberSystemCategory;
-import com.squarespace.cldrengine.api.NumberSystemName;
 import com.squarespace.cldrengine.api.NumberSymbolType;
 import com.squarespace.cldrengine.api.CurrencySpacingPattern;
 import com.squarespace.cldrengine.api.CurrencySpacingPos;

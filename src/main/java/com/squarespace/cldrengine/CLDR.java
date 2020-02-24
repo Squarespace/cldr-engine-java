@@ -39,6 +39,8 @@ public class CLDR {
 
   private static final ConcurrentHashMap<String, CLDR> CLDRS = new ConcurrentHashMap<>(100);
 
+  private static final CLocale DEFAULT_LOCALE = resolveLocale("en-Latn-US");
+
   public final General General;
   public final Calendars Calendars;
   public final Numbers Numbers;
@@ -145,9 +147,17 @@ public class CLDR {
     // the minimal bundle identifier. This ensures the BUNDLES map
     // does not grow without bound.
     CLocale resolved = resolve ? resolveLocale(locale.tag()) : locale;
+    CLDR cldr = build(resolved);
+    return cldr == null ? build(DEFAULT_LOCALE) : cldr;
+  }
+
+  private static CLDR build(CLocale resolved) {
     return CLDRS.computeIfAbsent(resolved.id(), (id) -> {
       LanguageTag tag = resolved.tag();
       Pack pack = ResourcePacks.get(tag.language());
+      if (pack == null) {
+        return null;
+      }
       // If checksum mismatch, severe error. Means the library was
       // distributed with the wrong CLDR resource packs.
       if (!INTERNALS.checksum.equals(pack.checksum())) {
@@ -157,5 +167,4 @@ public class CLDR {
       return new CLDR(resolved, bundle, pack.cldrVersion());
     });
   }
-
 }

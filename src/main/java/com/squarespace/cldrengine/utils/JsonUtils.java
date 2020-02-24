@@ -20,7 +20,7 @@ public class JsonUtils {
 
   public static JsonObject loadJson(Class<?> cls, String path) throws IOException {
     try (InputStream stream = cls.getResourceAsStream(path)) {
-      return (JsonObject) JsonParser.parseReader(new InputStreamReader(stream));
+      return stream == null ? null : (JsonObject) JsonParser.parseReader(new InputStreamReader(stream));
     }
   }
 

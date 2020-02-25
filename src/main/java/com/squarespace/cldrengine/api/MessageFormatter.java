@@ -1,8 +1,6 @@
 package com.squarespace.cldrengine.api;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import com.squarespace.cldrengine.message.DefaultMessageArgConverter;
 import com.squarespace.cldrengine.message.MessageCode;
@@ -30,10 +28,7 @@ public class MessageFormatter {
     this.plurals = options.plurals.or(Plurals.get(language, region));
     this.converter = options.converter.ok() ? options.converter.get() : new DefaultMessageArgConverter();
     this.formatters = options.formatters.or(EMPTY);
-    List<String> names = this.formatters.keySet().stream()
-        .sorted((a, b) -> Integer.compare(b.length(), a.length()))
-        .collect(Collectors.toList());
-    this.formatterNames = names;
+    this.formatterNames = this.formatters.keySet();
     this.cache = new Cache<>(this::parse, options.cacheSize.or(256));
   }
 

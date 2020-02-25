@@ -32,6 +32,30 @@ public class MessageFormatTest {
     assertEquals(actual, "YES NO HMM");
   }
 
+  @Test
+  public void testSelectOrdinal() {
+    MessageFormatterOptions opts = MessageFormatterOptions.build()
+        .converter(new ArgConverter())
+        .language("en")
+        .region("US");
+
+    MessageFormatter formatter = new MessageFormatter(opts);
+
+    String actual;
+    String message = "{0 selectordinal one{#st} two{#nd} few{#rd} other{#th}}";
+    actual = formatter.format(message, new MessageArgs().add("1"));
+    assertEquals(actual, "1st");
+
+    actual = formatter.format(message, new MessageArgs().add("2"));
+    assertEquals(actual, "2nd");
+
+    actual = formatter.format(message, new MessageArgs().add("3"));
+    assertEquals(actual, "3rd");
+
+    actual = formatter.format(message, new MessageArgs().add("4"));
+    assertEquals(actual, "4th");
+  }
+
   private static class ArgConverter extends DefaultMessageArgConverter {
     @Override
     public String asString(Object arg) {

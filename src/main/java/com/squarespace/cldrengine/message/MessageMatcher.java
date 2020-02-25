@@ -1,11 +1,14 @@
 package com.squarespace.cldrengine.message;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import com.squarespace.cldrengine.utils.ListUtils;
 import com.squarespace.cldrengine.utils.StringUtils;
 
 import lombok.AllArgsConstructor;
@@ -36,6 +39,8 @@ public class MessageMatcher {
   private static final Pattern OFFSET = Pattern.compile("offset:\\d+");
   private static final Pattern OPTION = Pattern.compile("[^\\s,\\{\\}]+");
   private static final Pattern SPACE = Pattern.compile("[,\\s]+");
+  private static final List<String> BUILTINS = Arrays.asList(
+      "plural", "select", "selectordinal");
 
   private final String raw;
   private final Pattern _fmt;
@@ -53,7 +58,13 @@ public class MessageMatcher {
     if (formatters.stream().anyMatch(s -> StringUtils.isEmpty(s))) {
       throw new IllegalArgumentException("formatter names must not be zero-length");
     }
-    this._fmt = Pattern.compile("(plural|select(ordinal)?|" + StringUtils.join(formatters, "|") + ")");
+
+    // Sort all formatters together by length descending
+    formatters = ListUtils.concat(BUILTINS, formatters).stream()
+      .sorted((a, b) -> Integer.compare(b.length(), a.length()))
+      .collect(Collectors.toList());
+
+    this._fmt = Pattern.compile("(" + StringUtils.join(formatters, "|") + ")");
     this.arg = ARG.matcher(raw);
     this.choice = CHOICE.matcher(raw);
     this.ident = IDENT.matcher(raw);

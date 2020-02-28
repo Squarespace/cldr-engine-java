@@ -1,5 +1,7 @@
 Port of @phensley/cldr to Java.
 
+[![javadoc](https://javadoc.io/badge2/com.squarespace.cldr-engine/cldr-engine/javadoc.svg)](https://javadoc.io/doc/com.squarespace.cldr-engine/cldr-engine)
+
 The API is compatible with that of the TypeScript [@phensley/cldr](https://phensley.github.io/cldr-engine/docs/en/api-cldr) library.
 
 Example usage

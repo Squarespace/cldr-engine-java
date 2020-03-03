@@ -36,7 +36,7 @@ public class MessageMatcher {
   private static final Pattern ARG = Pattern.compile("(0[1..9]+|\\d+|" + IDENTIFIER + ")");
   private static final Pattern CHOICE = Pattern.compile("(=\\d+(\\.\\d+)?)|zero|one|two|few|many|other");
   private static final Pattern IDENT = Pattern.compile(IDENTIFIER);
-  private static final Pattern OFFSET = Pattern.compile("offset:\\d+");
+  private static final Pattern OFFSET = Pattern.compile("offset:-?\\d+");
   private static final Pattern OPTION = Pattern.compile("[^\\s,\\{\\}]+");
   private static final Pattern SPACE = Pattern.compile("[,\\s]+");
   private static final List<String> BUILTINS = Arrays.asList(

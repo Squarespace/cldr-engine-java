@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.messageformat;
+package com.squarespace.cldrengine.message;
 
 import static org.testng.Assert.assertEquals;
 

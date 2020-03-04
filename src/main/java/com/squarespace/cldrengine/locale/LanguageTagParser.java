@@ -19,7 +19,7 @@ public class LanguageTagParser {
   private static final String SEP = "-";
 
   // ISO 639 language code
-  private static final Pattern LANGUAGE = Pattern.compile("^[a-z]{2,8}$");
+  private static final Pattern LANGUAGE = Pattern.compile("^[a-z]{2,8}$", Pattern.CASE_INSENSITIVE);
 
   // Selected ISO 639 codes
   private static final Pattern EXTLANG = Pattern.compile("^[a-z]{3}$", Pattern.CASE_INSENSITIVE);

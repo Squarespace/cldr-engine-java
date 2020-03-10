@@ -17,9 +17,9 @@
   },
   "devDependencies": {
     "@phenomnomnominal/tsquery": "^3.0.0",
-    "@phensley/cldr": "1.0.2",
-    "@phensley/cldr-compiler": "1.0.2",
-    "@phensley/unit-converter": "1.0.2",
+    "@phensley/cldr": "1.0.4",
+    "@phensley/cldr-compiler": "1.0.4",
+    "@phensley/unit-converter": "1.0.4",
     "@types/jest": "^23.3.5",
     "@types/node": "^10.11.7",
     "fast-glob": "^2.2.6",

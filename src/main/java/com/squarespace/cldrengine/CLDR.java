@@ -14,6 +14,7 @@ import com.squarespace.cldrengine.api.Units;
 import com.squarespace.cldrengine.calendars.CalendarsImpl;
 import com.squarespace.cldrengine.general.GeneralImpl;
 import com.squarespace.cldrengine.internal.Internals;
+import com.squarespace.cldrengine.internal.Locales;
 import com.squarespace.cldrengine.internal.Meta;
 import com.squarespace.cldrengine.internal.MiscData;
 import com.squarespace.cldrengine.internal.Pack;
@@ -84,8 +85,8 @@ public class CLDR {
   /**
    * Return a list of the available locales.
    */
-  public static List<String> availableLocales() {
-    return ResourcePacks.availableLocales();
+  public static List<CLocale> availableLocales() {
+    return Locales.availableLocales();
   }
 
   /**

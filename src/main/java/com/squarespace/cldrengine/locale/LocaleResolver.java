@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.LanguageTag;
 import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.internal.LocaleExternalData;
+import com.squarespace.cldrengine.utils.StringUtils;
 
 public class LocaleResolver {
 
@@ -57,8 +61,7 @@ public class LocaleResolver {
   }
 
   /**
-   * Add any missing subtags using the likely subtags mapping. For example,
-   * this would convert "en" to "en-Latn-US".
+   * Add any missing subtags using the likely subtags mapping. For example, this would convert "en" to "en-Latn-US".
    */
   public static LanguageTag addLikelySubtags(String str) {
     LanguageTag tag = LanguageTagParser.parse(str);
@@ -66,8 +69,7 @@ public class LocaleResolver {
   }
 
   /**
-   * Add any missing subtags using the likely subtags mapping. For example,
-   * this would convert "en" to "en-Latn-US".
+   * Add any missing subtags using the likely subtags mapping. For example, this would convert "en" to "en-Latn-US".
    */
   public static LanguageTag addLikelySubtags(LanguageTag tag) {
     FastTag fast = new FastTag(tag);
@@ -76,8 +78,7 @@ public class LocaleResolver {
   }
 
   /**
-   * Remove any subtags that would be added by addLikelySubtags(). For example,
-   * this would convert "en-Latn-US" to "en".
+   * Remove any subtags that would be added by addLikelySubtags(). For example, this would convert "en-Latn-US" to "en".
    */
   public static LanguageTag removeLikelySubtags(String str) {
     LanguageTag tag = LanguageTagParser.parse(str);
@@ -85,8 +86,7 @@ public class LocaleResolver {
   }
 
   /**
-   * Remove any subtags that would be added by addLikelySubtags(). For example,
-   * this would convert "en-Latn-US" to "en".
+   * Remove any subtags that would be added by addLikelySubtags(). For example, this would convert "en-Latn-US" to "en".
    */
   public static LanguageTag removeLikelySubtags(LanguageTag tag) {
     FastTag max = new FastTag(tag);
@@ -128,8 +128,7 @@ public class LocaleResolver {
   }
 
   /**
-   * Add any missing subtags using the likely subtags mapping. For example,
-   * this would convert "en" to "en-Latn-US".
+   * Add any missing subtags using the likely subtags mapping. For example, this would convert "en" to "en-Latn-US".
    */
   private static void addLikelySubtags(FastTag fast) {
     FastTag tmp = new FastTag(fast);
@@ -153,18 +152,17 @@ public class LocaleResolver {
   }
 
   /**
-   * Return a new language tag that combines the core fields of the fast tag,
-   * with the variant, extensions, and private use field of the original.
+   * Return a new language tag that combines the core fields of the fast tag, with the variant, extensions, and private
+   * use field of the original.
    */
   private static LanguageTag returnTag(LanguageTag orig, FastTag fast) {
     return new LanguageTag(
-      fast.language == LANGUAGE ? null : (String)fast.language,
-      fast.script == SCRIPT ? null : (String)fast.script,
-      fast.region == REGION ? null : (String)fast.region,
-      orig.variant(),
-      orig.extensions(),
-      orig.privateUse()
-    );
+        fast.language == LANGUAGE ? null : (String)fast.language,
+        fast.script == SCRIPT ? null : (String)fast.script,
+        fast.region == REGION ? null : (String)fast.region,
+        orig.variant(),
+        orig.extensions(),
+        orig.privateUse());
   }
 
   /**
@@ -211,8 +209,23 @@ public class LocaleResolver {
   }
 
   private static FastTag parseFastTag(String str) {
-    LanguageTag tag = LanguageTagParser.parse(str);
-    return new FastTag(tag);
+    List<String> p = StringUtils.split(str, '-');
+    String language = p.get(0);
+    String script = "1";
+    String region = "2";
+    if (p.size() > 1) {
+      String e = p.get(1);
+      if (!StringUtils.isEmpty(e)) {
+        script = e;
+      }
+    }
+    if (p.size() > 2) {
+      String e = p.get(2);
+      if (!StringUtils.isEmpty(e)) {
+        region = e;
+      }
+    }
+    return new FastTag(language, script, region);
   }
 
   /**
@@ -227,6 +240,12 @@ public class LocaleResolver {
       this.language = tag.hasLanguage() ? tag.language() : LANGUAGE;
       this.script = tag.hasScript() ? tag.script() : SCRIPT;
       this.region = tag.hasRegion() ? tag.region() : REGION;
+    }
+
+    FastTag(String language, String script, String region) {
+      this.language = language.equals("0") ? LANGUAGE : language;
+      this.script = script.equals("1") ? SCRIPT : script;
+      this.region = region.equals("2") ? REGION : region;
     }
 
     FastTag(FastTag tag) {
@@ -244,7 +263,7 @@ public class LocaleResolver {
     @Override
     public boolean equals(Object other) {
       if (other instanceof FastTag) {
-        FastTag o = (FastTag) other;
+        FastTag o = (FastTag)other;
         return this.language.equals(o.language)
             && this.script.equals(o.script)
             && this.region.equals(o.region);
@@ -269,11 +288,36 @@ public class LocaleResolver {
 
   private static Map<FastTag, FastTag> loadLikelySubtags() {
     Map<FastTag, FastTag> map = new HashMap<>();
-    for (String row : LocaleExternalData.LIKELYRAW.split("\\|")) {
-      String[] parts = row.split(":");
-      FastTag key = parseFastTag(parts[0]);
-      FastTag val = parseFastTag(parts.length == 2 ? parts[1] : "");
-      map.put(key, val);
+
+    JsonObject root = JsonParser.parseString(LocaleExternalData.LIKELYSUBTAGS).getAsJsonObject();
+    JsonArray scriptnames = root.get("_").getAsJsonArray();
+    for (String language : root.keySet()) {
+      if (language.equals("_")) {
+        continue;
+      }
+      JsonObject scripts = root.get(language).getAsJsonObject();
+      for (String script : scripts.keySet()) {
+        JsonObject regions = scripts.get(script).getAsJsonObject();
+        for (String region : regions.keySet()) {
+          String raw = regions.get(region).getAsString();
+          List<String> parts = StringUtils.split(raw, '-');
+          String l = parts.get(0);
+          String s = parts.get(1);
+          String r = parts.get(2);
+          if (l.isEmpty()) {
+            l = language;
+          }
+          if (r.isEmpty()) {
+            r = region;
+          }
+          if (!s.isEmpty()) {
+            s = scriptnames.get(Integer.parseInt(s, 10)).getAsString();
+          }
+          FastTag key = new FastTag(language, script, region);
+          FastTag val = new FastTag(l, s, r);
+          map.put(key, val);
+        }
+      }
     }
     return map;
   }

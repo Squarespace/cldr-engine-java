@@ -1,6 +1,7 @@
 package com.squarespace.cldrengine.utils;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +21,21 @@ public class StringUtils {
     }
     int len = s.length();
     return (i <= j && i < len && j <= len) ? s.substring(i, j) : "";
+  }
+
+  public static List<String> split(String s, char sep) {
+    List<String> res = new ArrayList<>();
+    int i = 0;
+    for (;;) {
+      int j = s.indexOf(sep, i);
+      if (j == -1) {
+        res.add(s.substring(i));
+        break;
+      }
+      res.add(s.substring(i, j));
+      i = j + 1;
+    }
+    return res;
   }
 
   public static String firstChar(String s) {

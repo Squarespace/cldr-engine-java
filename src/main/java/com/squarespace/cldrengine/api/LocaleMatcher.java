@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.squarespace.cldrengine.internal.LocaleExternalData;
 import com.squarespace.cldrengine.locale.CLocaleImpl;
 import com.squarespace.cldrengine.locale.DistanceTable;
@@ -14,6 +14,8 @@ import com.squarespace.cldrengine.locale.LanguageTagParser;
 import com.squarespace.cldrengine.locale.LocaleMatch;
 import com.squarespace.cldrengine.locale.LocaleResolver;
 import com.squarespace.cldrengine.utils.JsonUtils;
+
+import lombok.ToString;
 
 public class LocaleMatcher {
 
@@ -213,6 +215,7 @@ public class LocaleMatcher {
     return new Entry(id, UNDEFINED);
   }
 
+  @ToString
   static class Entry {
 
     private final String id;
@@ -227,10 +230,10 @@ public class LocaleMatcher {
   }
 
   private static final Map<String, Integer> load() {
-    JsonArray elems = (JsonArray) JsonUtils.parse(LocaleExternalData.PARADIGMLOCALES);
+    JsonObject elems = JsonUtils.parse(LocaleExternalData.PARADIGMLOCALES).getAsJsonObject();
     Map<String, Integer> res = new HashMap<>();
-    for (int i = 0; i < elems.size(); i++) {
-      String raw = elems.get(i).getAsString();
+    for (String raw : elems.keySet()) {
+      int i = elems.get(raw).getAsInt();
       String compact = LocaleResolver.resolve(raw).compact();
       res.put(compact, i);
     }

@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.squarespace.cldrengine.utils.StringUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
@@ -25,6 +27,9 @@ public class DateTimePattern {
 
   public static DateTimePattern parse(String raw) {
     List<Object> nodes = new ArrayList<>();
+    if (StringUtils.isEmpty(raw)) {
+      return new DateTimePattern(nodes, raw);
+    }
     int len = raw.length();
 
     StringBuilder buf = new StringBuilder();

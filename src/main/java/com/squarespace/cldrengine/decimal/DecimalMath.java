@@ -149,7 +149,7 @@ public class DecimalMath {
    * Knuth TAoCP 4.3.1 Algorithm D
    * Division of nonnegative integer u by v, returning the quotient q and remainder r.
    */
-  public static DivideResult divide(long[] uc, long[] vc, boolean remainder) {
+  public static DivideResult divide(long[] uc, long[] vc) {
     int n = vc.length;
     int m = uc.length - n;
     if (n == 1) {
@@ -239,17 +239,14 @@ public class DecimalMath {
     }
 
     // D8. Unnormalize remainder.
-    if (remainder) {
-      long[] r = new long[n];
-      k = 0;
-      for (int i = n - 1; i >= 0; i--) {
-        p = u[i] + (k * Constants.RADIX);
-        r[i] = p / d;
-        k = p - r[i] * d;
-      }
-      return new DivideResult(q, r);
+    long[] r = new long[n];
+    k = 0;
+    for (int i = n - 1; i >= 0; i--) {
+      p = u[i] + (k * Constants.RADIX);
+      r[i] = p / d;
+      k = p - r[i] * d;
     }
-    return new DivideResult(q, new long[] { });
+    return new DivideResult(q, r);
   }
 
   @AllArgsConstructor
@@ -302,7 +299,7 @@ public class DecimalMath {
 
     while (i < n) {
       s = u[i + j] + (v[i] + k);
-      k = (s < u[i] || s >= Constants.RADIX) ? 1 : 0;
+      k = s >= Constants.RADIX ? 1 : 0;
       u[i + j] = k != 0 ? s - Constants.RADIX : s;
       i++;
     }

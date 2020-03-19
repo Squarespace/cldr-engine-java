@@ -90,7 +90,7 @@ public class MessagePatternParser {
             MessageCode child = inner(new MessageMatcher.State(r.s + 1, k));
             if (child == null) {
               // If we're not in the outermost scope, push text
-              if (argsub != null) {
+              if (argsub != null && r.s + 1 != k) {
                 n.add(textarg(str.substring(r.s + 1, k), argsub));
               }
             } else {

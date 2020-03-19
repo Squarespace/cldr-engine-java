@@ -73,9 +73,6 @@ public class NumberParamsCache {
     }
     if (numberSystem == null) {
       numberSystem = bundle.numberSystem();
-      if (numberSystem == null) {
-        numberSystem = defaultSystem;
-      }
     }
 
     NumberSystemName realName = this.select(numberSystem);

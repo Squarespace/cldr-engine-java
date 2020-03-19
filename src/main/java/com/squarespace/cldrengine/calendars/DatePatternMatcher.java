@@ -104,10 +104,11 @@ class DatePatternMatcher {
         }
       }
 
+      // TODO: UNREACHABLE as field replacement has been selected above
       // Metacharacters have already been replaced in the pattern.
-      if ("jJC".indexOf(adjfield) != -1) {
-        adjfield = field;
-      }
+//      if ("jJC".indexOf(adjfield) != -1) {
+//        adjfield = field;
+//      }
       r.add(new DateTimeNode(adjfield, adjwidth));
     }
 
@@ -116,6 +117,7 @@ class DatePatternMatcher {
     return new DateTimePattern(r, "");
   }
 
+  // TODO: mask parameter is currently unused
   protected int getDistance(DateSkeleton a, DateSkeleton b, int mask) {
     int result = 0;
     for (int i = 0; i < Field.MAX_TYPE.ordinal(); i++) {

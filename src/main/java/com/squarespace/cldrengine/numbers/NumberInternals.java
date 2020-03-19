@@ -149,7 +149,7 @@ public class NumberInternals {
       case LONG:
       case SHORT: {
         boolean isShort = style == DecimalFormatStyleType.SHORT;
-        boolean useLatn = decimalFormats.short_.get(bundle, PluralType.OTHER, 4)._2 != 0;
+        boolean useLatn = decimalFormats.short_.get(bundle, PluralType.OTHER, 4)._1.isEmpty();
         DigitsArrow<PluralType> patternImpl = isShort
             ? (useLatn ? latnInfo.decimalFormats.short_ : decimalFormats.short_)
             : (useLatn ? latnInfo.decimalFormats.long_ : decimalFormats.long_);
@@ -251,7 +251,7 @@ public class NumberInternals {
         pattern = this.getNumberPattern(format, n.isNegative());
 
         // Split number into coefficient and exponent
-        Decimal.Scientific sci = n.scientific(ctx.minInt == 0 ? 1 : ctx.minInt);
+        Decimal.Scientific sci = n.scientific(ctx.minInt);
 
         Decimal adjcoeff = ctx.adjust(sci.coefficient, true);
         result = renderer.render(adjcoeff, pattern, "", "", "", 1, false, sci.exponent);
@@ -495,9 +495,12 @@ public class NumberInternals {
 
     NumberPattern pattern = this.getCompactPattern(raw, standardRaw, negative);
     int fracDigits = ctx.useSignificant ? -1 : 0;
-    boolean noMinInt = ctx.minInt == -1;
     ctx.setCompact(pattern, n.integerDigits(), ndivisor, fracDigits);
-    // Hack to avoid extra leading '0' for certain divisor cases
+
+    // Hack to avoid extra leading '0' for certain divisor cases.
+    // Unless explicit minimum integers is set in options, we force it to
+    // 1 to override the compact pattern.
+    boolean noMinInt = !ctx.options.minimumIntegerDigits.ok() || ctx.options.minimumIntegerDigits.get() < 0;
     if (noMinInt) {
       ctx.minInt = 1;
     }

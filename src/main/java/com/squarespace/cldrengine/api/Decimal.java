@@ -209,8 +209,7 @@ public class Decimal {
     if (u.exp != v.exp) {
       int shift = u.exp - v.exp;
       if (shift > 0) {
-        int c = DecimalMath.compare(v.data, u.data, shift);
-        return c == 0 ? c : -c;
+        return -DecimalMath.compare(v.data, u.data, shift);
       }
       return DecimalMath.compare(u.data, v.data, -shift);
     }
@@ -329,13 +328,9 @@ public class Decimal {
     boolean uz = u.isZero();
     boolean vz = v.isZero();
     if (uz || vz) {
-//      if (ctx.usePrecision) {
-//
-//      } else {
       if (!ctx.usePrecision) {
         w._setScale(ctx.scaleprec, RoundingModeType.HALF_EVEN);
       }
-//      System.out.println("> " + w.properties());
       return w;
     }
 
@@ -382,7 +377,7 @@ public class Decimal {
       v = v.shiftleft(-shift);
     }
 
-    DivideResult result = DecimalMath.divide(u.data, v.data, true);
+    DivideResult result = DecimalMath.divide(u.data, v.data);
     long[] quo = result.quotient;
     long[] rem = result.remainder;
 
@@ -391,7 +386,7 @@ public class Decimal {
     w.exp = exp;
     w.trim();
 
-    boolean hasrem = rem.length != 0 && rem[rem.length - 1] != 0;
+    boolean hasrem = rem.length != 0 && !DecimalMath.allzero(rem, rem.length);
     if (hasrem) {
       long lsd = w.data[0] % 10;
       if (lsd == 0 || lsd == 5) {
@@ -445,7 +440,7 @@ public class Decimal {
       u.data = Arrays.copyOf(u.data, u.data.length + dsize);
     }
 
-    DivideResult res = DecimalMath.divide(u.data, v.data, true);
+    DivideResult res = DecimalMath.divide(u.data, v.data);
 
     int qsign = u.sign == v.sign ? 1 : -1;
     Decimal q = new Decimal(qsign, 0, res.quotient, 0);
@@ -682,19 +677,15 @@ public class Decimal {
       while (zeros > 0) {
         formatter.add(digits[0]);
         emitted++;
-        _int--;
-        if (_int > 0) {
-
-          // Emit grouping
-          if (doGroup && emitted > 0 && emitted % groupSize == 0) {
-            // Push group character, reset emitted digits, and switch
-            // to secondary grouping size.
-            formatter.add(group);
-            emitted = 0;
-            groupSize = secGroup;
-          }
-
+        // Emit grouping
+        if (doGroup && emitted > 0 && emitted % groupSize == 0) {
+          // Push group character, reset emitted digits, and switch
+          // to secondary grouping size.
+          formatter.add(group);
+          emitted = 0;
+          groupSize = secGroup;
         }
+        _int--;
         zeros--;
       }
     } else if (zeroScale && exp < 0) {
@@ -734,7 +725,6 @@ public class Decimal {
           emitted++;
           _int--;
           if (_int > 0) {
-
             // Emit grouping
             if (doGroup && emitted > 0 && emitted % groupSize == 0) {
               // Push group character, reset emitted digits, and switch
@@ -743,7 +733,6 @@ public class Decimal {
               emitted = 0;
               groupSize = secGroup;
             }
-
           }
         }
       }
@@ -1010,13 +999,12 @@ public class Decimal {
     long rest = 0;
 
     if (r == 0) {
-      if (q > 0) {
-        DecimalMath.divpow10(div, data[(int)(q - 1)], Constants.RDIGITS - 1);
-        rnd = div[0];
-        rest = div[1];
-        if (rest == 0) {
-          rest = !DecimalMath.allzero(data, (int)(q - 1)) ? 1 : 0;
-        }
+      // q is always non-zero here, else there would be no shift
+      DecimalMath.divpow10(div, data[(int)(q - 1)], Constants.RDIGITS - 1);
+      rnd = div[0];
+      rest = div[1];
+      if (rest == 0) {
+        rest = !DecimalMath.allzero(data, (int)(q - 1)) ? 1 : 0;
       }
       for (j = 0; j < data.length - q; j++) {
         w.data[j] = data[(int)(q + j)];
@@ -1024,11 +1012,10 @@ public class Decimal {
     } else {
       long hiprev = 0;
       int ph = Constants.POWERS10[Constants.RDIGITS - (int)r];
-      if (q < data.length) {
-        DecimalMath.divpow10(div, data[(int)q], (int)r);
-        hiprev = div[0];
-        rest = div[1];
-      }
+      // q is always < data.length here; otherwise r == 0
+      DecimalMath.divpow10(div, data[(int)q], (int)r);
+      hiprev = div[0];
+      rest = div[1];
 
       DecimalMath.divpow10(div, rest,  (int)(r - 1));
       rnd = div[0];

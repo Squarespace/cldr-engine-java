@@ -843,9 +843,6 @@ public abstract class CalendarDate {
       long lastDoy = this.yearLength(eyear);
       if (doy >= (lastDoy - 5)) {
         long lastRdow = (rdow + lastDoy - doy) % 7;
-        if (lastRdow < 0) {
-          lastRdow += 7;
-        }
         if (((6 - lastRdow) >= this.minDays) && ((doy + 7 - rdow) > lastDoy)) {
           woy = 1;
           ywoy++;

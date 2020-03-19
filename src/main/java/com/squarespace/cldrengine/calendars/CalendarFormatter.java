@@ -466,11 +466,9 @@ class CalendarFormatter<T extends CalendarDate> {
     }
     String name = "";
     String key = ctx.date.metaZoneId();
-    if (!key.isEmpty()) {
-      Vector2Arrow<TimeZoneNameType, MetaZoneType> format = width == 1 ?
-          this.tz.metaZones.short_ : this.tz.metaZones.long_;
-      name = format.get(ctx.bundle, TimeZoneNameType.GENERIC, MetaZoneType.fromString(key));
-    }
+    Vector2Arrow<TimeZoneNameType, MetaZoneType> format = width == 1 ?
+        this.tz.metaZones.short_ : this.tz.metaZones.long_;
+    name = format.get(ctx.bundle, TimeZoneNameType.GENERIC, MetaZoneType.fromString(key));
     return name.isEmpty() ? this.timezone_O(ctx, new DateTimeNode('O', width)) : name;
   }
 

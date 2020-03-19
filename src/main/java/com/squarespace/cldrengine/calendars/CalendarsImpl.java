@@ -360,17 +360,17 @@ public class CalendarsImpl implements Calendars {
       switch (type) {
         case BUDDHIST:
           return this.toBuddhistDate(date);
-        case GREGORY:
-          return this.toGregorianDate(date);
         case ISO8601:
           return this.toISO8601Date(date);
         case JAPANESE:
           return this.toJapaneseDate(date);
         case PERSIAN:
           return this.toPersianDate(date);
+         default:
+           break;
       }
     }
-    return date;
+    return this.toGregorianDate(date);
   }
 
 }

@@ -28,8 +28,9 @@ public class NumberContext {
     this.options = options;
     this.roundingMode = roundingMode;
     this.currencyDigits = currencyDigits;
-
     DecimalAdjustOptions o = options;
+    this.minInt = o.minimumIntegerDigits.or(-1);
+
     // Determine if we should use default or significant digit modes. If we're in compact mode
     // we will use significant digits unless any fraction option is set. Otherwise we use
     // significant digits if any significant digit option is set.
@@ -92,13 +93,8 @@ public class NumberContext {
         n = n.setScale(scale, this.roundingMode);
       }
 
-      // Ensure that one less digit is emitted if the number is exactly zero.
       n = n.stripTrailingZeros();
-      boolean zero = n.isZero();
       int precision = n.precision();
-      if (zero && n.scale() == 1) {
-        precision--;
-      }
 
       // scale the number to have at least the minimum significant digits
       if (precision < this.minSig) {
@@ -130,6 +126,11 @@ public class NumberContext {
       int minSigDigits, int maxFracDigits) {
 
     DecimalAdjustOptions o = this.options;
+
+    // If minInt is not specified in options, always copy from pattern
+    if (!o.minimumIntegerDigits.ok()) {
+      this.minInt = pattern.minInt;
+    }
 
     this.minInt = o.minimumIntegerDigits.or(pattern.minInt);
     this.minFrac = this.currencyDigits == -1 ? pattern.minFrac : this.currencyDigits;
@@ -168,9 +169,6 @@ public class NumberContext {
 
       if (minSig != -1 && maxSig != -1 && minSig > maxSig) {
         maxSig = minSig;
-      }
-      if (maxSig != -1 && maxSig < minSig) {
-        minSig = maxSig;
       }
       if (minSig == -1) {
         minSig = maxSig;

@@ -239,7 +239,7 @@ const LOMBOK: string[] = [
 
 const make = (pkg: string, opt: Option) => {
   const _imports = new Set<string>();
-  imports(_imports, opt);
+  imports(pkg, _imports, opt);
 
   let s = `package ${pkg};\n\n`;
   _imports.forEach(i => s += `import ${i};\n`);
@@ -272,19 +272,19 @@ const make = (pkg: string, opt: Option) => {
   return s;
 };
 
-const imports = (set: Set<String>, opt: Option) => {
+const imports = (pkg: string, set: Set<String>, opt: Option) => {
   for (const field of opt.fields) {
     if (INTERNAL_SET.has(field.type)) {
       set.add(INTERNAL_PACKAGE + '.' + field.type);
       break;
     }
-    if (API_SET.has(field.type)) {
+    if (API_SET.has(field.type) && pkg !== API_PACKAGE) {
       set.add(API_PACKAGE + '.' + field.type);
       break;
     }
   }
   if (opt.extend) {
-    imports(set, INDEX[opt.extend]);
+    imports(pkg, set, INDEX[opt.extend]);
   }
 };
 

@@ -1,7 +1,5 @@
 package com.squarespace.cldrengine.api;
 
-import com.squarespace.cldrengine.api.DateFieldWidthType;
-import com.squarespace.cldrengine.api.RoundingModeType;
 import lombok.Generated;
 import lombok.EqualsAndHashCode;
 

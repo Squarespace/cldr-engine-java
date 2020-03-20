@@ -1,6 +1,5 @@
 package com.squarespace.cldrengine.api;
 
-import com.squarespace.cldrengine.api.PluralRules;
 import lombok.Generated;
 import lombok.EqualsAndHashCode;
 

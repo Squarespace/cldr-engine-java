@@ -1,7 +1,5 @@
 package com.squarespace.cldrengine.api;
 
-import com.squarespace.cldrengine.api.DecimalFormatStyleType;
-import com.squarespace.cldrengine.api.RoundingModeType;
 import lombok.Generated;
 import lombok.EqualsAndHashCode;
 

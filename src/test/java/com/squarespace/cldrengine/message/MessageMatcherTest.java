@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
-import com.squarespace.cldrengine.message.MessageMatcher;
-
 public class MessageMatcherTest {
 
   @Test

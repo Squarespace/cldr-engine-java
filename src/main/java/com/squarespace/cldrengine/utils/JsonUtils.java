@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,13 +15,15 @@ import com.google.gson.JsonParser;
 
 public class JsonUtils {
 
+  private static final Charset UTF8 = Charset.forName("utf-8");
+
   public static JsonElement parse(String raw) {
     return JsonParser.parseReader(new StringReader(raw));
   }
 
   public static JsonObject loadJson(Class<?> cls, String path) throws IOException {
     try (InputStream stream = cls.getResourceAsStream(path)) {
-      return stream == null ? null : (JsonObject) JsonParser.parseReader(new InputStreamReader(stream));
+      return stream == null ? null : (JsonObject) JsonParser.parseReader(new InputStreamReader(stream, UTF8));
     }
   }
 

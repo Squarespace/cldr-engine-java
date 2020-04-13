@@ -1,13 +1,14 @@
 package com.squarespace.cldrengine.internal;
 
 
+import com.squarespace.cldrengine.api.EraAltType;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.EraWidthType;
 
 public class CalendarSchema {
 
-  public final Vector2Arrow<EraWidthType, String> eras;
+  public final Vector3Arrow<EraWidthType, String, EraAltType> eras;
   public final CalendarFields format;
   public final CalendarFields standAlone;
   public final Vector1Arrow<String> availableFormats;
@@ -19,7 +20,7 @@ public class CalendarSchema {
   public final FieldArrow intervalFormatFallback;
 
   public CalendarSchema(
-      Vector2Arrow<EraWidthType, String> eras,
+      Vector3Arrow<EraWidthType, String, EraAltType> eras,
       CalendarFields format,
       CalendarFields standAlone,
       Vector1Arrow<String> availableFormats,

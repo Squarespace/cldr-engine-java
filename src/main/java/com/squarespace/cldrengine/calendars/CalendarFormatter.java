@@ -5,7 +5,9 @@ import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.CalendarDate;
 import com.squarespace.cldrengine.api.ContextTransformFieldType;
+import com.squarespace.cldrengine.api.DayPeriodAltType;
 import com.squarespace.cldrengine.api.Decimal;
+import com.squarespace.cldrengine.api.EraAltType;
 import com.squarespace.cldrengine.api.EraWidthType;
 import com.squarespace.cldrengine.api.MetaZoneType;
 import com.squarespace.cldrengine.api.TimeZoneNameType;
@@ -16,6 +18,7 @@ import com.squarespace.cldrengine.internal.CalendarSchema;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.TimeZoneSchema;
 import com.squarespace.cldrengine.internal.Vector2Arrow;
+import com.squarespace.cldrengine.internal.Vector3Arrow;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.parsing.DateTimePattern.DateTimeNode;
 
@@ -62,7 +65,8 @@ class CalendarFormatter<T extends CalendarDate> {
           type = "era";
           value = this.cal.eras.get(ctx.bundle,
               w == 5 ? EraWidthType.NARROW : w == 4 ? EraWidthType.NAMES : EraWidthType.ABBR,
-                  Long.toString(ctx.date.era()));
+                  Long.toString(ctx.date.era()),
+                  EraAltType.NONE);
           if (w != 5) {
             field = w == 4 ? ContextTransformFieldType.ERA_NAME : ContextTransformFieldType.ERA_ABBR;
           }
@@ -198,7 +202,7 @@ class CalendarFormatter<T extends CalendarDate> {
         case 'a':
           type = "dayperiod";
           value = this.cal.format.dayPeriods.get(ctx.bundle, widthKey(w),
-              ctx.date.hourOfDay() < 12 ? "am" : "pm");
+              ctx.date.hourOfDay() < 12 ? "am" : "pm", DayPeriodAltType.NONE);
           break;
 
         // DAY PERIOD EXTENDED
@@ -357,10 +361,10 @@ class CalendarFormatter<T extends CalendarDate> {
       long hour = ctx.date.hourOfDay();
       key2ext = hour == 0 ? "midnight" : hour == 12 ? "noon" : key2;
     }
-    Vector2Arrow<String, String> format = this.cal.format.dayPeriods;
+    Vector3Arrow<String, String, DayPeriodAltType> format = this.cal.format.dayPeriods;
     // Try extended and if it doesn't exist, fall back to am/pm
-    String result = format.get(ctx.bundle, key1, key2ext);
-    return result.equals("") ? format.get(ctx.bundle, key1, key2) : result;
+    String result = format.get(ctx.bundle, key1, key2ext, DayPeriodAltType.NONE);
+    return result.equals("") ? format.get(ctx.bundle, key1, key2, DayPeriodAltType.NONE) : result;
   }
 
   protected String dayPeriodFlex(CalendarContext<T> ctx, DateTimeNode node) {
@@ -368,7 +372,7 @@ class CalendarFormatter<T extends CalendarDate> {
     String key = this.internals.calendars.flexDayPeriod(ctx.bundle, minutes);
     String res = null;
     if (key != null) {
-      res = this.cal.format.dayPeriods.get(ctx.bundle, widthKey(node.width), key);
+      res = this.cal.format.dayPeriods.get(ctx.bundle, widthKey(node.width), key, DayPeriodAltType.NONE);
     }
     return isEmpty(res) ? this.dayPeriodExt(ctx, node) : res;
   }

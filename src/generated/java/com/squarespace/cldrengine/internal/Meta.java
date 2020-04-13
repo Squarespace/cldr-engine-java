@@ -8,6 +8,8 @@ import com.squarespace.cldrengine.api.NumberSystemCategory;
 import com.squarespace.cldrengine.api.NumberSymbolType;
 import com.squarespace.cldrengine.api.CurrencySpacingPattern;
 import com.squarespace.cldrengine.api.CurrencySpacingPos;
+import com.squarespace.cldrengine.api.EraAltType;
+import com.squarespace.cldrengine.api.DayPeriodAltType;
 import com.squarespace.cldrengine.api.AltType;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.api.ListPatternPositionType;
@@ -34,6 +36,16 @@ public final class Meta extends MetaBase {
     AltType.STAND_ALONE,
     AltType.LONG,
     AltType.MENU
+  });
+
+  public static final KeyIndex<DayPeriodAltType> KEY_DAY_PERIOD_ALT_KEY = new KeyIndex<DayPeriodAltType>(new DayPeriodAltType[] {
+    DayPeriodAltType.NONE,
+    DayPeriodAltType.CASING
+  });
+
+  public static final KeyIndex<EraAltType> KEY_ERA_ALT_KEY = new KeyIndex<EraAltType>(new EraAltType[] {
+    EraAltType.NONE,
+    EraAltType.SENSITIVE
   });
 
   public static final KeyIndex<PluralType> KEY_PLURAL_KEY = new KeyIndex<PluralType>(new PluralType[] {
@@ -3259,306 +3271,306 @@ public final class Meta extends MetaBase {
   public static final Schema SCHEMA = new Schema(
     /* Names = */ new NamesSchema(
       /* languages = */ new LanguageNameInfo(
-        /* displayName = */ new Vector2Arrow<AltType, LanguageIdType>(0, KEY_ALT_KEY, KEY_LANGUAGE_ID)        
+        /* displayName = */ new Vector2Arrow<AltType, LanguageIdType>(0, KEY_ALT_KEY,KEY_LANGUAGE_ID)        
       ),
       /* scripts = */ new ScriptNameInfo(
-        /* displayName = */ new Vector2Arrow<AltType, ScriptIdType>(4348, KEY_ALT_KEY, KEY_SCRIPT_ID)        
+        /* displayName = */ new Vector2Arrow<AltType, ScriptIdType>(4347, KEY_ALT_KEY,KEY_SCRIPT_ID)        
       ),
       /* regions = */ new RegionNameInfo(
-        /* displayName = */ new Vector2Arrow<AltType, RegionIdType>(5679, KEY_ALT_KEY, KEY_REGION_ID)        
+        /* displayName = */ new Vector2Arrow<AltType, RegionIdType>(5677, KEY_ALT_KEY,KEY_REGION_ID)        
       )      
     ),
     /* Numbers = */ new NumbersSchema(
-      /* minimumGroupingDigits = */ new FieldArrow(7738),
-      /* numberSystems = */ new Vector1Arrow<NumberSystemCategory>(7739, KEY_NUMBER_SYSTEM),
+      /* minimumGroupingDigits = */ new FieldArrow(7735),
+      /* numberSystems = */ new Vector1Arrow<NumberSystemCategory>(7736, KEY_NUMBER_SYSTEM),
       /* Map<NumberSystemName, NumberSystemInfo> numberSystem = */ new HashMap<String, NumberSystemInfo>() {{
         this.put("arab", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(7744, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(7740, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(7759),
-            /* accounting = */ new FieldArrow(7760),
-            /* short_ = */ new DigitsArrow<PluralType>(7761, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(7941, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(7948, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(7754),
+            /* accounting = */ new FieldArrow(7755),
+            /* short_ = */ new DigitsArrow<PluralType>(7756, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(7792, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(7798, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(7955),
-            /* short_ = */ new DigitsArrow<PluralType>(7956, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(8136, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(7804),
+            /* short_ = */ new DigitsArrow<PluralType>(7805, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(7841, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(8316),
-          /* scientificFormat = */ new FieldArrow(8317),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(8318, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(7877),
+          /* scientificFormat = */ new FieldArrow(7878),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(7879, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("arabext", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(8323, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(7883, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(8338),
-            /* accounting = */ new FieldArrow(8339),
-            /* short_ = */ new DigitsArrow<PluralType>(8340, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(8520, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(8527, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(7897),
+            /* accounting = */ new FieldArrow(7898),
+            /* short_ = */ new DigitsArrow<PluralType>(7899, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(7935, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(7941, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(8534),
-            /* short_ = */ new DigitsArrow<PluralType>(8535, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(8715, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(7947),
+            /* short_ = */ new DigitsArrow<PluralType>(7948, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(7984, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(8895),
-          /* scientificFormat = */ new FieldArrow(8896),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(8897, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(8020),
+          /* scientificFormat = */ new FieldArrow(8021),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(8022, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("beng", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(8902, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(8026, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(8917),
-            /* accounting = */ new FieldArrow(8918),
-            /* short_ = */ new DigitsArrow<PluralType>(8919, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(9099, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(9106, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8040),
+            /* accounting = */ new FieldArrow(8041),
+            /* short_ = */ new DigitsArrow<PluralType>(8042, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(8078, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(8084, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(9113),
-            /* short_ = */ new DigitsArrow<PluralType>(9114, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(9294, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8090),
+            /* short_ = */ new DigitsArrow<PluralType>(8091, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(8127, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(9474),
-          /* scientificFormat = */ new FieldArrow(9475),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(9476, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(8163),
+          /* scientificFormat = */ new FieldArrow(8164),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(8165, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("deva", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(9481, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(8169, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(9496),
-            /* accounting = */ new FieldArrow(9497),
-            /* short_ = */ new DigitsArrow<PluralType>(9498, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(9678, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(9685, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8183),
+            /* accounting = */ new FieldArrow(8184),
+            /* short_ = */ new DigitsArrow<PluralType>(8185, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(8221, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(8227, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(9692),
-            /* short_ = */ new DigitsArrow<PluralType>(9693, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(9873, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8233),
+            /* short_ = */ new DigitsArrow<PluralType>(8234, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(8270, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(10053),
-          /* scientificFormat = */ new FieldArrow(10054),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(10055, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(8306),
+          /* scientificFormat = */ new FieldArrow(8307),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(8308, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("gujr", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(10060, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(8312, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(10075),
-            /* accounting = */ new FieldArrow(10076),
-            /* short_ = */ new DigitsArrow<PluralType>(10077, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(10257, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(10264, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8326),
+            /* accounting = */ new FieldArrow(8327),
+            /* short_ = */ new DigitsArrow<PluralType>(8328, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(8364, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(8370, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(10271),
-            /* short_ = */ new DigitsArrow<PluralType>(10272, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(10452, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8376),
+            /* short_ = */ new DigitsArrow<PluralType>(8377, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(8413, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(10632),
-          /* scientificFormat = */ new FieldArrow(10633),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(10634, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(8449),
+          /* scientificFormat = */ new FieldArrow(8450),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(8451, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("guru", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(10639, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(8455, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(10654),
-            /* accounting = */ new FieldArrow(10655),
-            /* short_ = */ new DigitsArrow<PluralType>(10656, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(10836, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(10843, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8469),
+            /* accounting = */ new FieldArrow(8470),
+            /* short_ = */ new DigitsArrow<PluralType>(8471, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(8507, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(8513, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(10850),
-            /* short_ = */ new DigitsArrow<PluralType>(10851, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(11031, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8519),
+            /* short_ = */ new DigitsArrow<PluralType>(8520, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(8556, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(11211),
-          /* scientificFormat = */ new FieldArrow(11212),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(11213, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(8592),
+          /* scientificFormat = */ new FieldArrow(8593),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(8594, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("hanidec", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(11218, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(8598, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(11233),
-            /* accounting = */ new FieldArrow(11234),
-            /* short_ = */ new DigitsArrow<PluralType>(11235, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(11415, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(11422, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8612),
+            /* accounting = */ new FieldArrow(8613),
+            /* short_ = */ new DigitsArrow<PluralType>(8614, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(8650, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(8656, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(11429),
-            /* short_ = */ new DigitsArrow<PluralType>(11430, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(11610, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8662),
+            /* short_ = */ new DigitsArrow<PluralType>(8663, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(8699, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(11790),
-          /* scientificFormat = */ new FieldArrow(11791),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(11792, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(8735),
+          /* scientificFormat = */ new FieldArrow(8736),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(8737, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("khmr", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(11797, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(8741, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(11812),
-            /* accounting = */ new FieldArrow(11813),
-            /* short_ = */ new DigitsArrow<PluralType>(11814, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(11994, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(12001, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8755),
+            /* accounting = */ new FieldArrow(8756),
+            /* short_ = */ new DigitsArrow<PluralType>(8757, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(8793, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(8799, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(12008),
-            /* short_ = */ new DigitsArrow<PluralType>(12009, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(12189, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8805),
+            /* short_ = */ new DigitsArrow<PluralType>(8806, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(8842, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(12369),
-          /* scientificFormat = */ new FieldArrow(12370),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(12371, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(8878),
+          /* scientificFormat = */ new FieldArrow(8879),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(8880, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("knda", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(12376, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(8884, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(12391),
-            /* accounting = */ new FieldArrow(12392),
-            /* short_ = */ new DigitsArrow<PluralType>(12393, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(12573, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(12580, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8898),
+            /* accounting = */ new FieldArrow(8899),
+            /* short_ = */ new DigitsArrow<PluralType>(8900, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(8936, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(8942, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(12587),
-            /* short_ = */ new DigitsArrow<PluralType>(12588, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(12768, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(8948),
+            /* short_ = */ new DigitsArrow<PluralType>(8949, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(8985, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(12948),
-          /* scientificFormat = */ new FieldArrow(12949),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(12950, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(9021),
+          /* scientificFormat = */ new FieldArrow(9022),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(9023, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("laoo", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(12955, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(9027, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(12970),
-            /* accounting = */ new FieldArrow(12971),
-            /* short_ = */ new DigitsArrow<PluralType>(12972, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(13152, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(13159, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9041),
+            /* accounting = */ new FieldArrow(9042),
+            /* short_ = */ new DigitsArrow<PluralType>(9043, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(9079, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(9085, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(13166),
-            /* short_ = */ new DigitsArrow<PluralType>(13167, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(13347, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9091),
+            /* short_ = */ new DigitsArrow<PluralType>(9092, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(9128, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(13527),
-          /* scientificFormat = */ new FieldArrow(13528),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(13529, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(9164),
+          /* scientificFormat = */ new FieldArrow(9165),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(9166, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("latn", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(13534, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(9170, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(13549),
-            /* accounting = */ new FieldArrow(13550),
-            /* short_ = */ new DigitsArrow<PluralType>(13551, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(13731, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(13738, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9184),
+            /* accounting = */ new FieldArrow(9185),
+            /* short_ = */ new DigitsArrow<PluralType>(9186, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(9222, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(9228, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(13745),
-            /* short_ = */ new DigitsArrow<PluralType>(13746, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(13926, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9234),
+            /* short_ = */ new DigitsArrow<PluralType>(9235, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(9271, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(14106),
-          /* scientificFormat = */ new FieldArrow(14107),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(14108, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(9307),
+          /* scientificFormat = */ new FieldArrow(9308),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(9309, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("mlym", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(14113, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(9313, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(14128),
-            /* accounting = */ new FieldArrow(14129),
-            /* short_ = */ new DigitsArrow<PluralType>(14130, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(14310, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(14317, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9327),
+            /* accounting = */ new FieldArrow(9328),
+            /* short_ = */ new DigitsArrow<PluralType>(9329, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(9365, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(9371, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(14324),
-            /* short_ = */ new DigitsArrow<PluralType>(14325, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(14505, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9377),
+            /* short_ = */ new DigitsArrow<PluralType>(9378, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(9414, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(14685),
-          /* scientificFormat = */ new FieldArrow(14686),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(14687, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(9450),
+          /* scientificFormat = */ new FieldArrow(9451),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(9452, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("mymr", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(14692, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(9456, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(14707),
-            /* accounting = */ new FieldArrow(14708),
-            /* short_ = */ new DigitsArrow<PluralType>(14709, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(14889, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(14896, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9470),
+            /* accounting = */ new FieldArrow(9471),
+            /* short_ = */ new DigitsArrow<PluralType>(9472, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(9508, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(9514, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(14903),
-            /* short_ = */ new DigitsArrow<PluralType>(14904, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(15084, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9520),
+            /* short_ = */ new DigitsArrow<PluralType>(9521, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(9557, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(15264),
-          /* scientificFormat = */ new FieldArrow(15265),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(15266, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(9593),
+          /* scientificFormat = */ new FieldArrow(9594),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(9595, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("tamldec", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(15271, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(9599, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(15286),
-            /* accounting = */ new FieldArrow(15287),
-            /* short_ = */ new DigitsArrow<PluralType>(15288, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(15468, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(15475, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9613),
+            /* accounting = */ new FieldArrow(9614),
+            /* short_ = */ new DigitsArrow<PluralType>(9615, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(9651, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(9657, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(15482),
-            /* short_ = */ new DigitsArrow<PluralType>(15483, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(15663, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9663),
+            /* short_ = */ new DigitsArrow<PluralType>(9664, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(9700, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(15843),
-          /* scientificFormat = */ new FieldArrow(15844),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(15845, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(9736),
+          /* scientificFormat = */ new FieldArrow(9737),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(9738, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("telu", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(15850, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(9742, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(15865),
-            /* accounting = */ new FieldArrow(15866),
-            /* short_ = */ new DigitsArrow<PluralType>(15867, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(16047, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(16054, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9756),
+            /* accounting = */ new FieldArrow(9757),
+            /* short_ = */ new DigitsArrow<PluralType>(9758, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(9794, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(9800, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(16061),
-            /* short_ = */ new DigitsArrow<PluralType>(16062, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(16242, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9806),
+            /* short_ = */ new DigitsArrow<PluralType>(9807, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(9843, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(16422),
-          /* scientificFormat = */ new FieldArrow(16423),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(16424, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(9879),
+          /* scientificFormat = */ new FieldArrow(9880),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(9881, KEY_NUMBER_MISC_PATTERN)          
         ));
         this.put("thai", new NumberSystemInfo(
-          /* symbols = */ new Vector1Arrow<NumberSymbolType>(16429, KEY_NUMBER_SYMBOL),
+          /* symbols = */ new Vector1Arrow<NumberSymbolType>(9885, KEY_NUMBER_SYMBOL),
           /* currencyFormats = */ new CurrencyFormats(
-            /* standard = */ new FieldArrow(16444),
-            /* accounting = */ new FieldArrow(16445),
-            /* short_ = */ new DigitsArrow<PluralType>(16446, KEY_PLURAL_KEY),
-            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(16626, KEY_CURRENCY_SPACING_POS, KEY_CURRENCY_SPACING_PATTERN),
-            /* unitPattern = */ new Vector1Arrow<PluralType>(16633, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9899),
+            /* accounting = */ new FieldArrow(9900),
+            /* short_ = */ new DigitsArrow<PluralType>(9901, KEY_PLURAL_KEY),
+            /* spacing = */ new Vector2Arrow<CurrencySpacingPos, CurrencySpacingPattern>(9937, KEY_CURRENCY_SPACING_POS,KEY_CURRENCY_SPACING_PATTERN),
+            /* unitPattern = */ new Vector1Arrow<PluralType>(9943, KEY_PLURAL_KEY)            
           ),
           /* decimalFormats = */ new DecimalFormats(
-            /* standard = */ new FieldArrow(16640),
-            /* short_ = */ new DigitsArrow<PluralType>(16641, KEY_PLURAL_KEY),
-            /* long_ = */ new DigitsArrow<PluralType>(16821, KEY_PLURAL_KEY)            
+            /* standard = */ new FieldArrow(9949),
+            /* short_ = */ new DigitsArrow<PluralType>(9950, KEY_PLURAL_KEY),
+            /* long_ = */ new DigitsArrow<PluralType>(9986, KEY_PLURAL_KEY)            
           ),
-          /* percentFormat = */ new FieldArrow(17001),
-          /* scientificFormat = */ new FieldArrow(17002),
-          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(17003, KEY_NUMBER_MISC_PATTERN)          
+          /* percentFormat = */ new FieldArrow(10022),
+          /* scientificFormat = */ new FieldArrow(10023),
+          /* miscPatterns = */ new Vector1Arrow<NumberMiscPatternType>(10024, KEY_NUMBER_MISC_PATTERN)          
         ));
         
       }}      
@@ -3566,177 +3578,177 @@ public final class Meta extends MetaBase {
     /* DateFields = */ new DateFieldsSchema(
       /* relativeTimes = */ new RelativeTimes(
         /* wide = */ new RelativeTimeFields(
-          /* previous2 = */ new Vector1Arrow<RelativeTimeFieldType>(17008, KEY_RELATIVE_TIME_FIELD),
-          /* previous = */ new Vector1Arrow<RelativeTimeFieldType>(17024, KEY_RELATIVE_TIME_FIELD),
-          /* current = */ new Vector1Arrow<RelativeTimeFieldType>(17040, KEY_RELATIVE_TIME_FIELD),
-          /* next = */ new Vector1Arrow<RelativeTimeFieldType>(17056, KEY_RELATIVE_TIME_FIELD),
-          /* next2 = */ new Vector1Arrow<RelativeTimeFieldType>(17072, KEY_RELATIVE_TIME_FIELD),
-          /* future = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(17088, KEY_PLURAL_KEY, KEY_RELATIVE_TIME_FIELD),
-          /* past = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(17179, KEY_PLURAL_KEY, KEY_RELATIVE_TIME_FIELD)          
+          /* previous2 = */ new Vector1Arrow<RelativeTimeFieldType>(10028, KEY_RELATIVE_TIME_FIELD),
+          /* previous = */ new Vector1Arrow<RelativeTimeFieldType>(10043, KEY_RELATIVE_TIME_FIELD),
+          /* current = */ new Vector1Arrow<RelativeTimeFieldType>(10058, KEY_RELATIVE_TIME_FIELD),
+          /* next = */ new Vector1Arrow<RelativeTimeFieldType>(10073, KEY_RELATIVE_TIME_FIELD),
+          /* next2 = */ new Vector1Arrow<RelativeTimeFieldType>(10088, KEY_RELATIVE_TIME_FIELD),
+          /* future = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(10103, KEY_PLURAL_KEY,KEY_RELATIVE_TIME_FIELD),
+          /* past = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(10193, KEY_PLURAL_KEY,KEY_RELATIVE_TIME_FIELD)          
         ),
         /* short = */ new RelativeTimeFields(
-          /* previous2 = */ new Vector1Arrow<RelativeTimeFieldType>(17270, KEY_RELATIVE_TIME_FIELD),
-          /* previous = */ new Vector1Arrow<RelativeTimeFieldType>(17286, KEY_RELATIVE_TIME_FIELD),
-          /* current = */ new Vector1Arrow<RelativeTimeFieldType>(17302, KEY_RELATIVE_TIME_FIELD),
-          /* next = */ new Vector1Arrow<RelativeTimeFieldType>(17318, KEY_RELATIVE_TIME_FIELD),
-          /* next2 = */ new Vector1Arrow<RelativeTimeFieldType>(17334, KEY_RELATIVE_TIME_FIELD),
-          /* future = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(17350, KEY_PLURAL_KEY, KEY_RELATIVE_TIME_FIELD),
-          /* past = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(17441, KEY_PLURAL_KEY, KEY_RELATIVE_TIME_FIELD)          
+          /* previous2 = */ new Vector1Arrow<RelativeTimeFieldType>(10283, KEY_RELATIVE_TIME_FIELD),
+          /* previous = */ new Vector1Arrow<RelativeTimeFieldType>(10298, KEY_RELATIVE_TIME_FIELD),
+          /* current = */ new Vector1Arrow<RelativeTimeFieldType>(10313, KEY_RELATIVE_TIME_FIELD),
+          /* next = */ new Vector1Arrow<RelativeTimeFieldType>(10328, KEY_RELATIVE_TIME_FIELD),
+          /* next2 = */ new Vector1Arrow<RelativeTimeFieldType>(10343, KEY_RELATIVE_TIME_FIELD),
+          /* future = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(10358, KEY_PLURAL_KEY,KEY_RELATIVE_TIME_FIELD),
+          /* past = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(10448, KEY_PLURAL_KEY,KEY_RELATIVE_TIME_FIELD)          
         ),
         /* narrow = */ new RelativeTimeFields(
-          /* previous2 = */ new Vector1Arrow<RelativeTimeFieldType>(17532, KEY_RELATIVE_TIME_FIELD),
-          /* previous = */ new Vector1Arrow<RelativeTimeFieldType>(17548, KEY_RELATIVE_TIME_FIELD),
-          /* current = */ new Vector1Arrow<RelativeTimeFieldType>(17564, KEY_RELATIVE_TIME_FIELD),
-          /* next = */ new Vector1Arrow<RelativeTimeFieldType>(17580, KEY_RELATIVE_TIME_FIELD),
-          /* next2 = */ new Vector1Arrow<RelativeTimeFieldType>(17596, KEY_RELATIVE_TIME_FIELD),
-          /* future = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(17612, KEY_PLURAL_KEY, KEY_RELATIVE_TIME_FIELD),
-          /* past = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(17703, KEY_PLURAL_KEY, KEY_RELATIVE_TIME_FIELD)          
+          /* previous2 = */ new Vector1Arrow<RelativeTimeFieldType>(10538, KEY_RELATIVE_TIME_FIELD),
+          /* previous = */ new Vector1Arrow<RelativeTimeFieldType>(10553, KEY_RELATIVE_TIME_FIELD),
+          /* current = */ new Vector1Arrow<RelativeTimeFieldType>(10568, KEY_RELATIVE_TIME_FIELD),
+          /* next = */ new Vector1Arrow<RelativeTimeFieldType>(10583, KEY_RELATIVE_TIME_FIELD),
+          /* next2 = */ new Vector1Arrow<RelativeTimeFieldType>(10598, KEY_RELATIVE_TIME_FIELD),
+          /* future = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(10613, KEY_PLURAL_KEY,KEY_RELATIVE_TIME_FIELD),
+          /* past = */ new Vector2Arrow<PluralType, RelativeTimeFieldType>(10703, KEY_PLURAL_KEY,KEY_RELATIVE_TIME_FIELD)          
         )        
       ),
-      /* displayName = */ new Vector2Arrow<DateFieldType, DateFieldWidthType>(17794, KEY_DATE_FIELD, KEY_DATE_FIELD_WIDTH)      
+      /* displayName = */ new Vector2Arrow<DateFieldType, DateFieldWidthType>(10793, KEY_DATE_FIELD,KEY_DATE_FIELD_WIDTH)      
     ),
     /* Layout = */ new LayoutSchema(
-      /* characterOrder = */ new FieldArrow(17855),
-      /* lineOrder = */ new FieldArrow(17856)      
+      /* characterOrder = */ new FieldArrow(10853),
+      /* lineOrder = */ new FieldArrow(10854)      
     ),
     /* ListPatterns = */ new ListPatternsSchema(
-      /* and = */ new Vector1Arrow<ListPatternPositionType>(17857, KEY_LIST_PATTERN_POSITION),
-      /* andShort = */ new Vector1Arrow<ListPatternPositionType>(17862, KEY_LIST_PATTERN_POSITION),
-      /* or = */ new Vector1Arrow<ListPatternPositionType>(17867, KEY_LIST_PATTERN_POSITION),
-      /* unitLong = */ new Vector1Arrow<ListPatternPositionType>(17872, KEY_LIST_PATTERN_POSITION),
-      /* unitNarrow = */ new Vector1Arrow<ListPatternPositionType>(17877, KEY_LIST_PATTERN_POSITION),
-      /* unitShort = */ new Vector1Arrow<ListPatternPositionType>(17882, KEY_LIST_PATTERN_POSITION)      
+      /* and = */ new Vector1Arrow<ListPatternPositionType>(10855, KEY_LIST_PATTERN_POSITION),
+      /* andShort = */ new Vector1Arrow<ListPatternPositionType>(10859, KEY_LIST_PATTERN_POSITION),
+      /* or = */ new Vector1Arrow<ListPatternPositionType>(10863, KEY_LIST_PATTERN_POSITION),
+      /* unitLong = */ new Vector1Arrow<ListPatternPositionType>(10867, KEY_LIST_PATTERN_POSITION),
+      /* unitNarrow = */ new Vector1Arrow<ListPatternPositionType>(10871, KEY_LIST_PATTERN_POSITION),
+      /* unitShort = */ new Vector1Arrow<ListPatternPositionType>(10875, KEY_LIST_PATTERN_POSITION)      
     ),
     /* Buddhist = */ new BuddhistSchema(
-      /* eras = */ new Vector2Arrow<EraWidthType, String>(17887, KEY_ERA_TYPE, KEY_BUDDHIST_ERA),
+      /* eras = */ new Vector3Arrow<EraWidthType, String, EraAltType>(10879, KEY_ERA_TYPE,KEY_BUDDHIST_ERA,KEY_ERA_ALT_KEY),
       /* format = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(17891, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(17920, KEY_FIELD_WIDTH, KEY_BUDDHIST_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(17969, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector2Arrow<String, String>(17986, KEY_FIELD_WIDTH, KEY_DAY_PERIOD)        
+        /* weekdays = */ new Vector2Arrow<String, String>(10885, KEY_FIELD_WIDTH,KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(10913, KEY_FIELD_WIDTH,KEY_BUDDHIST_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(10961, KEY_FIELD_WIDTH,KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(10977, KEY_FIELD_WIDTH,KEY_DAY_PERIOD,KEY_DAY_PERIOD_ALT_KEY)        
       ),
       /* standAlone = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(18035, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(18064, KEY_FIELD_WIDTH, KEY_BUDDHIST_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(18113, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector2Arrow<String, String>(18130, KEY_FIELD_WIDTH, KEY_DAY_PERIOD)        
+        /* weekdays = */ new Vector2Arrow<String, String>(11073, KEY_FIELD_WIDTH,KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(11101, KEY_FIELD_WIDTH,KEY_BUDDHIST_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(11149, KEY_FIELD_WIDTH,KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(11165, KEY_FIELD_WIDTH,KEY_DAY_PERIOD,KEY_DAY_PERIOD_ALT_KEY)        
       ),
-      /* availableFormats = */ new Vector1Arrow<String>(18179, KEY_BUDDHIST_AVAILABLE_FORMAT),
-      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(18262, KEY_PLURAL_KEY, KEY_BUDDHIST_PLURAL_FORMAT),
-      /* intervalFormats = */ new Vector2Arrow<DateTimePatternFieldType, String>(18263, KEY_DATE_TIME_PATTERN_FIELD, KEY_BUDDHIST_INTERVAL_FORMAT),
-      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(18558, KEY_FORMAT_WIDTH),
-      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(18563, KEY_FORMAT_WIDTH),
-      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(18568, KEY_FORMAT_WIDTH),
-      /* intervalFormatFallback = */ new FieldArrow(18573)      
+      /* availableFormats = */ new Vector1Arrow<String>(11261, KEY_BUDDHIST_AVAILABLE_FORMAT),
+      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(11343, KEY_PLURAL_KEY,KEY_BUDDHIST_PLURAL_FORMAT),
+      /* intervalFormats = */ new Vector2Arrow<DateTimePatternFieldType, String>(11343, KEY_DATE_TIME_PATTERN_FIELD,KEY_BUDDHIST_INTERVAL_FORMAT),
+      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(11637, KEY_FORMAT_WIDTH),
+      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(11641, KEY_FORMAT_WIDTH),
+      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(11645, KEY_FORMAT_WIDTH),
+      /* intervalFormatFallback = */ new FieldArrow(11649)      
     ),
     /* Gregorian = */ new GregorianSchema(
-      /* eras = */ new Vector2Arrow<EraWidthType, String>(18574, KEY_ERA_TYPE, KEY_GREGORIAN_ERA),
+      /* eras = */ new Vector3Arrow<EraWidthType, String, EraAltType>(11650, KEY_ERA_TYPE,KEY_GREGORIAN_ERA,KEY_ERA_ALT_KEY),
       /* format = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(18581, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(18610, KEY_FIELD_WIDTH, KEY_GREGORIAN_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(18659, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector2Arrow<String, String>(18676, KEY_FIELD_WIDTH, KEY_DAY_PERIOD)        
+        /* weekdays = */ new Vector2Arrow<String, String>(11662, KEY_FIELD_WIDTH,KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(11690, KEY_FIELD_WIDTH,KEY_GREGORIAN_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(11738, KEY_FIELD_WIDTH,KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(11754, KEY_FIELD_WIDTH,KEY_DAY_PERIOD,KEY_DAY_PERIOD_ALT_KEY)        
       ),
       /* standAlone = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(18725, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(18754, KEY_FIELD_WIDTH, KEY_GREGORIAN_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(18803, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector2Arrow<String, String>(18820, KEY_FIELD_WIDTH, KEY_DAY_PERIOD)        
+        /* weekdays = */ new Vector2Arrow<String, String>(11850, KEY_FIELD_WIDTH,KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(11878, KEY_FIELD_WIDTH,KEY_GREGORIAN_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(11926, KEY_FIELD_WIDTH,KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(11942, KEY_FIELD_WIDTH,KEY_DAY_PERIOD,KEY_DAY_PERIOD_ALT_KEY)        
       ),
-      /* availableFormats = */ new Vector1Arrow<String>(18869, KEY_GREGORIAN_AVAILABLE_FORMAT),
-      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(18945, KEY_PLURAL_KEY, KEY_GREGORIAN_PLURAL_FORMAT),
-      /* intervalFormats = */ new Vector2Arrow<DateTimePatternFieldType, String>(18958, KEY_DATE_TIME_PATTERN_FIELD, KEY_GREGORIAN_INTERVAL_FORMAT),
-      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(19239, KEY_FORMAT_WIDTH),
-      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(19244, KEY_FORMAT_WIDTH),
-      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(19249, KEY_FORMAT_WIDTH),
-      /* intervalFormatFallback = */ new FieldArrow(19254)      
+      /* availableFormats = */ new Vector1Arrow<String>(12038, KEY_GREGORIAN_AVAILABLE_FORMAT),
+      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(12113, KEY_PLURAL_KEY,KEY_GREGORIAN_PLURAL_FORMAT),
+      /* intervalFormats = */ new Vector2Arrow<DateTimePatternFieldType, String>(12125, KEY_DATE_TIME_PATTERN_FIELD,KEY_GREGORIAN_INTERVAL_FORMAT),
+      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(12405, KEY_FORMAT_WIDTH),
+      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(12409, KEY_FORMAT_WIDTH),
+      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(12413, KEY_FORMAT_WIDTH),
+      /* intervalFormatFallback = */ new FieldArrow(12417)      
     ),
     /* Japanese = */ new JapaneseSchema(
-      /* eras = */ new Vector2Arrow<EraWidthType, String>(19255, KEY_ERA_TYPE, KEY_JAPANESE_ERA),
+      /* eras = */ new Vector3Arrow<EraWidthType, String, EraAltType>(12418, KEY_ERA_TYPE,KEY_JAPANESE_ERA,KEY_ERA_ALT_KEY),
       /* format = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(19967, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(19996, KEY_FIELD_WIDTH, KEY_JAPANESE_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(20045, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector2Arrow<String, String>(20062, KEY_FIELD_WIDTH, KEY_DAY_PERIOD)        
+        /* weekdays = */ new Vector2Arrow<String, String>(13840, KEY_FIELD_WIDTH,KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(13868, KEY_FIELD_WIDTH,KEY_JAPANESE_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(13916, KEY_FIELD_WIDTH,KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(13932, KEY_FIELD_WIDTH,KEY_DAY_PERIOD,KEY_DAY_PERIOD_ALT_KEY)        
       ),
       /* standAlone = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(20111, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(20140, KEY_FIELD_WIDTH, KEY_JAPANESE_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(20189, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector2Arrow<String, String>(20206, KEY_FIELD_WIDTH, KEY_DAY_PERIOD)        
+        /* weekdays = */ new Vector2Arrow<String, String>(14028, KEY_FIELD_WIDTH,KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(14056, KEY_FIELD_WIDTH,KEY_JAPANESE_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(14104, KEY_FIELD_WIDTH,KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(14120, KEY_FIELD_WIDTH,KEY_DAY_PERIOD,KEY_DAY_PERIOD_ALT_KEY)        
       ),
-      /* availableFormats = */ new Vector1Arrow<String>(20255, KEY_JAPANESE_AVAILABLE_FORMAT),
-      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(20336, KEY_PLURAL_KEY, KEY_JAPANESE_PLURAL_FORMAT),
-      /* intervalFormats = */ new Vector2Arrow<DateTimePatternFieldType, String>(20337, KEY_DATE_TIME_PATTERN_FIELD, KEY_JAPANESE_INTERVAL_FORMAT),
-      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(20632, KEY_FORMAT_WIDTH),
-      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(20637, KEY_FORMAT_WIDTH),
-      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(20642, KEY_FORMAT_WIDTH),
-      /* intervalFormatFallback = */ new FieldArrow(20647)      
+      /* availableFormats = */ new Vector1Arrow<String>(14216, KEY_JAPANESE_AVAILABLE_FORMAT),
+      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(14296, KEY_PLURAL_KEY,KEY_JAPANESE_PLURAL_FORMAT),
+      /* intervalFormats = */ new Vector2Arrow<DateTimePatternFieldType, String>(14296, KEY_DATE_TIME_PATTERN_FIELD,KEY_JAPANESE_INTERVAL_FORMAT),
+      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(14590, KEY_FORMAT_WIDTH),
+      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(14594, KEY_FORMAT_WIDTH),
+      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(14598, KEY_FORMAT_WIDTH),
+      /* intervalFormatFallback = */ new FieldArrow(14602)      
     ),
     /* Persian = */ new PersianSchema(
-      /* eras = */ new Vector2Arrow<EraWidthType, String>(20648, KEY_ERA_TYPE, KEY_PERSIAN_ERA),
+      /* eras = */ new Vector3Arrow<EraWidthType, String, EraAltType>(14603, KEY_ERA_TYPE,KEY_PERSIAN_ERA,KEY_ERA_ALT_KEY),
       /* format = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(20652, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(20681, KEY_FIELD_WIDTH, KEY_PERSIAN_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(20730, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector2Arrow<String, String>(20747, KEY_FIELD_WIDTH, KEY_DAY_PERIOD)        
+        /* weekdays = */ new Vector2Arrow<String, String>(14609, KEY_FIELD_WIDTH,KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(14637, KEY_FIELD_WIDTH,KEY_PERSIAN_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(14685, KEY_FIELD_WIDTH,KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(14701, KEY_FIELD_WIDTH,KEY_DAY_PERIOD,KEY_DAY_PERIOD_ALT_KEY)        
       ),
       /* standAlone = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(20796, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(20825, KEY_FIELD_WIDTH, KEY_PERSIAN_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(20874, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector2Arrow<String, String>(20891, KEY_FIELD_WIDTH, KEY_DAY_PERIOD)        
+        /* weekdays = */ new Vector2Arrow<String, String>(14797, KEY_FIELD_WIDTH,KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(14825, KEY_FIELD_WIDTH,KEY_PERSIAN_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(14873, KEY_FIELD_WIDTH,KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(14889, KEY_FIELD_WIDTH,KEY_DAY_PERIOD,KEY_DAY_PERIOD_ALT_KEY)        
       ),
-      /* availableFormats = */ new Vector1Arrow<String>(20940, KEY_PERSIAN_AVAILABLE_FORMAT),
-      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(21021, KEY_PLURAL_KEY, KEY_PERSIAN_PLURAL_FORMAT),
-      /* intervalFormats = */ new Vector2Arrow<DateTimePatternFieldType, String>(21022, KEY_DATE_TIME_PATTERN_FIELD, KEY_PERSIAN_INTERVAL_FORMAT),
-      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(21317, KEY_FORMAT_WIDTH),
-      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(21322, KEY_FORMAT_WIDTH),
-      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(21327, KEY_FORMAT_WIDTH),
-      /* intervalFormatFallback = */ new FieldArrow(21332)      
+      /* availableFormats = */ new Vector1Arrow<String>(14985, KEY_PERSIAN_AVAILABLE_FORMAT),
+      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(15065, KEY_PLURAL_KEY,KEY_PERSIAN_PLURAL_FORMAT),
+      /* intervalFormats = */ new Vector2Arrow<DateTimePatternFieldType, String>(15065, KEY_DATE_TIME_PATTERN_FIELD,KEY_PERSIAN_INTERVAL_FORMAT),
+      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(15359, KEY_FORMAT_WIDTH),
+      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(15363, KEY_FORMAT_WIDTH),
+      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(15367, KEY_FORMAT_WIDTH),
+      /* intervalFormatFallback = */ new FieldArrow(15371)      
     ),
     /* TimeZones = */ new TimeZoneSchema(
       /* metaZones = */ new MetaZoneInfo(
-        /* short_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(21333, KEY_TIMEZONE_TYPE, KEY_METAZONE),
-        /* long_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(21808, KEY_TIMEZONE_TYPE, KEY_METAZONE)        
+        /* short_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(15372, KEY_TIMEZONE_TYPE,KEY_METAZONE),
+        /* long_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(15846, KEY_TIMEZONE_TYPE,KEY_METAZONE)        
       ),
-      /* exemplarCity = */ new Vector1Arrow<String>(22283, KEY_TIMEZONE_ID),
-      /* gmtFormat = */ new FieldArrow(22713),
-      /* hourFormat = */ new FieldArrow(22714),
-      /* gmtZeroFormat = */ new FieldArrow(22715),
-      /* regionFormat = */ new FieldArrow(22716)      
+      /* exemplarCity = */ new Vector1Arrow<String>(16320, KEY_TIMEZONE_ID),
+      /* gmtFormat = */ new FieldArrow(16749),
+      /* hourFormat = */ new FieldArrow(16750),
+      /* gmtZeroFormat = */ new FieldArrow(16751),
+      /* regionFormat = */ new FieldArrow(16752)      
     ),
     /* Currencies = */ new CurrenciesSchema(
-      /* displayName = */ new Vector1Arrow<CurrencyType>(22717, KEY_CURRENCY_ID),
-      /* decimal = */ new Vector1Arrow<CurrencyType>(23021, KEY_CURRENCY_ID),
-      /* pluralName = */ new Vector2Arrow<PluralType, CurrencyType>(23325, KEY_PLURAL_KEY, KEY_CURRENCY_ID),
-      /* symbol = */ new Vector2Arrow<AltType, CurrencyType>(25144, KEY_ALT_KEY, KEY_CURRENCY_ID)      
+      /* displayName = */ new Vector1Arrow<CurrencyType>(16753, KEY_CURRENCY_ID),
+      /* decimal = */ new Vector1Arrow<CurrencyType>(17056, KEY_CURRENCY_ID),
+      /* pluralName = */ new Vector2Arrow<PluralType, CurrencyType>(17359, KEY_PLURAL_KEY,KEY_CURRENCY_ID),
+      /* symbol = */ new Vector2Arrow<AltType, CurrencyType>(19177, KEY_ALT_KEY,KEY_CURRENCY_ID)      
     ),
     /* Units = */ new UnitsSchema(
       /* long = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(27266, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(28275, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(28444, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(28613),
-        /* timesPattern = */ new FieldArrow(28614)        
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(21298, KEY_PLURAL_KEY,KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(22306, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(22474, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(22642),
+        /* timesPattern = */ new FieldArrow(22643)        
       ),
       /* narrow = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(28615, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(29624, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(29793, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(29962),
-        /* timesPattern = */ new FieldArrow(29963)        
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(22644, KEY_PLURAL_KEY,KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(23652, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(23820, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(23988),
+        /* timesPattern = */ new FieldArrow(23989)        
       ),
       /* short = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(29964, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(30973, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(31142, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(31311),
-        /* timesPattern = */ new FieldArrow(31312)        
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(23990, KEY_PLURAL_KEY,KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(24998, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(25166, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(25334),
+        /* timesPattern = */ new FieldArrow(25335)        
       )      
     ),
     /* ContextTransforms = */ new ContextTransformsSchema(
-      /* contextTransforms = */ new Vector1Arrow<ContextTransformFieldType>(31313, KEY_CONTEXT_TRANSFORM_FIELD)      
+      /* contextTransforms = */ new Vector1Arrow<ContextTransformFieldType>(25336, KEY_CONTEXT_TRANSFORM_FIELD)      
     )  );
 
 }

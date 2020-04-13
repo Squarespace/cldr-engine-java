@@ -56,10 +56,10 @@ const IGNORE = new Set<string>([
   'Scope',
   'ScopeArrow',
   'ScopeMap',
-  'Vector1',
+  'Vector',
   'Vector1Arrow',
-  'Vector2',
-  'Vector2Arrow'
+  'Vector2Arrow',
+  'Vector3Arrow'
 ]);
 
 const COMMENTS = /\/\*.*\*\//gi;

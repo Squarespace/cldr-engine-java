@@ -234,17 +234,6 @@ export class Builder {
       this.append('\n  });\n\n');
     }
 
-    // Arrays of values can be obtained from the KeyIndex directly. This duplication
-    // has been eliminated upstream.
-    // for (const key of Object.keys(this.origin.values)) {
-    //   const vals = this.origin.values[key];
-    //   this.append(`  public static final String[] VAL_${keyToField(key)} = new String[] {\n`);
-    //   this.enter();
-    //   this.array(vals, '  ');
-    //   this.exit();
-    //   this.append('  };\n\n');
-    // }
-
     const fields = this.buf;
     this.buf = header.concat(fields).concat(code);
     this.append('\n}\n');
@@ -293,31 +282,11 @@ export class Builder {
       this.pop();
     }
 
-    // TODO: this was removed from upstream.
-    // this.suppress = 1;
-    // for (const i of inst.block) {
-    //   this.push(type.typeargs[1].name);
-    //   this.construct(i);
-    //   this.pop();
-    // }
-    // this.suppress = 0;
-
     this.append('\n');
     this.exit();
     this.append('}}');
   }
 
-  // constructVector1(inst: Vector1) {
-  //   const type = this.lookupType(inst.name);
-  //   const typ0 = type.typeargs[0].name;
-  //   this.indextypes[inst.dim0] = typ0;
-
-  //   const dim0 = `KEY_${keyToField(inst.dim0)}`;
-  //   const _dim0 = this.origin.getIndex(inst.dim0);
-  //   const offset = this.generator.field(); // header
-  //   this.generator.vector1(_dim0.size);
-  //   this.append(`/* ${fix(inst.name)} = */ new Vector1Arrow<${fix(typ0)}>(${offset}, ${dim0})`);
-  // }
 
   constructVector(inst: Vector) {
     const type = this.lookupType(inst.name);
@@ -334,7 +303,7 @@ export class Builder {
 
     this.append(`/* ${fix(inst.name)} = */ ` +
       `new Vector${dims.length}Arrow<${targs.join(', ')}>` +
-      `(${offset}, ${dims.join(', ')})`);
+      `(${offset}, ${inst.dims.map(n => `KEY_${keyToField(n)}`)})`);
   }
 
   private array(vals: string[], prefix: string): void {

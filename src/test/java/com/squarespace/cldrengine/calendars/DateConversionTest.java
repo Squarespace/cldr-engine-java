@@ -28,10 +28,10 @@ public class DateConversionTest {
     assertEquals(gregorian.toString(), "Gregorian 2020-02-15 23:49:56.000 Etc/UTC");
 
     BuddhistDate buddhist = cldr.Calendars.toBuddhistDate(base, "UTC");
-    assertEquals(buddhist.toString(), "Buddhist 2563-02-15 23:49:56.000 Etc/UTC");
+    assertEquals(buddhist.toString(), "Buddhist 2020-02-15 23:49:56.000 Etc/UTC");
 
     buddhist = cldr.Calendars.toBuddhistDate(gregorian);
-    assertEquals(buddhist.toString(), "Buddhist 2563-02-15 23:49:56.000 Etc/UTC");
+    assertEquals(buddhist.toString(), "Buddhist 2020-02-15 23:49:56.000 Etc/UTC");
 
     PersianDate persian = cldr.Calendars.toPersianDate(base, "UTC");
     assertEquals(persian.toString(), "Persian 1398-11-26 23:49:56.000 Etc/UTC");

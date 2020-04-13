@@ -52,7 +52,7 @@ public class GregorianDate extends CalendarDate {
 
   @Override
   public String toString() {
-    return this._toString("Gregorian", null);
+    return this._toString("Gregorian");
   }
 
   protected GregorianDate _initFromUnixEpoch(long epoch, String zoneId) {

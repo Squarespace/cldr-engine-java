@@ -71,30 +71,29 @@ public abstract class VectorArrowImpl {
     return o;
   }
 
-  @SuppressWarnings("unchecked")
   private String _get(PrimitiveBundle bundle, Object[] keys, int ix, int k) {
     Object key = keys[ix];
-    List<String> args = null;
-    if (key instanceof String) {
-      args = Arrays.asList((String)key);
-
-    } else if (key instanceof List) {
-      args = (List<String>)key;
+    Object[] args = null;
+    if (key instanceof Object[]) {
+      args = (Object[]) key;
+    } else {
+      args = new Object[] { key };
     }
     if (args != null) {
-      for (int i = 0; i < args.size(); i++) {
-        String arg = args.get(i);
+      for (int i = 0; i < args.length; i++) {
+        Object arg = args[i];
         KeyIndex<Object> keyset = this.keysets.get(ix);
         int j = keyset.get(arg);
         if (j == -1) {
           if (i != this.last) {
             continue;
           }
+
           return "";
         }
         int kk = k + j * this.factors[ix];
         String val = ix == this.last ? bundle.get(kk) : this._get(bundle, keys, ix + 1, kk);
-        if (StringUtils.isEmpty(val)) {
+        if (!StringUtils.isEmpty(val)) {
           return val;
         }
       }

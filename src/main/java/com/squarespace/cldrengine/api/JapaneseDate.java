@@ -13,7 +13,7 @@ public class JapaneseDate extends GregorianDate {
 
   @Override
   public String toString() {
-    return _toString("Japanese", Long.toString(this.extendedYear()));
+    return _toString("Japanese");
   }
 
   @Override

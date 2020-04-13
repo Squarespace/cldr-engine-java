@@ -140,13 +140,13 @@ public class CalendarMathTest {
     BuddhistDate date = buddhist(BASE, NY);
     CalendarDate q;
 
-    assertEquals(date.toString(), "Buddhist 2543-03-11 03:00:25.000 America/New_York");
+    assertEquals(date.toString(), "Buddhist 2000-03-11 03:00:25.000 America/New_York");
 
     q = date.add(TimePeriod.build().year(1));
-    assertEquals(q.toString(), "Buddhist 2544-03-11 03:00:25.000 America/New_York");
+    assertEquals(q.toString(), "Buddhist 2001-03-11 03:00:25.000 America/New_York");
 
     q = date.add(TimePeriod.build().year(-5));
-    assertEquals(q.toString(), "Buddhist 2538-03-11 03:00:25.000 America/New_York");
+    assertEquals(q.toString(), "Buddhist 1995-03-11 03:00:25.000 America/New_York");
   }
 
   @Test

@@ -796,13 +796,11 @@ public abstract class CalendarDate {
   }
 
   protected String _toString(String type) {
-    return this._toString(type, Long.toString(this.year()));
-  }
-
-  protected String _toString(String type, String year) {
-    year = year == null ? Long.toString(this.year()) : year;
-    return String.format("%s %s-%02d-%02d %02d:%02d:%02d.%03d %s",
+    long year = this.extendedYear();
+    boolean neg = year < 0;
+    return String.format("%s %s%04d-%02d-%02d %02d:%02d:%02d.%03d %s",
         type,
+        neg ? "-" : "",
         year,
         this.month(),
         this.dayOfMonth(),

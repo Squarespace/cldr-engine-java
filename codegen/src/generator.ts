@@ -38,7 +38,7 @@ class Generator {
 
   digits(dim1: number, dim2: number): number {
     const off = this.offset;
-    this.offset += (dim1 + dim2);
+    this.offset += (dim1 * dim2);
     return off;
   }
 }
@@ -299,7 +299,8 @@ export class Builder {
       targs.push(fix(t));
       dims.push(this.origin.getIndex(d));
     }
-    const offset = this.generator.vector(dims);
+    const offset = this.generator.field();
+    this.generator.vector(dims);
 
     this.append(`/* ${fix(inst.name)} = */ ` +
       `new Vector${dims.length}Arrow<${targs.join(', ')}>` +

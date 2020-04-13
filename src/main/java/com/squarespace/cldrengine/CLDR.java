@@ -162,7 +162,7 @@ public class CLDR {
       // If checksum mismatch, severe error. Means the library was
       // distributed with the wrong CLDR resource packs.
       if (!INTERNALS.checksum.equals(pack.checksum())) {
-        throw new CLDRException(CHECKSUM_ERROR);
+        throw new CLDRException(CHECKSUM_ERROR + "  " + INTERNALS.checksum + " != " + pack.checksum());
       }
       Bundle bundle = pack.get(tag);
       return new CLDR(resolved, bundle, pack.cldrVersion());

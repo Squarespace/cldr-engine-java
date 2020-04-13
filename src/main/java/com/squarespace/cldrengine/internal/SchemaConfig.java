@@ -24,6 +24,8 @@ public class SchemaConfig extends HashMap<String, List<String>> {
     }));
 
     pute("alt-key", Meta.KEY_ALT_KEY);
+    pute("day-period-alt-key", Meta.KEY_DAY_PERIOD_ALT_KEY);
+    pute("era-alt-key", Meta.KEY_ERA_ALT_KEY);
     pute("plural-key", Meta.KEY_PLURAL_KEY);
 
     // CALENDAR INDICES

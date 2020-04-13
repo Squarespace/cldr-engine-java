@@ -1,12 +1,15 @@
 import {
+  KeyIndex
+} from '@phensley/cldr-types';
+
+import {
   Digits,
   Field,
   Instruction,
   Origin,
   Scope,
   ScopeMap,
-  Vector1,
-  Vector2,
+  Vector,
 } from '@phensley/cldr-schema';
 
 const IMPORTS = [
@@ -27,15 +30,15 @@ class Generator {
     return this.offset++;
   }
 
-  vector1(dim: number): number {
+  vector(dims: KeyIndex<string>[]): number {
     const off = this.offset;
-    this.offset += dim;
+    this.offset += dims.reduce((p, c) => c.size * p, 1);
     return off;
   }
 
-  vector2(dim1: number, dim2: number): number {
+  digits(dim1: number, dim2: number): number {
     const off = this.offset;
-    this.offset += (dim1 * dim2);
+    this.offset += (dim1 + dim2);
     return off;
   }
 }
@@ -149,11 +152,8 @@ export class Builder {
       case 'scopemap':
         this.constructScopeMap(inst);
         break;
-      case 'vector1':
-        this.constructVector1(inst);
-        break;
-      case 'vector2':
-        this.constructVector2(inst);
+      case 'vector':
+        this.constructVector(inst);
         break;
     }
   }
@@ -165,7 +165,7 @@ export class Builder {
 
     const dim0 = `KEY_${keyToField(inst.dim0)}`;
     const _dim0 = this.origin.getIndex(inst.dim0);
-    const offset = this.generator.vector2(_dim0.size, inst.values.length * 2);
+    const offset = this.generator.digits(_dim0.size, inst.values.length * 2);
     this.append(`/* ${fix(inst.name)} = */ new DigitsArrow<${typ0}>(${offset}, ${dim0})`);
   }
 
@@ -307,32 +307,34 @@ export class Builder {
     this.append('}}');
   }
 
-  constructVector1(inst: Vector1) {
+  // constructVector1(inst: Vector1) {
+  //   const type = this.lookupType(inst.name);
+  //   const typ0 = type.typeargs[0].name;
+  //   this.indextypes[inst.dim0] = typ0;
+
+  //   const dim0 = `KEY_${keyToField(inst.dim0)}`;
+  //   const _dim0 = this.origin.getIndex(inst.dim0);
+  //   const offset = this.generator.field(); // header
+  //   this.generator.vector1(_dim0.size);
+  //   this.append(`/* ${fix(inst.name)} = */ new Vector1Arrow<${fix(typ0)}>(${offset}, ${dim0})`);
+  // }
+
+  constructVector(inst: Vector) {
     const type = this.lookupType(inst.name);
-    const typ0 = type.typeargs[0].name;
-    this.indextypes[inst.dim0] = typ0;
+    const targs: string[] = [];
+    const dims: KeyIndex<string>[] = [];
+    for (let i = 0; i < type.typeargs.length; i++) {
+      const d = inst.dims[i];
+      const t = type.typeargs[i].name;
+      this.indextypes[d] = type.typeargs[i].name;
+      targs.push(fix(t));
+      dims.push(this.origin.getIndex(d));
+    }
+    const offset = this.generator.vector(dims);
 
-    const dim0 = `KEY_${keyToField(inst.dim0)}`;
-    const _dim0 = this.origin.getIndex(inst.dim0);
-    const offset = this.generator.field(); // header
-    this.generator.vector1(_dim0.size);
-    this.append(`/* ${fix(inst.name)} = */ new Vector1Arrow<${fix(typ0)}>(${offset}, ${dim0})`);
-  }
-
-  constructVector2(inst: Vector2) {
-    const type = this.lookupType(inst.name);
-    const typ0 = type.typeargs[0].name;
-    const typ1 = type.typeargs[1].name;
-    this.indextypes[inst.dim0] = typ0;
-    this.indextypes[inst.dim1] = typ1;
-
-    const dim0 = `KEY_${keyToField(inst.dim0)}`;
-    const dim1 = `KEY_${keyToField(inst.dim1)}`;
-    const _dim0 = this.origin.getIndex(inst.dim0);
-    const _dim1 = this.origin.getIndex(inst.dim1);
-    const offset = this.generator.field(); // header
-    this.generator.vector2(_dim0.size, _dim1.size);
-    this.append(`/* ${fix(inst.name)} = */ new Vector2Arrow<${fix(typ0)}, ${fix(typ1)}>(${offset}, ${dim0}, ${dim1})`);
+    this.append(`/* ${fix(inst.name)} = */ ` +
+      `new Vector${dims.length}Arrow<${targs.join(', ')}>` +
+      `(${offset}, ${dims.join(', ')})`);
   }
 
   private array(vals: string[], prefix: string): void {

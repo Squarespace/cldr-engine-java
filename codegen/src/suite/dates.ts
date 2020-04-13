@@ -22,7 +22,7 @@ const BASES: number[] = [
   1581527437123
 ];
 
-const buildDates = (name: string, dims: Dimension<TimePeriod>[]) => {
+const buildDates = (name: string, dims: Dimension<Partial<TimePeriod>>[]) => {
   console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
@@ -43,8 +43,8 @@ const buildDates = (name: string, dims: Dimension<TimePeriod>[]) => {
     const results: any[] = [];
     for (const base of BASES) {
       const start = cldr.Calendars.toGregorianDate({ date: base, zoneId });
-      const e1 = start.add(o as TimePeriod);
-      const e2 = start.subtract(o as TimePeriod);
+      const e1 = start.add(o as Partial<TimePeriod>);
+      const e2 = start.subtract(o as Partial<TimePeriod>);
       const d1 = start.difference(e1);
       const d2 = start.difference(e2);
       results.push(e1.unixEpoch());
@@ -67,20 +67,20 @@ const buildDates = (name: string, dims: Dimension<TimePeriod>[]) => {
 };
 
 export const dateMathSuite = (root: string) => {
-  const datedims: Dimension<TimePeriod>[] = [
-    new Dimension<TimePeriod>('year', VALUES),
-    new Dimension<TimePeriod>('month', VALUES),
-    new Dimension<TimePeriod>('week', VALUES),
-    new Dimension<TimePeriod>('day', VALUES),
+  const datedims: Dimension<Partial<TimePeriod>>[] = [
+    new Dimension<Partial<TimePeriod>>('year', VALUES),
+    new Dimension<Partial<TimePeriod>>('month', VALUES),
+    new Dimension<Partial<TimePeriod>>('week', VALUES),
+    new Dimension<Partial<TimePeriod>>('day', VALUES),
   ];
 
   buildDates(join(root, 'datemath-dates.txt'), datedims);
 
-  const timedims: Dimension<TimePeriod>[] = [
-    new Dimension<TimePeriod>('hour', VALUES),
-    new Dimension<TimePeriod>('minute', VALUES),
-    new Dimension<TimePeriod>('second', VALUES),
-    new Dimension<TimePeriod>('millis', VALUES)
+  const timedims: Dimension<Partial<TimePeriod>>[] = [
+    new Dimension<Partial<TimePeriod>>('hour', VALUES),
+    new Dimension<Partial<TimePeriod>>('minute', VALUES),
+    new Dimension<Partial<TimePeriod>>('second', VALUES),
+    new Dimension<Partial<TimePeriod>>('millis', VALUES)
   ];
 
   buildDates(join(root, 'datemath-times.txt'), timedims);

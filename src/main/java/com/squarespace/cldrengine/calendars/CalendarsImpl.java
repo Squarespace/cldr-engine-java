@@ -16,6 +16,7 @@ import com.squarespace.cldrengine.api.Calendars;
 import com.squarespace.cldrengine.api.ContextTransformFieldType;
 import com.squarespace.cldrengine.api.ContextType;
 import com.squarespace.cldrengine.api.DateFieldWidthType;
+import com.squarespace.cldrengine.api.DateFormatAltOptions;
 import com.squarespace.cldrengine.api.DateFormatOptions;
 import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
 import com.squarespace.cldrengine.api.DateRawFormatOptions;
@@ -24,6 +25,7 @@ import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.GregorianDate;
 import com.squarespace.cldrengine.api.ISO8601Date;
 import com.squarespace.cldrengine.api.JapaneseDate;
+import com.squarespace.cldrengine.api.Option;
 import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.PersianDate;
@@ -57,6 +59,8 @@ public class CalendarsImpl implements Calendars {
           .width(DateFieldWidthType.WIDE)
           .maximumFractionDigits(0)
           .group(true);
+
+  private static final DateFormatAltOptions DEFAULT_ALT_OPTIONS = DateFormatAltOptions.build();
 
   private final Bundle bundle;
   private final Internals internals;
@@ -276,7 +280,7 @@ public class CalendarsImpl implements Calendars {
     date = convertDateTo(calendar, date);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     DateFormatRequest req = this.manager.getDateFormatRequest(date, options, params);
-    CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get());
+    CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get(), options.alt);
     return this.internals.calendars.formatDateTime(calendar, ctx, value, req.date, req.time, req.wrapper);
   }
 
@@ -298,7 +302,7 @@ public class CalendarsImpl implements Calendars {
           .numberSystem(options.numberSystem)
           .skeleton(req.skeleton);
       DateFormatRequest r = this.manager.getDateFormatRequest(start, opts, params);
-      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get());
+      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get(), options.alt);
       R _start = this.internals.calendars.formatDateTime(calendar, ctx, value, r.date, r.time, r.wrapper);
       ctx.date = end;
       R _end = this.internals.calendars.formatDateTime(calendar, ctx, value, r.date, r.time, r.wrapper);
@@ -309,12 +313,12 @@ public class CalendarsImpl implements Calendars {
 
     R _date = null;
     if (req.date != null) {
-      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get());
+      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get(), options.alt);
       _date = this.internals.calendars.formatDateTime(calendar, ctx, value, req.date, null, null);
     }
 
     if (req.range != null) {
-      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get());
+      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get(), options.alt);
       R _range = this.internals.calendars.formatInterval(calendar, ctx, value, end, req.range);
       if (_date == null) {
         return _range;
@@ -345,14 +349,15 @@ public class CalendarsImpl implements Calendars {
     CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
     date = convertDateTo(calendar, date);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
-    CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get());
+    CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get(), options.alt);
     return this.internals.calendars.formatDateTime(calendar, ctx, value, pattern, null, null);
   }
 
-  protected <T extends CalendarDate> CalendarContext<T> _context(T date, NumberParams params, ContextType context) {
+  protected <T extends CalendarDate> CalendarContext<T> _context(T date, NumberParams params, ContextType context,
+      Option<DateFormatAltOptions> alt) {
     Map<ContextTransformFieldType, String> transform = this.privateApi.getContextTransformInfo();
     return new CalendarContext<T>(date, this.bundle, params.system,
-        params.latnSystem, context, transform);
+        params.latnSystem, context, transform, alt.or(DEFAULT_ALT_OPTIONS));
   }
 
   protected CalendarDate convertDateTo(CalendarType type, CalendarDate date) {

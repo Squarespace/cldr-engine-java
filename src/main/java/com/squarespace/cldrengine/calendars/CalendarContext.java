@@ -6,6 +6,7 @@ import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.CalendarDate;
 import com.squarespace.cldrengine.api.ContextTransformFieldType;
 import com.squarespace.cldrengine.api.ContextType;
+import com.squarespace.cldrengine.api.DateFormatAltOptions;
 import com.squarespace.cldrengine.numbers.NumberingSystem;
 
 import lombok.AllArgsConstructor;
@@ -45,4 +46,9 @@ class CalendarContext<T extends CalendarDate> {
    */
   Map<ContextTransformFieldType, String> transform;
 
+
+  /**
+   * Alt formatting options.
+   */
+  DateFormatAltOptions alt;
 }

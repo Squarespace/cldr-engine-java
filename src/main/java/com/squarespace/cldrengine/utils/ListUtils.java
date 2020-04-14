@@ -13,4 +13,8 @@ public class ListUtils {
     result.addAll(b);
     return result;
   }
+
+  public static <T> T[] array(@SuppressWarnings("unchecked") T ... args) {
+    return args;
+  }
 }

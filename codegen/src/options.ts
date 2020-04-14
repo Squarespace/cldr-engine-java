@@ -9,9 +9,12 @@ type Type =
   | 'CurrencyFormatStyleType'
   | 'CurrencySymbolWidthType'
   | 'DateFieldWidthType'
+  | 'DateFormatAltOptions'
+  | 'DayPeriodAltType'
   | 'Decimal'
   | 'DecimalFormatStyleType'
   | 'Double'
+  | 'EraAltType'
   | 'EraWidthType'
   | 'FieldWidthType'
   | 'FormatWidthType'
@@ -104,14 +107,31 @@ const DateFormatOptions =
     .field('wrap', 'FormatWidthType')
     .field('skeleton', 'String')
     .field('calendar', 'CalendarType')
-    .field('numberSystem', 'String');
+    .field('numberSystem', 'String')
+    .field('alt', 'DateFormatAltOptions');
+
+const DateFormatAltOptions =
+  new Option('DateFormatAltOptions')
+    .field('era', 'EraAltType')
+    .field('dayPeriod', 'DayPeriodAltType');
+
+const DateIntervalFormatOptions =
+  new Option('DateIntervalFormatOptions')
+    .field('skeleton', 'String')
+    .field('date', 'String')
+    .field('time', 'String')
+    .field('context', 'ContextType')
+    .field('calendar', 'CalendarType')
+    .field('numberSystem', 'String')
+    .field('alt', 'DateFormatAltOptions');
 
 const DateRawFormatOptions =
   new Option('DateRawFormatOptions')
     .field('pattern', 'String')
     .field('calendar', 'CalendarType')
     .field('numberSystem', 'String')
-    .field('context', 'ContextType');
+    .field('context', 'ContextType')
+    .field('alt', 'DateFormatAltOptions');
 
 const DecimalAdjustOptions =
   new Option('DecimalAdjustOptions')
@@ -129,15 +149,6 @@ const DecimalFormatOptions =
     .field('divisor', 'Integer')
     .field('context', 'ContextType')
     .field('errors', 'String');
-
-const DateIntervalFormatOptions =
-  new Option('DateIntervalFormatOptions')
-    .field('skeleton', 'String')
-    .field('date', 'String')
-    .field('time', 'String')
-    .field('context', 'ContextType')
-    .field('calendar', 'CalendarType')
-    .field('numberSystem', 'String');
 
 const DisplayNameOptions =
   new Option('DisplayNameOptions')
@@ -213,6 +224,7 @@ const INDEX = [
   CurrencyFormatOptions,
   DateFieldFormatOptions,
   DateFormatOptions,
+  DateFormatAltOptions,
   DateRawFormatOptions,
   DateIntervalFormatOptions,
   DecimalAdjustOptions,

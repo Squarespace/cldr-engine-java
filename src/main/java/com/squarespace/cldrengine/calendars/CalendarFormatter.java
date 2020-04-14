@@ -1,5 +1,6 @@
 package com.squarespace.cldrengine.calendars;
 
+import static com.squarespace.cldrengine.utils.ListUtils.array;
 import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 
 import com.squarespace.cldrengine.api.Bundle;
@@ -66,7 +67,7 @@ class CalendarFormatter<T extends CalendarDate> {
           value = this.cal.eras.get(ctx.bundle,
               w == 5 ? EraWidthType.NARROW : w == 4 ? EraWidthType.NAMES : EraWidthType.ABBR,
                   Long.toString(ctx.date.era()),
-                  EraAltType.NONE);
+                  array(ctx.alt.era.get(), EraAltType.NONE));
           if (w != 5) {
             field = w == 4 ? ContextTransformFieldType.ERA_NAME : ContextTransformFieldType.ERA_ABBR;
           }
@@ -202,7 +203,7 @@ class CalendarFormatter<T extends CalendarDate> {
         case 'a':
           type = "dayperiod";
           value = this.cal.format.dayPeriods.get(ctx.bundle, widthKey(w),
-              ctx.date.hourOfDay() < 12 ? "am" : "pm", DayPeriodAltType.NONE);
+              ctx.date.hourOfDay() < 12 ? "am" : "pm", array(ctx.alt.dayPeriod.get(), DayPeriodAltType.NONE));
           break;
 
         // DAY PERIOD EXTENDED
@@ -362,9 +363,10 @@ class CalendarFormatter<T extends CalendarDate> {
       key2ext = hour == 0 ? "midnight" : hour == 12 ? "noon" : key2;
     }
     Vector3Arrow<String, String, DayPeriodAltType> format = this.cal.format.dayPeriods;
+    DayPeriodAltType[] alt = array(ctx.alt.dayPeriod.get(), DayPeriodAltType.NONE);
     // Try extended and if it doesn't exist, fall back to am/pm
-    String result = format.get(ctx.bundle, key1, key2ext, DayPeriodAltType.NONE);
-    return result.equals("") ? format.get(ctx.bundle, key1, key2, DayPeriodAltType.NONE) : result;
+    String result = format.get(ctx.bundle, key1, key2ext, alt);
+    return result.equals("") ? format.get(ctx.bundle, key1, key2, alt) : result;
   }
 
   protected String dayPeriodFlex(CalendarContext<T> ctx, DateTimeNode node) {
@@ -372,7 +374,8 @@ class CalendarFormatter<T extends CalendarDate> {
     String key = this.internals.calendars.flexDayPeriod(ctx.bundle, minutes);
     String res = null;
     if (key != null) {
-      res = this.cal.format.dayPeriods.get(ctx.bundle, widthKey(node.width), key, DayPeriodAltType.NONE);
+      DayPeriodAltType[] alt = array(ctx.alt.dayPeriod.get(), DayPeriodAltType.NONE);
+      res = this.cal.format.dayPeriods.get(ctx.bundle, widthKey(node.width), key, alt);
     }
     return isEmpty(res) ? this.dayPeriodExt(ctx, node) : res;
   }

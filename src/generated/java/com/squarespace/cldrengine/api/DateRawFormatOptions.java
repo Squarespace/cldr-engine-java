@@ -11,6 +11,7 @@ public class DateRawFormatOptions {
   public final Option<CalendarType> calendar = Option.option();
   public final Option<String> numberSystem = Option.option();
   public final Option<ContextType> context = Option.option();
+  public final Option<DateFormatAltOptions> alt = Option.option();
 
   public DateRawFormatOptions() {
   }
@@ -20,6 +21,7 @@ public class DateRawFormatOptions {
     this.calendar.set(arg.calendar);
     this.numberSystem.set(arg.numberSystem);
     this.context.set(arg.context);
+    this.alt.set(arg.alt);
   }
 
   public DateRawFormatOptions pattern(String arg) {
@@ -62,6 +64,16 @@ public class DateRawFormatOptions {
     return this;
   }
 
+  public DateRawFormatOptions alt(DateFormatAltOptions arg) {
+    this.alt.set(arg);
+    return this;
+  }
+
+  public DateRawFormatOptions alt(Option<DateFormatAltOptions> arg) {
+    this.alt.set(arg);
+    return this;
+  }
+
   public static DateRawFormatOptions build() {
     return new DateRawFormatOptions();
   }
@@ -83,6 +95,7 @@ public class DateRawFormatOptions {
     this.calendar.setIf(o.calendar);
     this.numberSystem.setIf(o.numberSystem);
     this.context.setIf(o.context);
+    this.alt.setIf(o.alt);
   }
 
   public DateRawFormatOptions merge(DateRawFormatOptions ...args) {
@@ -98,6 +111,7 @@ public class DateRawFormatOptions {
     this.calendar.set(o.calendar);
     this.numberSystem.set(o.numberSystem);
     this.context.set(o.context);
+    this.alt.set(o.alt);
   }
 
 
@@ -120,6 +134,9 @@ public class DateRawFormatOptions {
     }
     if (context.ok()) {
       buf.append("context=").append(context).append(' ');
+    }
+    if (alt.ok()) {
+      buf.append("alt=").append(alt).append(' ');
     }
   }
 

@@ -251,7 +251,7 @@ export class Builder {
       }
       this.construct(inst.block[i]);
     }
-    this.append('\n');
+    this.append('\n', true);
     this.exit();
     this.pop();
     this.append(')');
@@ -276,13 +276,13 @@ export class Builder {
         }
         this.construct(inst.block[i]);
       }
-      this.append('\n');
+      this.append('\n', true);
       this.exit();
       this.append('));\n');
       this.pop();
     }
 
-    this.append('\n');
+    this.append('\n', true);
     this.exit();
     this.append('}}');
   }
@@ -304,7 +304,7 @@ export class Builder {
 
     this.append(`/* ${fix(inst.name)} = */ ` +
       `new Vector${dims.length}Arrow<${targs.join(', ')}>` +
-      `(${offset}, ${inst.dims.map(n => `KEY_${keyToField(n)}`)})`);
+      `(${offset}, ${inst.dims.map(n => `KEY_${keyToField(n)}`).join(', ')})`);
   }
 
   private array(vals: string[], prefix: string): void {

@@ -16,7 +16,7 @@ public class Factors {
   public static final String PI = "3.14159265358979323846";
 
   public static final List<FactorDef> ACCELERATION = Arrays.asList(
-      def(UnitType.G_FORCE, "9.80665", UnitType.METER_PER_SECOND_SQUARED));
+      def(UnitType.G_FORCE, "9.80665", UnitType.METER_PER_SQUARE_SECOND));
 
   public static final List<FactorDef> ANGLE = Arrays.asList(
       def(UnitType.REVOLUTION, "360", UnitType.DEGREE),
@@ -37,7 +37,7 @@ public class Factors {
       def(UnitType.SQUARE_FOOT, "144", UnitType.SQUARE_INCH));
 
   public static final List<FactorDef> CONSUMPTION = Arrays.asList(
-      def(UnitType.LITER_PER_100KILOMETERS, "1/100", UnitType.LITER_PER_KILOMETER));
+      def(UnitType.LITER_PER_100_KILOMETER, "1/100", UnitType.LITER_PER_KILOMETER));
 
   public static final List<FactorDef> DIGITAL_BASE = concat(Arrays.asList(
       def(UnitType.BYTE, "8", UnitType.BIT)), kfactors("1000",
@@ -149,9 +149,9 @@ public class Factors {
 
   public static final List<FactorDef> PRESSURE = Arrays.asList(
       def(UnitType.HECTOPASCAL, "1", UnitType.MILLIBAR),
-      def(UnitType.HECTOPASCAL, "129032000000 / 8896443230521", UnitType.POUND_PER_SQUARE_INCH),
-      def(UnitType.INCH_HG, "33.86389", UnitType.HECTOPASCAL),
-      def(UnitType.MILLIMETER_OF_MERCURY, "1013.25 / 760", UnitType.HECTOPASCAL));
+      def(UnitType.HECTOPASCAL, "129032000000 / 8896443230521", UnitType.POUND_FORCE_PER_SQUARE_INCH),
+      def(UnitType.INCH_OFHG, "33.86389", UnitType.HECTOPASCAL),
+      def(UnitType.MILLIMETER_OFHG, "1013.25 / 760", UnitType.HECTOPASCAL));
 
   public static final List<FactorDef> SPEED = Arrays.asList(
       def(UnitType.KILOMETER_PER_HOUR, "5 / 18", UnitType.METER_PER_SECOND),
@@ -159,7 +159,7 @@ public class Factors {
       def(UnitType.KNOT, "463 / 900", UnitType.METER_PER_SECOND));
 
   public static final List<FactorDef> TORQUE = Arrays.asList(
-      def(UnitType.POUND_FOOT, "1.35582", UnitType.NEWTON_METER));
+      def(UnitType.POUND_FORCE_FOOT, "1.35582", UnitType.NEWTON_METER));
 
   public static final List<FactorDef> VOLUME_BASE = Arrays.asList(
       def(UnitType.CUBIC_KILOMETER, "1000000000", UnitType.CUBIC_METER),

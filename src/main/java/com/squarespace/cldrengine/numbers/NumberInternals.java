@@ -20,6 +20,7 @@ import com.squarespace.cldrengine.api.DecimalAdjustOptions;
 import com.squarespace.cldrengine.api.DecimalFormatOptions;
 import com.squarespace.cldrengine.api.DecimalFormatStyleType;
 import com.squarespace.cldrengine.api.MathContext;
+import com.squarespace.cldrengine.api.NumberFormatOptions;
 import com.squarespace.cldrengine.api.NumberSymbolType;
 import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.api.Part;
@@ -87,7 +88,7 @@ public class NumberInternals {
   public Decimal adjustDecimal(Decimal num, DecimalAdjustOptions options) {
     options = defaulter(options, DecimalAdjustOptions::build)
         .mergeIf(ADJUST_OPTIONS);
-    NumberContext ctx = new NumberContext(options, options.round.get(), false, false);
+    NumberContext ctx = new NumberContext(NumberFormatOptions.fromSuper(options), options.round.get(), false, false);
     ctx.setPattern(ADJUST_PATTERN, false);
     return ctx.adjust(num);
   }

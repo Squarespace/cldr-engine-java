@@ -63,6 +63,14 @@ public class RelativeTimeFieldFormatOptions extends NumberFormatOptions {
     return this;
   }
 
+  public static RelativeTimeFieldFormatOptions fromSuper(NumberFormatOptions arg) {
+    RelativeTimeFieldFormatOptions o = RelativeTimeFieldFormatOptions.build();
+    o.group.setIf(arg.group);
+    o.numberSystem.setIf(arg.numberSystem);
+    o.trimZeroFractions.setIf(arg.trimZeroFractions);
+    return o;
+  }
+
   public RelativeTimeFieldFormatOptions group(Boolean arg) {
     this.group.set(arg);
     return this;
@@ -80,6 +88,16 @@ public class RelativeTimeFieldFormatOptions extends NumberFormatOptions {
 
   public RelativeTimeFieldFormatOptions numberSystem(Option<String> arg) {
     this.numberSystem.set(arg);
+    return this;
+  }
+
+  public RelativeTimeFieldFormatOptions trimZeroFractions(Boolean arg) {
+    this.trimZeroFractions.set(arg);
+    return this;
+  }
+
+  public RelativeTimeFieldFormatOptions trimZeroFractions(Option<Boolean> arg) {
+    this.trimZeroFractions.set(arg);
     return this;
   }
 

@@ -51,6 +51,15 @@ public class RelativeTimeFormatOptions extends RelativeTimeFieldFormatOptions {
     return this;
   }
 
+  public static RelativeTimeFormatOptions fromSuper(RelativeTimeFieldFormatOptions arg) {
+    RelativeTimeFormatOptions o = RelativeTimeFormatOptions.build();
+    o.width.setIf(arg.width);
+    o.context.setIf(arg.context);
+    o.numericOnly.setIf(arg.numericOnly);
+    o.alwaysNow.setIf(arg.alwaysNow);
+    return o;
+  }
+
   public RelativeTimeFormatOptions width(DateFieldWidthType arg) {
     this.width.set(arg);
     return this;
@@ -108,6 +117,16 @@ public class RelativeTimeFormatOptions extends RelativeTimeFieldFormatOptions {
 
   public RelativeTimeFormatOptions numberSystem(Option<String> arg) {
     this.numberSystem.set(arg);
+    return this;
+  }
+
+  public RelativeTimeFormatOptions trimZeroFractions(Boolean arg) {
+    this.trimZeroFractions.set(arg);
+    return this;
+  }
+
+  public RelativeTimeFormatOptions trimZeroFractions(Option<Boolean> arg) {
+    this.trimZeroFractions.set(arg);
     return this;
   }
 

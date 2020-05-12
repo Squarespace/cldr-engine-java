@@ -75,6 +75,14 @@ public class DecimalFormatOptions extends NumberFormatOptions {
     return this;
   }
 
+  public static DecimalFormatOptions fromSuper(NumberFormatOptions arg) {
+    DecimalFormatOptions o = DecimalFormatOptions.build();
+    o.group.setIf(arg.group);
+    o.numberSystem.setIf(arg.numberSystem);
+    o.trimZeroFractions.setIf(arg.trimZeroFractions);
+    return o;
+  }
+
   public DecimalFormatOptions group(Boolean arg) {
     this.group.set(arg);
     return this;
@@ -92,6 +100,16 @@ public class DecimalFormatOptions extends NumberFormatOptions {
 
   public DecimalFormatOptions numberSystem(Option<String> arg) {
     this.numberSystem.set(arg);
+    return this;
+  }
+
+  public DecimalFormatOptions trimZeroFractions(Boolean arg) {
+    this.trimZeroFractions.set(arg);
+    return this;
+  }
+
+  public DecimalFormatOptions trimZeroFractions(Option<Boolean> arg) {
+    this.trimZeroFractions.set(arg);
     return this;
   }
 

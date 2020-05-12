@@ -179,7 +179,8 @@ const MessageFormatterOptions =
 const NumberFormatOptions =
   new Option('NumberFormatOptions', 'DecimalAdjustOptions')
     .field('group', 'Boolean')
-    .field('numberSystem', 'String');
+    .field('numberSystem', 'String')
+    .field('trimZeroFractions', 'Boolean');
 
 const Quantity =
   new Option('Quantity')
@@ -274,6 +275,7 @@ const make = (pkg: string, opt: Option) => {
   s += '\n';
   s += constructors(opt);
   s += setters(opt.name, opt.fields);
+  s += makeFromSuper(opt.name, opt.extend);
   s += makeExtend(opt.name, opt.extend);
   s += builder(opt.name);
   s += merger(opt, true);
@@ -309,6 +311,23 @@ const makeExtend = (cls: string, extend?: string) => {
   const parent = INDEX[extend];
   s += setters(cls, parent.fields);
   s += makeExtend(cls, parent.extend);
+  return s;
+};
+
+const makeFromSuper = (cls: string, extend?: string) => {
+  let s = '';
+  if (!extend) {
+    return s;
+  }
+
+  const parent = INDEX[extend];
+  s += `  public static ${cls} fromSuper(${extend} arg) {\n`;
+  s += `    ${cls} o = ${cls}.build();\n`;
+  for (const { name, type } of parent.fields) {
+    s += `    o.${name}.setIf(arg.${name});\n`;
+  }
+  s += `    return o;\n`;
+  s += `  }\n\n`;
   return s;
 };
 

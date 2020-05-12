@@ -63,6 +63,14 @@ public class CurrencyFormatOptions extends NumberFormatOptions {
     return this;
   }
 
+  public static CurrencyFormatOptions fromSuper(NumberFormatOptions arg) {
+    CurrencyFormatOptions o = CurrencyFormatOptions.build();
+    o.group.setIf(arg.group);
+    o.numberSystem.setIf(arg.numberSystem);
+    o.trimZeroFractions.setIf(arg.trimZeroFractions);
+    return o;
+  }
+
   public CurrencyFormatOptions group(Boolean arg) {
     this.group.set(arg);
     return this;
@@ -80,6 +88,16 @@ public class CurrencyFormatOptions extends NumberFormatOptions {
 
   public CurrencyFormatOptions numberSystem(Option<String> arg) {
     this.numberSystem.set(arg);
+    return this;
+  }
+
+  public CurrencyFormatOptions trimZeroFractions(Boolean arg) {
+    this.trimZeroFractions.set(arg);
+    return this;
+  }
+
+  public CurrencyFormatOptions trimZeroFractions(Option<Boolean> arg) {
+    this.trimZeroFractions.set(arg);
     return this;
   }
 

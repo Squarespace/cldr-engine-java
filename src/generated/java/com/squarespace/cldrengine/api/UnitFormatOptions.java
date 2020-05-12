@@ -51,6 +51,14 @@ public class UnitFormatOptions extends NumberFormatOptions {
     return this;
   }
 
+  public static UnitFormatOptions fromSuper(NumberFormatOptions arg) {
+    UnitFormatOptions o = UnitFormatOptions.build();
+    o.group.setIf(arg.group);
+    o.numberSystem.setIf(arg.numberSystem);
+    o.trimZeroFractions.setIf(arg.trimZeroFractions);
+    return o;
+  }
+
   public UnitFormatOptions group(Boolean arg) {
     this.group.set(arg);
     return this;
@@ -68,6 +76,16 @@ public class UnitFormatOptions extends NumberFormatOptions {
 
   public UnitFormatOptions numberSystem(Option<String> arg) {
     this.numberSystem.set(arg);
+    return this;
+  }
+
+  public UnitFormatOptions trimZeroFractions(Boolean arg) {
+    this.trimZeroFractions.set(arg);
+    return this;
+  }
+
+  public UnitFormatOptions trimZeroFractions(Option<Boolean> arg) {
+    this.trimZeroFractions.set(arg);
     return this;
   }
 

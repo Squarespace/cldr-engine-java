@@ -9,6 +9,7 @@ public class NumberFormatOptions extends DecimalAdjustOptions {
 
   public final Option<Boolean> group = Option.option();
   public final Option<String> numberSystem = Option.option();
+  public final Option<Boolean> trimZeroFractions = Option.option();
 
   public NumberFormatOptions() {
   }
@@ -17,6 +18,7 @@ public class NumberFormatOptions extends DecimalAdjustOptions {
     super(arg);
     this.group.set(arg.group);
     this.numberSystem.set(arg.numberSystem);
+    this.trimZeroFractions.set(arg.trimZeroFractions);
   }
 
   public NumberFormatOptions group(Boolean arg) {
@@ -37,6 +39,27 @@ public class NumberFormatOptions extends DecimalAdjustOptions {
   public NumberFormatOptions numberSystem(Option<String> arg) {
     this.numberSystem.set(arg);
     return this;
+  }
+
+  public NumberFormatOptions trimZeroFractions(Boolean arg) {
+    this.trimZeroFractions.set(arg);
+    return this;
+  }
+
+  public NumberFormatOptions trimZeroFractions(Option<Boolean> arg) {
+    this.trimZeroFractions.set(arg);
+    return this;
+  }
+
+  public static NumberFormatOptions fromSuper(DecimalAdjustOptions arg) {
+    NumberFormatOptions o = NumberFormatOptions.build();
+    o.round.setIf(arg.round);
+    o.minimumIntegerDigits.setIf(arg.minimumIntegerDigits);
+    o.maximumFractionDigits.setIf(arg.maximumFractionDigits);
+    o.minimumFractionDigits.setIf(arg.minimumFractionDigits);
+    o.maximumSignificantDigits.setIf(arg.maximumSignificantDigits);
+    o.minimumSignificantDigits.setIf(arg.minimumSignificantDigits);
+    return o;
   }
 
   public NumberFormatOptions round(RoundingModeType arg) {
@@ -119,6 +142,7 @@ public class NumberFormatOptions extends DecimalAdjustOptions {
     super._mergeIf(o);
     this.group.setIf(o.group);
     this.numberSystem.setIf(o.numberSystem);
+    this.trimZeroFractions.setIf(o.trimZeroFractions);
   }
 
   public NumberFormatOptions merge(NumberFormatOptions ...args) {
@@ -133,6 +157,7 @@ public class NumberFormatOptions extends DecimalAdjustOptions {
     super._merge(o);
     this.group.set(o.group);
     this.numberSystem.set(o.numberSystem);
+    this.trimZeroFractions.set(o.trimZeroFractions);
   }
 
 
@@ -150,6 +175,9 @@ public class NumberFormatOptions extends DecimalAdjustOptions {
     }
     if (numberSystem.ok()) {
       buf.append("numberSystem=").append(numberSystem).append(' ');
+    }
+    if (trimZeroFractions.ok()) {
+      buf.append("trimZeroFractions=").append(trimZeroFractions).append(' ');
     }
   }
 

@@ -2,13 +2,14 @@ package com.squarespace.cldrengine.numbers;
 
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.DecimalAdjustOptions;
+import com.squarespace.cldrengine.api.NumberFormatOptions;
 import com.squarespace.cldrengine.api.Option;
 import com.squarespace.cldrengine.api.RoundingModeType;
 import com.squarespace.cldrengine.parsing.NumberPattern;
 
 public class NumberContext {
 
-  public final DecimalAdjustOptions options;
+  public final NumberFormatOptions options;
   public final RoundingModeType roundingMode;
   public boolean useSignificant;
   public int minInt = -1;
@@ -18,12 +19,12 @@ public class NumberContext {
   public int minSig = -1;
   public int currencyDigits = -1;
 
-  public NumberContext(DecimalAdjustOptions options, RoundingModeType roundingMode,
+  public NumberContext(NumberFormatOptions options, RoundingModeType roundingMode,
       boolean compact, boolean scientific) {
     this(options, roundingMode, compact, scientific, -1);
   }
 
-  public NumberContext(DecimalAdjustOptions options, RoundingModeType roundingMode,
+  public NumberContext(NumberFormatOptions options, RoundingModeType roundingMode,
       boolean compact, boolean scientific, int currencyDigits) {
     this.options = options;
     this.roundingMode = roundingMode;
@@ -110,8 +111,13 @@ public class NumberContext {
       n = n.setScale(scale, this.roundingMode);
       n = n.stripTrailingZeros();
 
-      // Ensure minimum fraction digits is met.
-      if (n.scale() < this.minFrac) {
+      // If user hasn't requested minimum fraction digits, and requested to trim zero fractions,
+      // and the number is an integer, force it to render as a whole nujmber.
+      if (this.options.trimZeroFractions.or(false) && !this.options.minimumFractionDigits.ok() && n.isInteger()) {
+        // Trim zeros when whole number display is possible
+        n = n.setScale(0, this.roundingMode);
+      } else if (n.scale() < this.minFrac) {
+        // Ensure minimum fraction digits is met.
         n = n.setScale(this.minFrac, this.roundingMode);
       }
     }

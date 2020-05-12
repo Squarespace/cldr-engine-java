@@ -218,6 +218,9 @@ public class NumberSuiteTest extends CoverageSuite {
         case "maximumSignificantDigits":
           opts.maximumSignificantDigits(intValue(raw));
           break;
+        case "trimZeroFractions":
+          opts.trimZeroFractions(boolValue(raw));
+          break;
       }
     }
     return opts;
@@ -247,6 +250,9 @@ public class NumberSuiteTest extends CoverageSuite {
           break;
         case "nu":
           opts.numberSystem(stringValue(raw));
+          break;
+        case "trimZeroFractions":
+          opts.trimZeroFractions(boolValue(raw));
           break;
       }
     }

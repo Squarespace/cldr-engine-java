@@ -80,6 +80,7 @@ const DECADJ_MINSIG = new Dimension<DecimalAdjustOptions>('minimumSignificantDig
 const DECADJ_MAXSIG = new Dimension<DecimalAdjustOptions>('maximumSignificantDigits', MIN_MAX);
 
 const NUMFMT_GROUP = new Dimension<NumberFormatOptions>('group', BOOLEANS);
+const NUMFMT_TRIMZERO = new Dimension<NumberFormatOptions>('trimZeroFractions', BOOLEANS);
 const NUMFMT_NUM_SYSTEMS = new Dimension<NumberFormatOptions>('nu', NUM_SYSTEMS);
 
 const DECFMT_DIVISOR = new Dimension<DecimalFormatOptions>('divisor', DIVISORS);
@@ -189,7 +190,7 @@ export const currencySuite = (root: string) => {
   dims = [CURFMT_STYLE, NUMFMT_NUM_SYSTEMS, NUMFMT_GROUP];
   buildCurrency(join(root, 'currencyformat-numsystems.txt'), dims, CURRENCIES, f);
 
-  dims = [CURFMT_CASH, CURFMT_STYLE, CURFMT_SYMBOLWIDTH, NUMFMT_GROUP];
+  dims = [CURFMT_CASH, CURFMT_STYLE, CURFMT_SYMBOLWIDTH, NUMFMT_GROUP, NUMFMT_TRIMZERO];
   buildCurrency(join(root, 'currencyformat.txt'), dims, CURRENCIES, f);
 
   dims = [CURFMT_CASH, CURFMT_STYLE_COMPACT, CURFMT_DIVISOR, CURFMT_SYMBOLWIDTH, NUMFMT_GROUP];

@@ -10,7 +10,7 @@ import {
   Scope,
   ScopeMap,
   Vector,
-} from '@phensley/cldr-schema';
+} from '@phensley/cldr-core';
 
 const IMPORTS = [
   'java.util.HashMap'

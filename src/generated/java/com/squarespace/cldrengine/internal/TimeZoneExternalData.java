@@ -12,8 +12,8 @@ public class TimeZoneExternalData {
   public static final String METAZONEDATA =
     "{\"zoneindex\":\"8d 1 3 8 c d e k 13 p r 1b 11 15 aq 17 1c 1d 1e 1f 1g 1h 1k 23 28 2e 3h 1l 3x 1m 1n" +
     " 1o 1p 1q 1r 1t 2d 1u 1v 1w 1x 1y 1z 20 21 22 24 25 26 27 29 2b 2c 2f 2g 2h 3p 2j 2k 2l 2m 2n 2p 2q " +
-    "2r 2s 2t 2u 2v 2w 2x 30 31 32 33 34 35 3d 36 37 38 39 3a 3b 3c 3e 3f 3g 3i 3o 3j 3l 3m 3n 3q 3r 3s 3" +
-    "u 3v 3w 3y 3z 40 41 42 43 44 45 47 48 49 4a 4b 4c 4d 4e 4f 4g 4h 4i 4j 4l 5e 4m 4n 4o 4p 4q 4r 4s 4t" +
+    "2r 2s 2t 2u 2w 2x 30 31 32 33 34 35 3d 36 37 38 39 3a 3b 3c 3e 3f 3g 3i 3o 3j 3l 3m 3n 3q 3r 3s 3u 3" +
+    "v 3w 3y 3z 40 41 42 43 44 45 47 48 49 4a 4b 4c 4d 4e 2v 4f 4g 4h 4i 4j 4l 5e 4m 4n 4o 4p 4q 4r 4s 4t" +
     " 4u 4w 4x 4y 4z 50 51 53 58 59 5a 5b 5c 5d 5f 5g 5h 5i 5j 5k 5l 5m 5n 5o 5q 5r 5s 5t 5u 5x 5y 5z 60 " +
     "61 62 63 64 66 80 -1 68 69 6a 6c 6d 6e 6f 6g 6h 76 6j 6k 6l 6m 7k 6n 6o 6p 6q 6r 6s 6t 6u 6v 6w 6x 6" +
     "b 6y 6z 70 72 73 74 75 77 78 79 7a 7b 7d 7e 7f 7g 7h 7j 7l 7m 7n 7o 7p 7q 7r 7s 7t 7u 7v 7w -1 7x 7y" +
@@ -128,18 +128,18 @@ public class TimeZoneExternalData {
     "2:Africa/Lusaka|11:Africa/Malabo|8:Africa/Maseru|8:Africa/Mbabane|14:Africa/Mogadishu|11:Africa/Niam" +
     "ey|0:Africa/Nouakchott|0:Africa/Ouagadougou|11:Africa/Porto-Novo|122:America/Anguilla|122:America/An" +
     "tigua|56:America/Aruba|23:America/Buenos_Aires|24:America/Catamarca|117:America/Cayman|36:America/Co" +
-    "ral_Harbour|25:America/Cordoba|122:America/Dominica|122:America/Grenada|122:America/Guadeloupe|77:Am" +
-    "erica/Indianapolis|26:America/Jujuy|56:America/Kralendijk|89:America/Louisville|56:America/Lower_Pri" +
-    "nces|122:America/Marigot|28:America/Mendoza|122:America/Montserrat|143:America/Santa_Isabel|122:Amer" +
-    "ica/St_Barthelemy|122:America/St_Kitts|122:America/St_Lucia|122:America/St_Thomas|122:America/St_Vin" +
-    "cent|122:America/Tortola|352:Antarctica/McMurdo|317:Arctic/Longyearbyen|215:Asia/Aden|212:Asia/Bahra" +
-    "in|197:Asia/Calcutta|195:Asia/Katmandu|215:Asia/Kuwait|180:Asia/Muscat|169:Asia/Phnom_Penh|234:Asia/" +
-    "Rangoon|185:Asia/Saigon|169:Asia/Vientiane|241:Atlantic/Faeroe|0:Atlantic/St_Helena|319:Europe/Brati" +
-    "slava|336:Europe/Busingen|310:Europe/Guernsey|310:Europe/Isle_of_Man|310:Europe/Jersey|295:Europe/Lj" +
-    "ubljana|304:Europe/Mariehamn|295:Europe/Podgorica|321:Europe/San_Marino|295:Europe/Sarajevo|295:Euro" +
-    "pe/Skopje|336:Europe/Vaduz|321:Europe/Vatican|295:Europe/Zagreb|14:Indian/Antananarivo|14:Indian/Com" +
-    "oro|14:Indian/Mayotte|366:Pacific/Johnston|376:Pacific/Midway|379:Pacific/Ponape|365:Pacific/Saipan|" +
-    "355:Pacific/Truk\"}";
+    "ral_Harbour|25:America/Cordoba|122:America/Dominica|115:America/Godthab|122:America/Grenada|122:Amer" +
+    "ica/Guadeloupe|76:America/Indianapolis|26:America/Jujuy|56:America/Kralendijk|88:America/Louisville|" +
+    "56:America/Lower_Princes|122:America/Marigot|28:America/Mendoza|122:America/Montserrat|143:America/S" +
+    "anta_Isabel|122:America/St_Barthelemy|122:America/St_Kitts|122:America/St_Lucia|122:America/St_Thoma" +
+    "s|122:America/St_Vincent|122:America/Tortola|352:Antarctica/McMurdo|317:Arctic/Longyearbyen|215:Asia" +
+    "/Aden|212:Asia/Bahrain|197:Asia/Calcutta|195:Asia/Katmandu|215:Asia/Kuwait|180:Asia/Muscat|169:Asia/" +
+    "Phnom_Penh|234:Asia/Rangoon|185:Asia/Saigon|169:Asia/Vientiane|241:Atlantic/Faeroe|0:Atlantic/St_Hel" +
+    "ena|319:Europe/Bratislava|336:Europe/Busingen|310:Europe/Guernsey|310:Europe/Isle_of_Man|310:Europe/" +
+    "Jersey|295:Europe/Ljubljana|304:Europe/Mariehamn|295:Europe/Podgorica|321:Europe/San_Marino|295:Euro" +
+    "pe/Sarajevo|295:Europe/Skopje|336:Europe/Vaduz|321:Europe/Vatican|295:Europe/Zagreb|14:Indian/Antana" +
+    "narivo|14:Indian/Comoro|14:Indian/Mayotte|366:Pacific/Johnston|376:Pacific/Midway|379:Pacific/Ponape" +
+    "|365:Pacific/Saipan|355:Pacific/Truk\"}";
 
   public static final String STABLEIDS =
     "[\"Africa/Abidjan\",\"Africa/Accra\",\"Africa/Addis_Ababa\",\"Africa/Algiers\",\"Africa/Asmera\",\"A" +

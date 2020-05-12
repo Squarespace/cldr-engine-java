@@ -13,6 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.squarespace.cldrengine.utils.Checksum;
 import com.squarespace.cldrengine.utils.JsonUtils;
+import com.squarespace.cldrengine.utils.StringUtils;
 
 public class SchemaConfig extends HashMap<String, List<String>> {
 
@@ -127,10 +128,12 @@ public class SchemaConfig extends HashMap<String, List<String>> {
     return values;
   }
 
-  public String checksum(String version) {
+  public String checksum(String fullversion) {
     List<String> keys = new ArrayList<>(keySet());
     Collections.sort(keys, String::compareTo);
     Checksum c = new Checksum();
+    List<String> v = StringUtils.split(fullversion, '.');
+    String version = v.get(0) + '.' + v.get(1);
     c.update(version);
     for (String key : keys) {
       if (CHECKSUM_IGNORE.contains(key)) {

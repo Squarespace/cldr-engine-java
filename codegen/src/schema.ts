@@ -8,6 +8,13 @@ import { makedirs, write } from './utils';
 
 import { VERSION } from '@phensley/cldr-core/lib/utils/version';
 
+// The raw timezone data must be copied when loaded since it is modified
+// by the library at initialization time
+import * as timezonedataraw from '@phensley/timezone/lib/autogen.zonedata';
+const timezonedata = {
+  rawdata: { ...timezonedataraw.rawdata },
+};
+
 import * as calprefs from '@phensley/cldr-core/lib/internals/calendars/autogen.calprefs';
 import * as dayperiods from '@phensley/cldr-core/lib/internals/calendars/autogen.dayperiods';
 import * as timedata from '@phensley/cldr-core/lib/internals/calendars/autogen.timedata';
@@ -21,7 +28,6 @@ import * as locales from '@phensley/cldr-core/lib/locale/autogen.locales';
 import * as localeSubtags from '@phensley/locale/lib/autogen.subtags';
 import * as metazonedata from '@phensley/cldr-core/lib/systems/calendars/autogen.zonedata';
 import * as partition from '@phensley/locale-matcher/lib/autogen.partition';
-import * as timezonedata from '@phensley/timezone/lib/autogen.zonedata';
 import * as zonealiases from '@phensley/cldr-core/lib/systems/calendars/autogen.aliases';
 
 import * as decimalnumbers from '@phensley/cldr-core/lib/systems/numbering/autogen.names';
@@ -29,13 +35,12 @@ import * as currencies from '@phensley/cldr-core/lib/internals/numbers/autogen.c
 
 import * as plural from '@phensley/plurals/lib/autogen.rules';
 
-import { TimeZoneStableIdIndex } from '@phensley/cldr-schema';
-
 import { decode } from './parser';
 import { Builder } from './generator';
 import { tojava } from './java';
 import { escapeWrap } from './utils';
-import { CodeBuilder, Origin } from '@phensley/cldr-schema';
+import { CodeBuilder, Origin } from '@phensley/cldr-core';
+import { TimeZoneStableIdIndex } from '@phensley/cldr-core/lib/schema';
 import { config as DEFAULT_CONFIG } from '@phensley/cldr/lib/config';
 
 const INTERNAL_PACKAGE = 'package com.squarespace.cldrengine.internal;\n\n';
@@ -59,7 +64,7 @@ const IGNORE = new Set<string>([
   'Vector',
   'Vector1Arrow',
   'Vector2Arrow',
-  'Vector3Arrow'
+  'Vector3Arrow',
 ]);
 
 const COMMENTS = /\/\*.*\*\//gi;
@@ -71,31 +76,43 @@ export const buildSchema = (origin: Origin) => {
 };
 
 const loadSources = (pattern: string): ts.SourceFile[] =>
-  glob.sync(pattern)
-    .map(f => {
+  glob
+    .sync(pattern)
+    .map((f) => {
       const p = f.toString();
       return [p, fs.readFileSync(p, { encoding: 'utf-8' })];
     })
     .map(([p, data]) => tsquery.ast(data, p));
 
 export const generateSchema = () => {
-  const root = join(__dirname, '../node_modules/@phensley/cldr-types/lib/**/*.d.ts');
+  const root = join(
+    __dirname,
+    '../node_modules/@phensley/cldr-types/lib/**/*.d.ts',
+  );
   const sources = loadSources(root);
   const enums: any[] = [];
   const interfaces: any[] = [];
 
   // Collect all interfaces and union types from each source file
   for (const source of sources) {
-    tsquery(source, 'InterfaceDeclaration')
-      .forEach(e => interfaces.push(decode(e)));
-    tsquery(source, 'TypeAliasDeclaration')
-      .forEach(e => enums.push(decode(e)));
+    tsquery(source, 'InterfaceDeclaration').forEach((e) =>
+      interfaces.push(decode(e)),
+    );
+    tsquery(source, 'TypeAliasDeclaration').forEach((e) =>
+      enums.push(decode(e)),
+    );
   }
 
-  let internalDir = join(__dirname, '../../src/generated/java/com/squarespace/cldrengine/internal');
+  let internalDir = join(
+    __dirname,
+    '../../src/generated/java/com/squarespace/cldrengine/internal',
+  );
   makedirs(internalDir);
 
-  let apiDir = join(__dirname, '../../src/generated/java/com/squarespace/cldrengine/api');
+  let apiDir = join(
+    __dirname,
+    '../../src/generated/java/com/squarespace/cldrengine/api',
+  );
   makedirs(apiDir);
 
   // Generate the schema
@@ -167,14 +184,14 @@ export const generateSchema = () => {
   }
 
   writeConstants(internalDir, 'MiscData', {
-    VERSION
+    VERSION,
   });
 
   writeConstants(internalDir, 'CalendarExternalData', {
     ...calprefs,
     ...dayperiods,
     ...timedata,
-    ...weekdata
+    ...weekdata,
   });
 
   writeConstants(internalDir, 'LocaleExternalData', {
@@ -184,49 +201,59 @@ export const generateSchema = () => {
     ...locales,
     ...partition,
     ...languageTagSubtags,
-    ...localeSubtags
+    ...localeSubtags,
   });
 
   writeConstants(internalDir, 'NumberExternalData', {
     ...decimalnumbers,
-    ...currencies
+    ...currencies,
   });
 
   writeConstants(internalDir, 'TimeZoneExternalData', {
     ...zonealiases,
     ...metazonedata,
-    stableids: TimeZoneStableIdIndex.keys
+    stableids: TimeZoneStableIdIndex.keys,
   });
 
   writeConstants(internalDir, 'PluralExternalData', {
-    ...plural
+    ...plural,
   });
 
   // Copy resource packs
-  internalDir = join(__dirname, '../../src/generated/resources/com/squarespace/cldrengine/internal');
+  internalDir = join(
+    __dirname,
+    '../../src/generated/resources/com/squarespace/cldrengine/internal',
+  );
   makedirs(internalDir);
 
   const packroot = join(__dirname, '../node_modules/@phensley/cldr/packs');
-  fs.readdirSync(packroot).filter(p => p.endsWith('.json')).forEach(p => {
-    const src = join(packroot, p);
-    const dst = join(internalDir, p);
-    console.log(`copy ${p}`);
-    fs.copyFileSync(src, dst);
-  });
+  fs.readdirSync(packroot)
+    .filter((p) => p.endsWith('.json'))
+    .forEach((p) => {
+      const src = join(packroot, p);
+      const dst = join(internalDir, p);
+      console.log(`copy ${p}`);
+      fs.copyFileSync(src, dst);
+    });
 
   // Copy schema config
-  const configpath = join(__dirname, '../node_modules/@phensley/cldr-compiler/lib/cli/compiler/config.json');
+  const configpath = join(
+    __dirname,
+    '../node_modules/@phensley/cldr-compiler/lib/cli/compiler/config.json',
+  );
   fs.copyFileSync(configpath, join(internalDir, 'config.json'));
 
   // Save timezone data (too large to embed in a Java class)
   const tzdatapath = join(internalDir, 'zonedata.json');
-  fs.writeFileSync(tzdatapath, JSON.stringify(timezonedata.rawdata), { encoding: 'utf-8' });
+  fs.writeFileSync(tzdatapath, JSON.stringify(timezonedata.rawdata), {
+    encoding: 'utf-8',
+  });
 };
 
 const writeConstants = (dest: string, name: string, obj: any) => {
   let code = INTERNAL_PACKAGE;
   code += `public class ${name} {\n\n`;
-  Object.keys(obj).forEach(k => {
+  Object.keys(obj).forEach((k) => {
     const key = k.replace(/[^\w]+/g, '_').toUpperCase();
     let val = obj[k];
     val = typeof val === 'string' ? val : JSON.stringify(val);
@@ -237,4 +264,3 @@ const writeConstants = (dest: string, name: string, obj: any) => {
   code += '\n}\n';
   write(join(dest, `${name}.java`), code);
 };
-

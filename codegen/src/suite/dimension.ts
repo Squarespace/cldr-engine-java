@@ -2,7 +2,7 @@
  * Defines a dimension of an object's properties and its legal values.
  */
 export class Dimension<T> {
-  constructor(readonly property: keyof T, readonly values: T[keyof T][]) { }
+  constructor(readonly property: keyof T, readonly values: T[keyof T][]) {}
 
   build(): [keyof T, T[keyof T]][] {
     const r: [keyof T, T[keyof T]][] = [];
@@ -21,19 +21,17 @@ export class Dimension<T> {
  * OUTPUT:   [ ['a', 1], ['a', 2], ['b', 1], ['b', 2] ]
  */
 class CartesianProduct<T> {
-
   readonly lengths: number[];
 
   constructor(readonly elems: T[][]) {
-    this.lengths = elems.map(e => e.length);
+    this.lengths = elems.map((e) => e.length);
   }
 
   build(): T[][] {
-    const indices: number[] = this.elems.map(e => 0);
+    const indices: number[] = this.elems.map(() => 0);
     const len = indices.length;
     const res: T[][] = [];
-    outer:
-    for (; ;) {
+    outer: for (;;) {
       const r: T[] = [];
 
       for (let i = 0; i < len; i++) {
@@ -66,8 +64,7 @@ class CartesianProduct<T> {
   }
 }
 
-export const product = <T>(elems: T[][]) =>
-  new CartesianProduct(elems).build();
+export const product = <T>(elems: T[][]) => new CartesianProduct(elems).build();
 
 // Reduce the array of items [key, val] into an object { [key]: val, ... }
 export const reduce = <T>(items: T[][]) => {

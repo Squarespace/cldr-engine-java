@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import { join, parse } from 'path';
+import { join } from 'path';
 
 import {
   buildMessageMatcher,
@@ -20,9 +20,7 @@ const VALID: string[] = [
   '{2 select foo {FOO} bar {BAR} other {OTHER}}',
 ];
 
-const GARBAGE = [
-  "'", "''", '-', '{-', ',', ' ', '{', '}', '*'
-];
+const GARBAGE = ["'", "''", '-', '{-', ',', ' ', '{', '}', '*'];
 
 const buildMessage = (name: string) => {
   console.log(`writing ${name}`);
@@ -44,13 +42,14 @@ const buildMessage = (name: string) => {
   };
 
   const formatters: MessageFormatFuncMap = {
-    upper: (args: MessageArg[], options: string[]) => args[0] ? args[0].toUpperCase() : ''
+    upper: (args: MessageArg[], _options: string[]) =>
+      args[0] ? args[0].toUpperCase() : '',
   };
 
   const options: MessageFormatterOptions = {
     language: 'en',
     region: 'US',
-    formatters
+    formatters,
   };
   const formatter = new MessageFormatter(options);
   const matcher = buildMessageMatcher(Object.keys(formatters));
@@ -63,7 +62,7 @@ const buildMessage = (name: string) => {
     const args = [
       STRS[i % STRS.length],
       NUMS[i % NUMS.length],
-      SELECT[i % SELECT.length]
+      SELECT[i % SELECT.length],
     ];
     const m = VALID[i % VALID.length];
     const s = formatter.format(m, args, {});
@@ -71,21 +70,24 @@ const buildMessage = (name: string) => {
       type: 'fixed',
       args,
       message: m,
-      result: s
-    }
+      result: s,
+    };
     fs.writeSync(fd, JSON.stringify(r));
     fs.writeSync(fd, '\n');
   }
 
   for (let i = 0; i < 500000; i++) {
-    for (const threshold of [0.3, 0.10]) {
+    for (const threshold of [0.3, 0.1]) {
       const m = generate(i, threshold);
       const c = parseMessagePattern(m, matcher);
-      fs.writeSync(fd, JSON.stringify({
-        type: 'random',
-        message: m,
-        code: c
-      }));
+      fs.writeSync(
+        fd,
+        JSON.stringify({
+          type: 'random',
+          message: m,
+          code: c,
+        }),
+      );
       fs.writeSync(fd, '\n');
     }
   }

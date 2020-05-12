@@ -24,7 +24,7 @@ import {
   VOLUME,
   VOLUME_UK,
   FactorDef,
-  UnitFactors
+  UnitFactors,
 } from '@phensley/unit-converter';
 
 const FACTORS: { [name: string]: FactorDef[] } = {
@@ -48,7 +48,7 @@ const FACTORS: { [name: string]: FactorDef[] } = {
   SPEED,
   TORQUE,
   VOLUME,
-  VOLUME_UK
+  VOLUME_UK,
 };
 
 const buildUnitConvert = (name: string) => {
@@ -61,13 +61,16 @@ const buildUnitConvert = (name: string) => {
     for (const src of set.units) {
       for (const dst of set.units) {
         const conv = set.get(src, dst)!;
-        fs.writeSync(fd, JSON.stringify({
-          name,
-          src,
-          dst,
-          path: conv.path,
-          factors: conv.factors.map(x => x.toString())
-        }));
+        fs.writeSync(
+          fd,
+          JSON.stringify({
+            name,
+            src,
+            dst,
+            path: conv.path,
+            factors: conv.factors.map((x) => x.toString()),
+          }),
+        );
         fs.writeSync(fd, '\n');
       }
     }

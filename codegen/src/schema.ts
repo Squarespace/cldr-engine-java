@@ -128,7 +128,7 @@ export const generateSchema = () => {
   let code = builder.buf.join('');
 
   const tmp = code.replace(COMMENTS, '');
-  const seen = new Set<String>();
+  const seen = new Set<string>();
   for (const e of enums) {
     if (IGNORE.has(e.name)) {
       continue;

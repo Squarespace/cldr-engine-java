@@ -5,34 +5,52 @@ import { TimePeriod, TimePeriodField } from '@phensley/cldr';
 import { framework } from './framework';
 import { Dimension, product, reduce } from './dimension';
 
-import {
-  DATES,
-} from './data';
+import { DATES } from './data';
 
 const FIELDS: TimePeriodField[] = [
-  'year', 'month', 'week', 'day',
-  'hour', 'minute', 'second', 'millis'
+  'year',
+  'month',
+  'week',
+  'day',
+  'hour',
+  'minute',
+  'second',
+  'millis',
 ];
 
-const VALUES: (undefined | number)[] =
-  [undefined, 0.1, 0.3, 0.5, 1, 1.5, 2, 2.5, 3, 5, 8, 13, 21, 34, 55, 89, 144];
-
-const BASES: number[] = [
-  ...DATES,
-  1581527437123
+const VALUES: (undefined | number)[] = [
+  undefined,
+  0.1,
+  0.3,
+  0.5,
+  1,
+  1.5,
+  2,
+  2.5,
+  3,
+  5,
+  8,
+  13,
+  21,
+  34,
+  55,
+  89,
+  144,
 ];
+
+const BASES: number[] = [...DATES, 1581527437123];
 
 const buildDates = (name: string, dims: Dimension<Partial<TimePeriod>>[]) => {
   console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
-  const items = dims.map(e => e.build());
-  const properties = dims.map(d => d.property);
+  const items = dims.map((e) => e.build());
+  const properties = dims.map((d) => d.property);
   const options = reduce(product(items));
 
   let r = JSON.stringify({
     dates: BASES,
-    properties
+    properties,
   });
   fs.writeSync(fd, r);
   fs.writeSync(fd, '\n');
@@ -80,7 +98,7 @@ export const dateMathSuite = (root: string) => {
     new Dimension<Partial<TimePeriod>>('hour', VALUES),
     new Dimension<Partial<TimePeriod>>('minute', VALUES),
     new Dimension<Partial<TimePeriod>>('second', VALUES),
-    new Dimension<Partial<TimePeriod>>('millis', VALUES)
+    new Dimension<Partial<TimePeriod>>('millis', VALUES),
   ];
 
   buildDates(join(root, 'datemath-times.txt'), timedims);

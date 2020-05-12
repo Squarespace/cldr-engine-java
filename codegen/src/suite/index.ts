@@ -17,7 +17,7 @@ const MODULES = [
   'names',
   'numbers',
   'relativetime',
-  'unitconv'
+  'unitconv',
 ];
 
 for (const mod of MODULES) {

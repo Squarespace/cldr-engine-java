@@ -1,6 +1,4 @@
-import {
-  KeyIndex
-} from '@phensley/cldr-types';
+import { KeyIndex } from '@phensley/cldr-types';
 
 import {
   Digits,
@@ -12,9 +10,7 @@ import {
   Vector,
 } from '@phensley/cldr-core';
 
-const IMPORTS = [
-  'java.util.HashMap'
-];
+const IMPORTS = ['java.util.HashMap'];
 
 /**
  * Generator that mirrors the dynamic schema builder in @phensley/cldr.
@@ -23,7 +19,6 @@ const IMPORTS = [
  */
 
 class Generator {
-
   private offset: number = 0;
 
   field(): number {
@@ -38,7 +33,7 @@ class Generator {
 
   digits(dim1: number, dim2: number): number {
     const off = this.offset;
-    this.offset += (dim1 * dim2);
+    this.offset += dim1 * dim2;
     return off;
   }
 }
@@ -46,7 +41,7 @@ class Generator {
 const RENAMES: { [x: string]: string } = {
   long: 'long_',
   short: 'short_',
-  string: 'String'
+  string: 'String',
 };
 
 // const json = (o: any) => JSON.stringify(o);
@@ -56,7 +51,6 @@ const keyToField = (key: string) => key.toUpperCase().replace(/-/g, '_');
 const fix = (f: string) => RENAMES[f] || f;
 
 export class Builder {
-
   private generator: Generator = new Generator();
   private origin!: Origin;
   buf: string[] = [];
@@ -102,8 +96,12 @@ export class Builder {
     // console.log(`lookup field ${name}`);
     const type = this.current[name];
     if (type === undefined) {
-      const parents = this.stack.map(e => e.name).join(', ');
-      throw new Error(`[FATAL] field "${name}"'s type is undefined: ${this.stack.length} ${parents}  keys: ${Object.keys(this.current)}`);
+      const parents = this.stack.map((e) => e.name).join(', ');
+      throw new Error(
+        `[FATAL] field "${name}"'s type is undefined: ${
+          this.stack.length
+        } ${parents}  keys: ${Object.keys(this.current)}`,
+      );
     }
     return type;
   }
@@ -112,9 +110,10 @@ export class Builder {
     // console.log(`push type ${typename}`);
     const type = this.types[typename];
     if (type === undefined) {
-      const parents = this.stack.map(e => e.name).join(', ');
-      throw new Error(`[FATAL] "${typename}" is undefined: ${this.stack.length} ${parents}`);
-
+      const parents = this.stack.map((e) => e.name).join(', ');
+      throw new Error(
+        `[FATAL] "${typename}" is undefined: ${this.stack.length} ${parents}`,
+      );
     }
     this.stack.push(this.current);
     this.current = this.members(type);
@@ -166,7 +165,9 @@ export class Builder {
     const dim0 = `KEY_${keyToField(inst.dim0)}`;
     const _dim0 = this.origin.getIndex(inst.dim0);
     const offset = this.generator.digits(_dim0.size, inst.values.length * 2);
-    this.append(`/* ${fix(inst.name)} = */ new DigitsArrow<${typ0}>(${offset}, ${dim0})`);
+    this.append(
+      `/* ${fix(inst.name)} = */ new DigitsArrow<${typ0}>(${offset}, ${dim0})`,
+    );
   }
 
   constructField(inst: Field) {
@@ -205,14 +206,17 @@ export class Builder {
 
     // write indices as fields
     for (const key of Object.keys(this.origin.indices)) {
-
       const vals = this.origin.indices[key].keys;
       let type = this.indextypes[key];
       if (type === 'DateTimePatternFieldType') {
         continue;
       }
       type = type === 'string' || type === undefined ? 'String' : type;
-      this.append(`  public static final KeyIndex<${type}> KEY_${keyToField(key)} = new KeyIndex<${type}>(new ${type}[] {\n`);
+      this.append(
+        `  public static final KeyIndex<${type}> KEY_${keyToField(
+          key,
+        )} = new KeyIndex<${type}>(new ${type}[] {\n`,
+      );
       this.enter();
 
       const len = vals.length;
@@ -259,10 +263,12 @@ export class Builder {
 
   constructScopeMap(inst: ScopeMap) {
     const type = this.lookupType(inst.name);
-    const typ0 = type.typeargs[0].name;
+    // const typ0 = type.typeargs[0].name;
     const typ1 = type.typeargs[1].name;
     const sig = type.typeargs.map((a: any) => a.name).join(', ');
-    this.append(`/* Map<${sig}> ${inst.name} = */ new HashMap<String, ${typ1}>() {{\n`);
+    this.append(
+      `/* Map<${sig}> ${inst.name} = */ new HashMap<String, ${typ1}>() {{\n`,
+    );
     this.enter();
     const fields = this.origin.getValues(inst.fields);
     for (const field of fields) {
@@ -287,7 +293,6 @@ export class Builder {
     this.append('}}');
   }
 
-
   constructVector(inst: Vector) {
     const type = this.lookupType(inst.name);
     const targs: string[] = [];
@@ -302,17 +307,20 @@ export class Builder {
     const offset = this.generator.field();
     this.generator.vector(dims);
 
-    this.append(`/* ${fix(inst.name)} = */ ` +
-      `new Vector${dims.length}Arrow<${targs.join(', ')}>` +
-      `(${offset}, ${inst.dims.map(n => `KEY_${keyToField(n)}`).join(', ')})`);
+    this.append(
+      `/* ${fix(inst.name)} = */ ` +
+        `new Vector${dims.length}Arrow<${targs.join(', ')}>` +
+        `(${offset}, ${inst.dims
+          .map((n) => `KEY_${keyToField(n)}`)
+          .join(', ')})`,
+    );
   }
 
   private array(vals: string[], prefix: string): void {
     const len = vals.length;
     for (let i = 0; i < len; i++) {
-      const end = i < (len - 1) ? ',\n' : '\n';
+      const end = i < len - 1 ? ',\n' : '\n';
       this.append(`${prefix}"${vals[i]}"${end}`);
     }
   }
-
 }

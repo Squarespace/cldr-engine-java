@@ -1,9 +1,7 @@
 import * as fs from 'fs';
 import * as zlib from 'zlib';
 import { join } from 'path';
-import {
-  Schema,
-} from '@phensley/cldr-types';
+import { Schema } from '@phensley/cldr-types';
 import {
   CodeBuilder,
   DigitsArrowImpl,
@@ -18,7 +16,10 @@ import { checksumIndices } from '@phensley/cldr-core/lib/resource/checksum';
 import { config as CONFIG } from '@phensley/cldr/lib/config';
 
 export const loader = (lang: string) => {
-  const path = join(__dirname, `../node_modules/@phensley/cldr/packs/${lang}.json.gz`);
+  const path = join(
+    __dirname,
+    `../node_modules/@phensley/cldr/packs/${lang}.json.gz`,
+  );
   const compressed = fs.readFileSync(path);
   return zlib.gunzipSync(compressed).toString('utf-8');
 };
@@ -67,10 +68,7 @@ const scan = (o: any, depth: number = 1): Entry[] => {
  * Display the schema entries.
  */
 const display = (entries: Entry[], strings: string[]) => {
-  let next = 0;
-  for (let i = 0; i < entries.length; i++) {
-
-  }
+  for (let i = 0; i < entries.length; i++) {}
   for (const e of entries) {
     if (e.length === 2) {
       const [depth, key] = e;

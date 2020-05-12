@@ -5,7 +5,7 @@ import {
   Decimal,
   DecimalConstants,
   MathContext,
-  RoundingModeType
+  RoundingModeType,
 } from '@phensley/cldr';
 
 const { PI } = DecimalConstants;
@@ -33,11 +33,13 @@ const RAW_NUMBERS: string = `
 
 const NUMBERS: Decimal[] = [];
 
-RAW_NUMBERS.split(/\n/).map(s => s.trim())
-  .filter(s => s[0] !== '#')
-  .map(s => s.split(/\s+/))
-  .forEach(
-    r => r.filter(s => s.length).forEach(s => NUMBERS.push(new Decimal(s))));
+RAW_NUMBERS.split(/\n/)
+  .map((s) => s.trim())
+  .filter((s) => s[0] !== '#')
+  .map((s) => s.split(/\s+/))
+  .forEach((r) =>
+    r.filter((s) => s.length).forEach((s) => NUMBERS.push(new Decimal(s))),
+  );
 
 const ROUNDING: (RoundingModeType | undefined)[] = [
   undefined,
@@ -47,7 +49,7 @@ const ROUNDING: (RoundingModeType | undefined)[] = [
   'floor',
   'half-down',
   'half-up',
-  'half-even'
+  'half-even',
 ];
 
 const CONTEXTS: MathContext[] = [];
@@ -83,11 +85,11 @@ const buildMath = (name: string) => {
   let shl: Decimal;
   let shr: Decimal;
 
-  const numbers: Decimal[] = NUMBERS.concat(NUMBERS.map(n => n.negate()));
+  const numbers: Decimal[] = NUMBERS.concat(NUMBERS.map((n) => n.negate()));
   let r = JSON.stringify({
     method: 'math',
-    numbers: numbers.map(n => n.properties()),
-    contexts: CONTEXTS
+    numbers: numbers.map((n) => n.properties()),
+    contexts: CONTEXTS,
   });
   fs.writeSync(fd, r);
   fs.writeSync(fd, '\n');
@@ -130,7 +132,7 @@ const buildMath = (name: string) => {
           sig,
           int,
           shl.toString(),
-          shr.toString()
+          shr.toString(),
         ];
         fs.writeSync(fd, JSON.stringify(res));
         fs.writeSync(fd, '\n');

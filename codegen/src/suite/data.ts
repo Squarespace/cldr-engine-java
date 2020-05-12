@@ -10,7 +10,7 @@ export const DATES: number[] = [
   // Sat, May 11, 1996 3:55:31 AM
   831786931000,
   // Monday, January 27, 2020 12:34:56 PM GMT
-  1580128496000
+  1580128496000,
 ];
 
 export const ZONES: string[] = [

@@ -27,8 +27,7 @@ type Type =
   | 'TimePeriodField'
   | 'UnitFormatStyleType'
   | 'UnitLength'
-  | 'UnitType'
-  ;
+  | 'UnitType';
 
 const API_PACKAGE = 'com.squarespace.cldrengine.api';
 const INTERNAL_PACKAGE = 'com.squarespace.cldrengine.internal';
@@ -51,11 +50,10 @@ const API_SET = new Set<Type>([
   'TimePeriodField',
   'UnitFormatStyleType',
   'UnitLength',
-  'UnitType'
+  'UnitType',
 ]);
 
-const INTERNAL_SET = new Set<Type>([
-]);
+const INTERNAL_SET = new Set<Type>([]);
 
 interface Field {
   name: string;
@@ -65,7 +63,7 @@ interface Field {
 class Option {
   readonly fields: Field[] = [];
 
-  constructor(readonly name: string, readonly extend?: string) { }
+  constructor(readonly name: string, readonly extend?: string) {}
 
   field(name: string, type: Type): Option {
     this.fields.push({ name, type });
@@ -75,149 +73,145 @@ class Option {
 
 type OptionMap = { [name: string]: Option };
 
-const CalendarFieldsOptions =
-  new Option('CalendarFieldsOptions')
-    .field('calendar', 'CalendarType')
-    .field('width', 'FieldWidthType')
-    .field('context', 'ContextType');
+const CalendarFieldsOptions = new Option('CalendarFieldsOptions')
+  .field('calendar', 'CalendarType')
+  .field('width', 'FieldWidthType')
+  .field('context', 'ContextType');
 
-const CurrencyDisplayNameOptions =
-  new Option('CurrencyDisplayNameOptions')
-    .field('context', 'ContextType');
+const CurrencyDisplayNameOptions = new Option(
+  'CurrencyDisplayNameOptions',
+).field('context', 'ContextType');
 
-const CurrencyFormatOptions =
-  new Option('CurrencyFormatOptions', 'NumberFormatOptions')
-    .field('divisor', 'Integer')
-    .field('cash', 'Boolean')
-    .field('style', 'CurrencyFormatStyleType')
-    .field('symbolWidth', 'CurrencySymbolWidthType');
+const CurrencyFormatOptions = new Option(
+  'CurrencyFormatOptions',
+  'NumberFormatOptions',
+)
+  .field('divisor', 'Integer')
+  .field('cash', 'Boolean')
+  .field('style', 'CurrencyFormatStyleType')
+  .field('symbolWidth', 'CurrencySymbolWidthType');
 
-const DateFieldFormatOptions =
-  new Option('DateFieldFormatOptions')
-    .field('calendar', 'CalendarType')
-    .field('width', 'DateFieldWidthType')
-    .field('context', 'ContextType');
+const DateFieldFormatOptions = new Option('DateFieldFormatOptions')
+  .field('calendar', 'CalendarType')
+  .field('width', 'DateFieldWidthType')
+  .field('context', 'ContextType');
 
-const DateFormatOptions =
-  new Option('DateFormatOptions')
-    .field('context', 'ContextType')
-    .field('datetime', 'FormatWidthType')
-    .field('date', 'FormatWidthType')
-    .field('time', 'FormatWidthType')
-    .field('wrap', 'FormatWidthType')
-    .field('skeleton', 'String')
-    .field('calendar', 'CalendarType')
-    .field('numberSystem', 'String')
-    .field('alt', 'DateFormatAltOptions');
+const DateFormatOptions = new Option('DateFormatOptions')
+  .field('context', 'ContextType')
+  .field('datetime', 'FormatWidthType')
+  .field('date', 'FormatWidthType')
+  .field('time', 'FormatWidthType')
+  .field('wrap', 'FormatWidthType')
+  .field('skeleton', 'String')
+  .field('calendar', 'CalendarType')
+  .field('numberSystem', 'String')
+  .field('alt', 'DateFormatAltOptions');
 
-const DateFormatAltOptions =
-  new Option('DateFormatAltOptions')
-    .field('era', 'EraAltType')
-    .field('dayPeriod', 'DayPeriodAltType');
+const DateFormatAltOptions = new Option('DateFormatAltOptions')
+  .field('era', 'EraAltType')
+  .field('dayPeriod', 'DayPeriodAltType');
 
-const DateIntervalFormatOptions =
-  new Option('DateIntervalFormatOptions')
-    .field('skeleton', 'String')
-    .field('date', 'String')
-    .field('time', 'String')
-    .field('context', 'ContextType')
-    .field('calendar', 'CalendarType')
-    .field('numberSystem', 'String')
-    .field('alt', 'DateFormatAltOptions');
+const DateIntervalFormatOptions = new Option('DateIntervalFormatOptions')
+  .field('skeleton', 'String')
+  .field('date', 'String')
+  .field('time', 'String')
+  .field('context', 'ContextType')
+  .field('calendar', 'CalendarType')
+  .field('numberSystem', 'String')
+  .field('alt', 'DateFormatAltOptions');
 
-const DateRawFormatOptions =
-  new Option('DateRawFormatOptions')
-    .field('pattern', 'String')
-    .field('calendar', 'CalendarType')
-    .field('numberSystem', 'String')
-    .field('context', 'ContextType')
-    .field('alt', 'DateFormatAltOptions');
+const DateRawFormatOptions = new Option('DateRawFormatOptions')
+  .field('pattern', 'String')
+  .field('calendar', 'CalendarType')
+  .field('numberSystem', 'String')
+  .field('context', 'ContextType')
+  .field('alt', 'DateFormatAltOptions');
 
-const DecimalAdjustOptions =
-  new Option('DecimalAdjustOptions')
-    .field('round', 'RoundingModeType')
-    .field('minimumIntegerDigits', 'Integer')
-    .field('maximumFractionDigits', 'Integer')
-    .field('minimumFractionDigits', 'Integer')
-    .field('maximumSignificantDigits', 'Integer')
-    .field('minimumSignificantDigits', 'Integer');
+const DecimalAdjustOptions = new Option('DecimalAdjustOptions')
+  .field('round', 'RoundingModeType')
+  .field('minimumIntegerDigits', 'Integer')
+  .field('maximumFractionDigits', 'Integer')
+  .field('minimumFractionDigits', 'Integer')
+  .field('maximumSignificantDigits', 'Integer')
+  .field('minimumSignificantDigits', 'Integer');
 
-const DecimalFormatOptions =
-  new Option('DecimalFormatOptions', 'NumberFormatOptions')
-    .field('style', 'DecimalFormatStyleType')
-    .field('negativeZero', 'Boolean')
-    .field('divisor', 'Integer')
-    .field('context', 'ContextType')
-    .field('errors', 'String');
+const DecimalFormatOptions = new Option(
+  'DecimalFormatOptions',
+  'NumberFormatOptions',
+)
+  .field('style', 'DecimalFormatStyleType')
+  .field('negativeZero', 'Boolean')
+  .field('divisor', 'Integer')
+  .field('context', 'ContextType')
+  .field('errors', 'String');
 
-const DisplayNameOptions =
-  new Option('DisplayNameOptions')
-    .field('type', 'AltType')
-    .field('context', 'ContextType');
+const DisplayNameOptions = new Option('DisplayNameOptions')
+  .field('type', 'AltType')
+  .field('context', 'ContextType');
 
-const EraFieldOptions =
-  new Option('EraFieldsOptions')
-    .field('calendar', 'CalendarType')
-    .field('width', 'EraWidthType')
-    .field('context', 'ContextType');
+const EraFieldOptions = new Option('EraFieldsOptions')
+  .field('calendar', 'CalendarType')
+  .field('width', 'EraWidthType')
+  .field('context', 'ContextType');
 
-const MathContext =
-  new Option('MathContext')
-    .field('scale', 'Integer')
-    .field('precision', 'Integer')
-    .field('round', 'RoundingModeType');
+const MathContext = new Option('MathContext')
+  .field('scale', 'Integer')
+  .field('precision', 'Integer')
+  .field('round', 'RoundingModeType');
 
-const MessageFormatterOptions =
-  new Option('MessageFormatterOptions')
-    .field('language', 'String')
-    .field('region', 'String')
-    .field('plurals', 'PluralRules')
-    .field('converter', 'MessageArgConverter')
-    .field('formatters', 'MessageFormatFuncMap')
-    .field('cacheSize', 'Integer');
+const MessageFormatterOptions = new Option('MessageFormatterOptions')
+  .field('language', 'String')
+  .field('region', 'String')
+  .field('plurals', 'PluralRules')
+  .field('converter', 'MessageArgConverter')
+  .field('formatters', 'MessageFormatFuncMap')
+  .field('cacheSize', 'Integer');
 
-const NumberFormatOptions =
-  new Option('NumberFormatOptions', 'DecimalAdjustOptions')
-    .field('group', 'Boolean')
-    .field('numberSystem', 'String')
-    .field('trimZeroFractions', 'Boolean');
+const NumberFormatOptions = new Option(
+  'NumberFormatOptions',
+  'DecimalAdjustOptions',
+)
+  .field('group', 'Boolean')
+  .field('numberSystem', 'String')
+  .field('trimZeroFractions', 'Boolean');
 
-const Quantity =
-  new Option('Quantity')
-    .field('value', 'Decimal')
-    .field('unit', 'UnitType')
-    .field('per', 'UnitType')
-    .field('times', 'UnitType');
+const Quantity = new Option('Quantity')
+  .field('value', 'Decimal')
+  .field('unit', 'UnitType')
+  .field('per', 'UnitType')
+  .field('times', 'UnitType');
 
-const RelativeTimeFormatOptions =
-  new Option('RelativeTimeFormatOptions', 'RelativeTimeFieldFormatOptions')
-    .field('calendar', 'CalendarType')
-    .field('dayOfWeek', 'Boolean')
-    .field('field', 'TimePeriodField');
+const RelativeTimeFormatOptions = new Option(
+  'RelativeTimeFormatOptions',
+  'RelativeTimeFieldFormatOptions',
+)
+  .field('calendar', 'CalendarType')
+  .field('dayOfWeek', 'Boolean')
+  .field('field', 'TimePeriodField');
 
-const RelativeTimeFieldFormatOptions =
-  new Option('RelativeTimeFieldFormatOptions', 'NumberFormatOptions')
-    .field('width', 'DateFieldWidthType')
-    .field('context', 'ContextType')
-    .field('numericOnly', 'Boolean')
-    .field('alwaysNow', 'Boolean');
+const RelativeTimeFieldFormatOptions = new Option(
+  'RelativeTimeFieldFormatOptions',
+  'NumberFormatOptions',
+)
+  .field('width', 'DateFieldWidthType')
+  .field('context', 'ContextType')
+  .field('numericOnly', 'Boolean')
+  .field('alwaysNow', 'Boolean');
 
-const TimePeriod =
-  new Option('TimePeriod')
-    .field('year', 'Double')
-    .field('month', 'Double')
-    .field('week', 'Double')
-    .field('day', 'Double')
-    .field('hour', 'Double')
-    .field('minute', 'Double')
-    .field('second', 'Double')
-    .field('millis', 'Double');
+const TimePeriod = new Option('TimePeriod')
+  .field('year', 'Double')
+  .field('month', 'Double')
+  .field('week', 'Double')
+  .field('day', 'Double')
+  .field('hour', 'Double')
+  .field('minute', 'Double')
+  .field('second', 'Double')
+  .field('millis', 'Double');
 
-const UnitFormatOptions =
-  new Option('UnitFormatOptions', 'NumberFormatOptions')
-    .field('divisor', 'Integer')
-    .field('style', 'UnitFormatStyleType')
-    .field('length', 'UnitLength');
+const UnitFormatOptions = new Option('UnitFormatOptions', 'NumberFormatOptions')
+  .field('divisor', 'Integer')
+  .field('style', 'UnitFormatStyleType')
+  .field('length', 'UnitLength');
 
 const INDEX = [
   CalendarFieldsOptions,
@@ -239,23 +233,20 @@ const INDEX = [
   RelativeTimeFormatOptions,
   RelativeTimeFieldFormatOptions,
   TimePeriod,
-  UnitFormatOptions
+  UnitFormatOptions,
 ].reduce((p, c) => {
   p[c.name] = c;
   return p;
 }, {} as OptionMap);
 
-const LOMBOK: string[] = [
-  'Generated',
-  'EqualsAndHashCode',
-];
+const LOMBOK: string[] = ['Generated', 'EqualsAndHashCode'];
 
 const make = (pkg: string, opt: Option) => {
   const _imports = new Set<string>();
   imports(pkg, _imports, opt);
 
   let s = `package ${pkg};\n\n`;
-  _imports.forEach(i => s += `import ${i};\n`);
+  _imports.forEach((i) => (s += `import ${i};\n`));
   for (const ann of LOMBOK) {
     s += `import lombok.${ann};\n`;
   }
@@ -286,7 +277,7 @@ const make = (pkg: string, opt: Option) => {
   return s;
 };
 
-const imports = (pkg: string, set: Set<String>, opt: Option) => {
+const imports = (pkg: string, set: Set<string>, opt: Option) => {
   for (const field of opt.fields) {
     if (INTERNAL_SET.has(field.type)) {
       set.add(INTERNAL_PACKAGE + '.' + field.type);
@@ -323,7 +314,7 @@ const makeFromSuper = (cls: string, extend?: string) => {
   const parent = INDEX[extend];
   s += `  public static ${cls} fromSuper(${extend} arg) {\n`;
   s += `    ${cls} o = ${cls}.build();\n`;
-  for (const { name, type } of parent.fields) {
+  for (const { name } of parent.fields) {
     s += `    o.${name}.setIf(arg.${name});\n`;
   }
   s += `    return o;\n`;
@@ -438,7 +429,10 @@ const tostring = (opt: Option) => {
 };
 
 export const generateOptions = () => {
-  let apiDir = join(__dirname, '../../src/generated/java/com/squarespace/cldrengine/api');
+  let apiDir = join(
+    __dirname,
+    '../../src/generated/java/com/squarespace/cldrengine/api',
+  );
   makedirs(apiDir);
 
   let code: string;

@@ -1,6 +1,6 @@
 const RENAMES: { [x: string]: string } = {
   long: 'long_',
-  short: 'short_'
+  short: 'short_',
 };
 
 const fix = (f: string) => RENAMES[f] || f;
@@ -11,7 +11,6 @@ const fix = (f: string) => RENAMES[f] || f;
 export const tojava = (n: any, types?: any): string => {
   let r = '';
   switch (n.kind) {
-
     case 'arraytype':
       switch (n.name) {
         case 'number[]':
@@ -52,22 +51,28 @@ export const tojava = (n: any, types?: any): string => {
       r += '{\n';
       if (props.length) {
         r += '\n';
-        r += props.map((m: any) =>
-          `  public final ${fixup(tojava(m.type))} ${fix(m.name)};`).join('\n');
+        r += props
+          .map(
+            (m: any) =>
+              `  public final ${fixup(tojava(m.type))} ${fix(m.name)};`,
+          )
+          .join('\n');
         r += '\n';
       }
       r += `\n  public ${n.name}(\n`;
-      r += props.concat(superprops).map((m: any) =>
-        `      ${fixup(tojava(m.type))} ${fix(m.name)}`).join(',\n');
+      r += props
+        .concat(superprops)
+        .map((m: any) => `      ${fixup(tojava(m.type))} ${fix(m.name)}`)
+        .join(',\n');
       r += ') {\n';
       if (superprops.length) {
         r += `    super(\n`;
-        r += superprops.map((m: any) =>
-          `      ${fix(m.name)}`).join(',\n');
+        r += superprops.map((m: any) => `      ${fix(m.name)}`).join(',\n');
         r += '\n    );\n';
       }
-      r += props.map((m: any) =>
-        `    this.${fix(m.name)} = ${fix(m.name)};`).join('\n');
+      r += props
+        .map((m: any) => `    this.${fix(m.name)} = ${fix(m.name)};`)
+        .join('\n');
       r += '\n  }\n\n';
       r += '}\n';
       break;
@@ -126,24 +131,21 @@ export const tojava = (n: any, types?: any): string => {
       r += '}\n';
       break;
 
-    case 'union':
-      {
-        const len = n.members.length;
-        for (let i = 0; i < len; i++) {
-          if (i > 0) {
-            r += ',\n';
-          }
-          const x = tojava(n.members[i]);
-          const num = parseInt(x, 10);
-          const isstr = typeof num !== 'number' || isNaN(num);
-          const k = isstr ?
-            x.replace(/[^\w]+/g, '_').toUpperCase()
-            : `_${x}`;
-          r += `  ${k}("${x}")`;
+    case 'union': {
+      const len = n.members.length;
+      for (let i = 0; i < len; i++) {
+        if (i > 0) {
+          r += ',\n';
         }
-        r += '\n';
-        break;
+        const x = tojava(n.members[i]);
+        const num = parseInt(x, 10);
+        const isstr = typeof num !== 'number' || isNaN(num);
+        const k = isstr ? x.replace(/[^\w]+/g, '_').toUpperCase() : `_${x}`;
+        r += `  ${k}("${x}")`;
       }
+      r += '\n';
+      break;
+    }
 
     default:
       console.log(`[WARN] unhandled kind ${n.kind}`);

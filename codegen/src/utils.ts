@@ -9,7 +9,11 @@ export const makedirs = (p: string) => {
   fs.mkdirSync(p);
 };
 
-export const lineWrap = (max: number, sep: string, values: string[]): string => {
+export const lineWrap = (
+  max: number,
+  sep: string,
+  values: string[],
+): string => {
   let res = '';
   let width = 0;
   max -= 2;
@@ -68,8 +72,8 @@ export const escapeWrap = (s: string, width: number): string[] => {
   if (r.length) {
     lines.push(r);
   }
-  return lines.map(s => `"${s}"`);
-}
+  return lines.map((s) => `"${s}"`);
+};
 
 export const write = (path: string, data: string) =>
   fs.writeFileSync(path, data, { encoding: 'utf-8' });

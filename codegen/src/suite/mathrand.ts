@@ -9,7 +9,9 @@ const buildRandomMath = (name: string) => {
   const fd = fs.openSync(name, 'w');
 
   const count = 100;
-  const factors: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(f => Math.pow(10, f));
+  const factors: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((f) =>
+    Math.pow(10, f),
+  );
   const numbers: string[] = [];
   for (let i = 0; i < count; i++) {
     const n = rnd.rand();
@@ -19,17 +21,16 @@ const buildRandomMath = (name: string) => {
   }
 
   let r = JSON.stringify({
-    numbers
+    numbers,
   });
 
   fs.writeSync(fd, r);
   fs.writeSync(fd, '\n');
 
-  const decimals = numbers.map(n => new Decimal(n));
+  const decimals = numbers.map((n) => new Decimal(n));
   for (let i = 0; i < decimals.length; i++) {
     const res: string[] = [];
     for (let j = 0; j < decimals.length; j++) {
-
       const n = decimals[i];
       const m = decimals[j];
 
@@ -43,10 +44,13 @@ const buildRandomMath = (name: string) => {
       res.push(mul.toString());
       res.push(div.toString());
     }
-    fs.writeSync(fd, JSON.stringify({
-      i,
-      results: res
-    }));
+    fs.writeSync(
+      fd,
+      JSON.stringify({
+        i,
+        results: res,
+      }),
+    );
     fs.writeSync(fd, '\n');
   }
   fs.closeSync(fd);

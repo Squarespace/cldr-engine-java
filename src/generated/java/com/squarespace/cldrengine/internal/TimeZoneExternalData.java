@@ -17,27 +17,27 @@ public class TimeZoneExternalData {
     " 4u 4w 4x 4y 4z 50 51 53 58 59 5a 5b 5c 5d 5f 5g 5h 5i 5j 5k 5l 5m 5n 5o 5q 5r 5s 5t 5u 5x 5y 5z 60 " +
     "61 62 63 64 66 80 -1 68 69 6a 6c 6d 6e 6f 6g 6h 76 6j 6k 6l 6m 7k 6n 6o 6p 6q 6r 6s 6t 6u 6v 6w 6x 6" +
     "b 6y 6z 70 72 73 74 75 77 78 79 7a 7b 7d 7e 7f 7g 7h 7j 7l 7m 7n 7o 7p 7q 7r 7s 7t 7u 7v 7w -1 7x 7y" +
-    " 7z 81 82 7i 83 84 85 86 87 88 89 8a 8b 8c 8e 8f 8g 8h 8i 8j 8k 8l 8m 8n 8o 8p 8q -1 8r -1 -1 8s 8t " +
-    "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 8t 8u 8v 8w 8x ae 8z 9" +
-    "1 92 93 95 96 97 98 9m 9c 9e 9f -1 9g 9i 9j 9k 9l 9n 9o 9p 9q 9r 9t 9u a9 9w 9z a0 a2 a3 a4 a5 a6 a7" +
-    " aa ab ac ad af ag -1 -1 ai aj ak am an ao ap ar -1 -1 as bw at au av aw bt ax ay az b0 b1 b2 b3 b4 " +
-    "b5 bp b8 b9 ba bb bc bd bf bg bh bi bj bk bl bm bn bo bq br bs bu bv -1\",\"metazoneids\":[\"GMT\",\"" +
-    "Africa_Eastern\",\"Europe_Western\",\"Europe_Central\",\"Africa_Western\",\"Africa_FarWestern\",\"Af" +
-    "rica_Central\",\"Europe_Eastern\",\"Africa_Southern\",\"Liberia\",\"Bering\",\"Hawaii_Aleutian\",\"A" +
-    "laska_Hawaii\",\"Yukon\",\"Alaska\",\"Atlantic\",\"Brasilia\",\"Argentina\",\"Argentina_Western\",\"" +
-    "Paraguay\",\"America_Pacific\",\"America_Mountain\",\"America_Central\",\"Amazon\",\"Colombia\",\"Am" +
-    "erica_Eastern\",\"Venezuela\",\"French_Guiana\",\"Mexico_Pacific\",\"Greenland_Western\",\"Acre\",\"" +
-    "Goose_Bay\",\"Ecuador\",\"Guyana\",\"Cuba\",\"Bolivia\",\"Peru\",\"Pierre_Miquelon\",\"Uruguay\",\"N" +
-    "oronha\",\"Dutch_Guiana\",\"Suriname\",\"Chile\",\"Mexico_Northwest\",\"Dominican\",\"Greenland_Cent" +
-    "ral\",\"Greenland_Eastern\",\"Newfoundland\",\"Australia_Western\",\"Casey\",\"Davis\",\"DumontDUrvi" +
-    "lle\",\"Australia_Eastern\",\"Macquarie\",\"Mawson\",\"New_Zealand\",\"Rothera\",\"Syowa\",\"Vostok\"" +
-    ",\"Arabian\",\"Almaty\",\"Kazakhstan_Eastern\",\"Anadyr\",\"Magadan\",\"Shevchenko\",\"Aqtau\",\"Kaz" +
-    "akhstan_Western\",\"Aktyubinsk\",\"Aqtobe\",\"Ashkhabad\",\"Turkmenistan\",\"Gulf\",\"Baku\",\"Azerb" +
-    "aijan\",\"Indochina\",\"Frunze\",\"Kyrgystan\",\"Brunei\",\"India\",\"Yakutsk\",\"Irkutsk\",\"Mongol" +
-    "ia\",\"Choibalsan\",\"Lanka\",\"Dacca\",\"Bangladesh\",\"East_Timor\",\"Indonesia_Central\",\"Dushan" +
-    "be\",\"Tajikistan\",\"Israel\",\"Hong_Kong\",\"Hovd\",\"Indonesia_Western\",\"Indonesia_Eastern\",\"" +
-    "Afghanistan\",\"Kamchatka\",\"Karachi\",\"Pakistan\",\"Nepal\",\"Vladivostok\",\"Krasnoyarsk\",\"Mal" +
-    "aya\",\"Malaysia\",\"Borneo\",\"Macau\",\"China\",\"Philippines\",\"Novosibirsk\",\"Omsk\",\"Uralsk\"" +
+    " 7z 81 82 7i 83 84 85 86 87 88 89 8a 8b 8c 8e 8f 8g 8h 8j 8k 8l 8m 8n 8o 8p 8q -1 8r -1 -1 8s 8t -1 " +
+    "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 8t 8u 8v 8w 8x ae 8z 91 9" +
+    "2 93 95 96 97 98 9m 9c 9e 9f -1 9g 9i 9j 9k 9l 9n 9o 9p 9q 9r 9t 9u a9 9w 9z a0 a2 a3 a4 a5 a6 a7 aa" +
+    " ab ac ad af ag -1 -1 ai aj ak am an ao ap ar -1 -1 as bw at au av aw bt ax ay az b0 b1 b2 b3 b4 b5 " +
+    "bp b8 b9 ba bb bc bd bf bg bh bi bj bk bl bm bn bo bq br bs bu bv -1\",\"metazoneids\":[\"GMT\",\"Af" +
+    "rica_Eastern\",\"Europe_Western\",\"Europe_Central\",\"Africa_Western\",\"Africa_FarWestern\",\"Afri" +
+    "ca_Central\",\"Europe_Eastern\",\"Africa_Southern\",\"Liberia\",\"Bering\",\"Hawaii_Aleutian\",\"Ala" +
+    "ska_Hawaii\",\"Yukon\",\"Alaska\",\"Atlantic\",\"Brasilia\",\"Argentina\",\"Argentina_Western\",\"Pa" +
+    "raguay\",\"America_Pacific\",\"America_Mountain\",\"America_Central\",\"Amazon\",\"Colombia\",\"Amer" +
+    "ica_Eastern\",\"Venezuela\",\"French_Guiana\",\"Mexico_Pacific\",\"Greenland_Western\",\"Acre\",\"Go" +
+    "ose_Bay\",\"Ecuador\",\"Guyana\",\"Cuba\",\"Bolivia\",\"Peru\",\"Pierre_Miquelon\",\"Uruguay\",\"Nor" +
+    "onha\",\"Dutch_Guiana\",\"Suriname\",\"Chile\",\"Mexico_Northwest\",\"Dominican\",\"Greenland_Centra" +
+    "l\",\"Greenland_Eastern\",\"Newfoundland\",\"Australia_Western\",\"Casey\",\"Davis\",\"DumontDUrvill" +
+    "e\",\"Australia_Eastern\",\"Macquarie\",\"Mawson\",\"New_Zealand\",\"Rothera\",\"Syowa\",\"Vostok\"," +
+    "\"Arabian\",\"Almaty\",\"Kazakhstan_Eastern\",\"Anadyr\",\"Magadan\",\"Shevchenko\",\"Aqtau\",\"Kaza" +
+    "khstan_Western\",\"Aktyubinsk\",\"Aqtobe\",\"Ashkhabad\",\"Turkmenistan\",\"Gulf\",\"Baku\",\"Azerba" +
+    "ijan\",\"Indochina\",\"Frunze\",\"Kyrgystan\",\"Brunei\",\"India\",\"Yakutsk\",\"Irkutsk\",\"Mongoli" +
+    "a\",\"Choibalsan\",\"Lanka\",\"Dacca\",\"Bangladesh\",\"East_Timor\",\"Indonesia_Central\",\"Dushanb" +
+    "e\",\"Tajikistan\",\"Israel\",\"Hong_Kong\",\"Hovd\",\"Indonesia_Western\",\"Indonesia_Eastern\",\"A" +
+    "fghanistan\",\"Kamchatka\",\"Karachi\",\"Pakistan\",\"Nepal\",\"Vladivostok\",\"Krasnoyarsk\",\"Mala" +
+    "ya\",\"Malaysia\",\"Borneo\",\"Macau\",\"China\",\"Philippines\",\"Novosibirsk\",\"Omsk\",\"Uralsk\"" +
     ",\"Oral\",\"Korea\",\"Pyongyang\",\"Kizilorda\",\"Qyzylorda\",\"Myanmar\",\"Sakhalin\",\"Samarkand\"" +
     ",\"Tashkent\",\"Uzbekistan\",\"Singapore\",\"Taipei\",\"Tbilisi\",\"Georgia\",\"Iran\",\"Bhutan\",\"" +
     "Japan\",\"Urumqi\",\"Sverdlovsk\",\"Yekaterinburg\",\"Yerevan\",\"Armenia\",\"Azores\",\"Cape_Verde\"" +
@@ -132,14 +132,14 @@ public class TimeZoneExternalData {
     "ica/Guadeloupe|76:America/Indianapolis|26:America/Jujuy|56:America/Kralendijk|88:America/Louisville|" +
     "56:America/Lower_Princes|122:America/Marigot|28:America/Mendoza|122:America/Montserrat|143:America/S" +
     "anta_Isabel|122:America/St_Barthelemy|122:America/St_Kitts|122:America/St_Lucia|122:America/St_Thoma" +
-    "s|122:America/St_Vincent|122:America/Tortola|352:Antarctica/McMurdo|317:Arctic/Longyearbyen|215:Asia" +
+    "s|122:America/St_Vincent|122:America/Tortola|351:Antarctica/McMurdo|316:Arctic/Longyearbyen|215:Asia" +
     "/Aden|212:Asia/Bahrain|197:Asia/Calcutta|195:Asia/Katmandu|215:Asia/Kuwait|180:Asia/Muscat|169:Asia/" +
     "Phnom_Penh|234:Asia/Rangoon|185:Asia/Saigon|169:Asia/Vientiane|241:Atlantic/Faeroe|0:Atlantic/St_Hel" +
-    "ena|319:Europe/Bratislava|336:Europe/Busingen|310:Europe/Guernsey|310:Europe/Isle_of_Man|310:Europe/" +
-    "Jersey|295:Europe/Ljubljana|304:Europe/Mariehamn|295:Europe/Podgorica|321:Europe/San_Marino|295:Euro" +
-    "pe/Sarajevo|295:Europe/Skopje|336:Europe/Vaduz|321:Europe/Vatican|295:Europe/Zagreb|14:Indian/Antana" +
-    "narivo|14:Indian/Comoro|14:Indian/Mayotte|366:Pacific/Johnston|376:Pacific/Midway|379:Pacific/Ponape" +
-    "|365:Pacific/Saipan|355:Pacific/Truk\"}";
+    "ena|251:Australia/Currie|318:Europe/Bratislava|335:Europe/Busingen|309:Europe/Guernsey|309:Europe/Is" +
+    "le_of_Man|309:Europe/Jersey|294:Europe/Ljubljana|303:Europe/Mariehamn|294:Europe/Podgorica|320:Europ" +
+    "e/San_Marino|294:Europe/Sarajevo|294:Europe/Skopje|335:Europe/Vaduz|320:Europe/Vatican|294:Europe/Za" +
+    "greb|14:Indian/Antananarivo|14:Indian/Comoro|14:Indian/Mayotte|365:Pacific/Johnston|375:Pacific/Midw" +
+    "ay|378:Pacific/Ponape|364:Pacific/Saipan|354:Pacific/Truk\"}";
 
   public static final String STABLEIDS =
     "[\"Africa/Abidjan\",\"Africa/Accra\",\"Africa/Addis_Ababa\",\"Africa/Algiers\",\"Africa/Asmera\",\"A" +

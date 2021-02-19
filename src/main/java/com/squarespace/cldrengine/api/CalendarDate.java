@@ -72,7 +72,7 @@ public abstract class CalendarDate {
    */
   public double julianDay() {
     double ms = (this.fields[DateField.MILLIS_IN_DAY] + this.zoneInfo.offset) / (double)CalendarConstants.ONE_DAY_MS;
-    return ((double)this.fields[DateField.JULIAN_DAY] - 0.5) + ms;
+    return (this.fields[DateField.JULIAN_DAY] - 0.5) + ms;
   }
 
   /**
@@ -106,6 +106,16 @@ public abstract class CalendarDate {
   public long weekOfYear() {
     this.computeWeekFields();
     return this.fields[DateField.WEEK_OF_YEAR];
+  }
+
+  public long yearOfWeekOfYearISO() {
+    this.computeWeekFields();
+    return this.fields[DateField.ISO_YEAR_WOY];
+  }
+
+  public long weekOfYearISO() {
+    this.computeWeekFields();
+    return this.fields[DateField.ISO_WEEK_OF_YEAR];
   }
 
   /**
@@ -820,50 +830,63 @@ public abstract class CalendarDate {
       return;
     }
 
-    long eyear = f[DateField.EXTENDED_YEAR];
     long dow = f[DateField.DAY_OF_WEEK];
     long dom = f[DateField.DAY_OF_MONTH];
     long doy = f[DateField.DAY_OF_YEAR];
+    f[DateField.WEEK_OF_MONTH] = weekNumber(this.firstDay, this.minDays,  dom, dom, dow);
+    f[DateField.DAY_OF_WEEK_IN_MONTH] = ((dom - 1) / 7 | 0) + 1;
+
+    // compute locale
+    this._computeWeekFields(DateField.WEEK_OF_YEAR, DateField.YEAR_WOY, this.firstDay, this.minDays, dow, dom, doy);
+
+    // compute ISO
+    this._computeWeekFields(DateField.ISO_WEEK_OF_YEAR, DateField.ISO_YEAR_WOY, 2, 4, dow, dom, doy);
+  }
+
+  protected void _computeWeekFields(int woyfield, int ywoyfield, long firstDay, long minDays, long dow, long dom, long doy) {
+    long[] f = this.fields;
+    long eyear = f[DateField.EXTENDED_YEAR];
 
     long ywoy = eyear;
-    long rdow = (dow + 7 - this.firstDay) % 7;
-    long rdowJan1 = (dow - doy + 7001 - this.firstDay) % 7;
+    long rdow = (dow + 7 - firstDay) % 7;
+    long rdowJan1 = (dow - doy + 7001 - firstDay) % 7;
     long woy = Math.floorDiv((doy - 1 + rdowJan1), 7);
-    if ((7 - rdowJan1) >= this.minDays) {
+    if (7 - rdowJan1 >= minDays) {
       woy++;
     }
 
     if (woy == 0) {
       long prevDay = doy + this.yearLength(eyear - 1);
-      woy = this.weekNumber(prevDay, prevDay, dow);
+      woy = weekNumber(firstDay, minDays, prevDay, prevDay, dow);
       ywoy--;
     } else {
       long lastDoy = this.yearLength(eyear);
-      if (doy >= (lastDoy - 5)) {
+      if (doy >= lastDoy - 5) {
         long lastRdow = (rdow + lastDoy - doy) % 7;
-        if (((6 - lastRdow) >= this.minDays) && ((doy + 7 - rdow) > lastDoy)) {
+        if (lastRdow < 0) {
+          lastRdow += 7;
+        }
+        if (6 - lastRdow >= minDays && doy + 7 - rdow > lastDoy) {
           woy = 1;
           ywoy++;
         }
       }
     }
-    f[DateField.WEEK_OF_MONTH] = this.weekNumber(dom, dom, dow);
-    f[DateField.WEEK_OF_YEAR] = woy;
-    f[DateField.YEAR_WOY] = ywoy;
-    f[DateField.DAY_OF_WEEK_IN_MONTH] = ((dom - 1) / 7 | 0) + 1;
+    f[woyfield] = woy;
+    f[ywoyfield] = ywoy;
   }
 
   protected long yearLength(long y) {
     return this.monthStart(y + 1, 0, false) - this.monthStart(y, 0, false);
   }
 
-  protected long weekNumber(long desiredDay, long dayOfPeriod, long dayOfWeek) {
-    long psow = (dayOfWeek - this.firstDay - dayOfPeriod + 1) % 7;
+  protected static long weekNumber(long firstDay, long minDays, long desiredDay, long dayOfPeriod, long dayOfWeek) {
+    long psow = (dayOfWeek - firstDay - dayOfPeriod + 1) % 7;
     if (psow < 0) {
       psow += 7;
     }
     long weekNo = Math.floorDiv(desiredDay + psow - 1, 7);
-    return ((7 - psow) >= this.minDays) ? weekNo + 1 : weekNo;
+    return ((7 - psow) >= minDays) ? weekNo + 1 : weekNo;
   }
 
   protected long[] utcfields() {

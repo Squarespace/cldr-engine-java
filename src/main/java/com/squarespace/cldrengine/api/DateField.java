@@ -27,8 +27,10 @@ class DateField {
   public static final int TZ_OFFSET = 20;
   public static final int IS_LEAP = 21;
   public static final int IS_DST = 22;
+  public static final int ISO_YEAR_WOY = 23;
+  public static final int ISO_WEEK_OF_YEAR = 24;
 
   // Length of array to hold all fields
-  public static final int LENGTH = 23;
+  public static final int LENGTH = 25;
 
 }

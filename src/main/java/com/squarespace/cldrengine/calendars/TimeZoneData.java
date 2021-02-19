@@ -96,9 +96,25 @@ public class TimeZoneData {
       info.zoneId,
       stableId,
       metazoneId == null ? "" : metazoneId,
+      info.abbr,
       info.offset,
       info.dst == 1
     );
+  }
+
+  /**
+   * Metadata related to a zone, such as the list of country codes that overlap with
+   * the zone, the latitude and longitude, and the current standard offset, in milliseconds.
+   * These can be used to display user interfaces for selecting a zone.
+   *
+   * If the zone identifier does not match a known zone or alias this returns null.
+   */
+  public static ZoneMeta zoneMeta(String id) {
+    ZoneRecord rec = record(id);
+    if (rec != null) {
+      return new ZoneMeta(rec.zoneId, rec.stdoff, rec.latitude, rec.longitude, rec.countries);
+    }
+    return null;
   }
 
   /**
@@ -207,7 +223,7 @@ public class TimeZoneData {
   private static void loadTimezones() {
     JsonObject root;
     try {
-      root = (JsonObject) JsonUtils.loadJson(TimeZoneExternalData.class, "zonedata.json");
+      root = JsonUtils.loadJson(TimeZoneExternalData.class, "zonedata.json");
     } catch (IOException e) {
       throw new RuntimeException("Failed to load timezone data resource", e);
     }
@@ -340,15 +356,26 @@ public class TimeZoneData {
    * record is in effect at a given point in time.
    */
   private static class ZoneRecord {
-    final long[] untils;
+    final String zoneId;
+    final long stdoff;
+    final double latitude;
+    final double longitude;
+    final String[] countries;
+
     final TZInfo[] localtime;
     final int[] types;
+    final long[] untils;
 
     public ZoneRecord(String zoneId, String raw) {
+      this.zoneId = zoneId;
       String[] parts = split(raw, "_");
-      String _info = parts[0];
-      String _types = parts.length > 1 ? parts[1] : "";
-      String _untils = parts.length > 2 ? parts[2] : "";
+      String _std = parts[0];
+      String _lat = parts[1];
+      String _lon = parts[2];
+      String _countries = parts[3];
+      String _info = parts[4];
+      String _types = parts.length > 5 ? parts[5] : "";
+      String _untils = parts.length > 6 ? parts[6] : "";
 
       long[] untils = StringUtils.longArray(_untils);
 
@@ -372,6 +399,11 @@ public class TimeZoneData {
         this.types[i] = TYPES.get(parts[i]);
       }
       this.untils = untils;
+
+      this.stdoff = Long.parseLong(_std, 36) * 1000;
+      this.latitude = Long.parseLong(_lat, 36) / 1e6;
+      this.longitude = Long.parseLong(_lon, 36) / 1e6;
+      this.countries = _countries.isEmpty() ? new String[] {} : _countries.split(",");
     }
 
     public TZInfo fromUTC(long utc) {

@@ -1,5 +1,6 @@
 package com.squarespace.cldrengine.api;
 
+import com.squarespace.cldrengine.internal.MathFix;
 import com.squarespace.cldrengine.utils.MathUtil;
 
 /**
@@ -21,7 +22,7 @@ public class GregorianDate extends CalendarDate {
   public GregorianDate add(TimePeriod fields) {
     Pair<Long, Double> result = this._add(fields);
     return new GregorianDate(CalendarType.GREGORY, this.firstDay, this.minDays)
-        ._initFromJD(result._1, (long)Math.round(result._2), this.timeZoneId());
+        ._initFromJD(result._1, Math.round(result._2), this.timeZoneId());
   }
 
   @Override
@@ -67,6 +68,7 @@ public class GregorianDate extends CalendarDate {
     return this;
   }
 
+  @Override
   protected void initFields(long[] f) {
     if (f[DateField.JULIAN_DAY] >= CalendarConstants.JD_GREGORIAN_CUTOVER) {
       computeGregorianFields(f);
@@ -83,17 +85,18 @@ public class GregorianDate extends CalendarDate {
     f[DateField.YEAR] = year;
   }
 
+  @Override
   protected long monthStart(long eyear, double month, boolean useMonth) {
     boolean isLeap = eyear % 4 == 0;
     long y = eyear - 1;
-    long jd = 365 * y + Math.floorDiv(y, 4) + (CalendarConstants.JD_GREGORIAN_EPOCH - 3);
+    long jd = 365 * y + MathFix.floorDiv(y, 4) + (CalendarConstants.JD_GREGORIAN_EPOCH - 3);
     if (eyear >= CalendarConstants.JD_GREGORIAN_CUTOVER_YEAR) {
       isLeap = isLeap && ((eyear % 100 != 0) || (eyear % 400 == 0));
-      jd += Math.floorDiv(y, 400) - Math.floorDiv(y, 100) + 2;
+      jd += MathFix.floorDiv(y, 400) - MathFix.floorDiv(y, 100) + 2;
     }
     if (month != 0) {
       int m = (int)Math.floor(month);
-      double d = month - (double)m;
+      double d = month - m;
       jd += MONTH_COUNT[m][isLeap ? 3 : 2];
 
       // Check if there is a fractional month part, and if so add the number

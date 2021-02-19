@@ -12,6 +12,7 @@ import com.squarespace.cldrengine.calendars.DayOfWeek;
 import com.squarespace.cldrengine.calendars.TimeZoneData;
 import com.squarespace.cldrengine.calendars.ZoneInfo;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
+import com.squarespace.cldrengine.internal.MathFix;
 
 import lombok.AllArgsConstructor;
 
@@ -854,7 +855,7 @@ public abstract class CalendarDate {
     long ywoy = eyear;
     long rdow = (dow + 7 - firstDay) % 7;
     long rdowJan1 = (dow - doy + 7001 - firstDay) % 7;
-    long woy = Math.floorDiv((doy - 1 + rdowJan1), 7);
+    long woy = MathFix.floorDiv((doy - 1 + rdowJan1), 7);
     if (7 - rdowJan1 >= minDays) {
       woy++;
     }
@@ -889,7 +890,7 @@ public abstract class CalendarDate {
     if (psow < 0) {
       psow += 7;
     }
-    long weekNo = Math.floorDiv(desiredDay + psow - 1, 7);
+    long weekNo = MathFix.floorDiv(desiredDay + psow - 1, 7);
     return ((7 - psow) >= minDays) ? weekNo + 1 : weekNo;
   }
 
@@ -907,7 +908,7 @@ public abstract class CalendarDate {
    */
   protected void jdFromUnixEpoch(long ms, long[] f) {
     long oneDayMS = CalendarConstants.ONE_DAY_MS;
-    long days = Math.floorDiv(ms, oneDayMS);
+    long days = MathFix.floorDiv(ms, oneDayMS);
     long jd = days + CalendarConstants.JD_UNIX_EPOCH;
     long msDay = ms - (days * oneDayMS);
 

@@ -12,6 +12,18 @@ public class CalendarDateTest {
   private static final String NEW_YORK = "America/New_York";
 
   @Test
+  public void testTimeZoneAbbr() {
+    GregorianDate d;
+    long n;
+
+    // Thursday, December 31, 2020 12:30:00 PM UTC
+    n = 1609417800000L;
+
+    d = make(n, NEW_YORK);
+    assertEquals(d.timeZoneAbbr(), "EST");
+  }
+
+  @Test
   public void testWeeksCoverage() {
     GregorianDate d;
     long n;

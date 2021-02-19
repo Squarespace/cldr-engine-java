@@ -240,6 +240,10 @@ public abstract class CalendarDate {
     return this.zoneInfo.offset;
   }
 
+  public String timeZoneAbbr() {
+    return this.zoneInfo.abbr;
+  }
+
   public boolean isLeapYear() {
     return this.fields[DateField.IS_LEAP] == 1;
   }

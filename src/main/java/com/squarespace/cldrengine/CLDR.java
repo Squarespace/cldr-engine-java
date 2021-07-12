@@ -13,13 +13,12 @@ import com.squarespace.cldrengine.api.Numbers;
 import com.squarespace.cldrengine.api.Units;
 import com.squarespace.cldrengine.calendars.CalendarsImpl;
 import com.squarespace.cldrengine.general.GeneralImpl;
+import com.squarespace.cldrengine.internal.DefaultResourcePackLoader;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.Locales;
 import com.squarespace.cldrengine.internal.Meta;
 import com.squarespace.cldrengine.internal.MiscData;
-import com.squarespace.cldrengine.internal.Pack;
 import com.squarespace.cldrengine.internal.PrivateApi;
-import com.squarespace.cldrengine.internal.ResourcePacks;
 import com.squarespace.cldrengine.internal.Schema;
 import com.squarespace.cldrengine.internal.SchemaConfig;
 import com.squarespace.cldrengine.locale.CLocaleImpl;
@@ -33,6 +32,7 @@ import com.squarespace.cldrengine.units.UnitsImpl;
  */
 public class CLDR {
 
+  private static final CLocale DEFAULT_LOCALE = resolveLocale("en-Latn-US");
   private static final SchemaConfig CONFIG = new SchemaConfig();
   private static final Internals INTERNALS = new Internals(CONFIG, MiscData.VERSION, false);
   private static final String CHECKSUM_ERROR = "Checksum mismatch on resource pack! The schema config used to " +
@@ -40,7 +40,7 @@ public class CLDR {
 
   private static final ConcurrentHashMap<String, CLDR> CLDRS = new ConcurrentHashMap<>(100);
 
-  private static final CLocale DEFAULT_LOCALE = resolveLocale("en-Latn-US");
+  private static ResourcePackLoader loader = new DefaultResourcePackLoader();
 
   public final General General;
   public final Calendars Calendars;
@@ -57,6 +57,13 @@ public class CLDR {
     this.Units = new UnitsImpl(bundle, INTERNALS, privateApi);
     this.Schema = Meta.SCHEMA;
     this.cldrVersion = cldrVersion;
+  }
+
+  /**
+   * Set a custom global resource pack loader for the library.
+   */
+  public void resourcePackLoader(ResourcePackLoader loader) {
+    CLDR.loader = loader;
   }
 
   /**
@@ -155,7 +162,7 @@ public class CLDR {
   private static CLDR build(CLocale resolved) {
     return CLDRS.computeIfAbsent(resolved.id(), (id) -> {
       LanguageTag tag = resolved.tag();
-      Pack pack = ResourcePacks.get(tag.language());
+      ResourcePack pack = CLDR.loader.get(tag.language());
       if (pack == null) {
         return null;
       }

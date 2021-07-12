@@ -93,7 +93,7 @@ public class SchemaConfig extends HashMap<String, List<String>> {
    * Load the JSON configuration.
    */
   private void load() throws IOException {
-    JsonObject root = (JsonObject) JsonUtils.loadJson(SchemaConfig.class, "config.json");
+    JsonObject root = (JsonObject) JsonUtils.loadJsonResource(SchemaConfig.class, "config.json");
     copy("currency-id", root);
     copy("language-id", root);
     copy("script-id", root);

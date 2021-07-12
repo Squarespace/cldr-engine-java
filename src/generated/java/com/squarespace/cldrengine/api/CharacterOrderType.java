@@ -9,8 +9,8 @@ import com.squarespace.cldrengine.internal.StringEnum;
 @Generated
 public enum CharacterOrderType implements StringEnum<CharacterOrderType> {
 
-  TTB("ttb"),
-  BTT("btt")
+  LTR("ltr"),
+  RTL("rtl")
   ;
 
   private static final Map<String, CharacterOrderType> REVERSE = new HashMap<>();

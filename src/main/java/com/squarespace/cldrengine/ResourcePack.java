@@ -1,4 +1,4 @@
-package com.squarespace.cldrengine.internal;
+package com.squarespace.cldrengine;
 
 import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 
@@ -11,11 +11,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.LanguageTag;
+import com.squarespace.cldrengine.internal.StringBundle;
 import com.squarespace.cldrengine.locale.LanguageTagParser;
 import com.squarespace.cldrengine.locale.LocaleResolver;
 import com.squarespace.cldrengine.utils.JsonUtils;
 
-public class Pack {
+public class ResourcePack {
 
   private final String version;
   private final String cldrVersion;
@@ -24,11 +25,11 @@ public class Pack {
   private final LanguageTag defaultTag;
   private final Map<String, PackScript> scripts;
 
-  public Pack(String data) {
+  public ResourcePack(String data) {
     this(JsonParser.parseString(data).getAsJsonObject());
   }
 
-  public Pack(JsonObject data) {
+  public ResourcePack(JsonObject data) {
     this.version = data.get("version").getAsString();
     this.cldrVersion = data.get("cldr").getAsString();
     this.checksum = data.get("checksum").getAsString();

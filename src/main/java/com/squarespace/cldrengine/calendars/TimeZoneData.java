@@ -223,7 +223,7 @@ public class TimeZoneData {
   private static void loadTimezones() {
     JsonObject root;
     try {
-      root = JsonUtils.loadJson(TimeZoneExternalData.class, "zonedata.json");
+      root = JsonUtils.loadJsonResource(TimeZoneExternalData.class, "zonedata.json");
     } catch (IOException e) {
       throw new RuntimeException("Failed to load timezone data resource", e);
     }

@@ -22,20 +22,20 @@ public class LanguageTagTest {
     assertEquals(tag.compact(), "en");
 
     tag = new LanguageTag("en", "", "", "",
-        extensions().add("u", "nu-latn").build(), "");
+        extensions().add("u", "nu-latn").build(), "", null);
     assertEquals(tag.compact(), "en-u-nu-latn");
 
     tag = new LanguageTag("en", "", "", "",
-        extensions().add("u", "nu-latn", "ca-gregory").build(), "");
+        extensions().add("u", "nu-latn", "ca-gregory").build(), "", null);
     assertEquals(tag.compact(), "en-u-nu-latn-ca-gregory");
 
-    tag = new LanguageTag("en", "", "", "", extensions().add("u").build(), "");
+    tag = new LanguageTag("en", "", "", "", extensions().add("u").build(), "", null);
     assertEquals(tag.compact(), "en");
 
     // NOTE: constructing language tags directly allows creation
     // of malformed tags. validation and normalization is done in
     // the language tag parser, not the constructor.
-    tag = new LanguageTag("en", "", "", "", null, "q");
+    tag = new LanguageTag("en", "", "", "", null, "q", null);
     assertEquals(tag.compact(), "en-q");
   }
 

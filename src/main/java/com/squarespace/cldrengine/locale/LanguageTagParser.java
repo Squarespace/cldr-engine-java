@@ -100,7 +100,9 @@ public class LanguageTagParser {
     String[] arr = preferred == null ? str.split(SEP) : preferred.split(SEP);
     List<String> parts = toList(arr);
     if (parseLanguage(parts)) {
-      parseExtLangs(parts);
+      if (this.language != null && this.language.length() <= 3) {
+        parseExtLangs(parts);
+      }
       parseScript(parts);
       parseRegion(parts);
       parseVariants(parts);
@@ -112,13 +114,11 @@ public class LanguageTagParser {
     if (this.region == null && this.extlangs != null) {
       int size = this.extlangs.size();
       for (int i = 0; i < size; i++) {
-        // TODO: implement replaceRegion
-//      const replacement = replaceRegion(this.extlangs[i].toUpperCase());
-//      if (replacement !== undefined) {
-//        this.region = replacement;
-//        // Ignore the extlangs since we currently don't add them to the LanguageTag.
-//        break;
-//      }
+        String replacement = Utils.replaceRegion(this.extlangs.get(i).toUpperCase());
+        if (replacement != null) {
+          this.region = replacement;
+          break;
+        }
       }
     }
 
@@ -128,7 +128,8 @@ public class LanguageTagParser {
       this.region,
       this.variants != null ? this.variants.get(0) : null,
       this.extensions,
-      this.privateUse
+      this.privateUse,
+      this.extlangs
     );
   }
 

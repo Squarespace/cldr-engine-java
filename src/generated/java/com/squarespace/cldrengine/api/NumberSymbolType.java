@@ -9,6 +9,7 @@ import com.squarespace.cldrengine.internal.StringEnum;
 @Generated
 public enum NumberSymbolType implements StringEnum<NumberSymbolType> {
 
+  APPROXIMATELYSIGN("approximatelySign"),
   CURRENCYDECIMAL("currencyDecimal"),
   CURRENCYGROUP("currencyGroup"),
   DECIMAL("decimal"),

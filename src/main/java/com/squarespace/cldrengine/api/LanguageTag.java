@@ -62,13 +62,14 @@ public class LanguageTag {
 
   private String _compact;
   private String _expanded;
+  private List<String> _extlangs;
 
   public LanguageTag() {
-    this(null, null, null, null, null, null);
+    this(null, null, null, null, null, null, null);
   }
 
   public LanguageTag(String language, String script, String region) {
-    this(language, script, region, null, null, null);
+    this(language, script, region, null, null, null, null);
   }
 
   public LanguageTag(
@@ -77,7 +78,8 @@ public class LanguageTag {
       String region,
       String variant,
       Map<String, List<String>> extensions,
-      String privateUse) {
+      String privateUse,
+      List<String> extlangs) {
 
     this.core = new String[] {
       canonicalize(LANGUAGE, language),
@@ -87,6 +89,7 @@ public class LanguageTag {
     };
     this.extensions = extensions;
     this.privateUse = privateUse;
+    this._extlangs = extlangs;
   }
 
   @Override
@@ -177,6 +180,13 @@ public class LanguageTag {
    */
   public String privateUse() {
     return this.privateUse == null ? "" : this.privateUse;
+  }
+
+  /**
+   * Return the extended languages field.
+   */
+  public List<String> extlangs() {
+    return _extlangs == null ? Collections.emptyList() : Collections.unmodifiableList(_extlangs);
   }
 
   /**

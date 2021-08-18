@@ -35,8 +35,18 @@ public class PluralSamplesTest {
 
       for (TestCase c : cases.get(lang)) {
         for (String sample : c.samples) {
-          Decimal n = new Decimal(sample);
-          PluralType actual = c.type.equals("cardinals") ? pluralRules.cardinal(n) : pluralRules.ordinal(n);
+          Decimal n = null;
+          int compact = 0;
+
+          String[] parts = sample.split("c");
+          if (parts.length == 1) {
+            n = new Decimal(sample);
+          } else {
+            n = new Decimal(parts[0]);
+            compact = Integer.parseInt(parts[1], 10);
+            n = n.shiftleft(compact);
+          }
+          PluralType actual = c.type.equals("cardinals") ? pluralRules.cardinal(n, compact) : pluralRules.ordinal(n);
           boolean result = actual.value().equals(c.category);
           Assert.assertTrue(result,
               String.format("Expected language '%s' number '%s' to have category '%s' but got '%s'",

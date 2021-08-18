@@ -135,7 +135,8 @@ public class LocaleMatcher {
         bestMatch.tag.region(),
         bestMatch.tag.variant(),
         bestDesired.tag.extensions(),
-        bestDesired.tag.privateUse()
+        bestDesired.tag.privateUse(),
+        bestDesired.tag.extlangs()
     );
     CLocale locale = new CLocaleImpl(bestMatch.id, tag);
     return new LocaleMatch(locale, bestDistance);

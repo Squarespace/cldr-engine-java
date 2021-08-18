@@ -467,7 +467,6 @@ public enum LanguageIdType implements StringEnum<LanguageIdType> {
   RO_MD("ro-MD"),
   ROF("rof"),
   ROM("rom"),
-  ROOT("root"),
   RTM("rtm"),
   RU("ru"),
   RUE("rue"),

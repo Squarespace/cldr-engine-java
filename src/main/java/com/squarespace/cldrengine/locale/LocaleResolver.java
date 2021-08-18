@@ -25,7 +25,6 @@ public class LocaleResolver {
 
   private static Map<FastTag, FastTag> LIKELY_SUBTAGS_MAP = loadLikelySubtags();
   private static Map<String, List<Pair<FastTag, FastTag>>> LANGUAGE_ALIAS_MAP = loadLanguageAliases();
-  private static Map<String, List<String>> REGION_ALIAS_MAP = loadRegionAliases();
 
   // Field flags for match order
   private static int F_LANGUAGE = 1;
@@ -162,7 +161,8 @@ public class LocaleResolver {
         fast.region == REGION ? null : (String)fast.region,
         orig.variant(),
         orig.extensions(),
-        orig.privateUse());
+        orig.privateUse(),
+        orig.extlangs());
   }
 
   /**
@@ -199,7 +199,7 @@ public class LocaleResolver {
    */
   private static void substituteRegionAliases(FastTag dst) {
     if (dst.region != REGION) {
-      List<String> regions = REGION_ALIAS_MAP.get(dst.region);
+      List<String> regions = Utils.REGION_ALIAS_MAP.get(dst.region);
       if (regions != null) {
         // TODO: we currently use only the first region. See note in Typescript
         // cldr-engine project.
@@ -240,6 +240,13 @@ public class LocaleResolver {
       this.language = tag.hasLanguage() ? tag.language() : LANGUAGE;
       this.script = tag.hasScript() ? tag.script() : SCRIPT;
       this.region = tag.hasRegion() ? tag.region() : REGION;
+
+      // If an extlang subtag exists, replace the language subtag with the first
+      // extlang value.
+      List<String> extlangs = tag.extlangs();
+      if (!extlangs.isEmpty()) {
+        this.language = extlangs.get(0);
+      }
     }
 
     FastTag(String language, String script, String region) {
@@ -339,19 +346,7 @@ public class LocaleResolver {
     return map;
   }
 
-  private static Map<String, List<String>> loadRegionAliases() {
-    Map<String, List<String>> map = new HashMap<>();
-    for (String row : LocaleExternalData.TERRITORYALIASRAW.split("\\|")) {
-      String[] parts = row.split(":");
-      String key = parts[0];
-      List<String> regions = new ArrayList<>();
-      for (String region : parts[1].split(" ")) {
-        regions.add(region);
-      }
-      map.put(key, regions);
-    }
-    return map;
-  }
+
 
 }
 

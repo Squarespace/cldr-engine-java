@@ -157,7 +157,7 @@ public abstract class NumberFormatter<R> implements NumberRenderer<R> {
     return res.render();
   }
 
-  private static final Pattern RE_SYMBOL = Pattern.compile("^[\\p{Sm}\\p{Sc}\\p{Sk}\\p{So}]");
+  private static final Pattern RE_SYMBOL = Pattern.compile("^[\\p{Sm}\\p{Sc}\\p{Sk}\\p{So}\\p{Zs}\\p{Zl}\\p{Zp}]");
   private static final Pattern RE_DIGIT = Pattern.compile("^[\\p{Nd}]");
 
   protected boolean insertBetween(Map<CurrencySpacingPattern, String> spacing, String currency, String surrounding) {
@@ -170,7 +170,7 @@ public abstract class NumberFormatter<R> implements NumberRenderer<R> {
     switch (spacing) {
       case "[:digit:]":
         return RE_DIGIT.matcher(value).matches();
-      case "[:^S:]":
+      case "[[:^S:]&[:^Z:]]":
         return !RE_SYMBOL.matcher(value).matches();
     }
     return false;

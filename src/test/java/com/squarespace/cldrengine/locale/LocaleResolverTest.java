@@ -2,6 +2,7 @@ package com.squarespace.cldrengine.locale;
 
 import static com.squarespace.cldrengine.locale.LocaleResolver.addLikelySubtags;
 import static com.squarespace.cldrengine.locale.LocaleResolver.removeLikelySubtags;
+import static com.squarespace.cldrengine.locale.LocaleResolver.resolve;
 import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
@@ -11,15 +12,21 @@ import com.squarespace.cldrengine.api.LanguageTag;
 public class LocaleResolverTest {
 
   @Test
+  public void testResolver() {
+    // ISO 3166-1 3ALPHA codes replaced at parse time.
+    assertEquals(resolve(tag("en-AAA")), tag("aaa-Latn-AA"));
+    assertEquals(resolve(tag("en-eng-eng-AAA")), tag("en-Latn-AA"));
+    assertEquals(resolve(tag("en-aaa")), tag("aaa-Latn-AA"));
+  }
+
+  @Test
   public void testAddLikelySubtags() {
     assertEquals(addLikelySubtags(tag("en")), tag("en-Latn-US"));
     assertEquals(addLikelySubtags("en"), tag("en-Latn-US"));
-
   }
 
   @Test
   public void testRemoveLikelySubtags() {
-
     assertEquals(removeLikelySubtags("en-Latn-US"), tag("en"));
     assertEquals(removeLikelySubtags("en-US"), tag("en"));
     assertEquals(removeLikelySubtags("en-Latn"), tag("en"));

@@ -35,6 +35,10 @@ public class PluralRulesImpl implements PluralRules {
     return this.evaluate(new NumberOperands(n), this.cardinals);
   }
 
+  public PluralType cardinal(Decimal n, int c) {
+    return this.evaluate(new NumberOperands(n, c), this.cardinals);
+  }
+
   public PluralType ordinal(Decimal n) {
     return this.evaluate(new NumberOperands(n), this.ordinals);
   }

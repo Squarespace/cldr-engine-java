@@ -107,7 +107,7 @@ public class ResourcePack {
 
       // Use default region
       region = this.defaultRegion;
-      tag = new LanguageTag(tag.language(), tag.script(), region, tag.variant(), tag.extensions(), tag.privateUse());
+      tag = new LanguageTag(tag.language(), tag.script(), region, tag.variant(), tag.extensions(), tag.privateUse(), tag.extlangs());
       index = this.cache.computeIfAbsent(region, r -> decode(r));
       return new StringBundle(tag.compact(), tag, this.strings, this.exceptions, index);
     }

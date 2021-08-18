@@ -31,8 +31,13 @@ public class NumberOperands {
   public long w = 0;
   public long f = 0;
   public long t = 0;
+  public long c = 0;
 
   public NumberOperands(Decimal d) {
+    this(d, 0);
+  }
+
+  public NumberOperands(Decimal d, int c) {
     this.d = d;
 
     Decimal.Properties props = d.properties();
@@ -54,6 +59,12 @@ public class NumberOperands {
     long f = 0;
     long t = 0;
 
+    // Compact decimal exponent value
+    // See https://www.unicode.org/reports/tr35/tr35-numbers.html#Operands
+    if (c < 0) {
+      c = 0;
+    }
+
     // Count trailing zeros
     int trail = 0;
 
@@ -74,8 +85,8 @@ public class NumberOperands {
     // Start at most-significant digit to last
     while (x >= 0) {
       long r = data[x];
-      int c = x != last ? Constants.RDIGITS : digitCount(r);
-      y = c - 1;
+      int count = x != last ? Constants.RDIGITS : digitCount(r);
+      y = count - 1;
 
       // Scan each decimal digit of the radix number from
       // most- to least- significant.
@@ -145,6 +156,7 @@ public class NumberOperands {
     this.w = w;
     this.f = f;
     this.t = t;
+    this.c = c;
   }
 
   public long get(char op) {
@@ -161,6 +173,8 @@ public class NumberOperands {
         return f;
       case 't':
         return t;
+      case 'c':
+        return c;
       default:
         return 0;
     }

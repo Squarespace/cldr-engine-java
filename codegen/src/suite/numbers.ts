@@ -19,6 +19,7 @@ import {
 
 import { framework } from './framework';
 import { Dimension, product, reduce } from './dimension';
+import { LOCALES } from './data';
 
 const NUMBERS: string[] = [
   '0',
@@ -37,8 +38,6 @@ const NUMBERS: string[] = [
   '1000000000000000',
   String(Number.MAX_SAFE_INTEGER),
 ];
-
-const LOCALES = ['en', 'es-419', 'de', 'ja', 'pt-PT', 'zh'];
 
 const ROUND: (RoundingModeType | undefined)[] = [
   undefined,

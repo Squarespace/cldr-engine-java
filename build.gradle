@@ -103,6 +103,9 @@ if (JavaVersion.current().isJava8Compatible()) {
 }
 
 release {
+  git {
+    requireBranch = 'main'
+  }
 }
 
 node {

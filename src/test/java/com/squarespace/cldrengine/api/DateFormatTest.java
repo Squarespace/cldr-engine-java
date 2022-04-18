@@ -29,21 +29,21 @@ public class DateFormatTest {
 
     r = EN.Calendars.formatDate(date, DateFormatOptions.build()
         .skeleton("GyMMd"));
-    assertEquals(r, "Apr 17, 2020 AD");
+    assertEquals(r, "04/17/2020 AD");
 
     r = EN.Calendars.formatDate(date, DateFormatOptions.build()
         .skeleton("GGGGyMMd"));
-    assertEquals(r, "Apr 17, 2020 Anno Domini");
+    assertEquals(r, "04/17/2020 Anno Domini");
 
     r = EN.Calendars.formatDate(date, DateFormatOptions.build()
         .skeleton("GyMMd")
         .alt(DateFormatAltOptions.build().era(EraAltType.SENSITIVE)));
-    assertEquals(r, "Apr 17, 2020 CE");
+    assertEquals(r, "04/17/2020 CE");
 
     r = EN.Calendars.formatDate(date, DateFormatOptions.build()
         .skeleton("GGGGyMMd")
         .alt(DateFormatAltOptions.build().era(EraAltType.SENSITIVE)));
-    assertEquals(r, "Apr 17, 2020 Common Era");
+    assertEquals(r, "04/17/2020 Common Era");
   }
 
 }

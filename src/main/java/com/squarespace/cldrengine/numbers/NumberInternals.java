@@ -175,7 +175,10 @@ public class NumberInternals {
         // digits of n and the plural category of the rounded / shifted number q2.
         String raw = patternImpl.get(bundle, plural, ndigits)._1;
         if (isEmpty(raw)) {
-          raw = standardRaw;
+     	  raw = patternImpl.get(bundle, PluralType.OTHER, ndigits)._1;
+        }
+        if (isEmpty(raw)) {
+       	  raw = standardRaw;
         }
 
         // Re-select pattern as number may have changed sign due to rounding.
@@ -371,6 +374,9 @@ public class NumberInternals {
         // Select the final pluralized compact pattern based on the integer
         // digits of n and the plural category of the rounded / shifted number q2.
         String raw = patternImpl.get(bundle, plural, ndigits)._1;
+        if (isEmpty(raw)) {
+        	raw = patternImpl.get(bundle, PluralType.OTHER, ndigits)._1;
+        }
         if (isEmpty(raw) || raw.equals("0")) {
           raw = standardRaw;
         }

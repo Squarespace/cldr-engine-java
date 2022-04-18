@@ -18,6 +18,7 @@ import {
 } from '@phensley/cldr';
 
 import { framework } from './framework';
+import { LOCALES } from './data';
 import { Dimension, product, reduce } from './dimension';
 
 const NUMBERS: string[] = [
@@ -37,8 +38,6 @@ const NUMBERS: string[] = [
   '1000000000000000',
   String(Number.MAX_SAFE_INTEGER),
 ];
-
-const LOCALES = ['en', 'es-419', 'de', 'ja', 'pt-PT', 'zh'];
 
 const ROUND: (RoundingModeType | undefined)[] = [
   undefined,

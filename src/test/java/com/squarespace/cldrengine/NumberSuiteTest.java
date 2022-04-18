@@ -122,7 +122,8 @@ public class NumberSuiteTest extends CoverageSuite {
                 String expected = result.get(j);
                 try {
                   String actual = cldr.Numbers.formatDecimal(n, opts);
-                  Assert.assertEquals(actual, expected, String.format("n=%s opts=%s", n, opts));
+                  Assert.assertEquals(actual, expected, 
+                		  String.format("id=%s n=%s opts=%s", locales.get(i), n, opts));
                   cases++;
 
                   if ((cases % 100000) == 0) {
@@ -154,7 +155,8 @@ public class NumberSuiteTest extends CoverageSuite {
                   String expected = result.get((j * currencies.size()) + k);
                   try {
                     String actual = cldr.Numbers.formatCurrency(n, code, opts);
-                    Assert.assertEquals(actual, expected, String.format("n=%s code=%s opts=%s", n, code, opts));
+                    Assert.assertEquals(actual, expected, 
+                    		String.format("id=%s n=%s code=%s opts=%s", locales.get(i), n, code, opts));
                     cases++;
 
                     if ((cases % 100000) == 0) {

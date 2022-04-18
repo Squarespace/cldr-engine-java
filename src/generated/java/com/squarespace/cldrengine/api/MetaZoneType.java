@@ -166,7 +166,8 @@ public enum MetaZoneType implements StringEnum<MetaZoneType> {
   WAKE("Wake"),
   WALLIS("Wallis"),
   YAKUTSK("Yakutsk"),
-  YEKATERINBURG("Yekaterinburg")
+  YEKATERINBURG("Yekaterinburg"),
+  YUKON("Yukon")
   ;
 
   private static final Map<String, MetaZoneType> REVERSE = new HashMap<>();

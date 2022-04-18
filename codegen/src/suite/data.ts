@@ -1,4 +1,14 @@
-export const LOCALES = ['en', 'es-419', 'de', 'ja', 'pt-PT', 'zh'];
+export const LOCALES = [
+  'en',
+  'es-419',
+  'de',
+  'fr',
+  'ja',
+  'ko',
+  'no',
+  'pt-PT',
+  'zh',
+];
 
 export const DATES: number[] = [
   // Mon, February 6, 1956 4:54:57 PM

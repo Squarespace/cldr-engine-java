@@ -27,7 +27,7 @@ public class DateMixedTest {
 
     opts = opts().date(FormatWidthType.SHORT).skeleton("hm");
     s = en.Calendars.formatDate(date, opts);
-    assertEquals(s, "3/10/18, 11:00 PM");
+    assertEquals(s, "3/10/18, 11:00 PM");
 
     opts = opts().date(FormatWidthType.SHORT).skeleton("Hm");
     s = en.Calendars.formatDate(date, opts);
@@ -35,24 +35,24 @@ public class DateMixedTest {
 
     opts = opts().time(FormatWidthType.SHORT).skeleton("EyMMMd");
     s = en.Calendars.formatDate(date, opts);
-    assertEquals(s, "Sat, Mar 10, 2018, 11:00 PM");
+    assertEquals(s, "Sat, Mar 10, 2018, 11:00 PM");
 
     opts = opts().time(FormatWidthType.FULL).skeleton("yMd");
     s = en.Calendars.formatDate(date, opts);
-    assertEquals(s, "3/10/2018, 11:00:25 PM Pacific Standard Time");
+    assertEquals(s, "3/10/2018, 11:00:25 PM Pacific Standard Time");
 
     // skeleton conflicts with both date/time, not used
 
     opts = opts().date(FormatWidthType.LONG).time(FormatWidthType.LONG)
         .skeleton("hm");
     s = en.Calendars.formatDate(date, opts);
-    assertEquals(s, "March 10, 2018 at 11:00:25 PM PST");
+    assertEquals(s, "March 10, 2018 at 11:00:25 PM PST");
 
     // skeleton conflicts with date, only time portion used
 
     opts = opts().date(FormatWidthType.FULL).skeleton("yMdhm");
     s = en.Calendars.formatDate(date, opts);
-    assertEquals(s, "Saturday, March 10, 2018 at 11:00 PM");
+    assertEquals(s, "Saturday, March 10, 2018 at 11:00 PM");
 
     opts = opts().date(FormatWidthType.FULL).skeleton("yMdHm");
     s = en.Calendars.formatDate(date, opts);
@@ -62,11 +62,11 @@ public class DateMixedTest {
 
     opts = opts().time(FormatWidthType.SHORT).skeleton("yMdhmmsv");
     s = en.Calendars.formatDate(date, opts);
-    assertEquals(s, "3/10/2018, 11:00 PM");
+    assertEquals(s, "3/10/2018, 11:00 PM");
 
     opts = opts().time(FormatWidthType.SHORT).skeleton("EyMMMdHmmmsv");
     s = en.Calendars.formatDate(date, opts);
-    assertEquals(s, "Sat, Mar 10, 2018, 11:00 PM");
+    assertEquals(s, "Sat, Mar 10, 2018, 11:00 PM");
   }
 
   private static DateFormatOptions opts() {

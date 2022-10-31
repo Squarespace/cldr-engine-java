@@ -69,6 +69,7 @@ class CalendarPatterns {
   private final Map<FormatWidthType, String> dateFormats;
   private final Map<FormatWidthType, String> timeFormats;
   private final Map<FormatWidthType, String> wrapperFormats;
+  private final Map<FormatWidthType, String> wrapperFormatsAt;
 
   private final DatePatternMatcher availableMatcher = new DatePatternMatcher();
   private final Map<DateTimePatternFieldType, DatePatternMatcher> intervalMatcher = new HashMap<>();
@@ -89,6 +90,7 @@ class CalendarPatterns {
     this.dateFormats = schema.dateFormats.mapping(bundle);
     this.timeFormats = schema.timeFormats.mapping(bundle);
     this.wrapperFormats = schema.dateTimeFormats.mapping(bundle);
+    this.wrapperFormatsAt = schema.dateTimeFormatsAt.mapping(bundle);
     this.skeletonParser = buildSkeletonParser();
 
     this.rawAvailableFormats = schema.availableFormats.mapping(bundle);
@@ -130,8 +132,9 @@ class CalendarPatterns {
     this.intervalRequestCache.set(key, req);
   }
 
-  public String getWrapperPattern(FormatWidthType width) {
-    return this.wrapperFormats.getOrDefault(width, "");
+  public String getWrapperPattern(FormatWidthType width, boolean atTime) {
+    String w = this.wrapperFormatsAt.getOrDefault(width, "");
+    return atTime ? w : this.wrapperFormats.getOrDefault(width, "");
   }
 
   public DateTimePattern getAvailablePattern(CalendarDate d, DateSkeleton s) {

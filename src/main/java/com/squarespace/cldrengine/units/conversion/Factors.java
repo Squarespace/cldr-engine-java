@@ -129,7 +129,7 @@ public class Factors {
       def(UnitType.POINT, "1 / 72", UnitType.INCH));
 
   public static final List<FactorDef> MASS = Arrays.asList(
-      def(UnitType.METRIC_TON, "1000", UnitType.KILOGRAM),
+      def(UnitType.TONNE, "1000", UnitType.KILOGRAM),
       def(UnitType.GRAM, "1 / 1000", UnitType.KILOGRAM),
       def(UnitType.MILLIGRAM, "1 / 1000", UnitType.GRAM),
       def(UnitType.MICROGRAM, "1 / 1000", UnitType.MILLIGRAM),

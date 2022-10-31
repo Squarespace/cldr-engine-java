@@ -67,11 +67,12 @@ class CalendarManager {
       dateKey = FormatWidthType.LONG;
     }
 
+    boolean atTime = options.atTime.or(true);
     String wrapper = "";
     if (wrapKey != null) {
-      wrapper = patterns.getWrapperPattern(wrapKey);
+      wrapper = patterns.getWrapperPattern(wrapKey, atTime);
     } else if (dateKey != null && timeKey != null) {
-      wrapper = patterns.getWrapperPattern(dateKey);
+      wrapper = patterns.getWrapperPattern(dateKey, atTime);
     }
 
     DateFormatRequest req = new DateFormatRequest();
@@ -158,9 +159,9 @@ class CalendarManager {
 
     if (wrapKey == null) {
       if (dateSkel != null && req.date != null && req.time != null) {
-        req.wrapper = this.selectWrapper(patterns, dateSkel, req.date);
+        req.wrapper = this.selectWrapper(patterns, dateSkel, req.date, atTime);
       } else {
-        req.wrapper = patterns.getWrapperPattern(dateKey == null ? FormatWidthType.SHORT : dateKey);
+        req.wrapper = patterns.getWrapperPattern(dateKey == null ? FormatWidthType.SHORT : dateKey, atTime);
       }
     }
 
@@ -320,7 +321,7 @@ class CalendarManager {
   /**
    * Select appropriate wrapper based on fields in the date skeleton.
    */
-  protected String selectWrapper(CalendarPatterns patterns, DateSkeleton dateSkel, DateTimePattern date) {
+  protected String selectWrapper(CalendarPatterns patterns, DateSkeleton dateSkel, DateTimePattern date, boolean atTime) {
     FormatWidthType wrapKey = FormatWidthType.SHORT;
     int monthWidth = dateSkel.monthWidth();
     boolean hasWeekday = dateSkel.has(Field.WEEKDAY.ordinal());
@@ -329,6 +330,6 @@ class CalendarManager {
     } else if (monthWidth == 3) {
       wrapKey = FormatWidthType.MEDIUM;
     }
-    return patterns.getWrapperPattern(wrapKey);
+    return patterns.getWrapperPattern(wrapKey, atTime);
   }
 }

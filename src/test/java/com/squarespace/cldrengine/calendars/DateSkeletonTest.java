@@ -28,10 +28,10 @@ public class DateSkeletonTest {
     date = en.Calendars.toGregorianDate(MARCH_11_2018_070025_UTC, LA);
 
     s = en.Calendars.formatDate(date, opts().skeleton("j"));
-    assertEquals(s, "11 PM");
+    assertEquals(s, "11 PM");
 
     s = en.Calendars.formatDate(date, opts().skeleton("jmm"));
-    assertEquals(s, "11:00 PM");
+    assertEquals(s, "11:00 PM");
 
     s = en.Calendars.formatDate(date, opts().skeleton("J"));
     assertEquals(s, "23");
@@ -40,10 +40,10 @@ public class DateSkeletonTest {
     assertEquals(s, "23:00");
 
     s = en.Calendars.formatDate(date, opts().skeleton("Cmm"));
-    assertEquals(s, "11:00 PM");
+    assertEquals(s, "11:00 PM");
 
     s = en.Calendars.formatDate(date, opts().skeleton("K"));
-    assertEquals(s, "11 PM");
+    assertEquals(s, "11 PM");
 
     s = en.Calendars.formatDate(date, opts().skeleton("BH"));
     assertEquals(s, "23");
@@ -59,20 +59,20 @@ public class DateSkeletonTest {
     date = en.Calendars.toGregorianDate(MARCH_11_2018_070025_UTC + 567, LA);
 
     s = en.Calendars.formatDate(date, opts().skeleton("hmsS"));
-    assertEquals(s, "11:00:25.5 PM");
+    assertEquals(s, "11:00:25.5 PM");
 
     s = en.Calendars.formatDate(date, opts().skeleton("hmsSS"));
-    assertEquals(s, "11:00:25.56 PM");
+    assertEquals(s, "11:00:25.56 PM");
 
     s = en.Calendars.formatDate(date, opts().skeleton("hmsSSS"));
-    assertEquals(s, "11:00:25.567 PM");
+    assertEquals(s, "11:00:25.567 PM");
 
     s = en.Calendars.formatDate(date, opts().skeleton("hmsSSSS"));
-    assertEquals(s, "11:00:25.5670 PM");
+    assertEquals(s, "11:00:25.5670 PM");
 
     CLDR fr = CLDR.get("fr");
     s = fr.Calendars.formatDate(date, opts().skeleton("hmsSSSS"));
-    assertEquals(s, "11:00:25,5670 PM");
+    assertEquals(s, "11:00:25,5670 PM");
   }
 
   private static DateFormatOptions opts() {

@@ -16,6 +16,7 @@ public class DateFormatOptions {
   public final Option<CalendarType> calendar = Option.option();
   public final Option<String> numberSystem = Option.option();
   public final Option<DateFormatAltOptions> alt = Option.option();
+  public final Option<Boolean> atTime = Option.option();
 
   public DateFormatOptions() {
   }
@@ -30,6 +31,7 @@ public class DateFormatOptions {
     this.calendar.set(arg.calendar);
     this.numberSystem.set(arg.numberSystem);
     this.alt.set(arg.alt);
+    this.atTime.set(arg.atTime);
   }
 
   public DateFormatOptions context(ContextType arg) {
@@ -122,6 +124,16 @@ public class DateFormatOptions {
     return this;
   }
 
+  public DateFormatOptions atTime(Boolean arg) {
+    this.atTime.set(arg);
+    return this;
+  }
+
+  public DateFormatOptions atTime(Option<Boolean> arg) {
+    this.atTime.set(arg);
+    return this;
+  }
+
   public static DateFormatOptions build() {
     return new DateFormatOptions();
   }
@@ -148,6 +160,7 @@ public class DateFormatOptions {
     this.calendar.setIf(o.calendar);
     this.numberSystem.setIf(o.numberSystem);
     this.alt.setIf(o.alt);
+    this.atTime.setIf(o.atTime);
   }
 
   public DateFormatOptions merge(DateFormatOptions ...args) {
@@ -168,6 +181,7 @@ public class DateFormatOptions {
     this.calendar.set(o.calendar);
     this.numberSystem.set(o.numberSystem);
     this.alt.set(o.alt);
+    this.atTime.set(o.atTime);
   }
 
 
@@ -205,6 +219,9 @@ public class DateFormatOptions {
     }
     if (alt.ok()) {
       buf.append("alt=").append(alt).append(' ');
+    }
+    if (atTime.ok()) {
+      buf.append("atTime=").append(atTime).append(' ');
     }
   }
 

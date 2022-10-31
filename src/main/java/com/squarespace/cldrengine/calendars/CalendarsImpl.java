@@ -21,6 +21,7 @@ import com.squarespace.cldrengine.api.DateFormatOptions;
 import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
 import com.squarespace.cldrengine.api.DateRawFormatOptions;
 import com.squarespace.cldrengine.api.Decimal;
+import com.squarespace.cldrengine.api.ExemplarCity;
 import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.GregorianDate;
 import com.squarespace.cldrengine.api.ISO8601Date;
@@ -33,15 +34,18 @@ import com.squarespace.cldrengine.api.RelativeTimeFieldFormatOptions;
 import com.squarespace.cldrengine.api.RelativeTimeFieldType;
 import com.squarespace.cldrengine.api.RelativeTimeFormatOptions;
 import com.squarespace.cldrengine.api.TimePeriodField;
+import com.squarespace.cldrengine.api.TimeZoneInfo;
 import com.squarespace.cldrengine.internal.AbstractValue;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.PartsValue;
 import com.squarespace.cldrengine.internal.PrivateApi;
 import com.squarespace.cldrengine.internal.StringValue;
+import com.squarespace.cldrengine.internal.TimeZoneSchema;
 import com.squarespace.cldrengine.numbers.NumberParams;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.parsing.WrapperPattern;
+import com.squarespace.cldrengine.utils.StringUtils;
 
 public class CalendarsImpl implements Calendars {
 
@@ -66,6 +70,7 @@ public class CalendarsImpl implements Calendars {
   private final Internals internals;
   private final PrivateApi privateApi;
   private final CalendarManager manager;
+  private final TimeZoneSchema tz;
   private final int firstDay;
   private final int minDays;
 
@@ -74,6 +79,7 @@ public class CalendarsImpl implements Calendars {
     this.internals = internals;
     this.privateApi = privateApi;
     this.manager = new CalendarManager(bundle, internals);
+    this.tz = internals.schema.TimeZones;
     String region = bundle.region();
     this.firstDay = internals.calendars.weekFirstDay(region);
     this.minDays = internals.calendars.weekMinDays(region);
@@ -244,6 +250,35 @@ public class CalendarsImpl implements Calendars {
     return TimeZoneData.resolveId(zoneId);
   }
 
+  @Override
+  public TimeZoneInfo timeZoneInfo(String zoneId) {
+    String id = this.resolveTimeZoneId(zoneId);
+    if (id == null) {
+      id = "Factory";
+    }
+    boolean isStable = TimeZoneData.zoneIsStable(id);
+    String stableId = isStable ? id : TimeZoneData.getStableId(id);
+    String city = this.tz.exemplarCity.get(this.bundle, stableId);
+    if (StringUtils.isEmpty(city)) {
+      city = this.tz.exemplarCity.get(this.bundle, "Etc/Unknown");
+    }
+    String metazoneId = TimeZoneData.getMetazone(zoneId, Long.MAX_VALUE);
+    if (metazoneId == null) {
+      metazoneId = "";
+    }
+    ZoneMeta zoneMeta = TimeZoneData.zoneMeta(id);
+
+    return new TimeZoneInfo(
+        id,
+        new ExemplarCity(city),
+        Arrays.asList(zoneMeta.countries),
+        zoneMeta.latitude,
+        zoneMeta.longitude,
+        zoneMeta.stdoffset,
+        metazoneId
+    );
+  }
+
   protected static final RelativeTimeFieldType[] DOW_FIELDS = new RelativeTimeFieldType[] {
       RelativeTimeFieldType.SUN,
       RelativeTimeFieldType.MON,
@@ -290,6 +325,7 @@ public class CalendarsImpl implements Calendars {
     CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
     start = convertDateTo(calendar, start);
     end = convertDateTo(calendar, end);
+    boolean atTime = options.atTime.or(true);
 
     DateTimePatternFieldType fieldDiff = this.fieldOfVisualDifference(start, end);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
@@ -331,7 +367,7 @@ public class CalendarsImpl implements Calendars {
       // Docs don't mention this edge case:
       // https://www.unicode.org/reports/tr35/tr35-dates.html#intervalFormats
       CalendarPatterns patterns = this.manager.getCalendarPatterns(calendar.value);
-      WrapperPattern wrapper = this.internals.general.parseWrapper(patterns.getWrapperPattern(FormatWidthType.MEDIUM));
+      WrapperPattern wrapper = this.internals.general.parseWrapper(patterns.getWrapperPattern(FormatWidthType.MEDIUM, atTime));
       value.wrap(wrapper, Arrays.asList(_range, _date));
       return value.render();
     }

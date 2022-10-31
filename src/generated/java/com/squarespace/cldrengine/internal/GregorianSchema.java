@@ -18,6 +18,7 @@ public class GregorianSchema extends CalendarSchema {
       Vector1Arrow<FormatWidthType> dateFormats,
       Vector1Arrow<FormatWidthType> timeFormats,
       Vector1Arrow<FormatWidthType> dateTimeFormats,
+      Vector1Arrow<FormatWidthType> dateTimeFormatsAt,
       FieldArrow intervalFormatFallback) {
     super(
       eras,
@@ -29,6 +30,7 @@ public class GregorianSchema extends CalendarSchema {
       dateFormats,
       timeFormats,
       dateTimeFormats,
+      dateTimeFormatsAt,
       intervalFormatFallback
     );
 

@@ -18,6 +18,7 @@ import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.utils.FileUtils;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 public class PluralSamplesTest {
 
@@ -57,6 +58,7 @@ public class PluralSamplesTest {
   }
 
   @AllArgsConstructor
+  @ToString
   private static class TestCase {
     public final String type;
     public final String category;

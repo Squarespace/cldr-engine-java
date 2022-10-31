@@ -1,5 +1,6 @@
 package com.squarespace.cldrengine.plurals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.squarespace.cldrengine.api.Decimal;
@@ -44,9 +45,11 @@ public class PluralRulesImpl implements PluralRules {
   }
 
   private PluralType evaluate(NumberOperands operands, Rule[] rules) {
-    for (Rule rule : rules) {
-      if (this.execute(operands, rule.indices)) {
-        return CATEGORIES[rule.index];
+    if (rules != null) {
+      for (Rule rule : rules) {
+        if (this.execute(operands, rule.indices)) {
+          return CATEGORIES[rule.index];
+        }
       }
     }
     return PluralType.OTHER;

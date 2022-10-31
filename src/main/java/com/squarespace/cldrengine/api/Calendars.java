@@ -145,7 +145,11 @@ public interface Calendars {
    */
   String resolveTimeZoneId(String zoneId);
 
-  // timeZoneInfo
+  /**
+   * Return additional information for a timezone id, including the
+   * localized exemplar city.
+   */
+  TimeZoneInfo timeZoneInfo(String zoneId);
 
   // timePeriodToQuantity
 

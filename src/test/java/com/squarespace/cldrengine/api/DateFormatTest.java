@@ -20,12 +20,12 @@ public class DateFormatTest {
 
     r = EN.Calendars.formatDate(date, DateFormatOptions.build()
         .time(FormatWidthType.MEDIUM));
-    assertEquals(r, "8:34:56 AM");
+    assertEquals(r, "8:34:56 AM");
 
     r = EN.Calendars.formatDate(date, DateFormatOptions.build()
         .time(FormatWidthType.MEDIUM)
         .alt(DateFormatAltOptions.build().dayPeriod(DayPeriodAltType.CASING)));
-    assertEquals(r, "8:34:56 am");
+    assertEquals(r, "8:34:56 am");
 
     r = EN.Calendars.formatDate(date, DateFormatOptions.build()
         .skeleton("GyMMd"));

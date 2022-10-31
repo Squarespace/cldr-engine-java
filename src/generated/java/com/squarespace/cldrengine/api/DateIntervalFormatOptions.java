@@ -14,6 +14,7 @@ public class DateIntervalFormatOptions {
   public final Option<CalendarType> calendar = Option.option();
   public final Option<String> numberSystem = Option.option();
   public final Option<DateFormatAltOptions> alt = Option.option();
+  public final Option<Boolean> atTime = Option.option();
 
   public DateIntervalFormatOptions() {
   }
@@ -26,6 +27,7 @@ public class DateIntervalFormatOptions {
     this.calendar.set(arg.calendar);
     this.numberSystem.set(arg.numberSystem);
     this.alt.set(arg.alt);
+    this.atTime.set(arg.atTime);
   }
 
   public DateIntervalFormatOptions skeleton(String arg) {
@@ -98,6 +100,16 @@ public class DateIntervalFormatOptions {
     return this;
   }
 
+  public DateIntervalFormatOptions atTime(Boolean arg) {
+    this.atTime.set(arg);
+    return this;
+  }
+
+  public DateIntervalFormatOptions atTime(Option<Boolean> arg) {
+    this.atTime.set(arg);
+    return this;
+  }
+
   public static DateIntervalFormatOptions build() {
     return new DateIntervalFormatOptions();
   }
@@ -122,6 +134,7 @@ public class DateIntervalFormatOptions {
     this.calendar.setIf(o.calendar);
     this.numberSystem.setIf(o.numberSystem);
     this.alt.setIf(o.alt);
+    this.atTime.setIf(o.atTime);
   }
 
   public DateIntervalFormatOptions merge(DateIntervalFormatOptions ...args) {
@@ -140,6 +153,7 @@ public class DateIntervalFormatOptions {
     this.calendar.set(o.calendar);
     this.numberSystem.set(o.numberSystem);
     this.alt.set(o.alt);
+    this.atTime.set(o.atTime);
   }
 
 
@@ -171,6 +185,9 @@ public class DateIntervalFormatOptions {
     }
     if (alt.ok()) {
       buf.append("alt=").append(alt).append(' ');
+    }
+    if (atTime.ok()) {
+      buf.append("atTime=").append(atTime).append(' ');
     }
   }
 

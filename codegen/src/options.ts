@@ -105,7 +105,8 @@ const DateFormatOptions = new Option('DateFormatOptions')
   .field('skeleton', 'String')
   .field('calendar', 'CalendarType')
   .field('numberSystem', 'String')
-  .field('alt', 'DateFormatAltOptions');
+  .field('alt', 'DateFormatAltOptions')
+  .field('atTime', 'Boolean');
 
 const DateFormatAltOptions = new Option('DateFormatAltOptions')
   .field('era', 'EraAltType')
@@ -118,7 +119,8 @@ const DateIntervalFormatOptions = new Option('DateIntervalFormatOptions')
   .field('context', 'ContextType')
   .field('calendar', 'CalendarType')
   .field('numberSystem', 'String')
-  .field('alt', 'DateFormatAltOptions');
+  .field('alt', 'DateFormatAltOptions')
+  .field('atTime', 'Boolean');
 
 const DateRawFormatOptions = new Option('DateRawFormatOptions')
   .field('pattern', 'String')

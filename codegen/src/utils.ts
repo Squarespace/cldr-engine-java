@@ -75,5 +75,7 @@ export const escapeWrap = (s: string, width: number): string[] => {
   return lines.map((s) => `"${s}"`);
 };
 
-export const write = (path: string, data: string) =>
+export const write = (path: string, data: string) => {
+  console.log(`writing ${path}`);
   fs.writeFileSync(path, data, { encoding: 'utf-8' });
+};

@@ -102,6 +102,10 @@ public class TimeZoneData {
     );
   }
 
+  public static boolean zoneIsStable(String zoneId) {
+    return CLDR_STABLEIDS.contains(zoneId);
+  }
+
   /**
    * Metadata related to a zone, such as the list of country codes that overlap with
    * the zone, the latitude and longitude, and the current standard offset, in milliseconds.
@@ -175,7 +179,7 @@ public class TimeZoneData {
   /**
    * Map a timezone identifier to the CLDR stable id
    */
-  private static String getStableId(String id) {
+  public static String getStableId(String id) {
     return ZONE_TO_STABLEID.getOrDefault(id, id);
   }
 

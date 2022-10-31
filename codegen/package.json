@@ -36,6 +36,6 @@
     "ts-extractor": "^3.1.5",
     "ts-jest": "^25.5.1",
     "ts-node": "^8.10.1",
-    "typescript": "*"
+    "typescript": "4.6.x"
   }
 }

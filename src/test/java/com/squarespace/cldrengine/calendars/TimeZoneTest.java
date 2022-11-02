@@ -9,7 +9,7 @@ public class TimeZoneTest {
   private static final String NEW_YORK = "America/New_York";
 
   @Test
-  public void testZoneInfo() {
+  public void testZoneInfoFromUTC() {
     long base = 1613746481000L;
     ZoneInfo info;
 

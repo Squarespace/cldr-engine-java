@@ -26,6 +26,9 @@ import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.GregorianDate;
 import com.squarespace.cldrengine.api.ISO8601Date;
 import com.squarespace.cldrengine.api.JapaneseDate;
+import com.squarespace.cldrengine.api.MetaZoneType;
+import com.squarespace.cldrengine.api.MetazoneName;
+import com.squarespace.cldrengine.api.MetazoneNames;
 import com.squarespace.cldrengine.api.Option;
 import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.api.Part;
@@ -35,6 +38,7 @@ import com.squarespace.cldrengine.api.RelativeTimeFieldType;
 import com.squarespace.cldrengine.api.RelativeTimeFormatOptions;
 import com.squarespace.cldrengine.api.TimePeriodField;
 import com.squarespace.cldrengine.api.TimeZoneInfo;
+import com.squarespace.cldrengine.api.TimeZoneNameType;
 import com.squarespace.cldrengine.internal.AbstractValue;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.Internals;
@@ -262,11 +266,19 @@ public class CalendarsImpl implements Calendars {
     if (StringUtils.isEmpty(city)) {
       city = this.tz.exemplarCity.get(this.bundle, "Etc/Unknown");
     }
-    String metazoneId = TimeZoneData.getMetazone(zoneId, Long.MAX_VALUE);
+    String metazoneId = TimeZoneData.getMetazone(id, Long.MAX_VALUE);
     if (metazoneId == null) {
       metazoneId = "";
     }
     ZoneMeta zoneMeta = TimeZoneData.zoneMeta(id);
+
+    MetaZoneType metazone = MetaZoneType.fromString(metazoneId);
+    String long_generic = tz.metaZones.long_.get(bundle, TimeZoneNameType.GENERIC, metazone);
+    String long_standard = tz.metaZones.long_.get(bundle, TimeZoneNameType.STANDARD, metazone);
+    String long_daylight = tz.metaZones.long_.get(bundle, TimeZoneNameType.DAYLIGHT, metazone);
+    String short_generic = tz.metaZones.short_.get(bundle, TimeZoneNameType.GENERIC, metazone);
+    String short_standard = tz.metaZones.short_.get(bundle, TimeZoneNameType.STANDARD, metazone);
+    String short_daylight = tz.metaZones.short_.get(bundle, TimeZoneNameType.DAYLIGHT, metazone);
 
     return new TimeZoneInfo(
         id,
@@ -275,7 +287,10 @@ public class CalendarsImpl implements Calendars {
         zoneMeta.latitude,
         zoneMeta.longitude,
         zoneMeta.stdoffset,
-        metazoneId
+        metazoneId,
+        new MetazoneNames(
+            new MetazoneName(long_generic, long_standard, long_daylight),
+            new MetazoneName(short_generic, short_standard, short_daylight))
     );
   }
 

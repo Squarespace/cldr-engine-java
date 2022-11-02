@@ -12,9 +12,11 @@ public class TimeZoneInfo {
   private final double longitude;
   private final long stdoffset;
   private final String metazone;
+  private final MetazoneNames names;
 
   public TimeZoneInfo(String id, ExemplarCity city, List<String> countries,
-      double latitude, double longitude, long stdoffset, String metazone) {
+      double latitude, double longitude, long stdoffset, String metazone,
+      MetazoneNames names) {
     this.id = id;
     this.city = city;
     this.countries = Collections.unmodifiableList(countries);
@@ -22,6 +24,7 @@ public class TimeZoneInfo {
     this.longitude = longitude;
     this.stdoffset = stdoffset;
     this.metazone = metazone;
+    this.names = names;
   }
 
   public String id() {
@@ -50,5 +53,9 @@ public class TimeZoneInfo {
 
   public String metazone() {
     return metazone;
+  }
+
+  public MetazoneNames names() {
+    return names;
   }
 }

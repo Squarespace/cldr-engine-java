@@ -17,6 +17,8 @@ public class CalendarsApiTest {
   private final static String UNK = "Factory";
   private final static String INVALID = "Invalid";
   private final static String NEWYORK = "America/New_York";
+  private final static String ADDIS = "Africa/Addis_Ababa";
+  private final static String NAIROBI = "Africa/Nairobi";
 
   @Test
   public void testTimezoneInfo() {
@@ -30,6 +32,17 @@ public class CalendarsApiTest {
     assertEquals(tz.longitude(), -74.006389);
     assertEquals(tz.countries(), Arrays.asList("US"));
     assertEquals(tz.stdoffset(), -18000000);
+    assertEquals(tz.names().long_().generic(), "Eastern Time");
+    assertEquals(tz.names().long_().standard(), "Eastern Standard Time");
+    assertEquals(tz.names().long_().daylight(), "Eastern Daylight Time");
+
+    tz = EN.Calendars.timeZoneInfo(ADDIS);
+    assertEquals(tz.id(), NAIROBI);
+    assertEquals(tz.city().name(), "Nairobi");
+    assertEquals(tz.metazone(), "Africa_Eastern");
+    assertEquals(tz.names().long_().generic(), "");
+    assertEquals(tz.names().long_().standard(), "East Africa Time");
+    assertEquals(tz.names().long_().daylight(), "");
 
     tz = EN.Calendars.timeZoneInfo(UTC);
     assertEquals(tz.id(), UTC);

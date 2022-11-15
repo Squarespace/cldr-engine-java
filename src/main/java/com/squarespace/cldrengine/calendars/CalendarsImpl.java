@@ -36,6 +36,7 @@ import com.squarespace.cldrengine.api.PersianDate;
 import com.squarespace.cldrengine.api.RelativeTimeFieldFormatOptions;
 import com.squarespace.cldrengine.api.RelativeTimeFieldType;
 import com.squarespace.cldrengine.api.RelativeTimeFormatOptions;
+import com.squarespace.cldrengine.api.TimeData;
 import com.squarespace.cldrengine.api.TimePeriodField;
 import com.squarespace.cldrengine.api.TimeZoneInfo;
 import com.squarespace.cldrengine.api.TimeZoneNameType;
@@ -242,6 +243,13 @@ public class CalendarsImpl implements Calendars {
       relField = DOW_FIELDS[(int)dow];
     }
     return formatRelativeTimeField(new Decimal(amount), relField, options);
+  }
+
+  @Override
+  public TimeData timeData() {
+    CalendarPatterns patterns = this.manager.getCalendarPatterns(CalendarType.GREGORY.value);
+    CalendarPatterns.TimeData raw = patterns.getTimeData();
+    return new TimeData(raw._2, Arrays.asList(raw._1.split(" ")));
   }
 
   @Override

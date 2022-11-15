@@ -109,8 +109,6 @@ public interface Calendars {
    */
   List<Part> formatDateToParts(CalendarDate date, DateFormatOptions options);
 
-
-
   /**
    * Formats a date interval with a start and end.
    */
@@ -134,6 +132,11 @@ public interface Calendars {
   // formatDateRaw
 
   // formatDateRawToParts
+
+  /**
+   * Return information about the locale's preferred and allowed time cycles.
+   */
+  TimeData timeData();
 
   /**
    * Return an array containing the official TZDB timezone identifiers.

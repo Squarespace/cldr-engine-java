@@ -270,8 +270,11 @@ const buildRawFormat = (name: string) => {
 export const dateSuite = (root: string) => {
   let datedims: Dimension<DateFormatOptions>[];
 
-  const f1 = (c: CLDR, date: CalendarDate, opts: DateFormatOptions): string =>
-    c.Calendars.formatDate(date, opts);
+  const f1 = <DateFormatOptions>(
+    c: CLDR,
+    date: CalendarDate,
+    opts: DateFormatOptions,
+  ): string => c.Calendars.formatDate(date, opts!);
 
   datedims = [
     DIM_CALENDAR,
@@ -283,8 +286,11 @@ export const dateSuite = (root: string) => {
   ];
   buildDateFormat(join(root, 'dateformat.txt'), 'formatDate', datedims, f1);
 
-  const f2 = (c: CLDR, date: CalendarDate, opts: DateFormatOptions) =>
-    c.Calendars.formatDateToParts(date, opts);
+  const f2 = <DateFormatOptions>(
+    c: CLDR,
+    date: CalendarDate,
+    opts: DateFormatOptions,
+  ) => c.Calendars.formatDateToParts(date, opts!);
   buildDateFormat(
     join(root, 'dateformat-parts.txt'),
     'formatDateToParts',
@@ -294,12 +300,12 @@ export const dateSuite = (root: string) => {
 
   let intdims: Dimension<DateIntervalFormatOptions>[];
 
-  const f3 = (
+  const f3 = <DateIntervalFormatOptions>(
     c: CLDR,
     start: CalendarDate,
     end: CalendarDate,
     opts: DateIntervalFormatOptions,
-  ) => c.Calendars.formatDateInterval(start, end, opts);
+  ) => c.Calendars.formatDateInterval(start, end, opts!);
 
   intdims = [INT_SKELETON];
   buildDateIntervalFormat(

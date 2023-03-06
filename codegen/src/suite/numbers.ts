@@ -257,12 +257,12 @@ const buildCurrency = <T>(
 
 export const currencySuite = (root: string) => {
   let dims: Dimension<CurrencyFormatOptions>[];
-  const f = (
+  const f: CurrencyFunc = <CurrencyFormatOptions>(
     c: CLDR,
     n: Decimal,
     code: CurrencyType,
     opts: CurrencyFormatOptions,
-  ) => c.Numbers.formatCurrency(n, code, opts);
+  ) => c.Numbers.formatCurrency(n, code, opts!);
 
   dims = [CURFMT_STYLE, NUMFMT_NUM_SYSTEMS, NUMFMT_GROUP];
   buildCurrency(
@@ -293,8 +293,11 @@ export const currencySuite = (root: string) => {
 
 export const decimalSuite = (root: string) => {
   let dims: Dimension<DecimalFormatOptions>[];
-  const f = (c: CLDR, n: Decimal, o: DecimalFormatOptions) =>
-    c.Numbers.formatDecimal(n, o);
+  const f = <DecimalFormatOptions>(
+    c: CLDR,
+    n: Decimal,
+    o: DecimalFormatOptions,
+  ) => c.Numbers.formatDecimal(n, o!);
 
   dims = [NUMFMT_NUM_SYSTEMS, DECFMT_STYLE, NUMFMT_GROUP];
   buildDecimal(join(root, 'decimalformat-numsystems.txt'), dims, f);

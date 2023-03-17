@@ -33,6 +33,24 @@ public class MessageFormatTest {
   }
 
   @Test
+  public void testDisableEscapes() {
+    MessageFormatterOptions opts = MessageFormatterOptions.build()
+        .converter(new ArgConverter())
+        .language("en")
+        .region("US")
+        .disableEscapes(true);
+
+    MessageFormatter formatter = new MessageFormatter(opts);
+
+    MessageArgs args = new MessageArgs();
+    args.add("a", 123);
+
+    String message = "'a' '{a}' {a}";
+    String actual = formatter.format(message, args);
+    assertEquals(actual, "'a' '123' 123");
+  }
+
+  @Test
   public void testSelectOrdinal() {
     MessageFormatterOptions opts = MessageFormatterOptions.build()
         .converter(new ArgConverter())
@@ -61,6 +79,8 @@ public class MessageFormatTest {
     public String asString(Object arg) {
       if (arg instanceof Boolean) {
         return ((boolean) arg) ? "yes" : "no";
+      } else if (arg instanceof Number) {
+        return arg.toString();
       }
       if (arg == null) {
         return "hmm";

@@ -165,7 +165,8 @@ const MessageFormatterOptions = new Option('MessageFormatterOptions')
   .field('plurals', 'PluralRules')
   .field('converter', 'MessageArgConverter')
   .field('formatters', 'MessageFormatFuncMap')
-  .field('cacheSize', 'Integer');
+  .field('cacheSize', 'Integer')
+  .field('disableEscapes', 'Boolean');
 
 const NumberFormatOptions = new Option(
   'NumberFormatOptions',

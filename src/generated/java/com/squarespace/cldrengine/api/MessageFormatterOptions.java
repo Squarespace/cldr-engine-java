@@ -13,6 +13,7 @@ public class MessageFormatterOptions {
   public final Option<MessageArgConverter> converter = Option.option();
   public final Option<MessageFormatFuncMap> formatters = Option.option();
   public final Option<Integer> cacheSize = Option.option();
+  public final Option<Boolean> disableEscapes = Option.option();
 
   public MessageFormatterOptions() {
   }
@@ -24,6 +25,7 @@ public class MessageFormatterOptions {
     this.converter.set(arg.converter);
     this.formatters.set(arg.formatters);
     this.cacheSize.set(arg.cacheSize);
+    this.disableEscapes.set(arg.disableEscapes);
   }
 
   public MessageFormatterOptions language(String arg) {
@@ -86,6 +88,16 @@ public class MessageFormatterOptions {
     return this;
   }
 
+  public MessageFormatterOptions disableEscapes(Boolean arg) {
+    this.disableEscapes.set(arg);
+    return this;
+  }
+
+  public MessageFormatterOptions disableEscapes(Option<Boolean> arg) {
+    this.disableEscapes.set(arg);
+    return this;
+  }
+
   public static MessageFormatterOptions build() {
     return new MessageFormatterOptions();
   }
@@ -109,6 +121,7 @@ public class MessageFormatterOptions {
     this.converter.setIf(o.converter);
     this.formatters.setIf(o.formatters);
     this.cacheSize.setIf(o.cacheSize);
+    this.disableEscapes.setIf(o.disableEscapes);
   }
 
   public MessageFormatterOptions merge(MessageFormatterOptions ...args) {
@@ -126,6 +139,7 @@ public class MessageFormatterOptions {
     this.converter.set(o.converter);
     this.formatters.set(o.formatters);
     this.cacheSize.set(o.cacheSize);
+    this.disableEscapes.set(o.disableEscapes);
   }
 
 
@@ -154,6 +168,9 @@ public class MessageFormatterOptions {
     }
     if (cacheSize.ok()) {
       buf.append("cacheSize=").append(cacheSize).append(' ');
+    }
+    if (disableEscapes.ok()) {
+      buf.append("disableEscapes=").append(disableEscapes).append(' ');
     }
   }
 

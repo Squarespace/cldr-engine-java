@@ -68,7 +68,7 @@ public class MessageSuiteTest extends CoverageSuite {
           case "random": {
             String message = row.get("message").getAsString();
             JsonElement expected = row.get("code");
-            MessagePatternParser parser = new MessagePatternParser(formatterNames, message);
+            MessagePatternParser parser = new MessagePatternParser(formatterNames, message, options.disableEscapes.or(false));
             MessageCode code = parser.parse();
             JsonElement actual = code.toJson();
             assertEquals(actual, expected, "RANDOM: " + message);

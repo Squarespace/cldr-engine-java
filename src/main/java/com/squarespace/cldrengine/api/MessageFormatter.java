@@ -20,6 +20,7 @@ public class MessageFormatter {
   private final MessageFormatFuncMap formatters;
   private final Collection<String> formatterNames;
   private final Cache<MessageCode> cache;
+  private final boolean disableEscapes;
 
   public MessageFormatter(MessageFormatterOptions options) {
     options = (options == null ? MessageFormatterOptions.build() : options);
@@ -29,6 +30,7 @@ public class MessageFormatter {
     this.converter = options.converter.ok() ? options.converter.get() : new DefaultMessageArgConverter();
     this.formatters = options.formatters.or(EMPTY);
     this.formatterNames = this.formatters.keySet();
+    this.disableEscapes = options.disableEscapes.or(false);
     this.cache = new Cache<>(this::parse, options.cacheSize.or(256));
   }
 
@@ -38,6 +40,6 @@ public class MessageFormatter {
   }
 
   protected MessageCode parse(String raw) {
-    return new MessagePatternParser(this.formatterNames, raw).parse();
+    return new MessagePatternParser(this.formatterNames, raw, disableEscapes).parse();
   }
 }

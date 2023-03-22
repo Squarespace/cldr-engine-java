@@ -41,11 +41,13 @@ public class MessagePatternParser {
   private final String str;
   private final int len;
   private final MessageMatcher matcher;
+  private final boolean disableEscapes;
 
-  public MessagePatternParser(Collection<String> formatters, String str) {
+  public MessagePatternParser(Collection<String> formatters, String str, boolean disableEscapes) {
     this.str = str;
     this.len = str.length();
     this.matcher = new MessageMatcher(formatters, str);
+    this.disableEscapes = disableEscapes;
   }
 
   public MessageCode parse() {
@@ -104,27 +106,31 @@ public class MessagePatternParser {
         }
 
         case APOS: {
-          int k = r.s + 1;
-          if (k < len && c == str.charAt(k)) {
-            // Convert double apostrophe to single
+          if (disableEscapes) {
             buf.append(c);
-            r.s++;
-
           } else {
-            // Skip over apostrophe
-            r.s++;
-
-            // Capture string wrapped in apostrophes
-            k = str.indexOf(c, r.s);
-            if (k == -1) {
-              k = r.e;
+            int k = r.s + 1;
+            if (k < len && c == str.charAt(k)) {
+              // Convert double apostrophe to single
+              buf.append(c);
+              r.s++;
+  
+            } else {
+              // Skip over apostrophe
+              r.s++;
+  
+              // Capture string wrapped in apostrophes
+              k = str.indexOf(c, r.s);
+              if (k == -1) {
+                k = r.e;
+              }
+  
+              // Since this is escaped text, push text node without substituting '#'
+              buf.append(str.substring(r.s, k));
+  
+              // Skip over escaped text
+              r.s = k;
             }
-
-            // Since this is escaped text, push text node without substituting '#'
-            buf.append(str.substring(r.s, k));
-
-            // Skip over escaped text
-            r.s = k;
           }
           break;
         }

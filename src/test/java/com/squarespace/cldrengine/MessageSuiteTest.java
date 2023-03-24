@@ -90,7 +90,7 @@ public class MessageSuiteTest extends CoverageSuite {
 
   protected MessageArgs parseArgs(JsonElement elem) {
     JsonArray arr = elem.getAsJsonArray();
-    MessageArgs args = MessageArgs.build();
+    MessageArgs args = new MessageArgs();
     for (int i = 0; i < arr.size(); i++) {
       JsonElement e = arr.get(i);
       if (e.isJsonPrimitive()) {

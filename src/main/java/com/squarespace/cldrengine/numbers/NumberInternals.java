@@ -103,11 +103,18 @@ public class NumberInternals {
 
   public String getCurrencySymbol(Bundle bundle, CurrencyType code, CurrencySymbolWidthType width) {
     AltType alt = width == CurrencySymbolWidthType.NARROW ? AltType.NARROW : AltType.NONE;
-    String symbol = this.currencies.symbol.get(bundle, alt, code);
-    if (isEmpty(symbol)) {
-      symbol = this.currencies.symbol.get(bundle, AltType.NONE, code);
-    }
-    return symbol;
+    return this._getCurrencySymbol(bundle, code, alt);
+  }
+
+  private String _getCurrencySymbol(Bundle bundle, CurrencyType code, AltType alt) {
+   String symbol = this.currencies.symbol.get(bundle, alt, code);
+   if (symbol.isEmpty()) {
+     symbol = this.currencies.symbol.get(bundle, AltType.NONE, code);
+   }
+   if (symbol.isEmpty() && this.currencies.symbol.valid(bundle, AltType.NONE, code)) {
+     return code.value();
+   }
+   return symbol;
   }
 
   public String getCurrencyDisplayName(Bundle bundle, CurrencyType code) {
@@ -355,7 +362,7 @@ public class NumberInternals {
         DigitsArrow<PluralType> patternImpl = currencyFormats.short_;
 
         NumberContext ctx = new NumberContext(options, round, true, false, fractions.digits);
-        String symbol = this.currencies.symbol.get(bundle, width, code);
+        String symbol = this._getCurrencySymbol(bundle, code, width);
 
         // Adjust the number using the compact pattern and divisor.
         Pair<Decimal, Integer> res;
@@ -406,7 +413,7 @@ public class NumberInternals {
 
         // Re-select pattern as number may have changed sign due to rounding.
         pattern = this.getNumberPattern(raw, n.isNegative());
-        String symbol = this.currencies.symbol.get(bundle, width, code);
+        String symbol = this._getCurrencySymbol(bundle, code, width);
         return renderer.render(n, pattern, symbol, "", decimal, ctx.minInt, options.group.get(), null);
       }
     }

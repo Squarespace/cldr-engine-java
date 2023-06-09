@@ -21,6 +21,7 @@ public enum LanguageIdType implements StringEnum<LanguageIdType> {
   AFH("afh"),
   AGQ("agq"),
   AIN("ain"),
+  AJP("ajp"),
   AK("ak"),
   AKK("akk"),
   AKZ("akz"),

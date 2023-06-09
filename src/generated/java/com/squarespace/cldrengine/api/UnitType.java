@@ -149,6 +149,7 @@ public enum UnitType implements StringEnum<UnitType> {
   MILLIMETER_OFHG("millimeter-ofhg"),
   PASCAL("pascal"),
   POUND_FORCE_PER_SQUARE_INCH("pound-force-per-square-inch"),
+  BEAUFORT("beaufort"),
   KILOMETER_PER_HOUR("kilometer-per-hour"),
   KNOT("knot"),
   METER_PER_SECOND("meter-per-second"),

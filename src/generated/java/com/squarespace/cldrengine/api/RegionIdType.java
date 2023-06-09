@@ -91,6 +91,7 @@ public enum RegionIdType implements StringEnum<RegionIdType> {
   CN("CN"),
   CO("CO"),
   CP("CP"),
+  CQ("CQ"),
   CR("CR"),
   CU("CU"),
   CV("CV"),

@@ -23,6 +23,10 @@ public class Vector2Arrow<R, S> {
     return "E".equals(bundle.get(this.offset - 1));
   }
 
+  public boolean valid(PrimitiveBundle bundle, R key1, S key2) {
+    return this.exists(bundle) && this.index1.get(key1) != -1 && this.index2.get(key2) != -1;
+  }
+
   public int size() {
     return this.size;
   }

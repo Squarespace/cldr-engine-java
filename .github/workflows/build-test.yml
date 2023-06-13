@@ -33,9 +33,6 @@ jobs:
         npm run generate
         npm run suite
 
-    - name: Gradle build
+    - name: Gradle build and test
       run: ./gradlew build
-
-    - name: Gradle test
-      run: ./gradlew check
 

@@ -2,7 +2,7 @@ import groovy.swing.SwingBuilder
 
 plugins {
   id 'me.champeau.jmh' version '0.7.1'
-  id 'net.researchgate.release' version '2.6.0'
+  id 'net.researchgate.release' version '3.0.2'
   id 'com.github.node-gradle.node' version '7.0.0'
 	id 'jacoco'
   id 'java-library'
@@ -103,7 +103,7 @@ if (JavaVersion.current().isJava8Compatible()) {
 
 release {
   git {
-    requireBranch = 'main'
+    requireBranch.set('main')
   }
 }
 

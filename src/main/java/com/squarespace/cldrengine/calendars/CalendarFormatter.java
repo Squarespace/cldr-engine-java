@@ -43,6 +43,10 @@ class CalendarFormatter<T extends CalendarDate> {
   }
 
   public <R> void format(AbstractValue<R> val, CalendarContext<T> ctx, DateTimePattern pattern) {
+    format(val, ctx, pattern, true);
+  }
+
+  public <R> void format(AbstractValue<R> val, CalendarContext<T> ctx, DateTimePattern pattern, boolean first) {
     int len = pattern.nodes.size();
     for (int i = 0; i < len; i++) {
       Object node = pattern.nodes.get(i);
@@ -299,7 +303,7 @@ class CalendarFormatter<T extends CalendarDate> {
           continue;
       }
 
-      if (i == 0 && ctx.context != null && field != null) {
+      if (first && i == 0 && ctx.context != null && field != null) {
         value = this.internals.general.contextTransform(value, ctx.transform, ctx.context, field);
       }
       val.add(type, value);

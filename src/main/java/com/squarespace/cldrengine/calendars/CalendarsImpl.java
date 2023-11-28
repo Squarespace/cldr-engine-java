@@ -339,7 +339,7 @@ public class CalendarsImpl implements Calendars {
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     DateFormatRequest req = this.manager.getDateFormatRequest(date, options, params);
     CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get(), options.alt);
-    return this.internals.calendars.formatDateTime(calendar, ctx, value, req.date, req.time, req.wrapper);
+    return this.internals.calendars.formatDateTime(calendar, ctx, value, true, req.date, req.time, req.wrapper);
   }
 
   protected <R> R _formatInterval(AbstractValue<R> value, CalendarDate start, CalendarDate end,
@@ -361,9 +361,9 @@ public class CalendarsImpl implements Calendars {
           .skeleton(req.skeleton);
       DateFormatRequest r = this.manager.getDateFormatRequest(start, opts, params);
       CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get(), options.alt);
-      R _start = this.internals.calendars.formatDateTime(calendar, ctx, value, r.date, r.time, r.wrapper);
+      R _start = this.internals.calendars.formatDateTime(calendar, ctx, value, true, r.date, r.time, r.wrapper);
       ctx.date = end;
-      R _end = this.internals.calendars.formatDateTime(calendar, ctx, value, r.date, r.time, r.wrapper);
+      R _end = this.internals.calendars.formatDateTime(calendar, ctx, value, false, r.date, r.time, r.wrapper);
       WrapperPattern wrapper = this.internals.general.parseWrapper(req.wrapper);
       value.wrap(wrapper, Arrays.asList(_start, _end));
       return value.render();
@@ -372,12 +372,12 @@ public class CalendarsImpl implements Calendars {
     R _date = null;
     if (req.date != null) {
       CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get(), options.alt);
-      _date = this.internals.calendars.formatDateTime(calendar, ctx, value, req.date, null, null);
+      _date = this.internals.calendars.formatDateTime(calendar, ctx, value, true, req.date, null, null);
     }
 
     if (req.range != null) {
       CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get(), options.alt);
-      R _range = this.internals.calendars.formatInterval(calendar, ctx, value, end, req.range);
+      R _range = this.internals.calendars.formatInterval(calendar, ctx, value, _date == null, end, req.range);
       if (_date == null) {
         return _range;
       }
@@ -408,7 +408,7 @@ public class CalendarsImpl implements Calendars {
     date = convertDateTo(calendar, date);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get(), options.alt);
-    return this.internals.calendars.formatDateTime(calendar, ctx, value, pattern, null, null);
+    return this.internals.calendars.formatDateTime(calendar, ctx, value, true, pattern, null, null);
   }
 
   protected <T extends CalendarDate> CalendarContext<T> _context(T date, NumberParams params, ContextType context,

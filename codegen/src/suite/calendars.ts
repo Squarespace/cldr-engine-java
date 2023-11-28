@@ -91,6 +91,7 @@ const DIM_TIME = new Dimension<DateFormatOptions>('time', FORMAT_WIDTHS);
 const DIM_SKEL = new Dimension<DateFormatOptions>('skeleton', SKELETONS);
 const DIM_CONTEXT = new Dimension<DateFormatOptions>('context', [
   'begin-sentence',
+  'middle-of-text',
 ]);
 
 const INT_SKELETON = new Dimension<DateIntervalFormatOptions>('skeleton', [
@@ -101,6 +102,10 @@ const INT_SKELETON = new Dimension<DateIntervalFormatOptions>('skeleton', [
   'hmsv',
   'hma',
   'EEEyMMMdhms',
+]);
+const INT_CONTEXT = new Dimension<DateIntervalFormatOptions>('context', [
+  'begin-sentence',
+  'middle-of-text',
 ]);
 
 type DateFunc<R> = <T>(cldr: CLDR, date: CalendarDate, o: T) => R;
@@ -301,7 +306,7 @@ export const dateSuite = (root: string) => {
     opts: DateIntervalFormatOptions,
   ) => c.Calendars.formatDateInterval(start, end, opts);
 
-  intdims = [INT_SKELETON];
+  intdims = [INT_SKELETON, INT_CONTEXT];
   buildDateIntervalFormat(
     join(root, 'dateinterval.txt'),
     'formatDateInterval',

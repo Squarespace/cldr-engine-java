@@ -108,17 +108,17 @@ public class CalendarInternals {
   }
 
   public <R> R formatDateTime(CalendarType calendar, CalendarContext<CalendarDate> ctx,
-      AbstractValue<R> value, DateTimePattern date, DateTimePattern time, String wrapper) {
+      AbstractValue<R> value, boolean first, DateTimePattern date, DateTimePattern time, String wrapper) {
 
     CalendarFormatter<CalendarDate> formatter = this.getCalendarFormatter(calendar);
     R _date = null;
     R _time = null;
     if (date != null) {
-      formatter.format(value, ctx, date);
+      formatter.format(value, ctx, date, first);
       _date = value.render();
     }
     if (time != null) {
-      formatter.format(value, ctx, time);
+      formatter.format(value, ctx, time, _date != null && first);
       _time = value.render();
     }
     if (_date != null && _time != null && wrapper != null) {
@@ -131,15 +131,15 @@ public class CalendarInternals {
   }
 
   public <R> R formatInterval(CalendarType calendar, CalendarContext<CalendarDate> ctx,
-      AbstractValue<R> value, CalendarDate end, DateTimePattern pattern) {
+      AbstractValue<R> value, boolean first, CalendarDate end, DateTimePattern pattern) {
 
     int i = DateTimePattern.intervalPatternBoundary(pattern);
     List<Object> nodes = pattern.nodes;
     DateTimePattern startPattern = new DateTimePattern(nodes.subList(0, i), "");
     DateTimePattern endPattern = new DateTimePattern(nodes.subList(i, nodes.size()), "");
-    R s = this.formatDateTime(calendar, ctx, value, startPattern, null, null);
+    R s = this.formatDateTime(calendar, ctx, value, first, startPattern, null, null);
     ctx.date = end;
-    R e = this.formatDateTime(calendar, ctx, value, endPattern, null, null);
+    R e = this.formatDateTime(calendar, ctx, value, false, endPattern, null, null);
     return value.join(Arrays.asList(s, e));
   }
 

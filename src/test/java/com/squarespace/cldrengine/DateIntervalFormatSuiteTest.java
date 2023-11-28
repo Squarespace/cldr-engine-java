@@ -13,6 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.CalendarDate;
+import com.squarespace.cldrengine.api.ContextType;
 import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
 import com.squarespace.cldrengine.api.Decimal;
 
@@ -96,6 +97,9 @@ public class DateIntervalFormatSuiteTest extends CoverageSuite {
       switch (key) {
         case "skeleton":
           opts.skeleton(stringValue(obj.get(key)));
+          break;
+        case "context":
+          opts.context(ContextType.fromString(stringValue(obj.get(key))));
           break;
       }
 

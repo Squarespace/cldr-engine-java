@@ -1,9 +1,10 @@
 version: 1
 patches:
+  # Note: This is only used for testing the custom patching feature.
   # For Swedish, change the value for CI "Ivory Coast"
   - locales: sv,sv-*
     operations:
       - op: replace
         path: /Names/regions/displayName/none/CI
-        value: Elfenbenskusten
+        value: Ivory Coast
 

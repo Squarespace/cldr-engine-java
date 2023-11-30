@@ -122,7 +122,8 @@ public class NumberInternals {
   }
 
   public String getCurrencyPluralName(Bundle bundle, CurrencyType code, PluralType plural) {
-    return this.currencies.pluralName.get(bundle, plural, code);
+    String name = this.currencies.pluralName.get(bundle, plural, code);
+    return isEmpty(name) ? this.currencies.displayName.get(bundle, code) : name;
   }
 
   public NumberPattern getNumberPattern(String raw, boolean negative) {

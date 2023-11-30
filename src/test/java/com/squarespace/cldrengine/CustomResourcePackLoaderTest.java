@@ -36,7 +36,7 @@ public class CustomResourcePackLoaderTest {
     // Default name for "Ivory Coast" in Swedish
     Vector2Arrow<AltType, RegionIdType> displayName = cldr.Schema.Names.regions.displayName;
     name = displayName.get(cldr.General.bundle(), AltType.NONE, RegionIdType.CI);
-    assertEquals(name, "Côte d’Ivoire");
+    assertEquals(name, "Elfenbenskusten");
 
     // Name for "Ivory Coast" in Swedish in our patched resource pack
     ResourcePackLoader loader = new FileResourcePackLoader(Paths.get("custom-packs"));
@@ -44,7 +44,7 @@ public class CustomResourcePackLoaderTest {
     CLocale locale = CLDR.resolveLocale("sv-Latn-SE");
     Bundle bundle = pack.get(locale.tag());
     name = displayName.get(bundle, AltType.NONE, RegionIdType.CI);
-    assertEquals(name, "Elfenbenskusten");
+    assertEquals(name, "Ivory Coast");
   }
 
 }

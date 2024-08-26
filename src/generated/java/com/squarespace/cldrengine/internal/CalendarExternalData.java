@@ -3,9 +3,9 @@ package com.squarespace.cldrengine.internal;
 public class CalendarExternalData {
 
   public static final String CALENDARIDS =
-    "[\"gregorian\",\"islamic-umalqura\",\"islamic\",\"islamic-civil\",\"islamic-tbla\",\"persian\",\"chi" +
-    "nese\",\"coptic\",\"ethiopic\",\"hebrew\",\"indian\",\"japanese\",\"dangi\",\"islamic-rgsa\",\"buddh" +
-    "ist\",\"roc\"]";
+    "[\"gregory\",\"islamic-umalqura\",\"islamic\",\"islamic-civil\",\"islamic-tbla\",\"persian\",\"chine" +
+    "se\",\"coptic\",\"ethiopic\",\"hebrew\",\"indian\",\"japanese\",\"dangi\",\"islamic-rgsa\",\"buddhis" +
+    "t\",\"roc\"]";
 
   public static final String CALENDARPREFDATA =
     "{\"001\":[0],\"AE\":[0,1,2,3,4],\"AF\":[5,0,2,3,4],\"AL\":[0,3,4],\"AZ\":[0,3,4],\"BD\":[0,2,3,4],\"" +

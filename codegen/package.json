@@ -20,9 +20,9 @@
   },
   "devDependencies": {
     "@phenomnomnominal/tsquery": "^6.1.3",
-    "@phensley/cldr": "1.8.0",
-    "@phensley/cldr-compiler": "1.8.0",
-    "@phensley/unit-converter": "1.8.0",
+    "@phensley/cldr": "1.8.2",
+    "@phensley/cldr-compiler": "1.8.2",
+    "@phensley/unit-converter": "1.8.2",
     "@types/jest": "^29.5.4",
     "@types/node": "^20.6.0",
     "@typescript-eslint/eslint-plugin": "^6.6.0",

@@ -24,6 +24,6 @@ public class DateIntervalTest {
     String actual;
 
     actual = cldr.Calendars.formatDateInterval(start, end, opts);
-    assertEquals(actual, "昭和31年2月6日～44年12月31日");
+    assertEquals(actual, "1956年2月6日～1969年12月31日");
   }
 }

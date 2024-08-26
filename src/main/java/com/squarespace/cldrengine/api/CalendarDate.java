@@ -816,7 +816,7 @@ public abstract class CalendarDate {
     return String.format("%s %s%04d-%02d-%02d %02d:%02d:%02d.%03d %s",
         type,
         neg ? "-" : "",
-        year,
+        Math.abs(year),
         this.month(),
         this.dayOfMonth(),
         this.hourOfDay(),
@@ -931,8 +931,8 @@ public abstract class CalendarDate {
    * is relative to these.
    */
   protected void computeBaseFields(long[] f) {
-    long jd = f[DateField.JULIAN_DAY];
-    checkJDRange(jd);
+    long jd = clamp(f[DateField.JULIAN_DAY], CalendarConstants.JD_MIN, CalendarConstants.JD_MAX);
+//    checkJDRange(jd);
 
     long msDay = f[DateField.MILLIS_IN_DAY];
     long ms = msDay + ((jd - CalendarConstants.JD_UNIX_EPOCH) * CalendarConstants.ONE_DAY_MS);
@@ -960,17 +960,21 @@ public abstract class CalendarDate {
     f[DateField.DAY_OF_WEEK] = dow;
   }
 
-  protected long checkJDRange(long jd) {
-    // TODO: emit warning?
-
-//  throw new Error(
-//  `Julian day ${jd} is outside the supported range of this library: ` +
-//  `${ConstantsDesc.JD_MIN} to ${ConstantsDesc.JD_MAX}`);
-
-    if (jd < CalendarConstants.JD_MIN) {
-      return CalendarConstants.JD_MIN;
-    }
-    return jd > CalendarConstants.JD_MAX ? CalendarConstants.JD_MAX : jd;
+  private static long clamp(long n, long min, long max) {
+    return n < min ? min : (n > max ? max : n);
   }
+
+//  protected long checkJDRange(long jd) {
+//    // TODO: emit warning?
+//
+////  throw new Error(
+////  `Julian day ${jd} is outside the supported range of this library: ` +
+////  `${ConstantsDesc.JD_MIN} to ${ConstantsDesc.JD_MAX}`);
+//
+//    if (jd < CalendarConstants.JD_MIN) {
+//      return CalendarConstants.JD_MIN;
+//    }
+//    return jd > CalendarConstants.JD_MAX ? CalendarConstants.JD_MAX : jd;
+//  }
 
 }

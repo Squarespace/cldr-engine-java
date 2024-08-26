@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.api;
 
+import static com.squarespace.cldrengine.internal.MathFix.floorDiv;
+
 import com.squarespace.cldrengine.internal.MathFix;
 import com.squarespace.cldrengine.utils.MathUtil;
 
@@ -135,7 +137,7 @@ public class GregorianDate extends CalendarDate {
     if (doy >= mar1) {
       corr = isLeap ? 1 : 2;
     }
-    int month = (int)Math.floor((12 * (doy + corr) + 6) / 367);
+    int month = (int)MathFix.floorDiv(12 * (doy + corr) + 6, 367);
     long dom = doy - MONTH_COUNT[month][isLeap ? 3 : 2] + 1;
 
     f[DateField.EXTENDED_YEAR] = year;
@@ -152,8 +154,8 @@ public class GregorianDate extends CalendarDate {
    */
   protected void computeJulianFields(long[] f) {
     long jed = f[DateField.JULIAN_DAY] - (CalendarConstants.JD_GREGORIAN_EPOCH - 2);
-    long eyear = (long)Math.floor((4 * jed + 1464) / 1461);
-    long jan1 = 365 * (eyear - 1) + (long)Math.floor((eyear - 1) / 4);
+    long eyear = floorDiv(4 * jed + 1464, 1461);
+    long jan1 = 365 * (eyear - 1) + floorDiv(eyear - 1, 4);
     long doy = jed - jan1;
     boolean isLeap = eyear % 4 == 0;
     long corr = 0;
@@ -162,7 +164,7 @@ public class GregorianDate extends CalendarDate {
       corr = isLeap ? 1 : 2;
     }
 
-    int month = (int)Math.floor((12 * (doy + corr) + 6) / 365);
+    int month = (int)(12 * (doy + corr) + 6) / 367;
     long dom = doy - MONTH_COUNT[month][isLeap ? 3 : 2] + 1;
 
     f[DateField.EXTENDED_YEAR] = eyear;
@@ -171,7 +173,7 @@ public class GregorianDate extends CalendarDate {
     f[DateField.DAY_OF_YEAR] = doy + 1;
     f[DateField.IS_LEAP] = isLeap ? 1 : 0;
   }
-
+  
   /**
    * Return true if the given year is a leap year in the Gregorian calendar; false otherwise.
    * Note that we switch to the Julian calendar at the Gregorian cutover year.
@@ -183,7 +185,7 @@ public class GregorianDate extends CalendarDate {
     }
     return r;
   }
-
+  
   private static final int[][] MONTH_COUNT = new int[][] {
     new int[] { 31,  31,   0,   0 }, // Jan
     new int[] { 28,  29,  31,  31 }, // Feb

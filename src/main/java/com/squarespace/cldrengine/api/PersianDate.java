@@ -1,5 +1,6 @@
 package com.squarespace.cldrengine.api;
 
+import com.squarespace.cldrengine.internal.MathFix;
 import com.squarespace.cldrengine.utils.MathUtil;
 
 /**
@@ -107,10 +108,10 @@ public class PersianDate extends CalendarDate {
   private void computePersianFields(long[] f) {
     long jd = f[DateField.JULIAN_DAY];
     long days = jd - CalendarConstants.JD_PERSIAN_EPOCH;
-    long year = 1 + (long)Math.floor((33 * days + 3) / 12053);
-    long favardin1 = 365 * (year - 1) + (long)Math.floor((8 * year + 21) / 33);
+    long year = 1 + (long)MathFix.floorDiv((33 * days + 3), 12053);
+    long favardin1 = 365 * (year - 1) + (long)MathFix.floorDiv((8 * year + 21), 33);
     long doy = days - favardin1;
-    int month = (int)Math.floor(doy < 216 ? (doy / 31) : ((doy - 6) / 30));
+    int month = (int)(doy < 216 ? MathFix.floorDiv(doy, 31) : MathFix.floorDiv(doy - 6, 30));
     long dom = doy - MONTH_COUNT[month][2] + 1;
 
     f[DateField.ERA] = 0;

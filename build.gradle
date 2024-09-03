@@ -28,7 +28,7 @@ targetCompatibility = 1.8
 project.ext {
   ccVersion = '1.0.6'
   gsonVersion = '2.8.6'
-  lombokVersion = '1.18.10'
+  lombokVersion = '1.18.34'
   testngVersion = '7.1.0'
 
   buildDate = new java.util.Date()

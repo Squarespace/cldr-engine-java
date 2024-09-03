@@ -15,6 +15,7 @@ public class NumbersApiTest {
 
   private final static CLDR EN = CLDR.get("en");
   private final static CLDR FR = CLDR.get("fr");
+  private final static CLDR JA = CLDR.get("ja");
 
   @Test
   public void testAdjustDecimal() {
@@ -27,6 +28,13 @@ public class NumbersApiTest {
 
     r = EN.Numbers.adjustDecimal(dec("1.555"), opts.minimumFractionDigits(2));
     assertEquals(r.toString(), "1.56");
+  }
+
+  @Test
+  public void testJapaneseUnits() {
+    Quantity q = Quantity.build().value(dec("5")).unit(UnitType.HOUR);
+    String r = JA.Units.formatQuantity(q, UnitFormatOptions.build().length(UnitLength.SHORT));
+    assertEquals(r.toString(), "5時間");
   }
 
   @Test

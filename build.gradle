@@ -103,7 +103,7 @@ if (JavaVersion.current().isJava8Compatible()) {
 
 release {
   git {
-    requireBranch.set('main')
+    requireBranch.set('1.8.x')
   }
 }
 

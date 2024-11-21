@@ -22,13 +22,13 @@ apply plugin: 'jacoco'
 
 group = 'com.squarespace.cldr-engine'
 
-sourceCompatibility = 11
-targetCompatibility = 11
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 project.ext {
   gsonVersion = '2.10.1'
   lombokVersion = '1.18.28'
-  testngVersion = '7.8.0'
+  testngVersion = '7.1.0'
 
   buildDate = new java.util.Date()
   buildCommit = ('git rev-parse HEAD').execute().text.trim()

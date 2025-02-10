@@ -14,7 +14,7 @@ public class GregorianSchema extends CalendarSchema {
       CalendarFields standAlone,
       Vector1Arrow<String> availableFormats,
       Vector2Arrow<PluralType, String> pluralFormats,
-      Vector2Arrow<DateTimePatternFieldType, String> intervalFormats,
+      Vector2Arrow<String, DateTimePatternFieldType> intervalFormats,
       Vector1Arrow<FormatWidthType> dateFormats,
       Vector1Arrow<FormatWidthType> timeFormats,
       Vector1Arrow<FormatWidthType> dateTimeFormats,

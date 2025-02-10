@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.squarespace.cldrengine.calendars.DateSkeleton.SkeletonField;
 import com.squarespace.cldrengine.calendars.SkeletonData.Field;
@@ -14,35 +15,39 @@ import com.squarespace.cldrengine.parsing.DateTimePattern.DateTimeNode;
 /**
  * Matches a skeleton against available patterns.
  */
-class DatePatternMatcher {
+class DatePatternMatcher<T> {
 
   // Save some work for exact matches.
-  private final Map<String, DateSkeleton> EXACT = new HashMap<>();
+  private final Map<String, DatePatternMatcherEntry<T>> EXACT = new HashMap<>();
 
   // Array for matching by distances
-  private final List<DateSkeleton> ENTRIES = new ArrayList<>();
+  private final List<DatePatternMatcherEntry<T>> ENTRIES = new ArrayList<>();
 
-  public void add(DateSkeleton skeleton, DateTimeNode[] pattern) {
+  public void add(DateSkeleton skeleton, T data) {
     String key = skeleton.skeleton;
     // Avoid adding patterns with duplicate skeletons
     if (!this.EXACT.containsKey(key)) {
-      this.EXACT.put(key, skeleton);
-      this.ENTRIES.add(skeleton);
+      DatePatternMatcherEntry<T> entry = new DatePatternMatcherEntry<T>(skeleton, Optional.ofNullable(data));
+      this.EXACT.put(key, entry);
+      this.ENTRIES.add(entry);
     }
-    // Sort by length so we scan the shorter skeletons first
-    this.ENTRIES.sort((a, b) -> Integer.compare(a.skeleton.length(), b.skeleton.length()));
   }
 
-  public DateSkeleton match(DateSkeleton input) {
-    DateSkeleton match = this.EXACT.get(input.skeleton);
+  public void sort() {
+    // Sort by length so we scan the shorter skeletons first
+    this.ENTRIES.sort((a, b) -> Integer.compare(a.skeleton.skeleton.length(), b.skeleton.skeleton.length()));
+  }
+
+  public DatePatternMatcherEntry<T> match(DateSkeleton input) {
+    DatePatternMatcherEntry<T> match = this.EXACT.get(input.skeleton);
     if (match != null) {
       return match;
     }
 
-    DateSkeleton best = null;
+    DatePatternMatcherEntry<T> best = null;
     int bestDist = Integer.MAX_VALUE;
-    for (DateSkeleton entry : this.ENTRIES) {
-      int dist = this.getDistance(entry, input, 0);
+    for (DatePatternMatcherEntry<T> entry : this.ENTRIES) {
+      int dist = this.getDistance(entry.skeleton, input, 0);
       if (dist < bestDist) {
         best = entry;
         bestDist = dist;
@@ -51,7 +56,7 @@ class DatePatternMatcher {
         }
       }
     }
-    return best;
+    return best == null ? new DatePatternMatcherEntry<T>(new DateSkeleton(), Optional.empty()) : best;
   }
 
   public DateTimePattern adjust(DateTimePattern pattern, DateSkeleton skeleton, String decimal) {
@@ -106,9 +111,9 @@ class DatePatternMatcher {
 
       // TODO: UNREACHABLE as field replacement has been selected above
       // Metacharacters have already been replaced in the pattern.
-//      if ("jJC".indexOf(adjfield) != -1) {
-//        adjfield = field;
-//      }
+      // if ("jJC".indexOf(adjfield) != -1) {
+      // adjfield = field;
+      // }
       r.add(new DateTimeNode(adjfield, adjwidth));
     }
 

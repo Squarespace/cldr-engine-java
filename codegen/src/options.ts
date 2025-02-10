@@ -63,7 +63,10 @@ interface Field {
 class Option {
   readonly fields: Field[] = [];
 
-  constructor(readonly name: string, readonly extend?: string) {}
+  constructor(
+    readonly name: string,
+    readonly extend?: string,
+  ) {}
 
   field(name: string, type: Type): Option {
     this.fields.push({ name, type });
@@ -120,7 +123,8 @@ const DateIntervalFormatOptions = new Option('DateIntervalFormatOptions')
   .field('calendar', 'CalendarType')
   .field('numberSystem', 'String')
   .field('alt', 'DateFormatAltOptions')
-  .field('atTime', 'Boolean');
+  .field('atTime', 'Boolean')
+  .field('wrap', 'FormatWidthType');
 
 const DateRawFormatOptions = new Option('DateRawFormatOptions')
   .field('pattern', 'String')

@@ -15,6 +15,7 @@ public class DateIntervalFormatOptions {
   public final Option<String> numberSystem = Option.option();
   public final Option<DateFormatAltOptions> alt = Option.option();
   public final Option<Boolean> atTime = Option.option();
+  public final Option<FormatWidthType> wrap = Option.option();
 
   public DateIntervalFormatOptions() {
   }
@@ -28,6 +29,7 @@ public class DateIntervalFormatOptions {
     this.numberSystem.set(arg.numberSystem);
     this.alt.set(arg.alt);
     this.atTime.set(arg.atTime);
+    this.wrap.set(arg.wrap);
   }
 
   public DateIntervalFormatOptions skeleton(String arg) {
@@ -110,6 +112,16 @@ public class DateIntervalFormatOptions {
     return this;
   }
 
+  public DateIntervalFormatOptions wrap(FormatWidthType arg) {
+    this.wrap.set(arg);
+    return this;
+  }
+
+  public DateIntervalFormatOptions wrap(Option<FormatWidthType> arg) {
+    this.wrap.set(arg);
+    return this;
+  }
+
   public static DateIntervalFormatOptions build() {
     return new DateIntervalFormatOptions();
   }
@@ -135,6 +147,7 @@ public class DateIntervalFormatOptions {
     this.numberSystem.setIf(o.numberSystem);
     this.alt.setIf(o.alt);
     this.atTime.setIf(o.atTime);
+    this.wrap.setIf(o.wrap);
   }
 
   public DateIntervalFormatOptions merge(DateIntervalFormatOptions ...args) {
@@ -154,6 +167,7 @@ public class DateIntervalFormatOptions {
     this.numberSystem.set(o.numberSystem);
     this.alt.set(o.alt);
     this.atTime.set(o.atTime);
+    this.wrap.set(o.wrap);
   }
 
 
@@ -188,6 +202,9 @@ public class DateIntervalFormatOptions {
     }
     if (atTime.ok()) {
       buf.append("atTime=").append(atTime).append(' ');
+    }
+    if (wrap.ok()) {
+      buf.append("wrap=").append(wrap).append(' ');
     }
   }
 

@@ -1,6 +1,5 @@
 package com.squarespace.cldrengine.calendars;
 
-import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 import static com.squarespace.cldrengine.utils.StringUtils.parseArray;
 
 import java.util.HashMap;
@@ -18,7 +17,6 @@ import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.utils.JsonUtils;
-import com.squarespace.cldrengine.utils.LRU;
 import com.squarespace.cldrengine.utils.StringUtils;
 
 import lombok.AllArgsConstructor;
@@ -64,16 +62,14 @@ class CalendarPatterns {
   private final String region;
 
   private final DateSkeletonParser skeletonParser;
-//  private final LRU<String, CachedSkeletonRequest> skeletonRequestCache = new LRU<>(512);
-  private final LRU<String, CachedIntervalRequest> intervalRequestCache = new LRU<>(512);
   private final Map<FormatWidthType, String> dateFormats;
   private final Map<FormatWidthType, String> timeFormats;
   private final Map<FormatWidthType, String> wrapperFormats;
   private final Map<FormatWidthType, String> wrapperFormatsAt;
 
-  private final DatePatternMatcher availableMatcher = new DatePatternMatcher();
-  private final Map<DateTimePatternFieldType, DatePatternMatcher> intervalMatcher = new HashMap<>();
-  private final Map<DateTimePatternFieldType, Map<String, String>> rawIntervalFormats;
+  private final DatePatternMatcher<Object> availableMatcher = new DatePatternMatcher<Object>();
+  private final DatePatternMatcher<IntervalSkeleton> intervalMatcher = new DatePatternMatcher<IntervalSkeleton>();
+  private final Map<String, Map<DateTimePatternFieldType, String>> rawIntervalFormats;
   private final String intervalFallback;
 
   protected final Bundle bundle;
@@ -116,22 +112,6 @@ class CalendarPatterns {
     return DateTimePattern.parse(pattern);
   }
 
-//  public CachedSkeletonRequest getCachedSkeletonRequest(String key) {
-//    return this.skeletonRequestCache.get(key);
-//  }
-//
-//  public void setCachedSkeletonRequest(String key, CachedSkeletonRequest req) {
-//    this.skeletonRequestCache.set(key, req);
-//  }
-
-  public CachedIntervalRequest getCachedIntervalRequest(String key) {
-    return this.intervalRequestCache.get(key);
-  }
-
-  public void setCachedIntervalRequest(String key, CachedIntervalRequest req) {
-    this.intervalRequestCache.set(key, req);
-  }
-
   public String getWrapperPattern(FormatWidthType width, boolean atTime) {
     String w = this.wrapperFormatsAt.getOrDefault(width, "");
     return atTime ? w : this.wrapperFormats.getOrDefault(width, "");
@@ -149,12 +129,6 @@ class CalendarPatterns {
     return DateTimePattern.parse(pattern == null ? "" : pattern);
   }
 
-  public DateTimePattern getIntervalPatern(DateTimePatternFieldType field, String skeleton) {
-    Map<String, String> group = this.rawIntervalFormats.get(field);
-    String raw = group == null ? "" : group.get(skeleton);
-    return this.internals.calendars.parseDatePattern(raw == null ? "" : raw);
-  }
-
   public String getIntervalFallback() {
     return this.intervalFallback;
   }
@@ -164,34 +138,32 @@ class CalendarPatterns {
   }
 
   public DateSkeleton matchAvailable(DateSkeleton skeleton) {
-    return this.availableMatcher.match(skeleton);
-  }
+    return this.availableMatcher.match(skeleton).skeleton;
+  } 
 
-  public DateSkeleton matchInterval(DateSkeleton skeleton, DateTimePatternFieldType field) {
-    if (field == DateTimePatternFieldType.SECOND) {
-      field = DateTimePatternFieldType.MINUTE;
-    }
-    return this.intervalMatcher.get(field).match(skeleton);
+  public DatePatternMatcherEntry<IntervalSkeleton> matchInterval(DateSkeleton skeleton) {
+    return this.intervalMatcher.match(skeleton);
   }
 
   protected TimeData getTimeData() {
     Map<String, TimeData> root = TIMEDATA.get("");
     TimeData world = root.get("001");
-    TimeData timedata = root.get(this.region);
-    if (timedata == null) {
-      Map<String, TimeData> lang = TIMEDATA.get(this.language);
-      if (lang != null) {
-        timedata = lang.get(this.region);
-      }
+    TimeData region = null;
+    Map<String, TimeData> lang = TIMEDATA.get(this.language);
+    if (lang != null) {
+      region = lang.get(this.region);
     }
-    return timedata == null ? world : timedata;
+    if (region == null) {
+      region = root.get(this.region);
+    }
+    return region == null ? world : region;
   }
 
   protected DateSkeletonParser buildSkeletonParser() {
     TimeData pair = this.getTimeData();
-    DateTimePattern[] allowedFlex = parseArray(pair._1, DateTimePattern.class, DateTimePattern::parse);
-    DateTimePattern preferredFlex = DateTimePattern.parse(pair._2);
-    return new DateSkeletonParser(preferredFlex.nodes, allowedFlex[0].nodes);
+    DateTimePattern[] allowed = parseArray(pair._1, DateTimePattern.class, DateTimePattern::parse);
+    DateTimePattern preferred = DateTimePattern.parse(pair._2);
+    return new DateSkeletonParser(preferred.nodes, allowed[0].nodes);
   }
 
   protected void buildAvailableMatcher() {
@@ -204,6 +176,7 @@ class CalendarPatterns {
     // be populated for every locale.
     this.buildAvailableMatcherFormats(this.rawAvailableFormats);
     this.buildAvailableMatcherFormats(this.rawPluralFormats.get(PluralType.OTHER));
+    this.availableMatcher.sort();
   }
 
   protected void buildAvailableMatcherFormats(Map<String, String> formats) {
@@ -220,19 +193,14 @@ class CalendarPatterns {
   }
 
   protected void buildIntervalMatcher() {
-    for (DateTimePatternFieldType field : this.rawIntervalFormats.keySet()) {
-      Map<String, String> group = this.rawIntervalFormats.get(field);
-      DatePatternMatcher matcher = new DatePatternMatcher();
-      for (String skeleton : group.keySet()) {
-        // Only add skeletons which point to valid formats for this locale. Not all
-        // skeletons are implemented for all locales.
-        String raw = group.get(skeleton);
-        if (!isEmpty(raw)) {
-          DateSkeleton parsed = this.skeletonParser.parse(skeleton, false);
-          matcher.add(parsed, null);
-        }
+    for (String rawSkeleton : this.rawIntervalFormats.keySet()) {
+      Map<DateTimePatternFieldType, String> patterns = this.rawIntervalFormats.get(rawSkeleton);
+      if (patterns.isEmpty()) {
+        continue;
       }
-      this.intervalMatcher.put(field, matcher);
+      DateSkeleton skeleton = this.skeletonParser.parse(rawSkeleton, false);
+      this.intervalMatcher.add(skeleton, new IntervalSkeleton(skeleton, patterns));
     }
+    this.intervalMatcher.sort();
   }
 }

@@ -21,12 +21,14 @@ public abstract class CalendarDate {
   private static final long NULL = Long.MAX_VALUE;
 
   private static final List<Pair<Integer, DateTimePatternFieldType>> DIFFERENCE_FIELDS = Arrays.asList(
+      of(DateField.ERA, DateTimePatternFieldType.ERA),
       of(DateField.YEAR, DateTimePatternFieldType.YEAR),
       of(DateField.MONTH, DateTimePatternFieldType.MONTH),
       of(DateField.DAY_OF_MONTH, DateTimePatternFieldType.DAY),
       of(DateField.AM_PM, DateTimePatternFieldType.DAYPERIOD),
-      of(DateField.HOUR, DateTimePatternFieldType.HOUR),
-      of(DateField.MINUTE, DateTimePatternFieldType.MINUTE)
+      of(DateField.HOUR, DateTimePatternFieldType.HOUR24),
+      of(DateField.MINUTE, DateTimePatternFieldType.MINUTE),
+      of(DateField.SECOND, DateTimePatternFieldType.SECOND)
       );
 
   protected final long[] fields = new long[DateField.LENGTH];
@@ -267,7 +269,7 @@ public abstract class CalendarDate {
         return pair._2;
       }
     }
-    return DateTimePatternFieldType.SECOND;
+    return null;
   }
 
   /**

@@ -35,11 +35,41 @@ public class TimeDataTest {
 
     t = es.Calendars.timeData();
     assertEquals(t.preferred(), "H");
-    assertEquals(t.allowed(), Arrays.asList("H", "hB", "h", "hb"));
+    assertEquals(t.allowed(), Arrays.asList("H", "h", "hB", "hb"));
 
     assertEquals(es.Calendars.formatDate(date, DateFormatOptions.build().skeleton(t.preferred())), "13");
     assertEquals(t.allowed().stream()
         .map(skeleton -> es.Calendars.formatDate(date, DateFormatOptions.build().skeleton(skeleton)))
-        .collect(Collectors.toList()), Arrays.asList("13", "1 de la tarde", "1 p. m.", "1 p. m."));
-}
+        .collect(Collectors.toList()),
+        Arrays.asList(
+            "13",
+            "1 p. m.",
+            "1 de la tarde",
+            "1 p. m."));
+
+    final CLDR es_419 = CLDR.get("es-419");
+    t = es_419.Calendars.timeData();
+    assertEquals(t.preferred(), "h");
+    assertEquals(t.allowed(), Arrays.asList("h", "H", "hB", "hb"));
+
+    final CLDR und_AR = CLDR.get("und-AR");
+    t = und_AR.Calendars.timeData();
+    assertEquals(t.preferred(), "h");
+    assertEquals(t.allowed(), Arrays.asList("h", "H", "hB", "hb"));
+
+    final CLDR es_AR = CLDR.get("es-AR");
+    t = es_AR.Calendars.timeData();
+    assertEquals(t.preferred(), "h");
+    assertEquals(t.allowed(), Arrays.asList("h", "H", "hB", "hb"));
+
+    final CLDR es_BR = CLDR.get("es-BR");
+    t = es_BR.Calendars.timeData();
+    assertEquals(t.preferred(), "H");
+    assertEquals(t.allowed(), Arrays.asList("H", "h", "hB", "hb"));
+
+    final CLDR und_BR = CLDR.get("und-BR");
+    t = und_BR.Calendars.timeData();
+    assertEquals(t.preferred(), "H");
+    assertEquals(t.allowed(), Arrays.asList("H", "hB"));
+  }
 }

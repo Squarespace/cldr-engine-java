@@ -350,18 +350,20 @@ public class CalendarsImpl implements Calendars {
     end = convertDateTo(calendar, end);
     boolean atTime = options.atTime.or(true);
 
-    DateTimePatternFieldType fieldDiff = this.fieldOfVisualDifference(start, end);
+    FormatWidthType wrap = options.wrap.or(FormatWidthType.MEDIUM);
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     DateIntervalFormatRequest req =
-        this.manager.getDateIntervalFormatRequest(calendar, start, fieldDiff, options, params);
+        this.manager.getDateIntervalFormatRequest(calendar, start, end, options, params);
 
+    CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get(), options.alt);
     if (!isEmpty(req.skeleton)) {
       DateFormatOptions opts = DateFormatOptions.build()
           .calendar(options.calendar)
           .numberSystem(options.numberSystem)
-          .skeleton(req.skeleton);
+          .skeleton(req.skeleton)
+          .wrap(wrap)
+          .atTime(options.atTime);
       DateFormatRequest r = this.manager.getDateFormatRequest(start, opts, params);
-      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get(), options.alt);
       R _start = this.internals.calendars.formatDateTime(calendar, ctx, value, true, r.date, r.time, r.wrapper);
       ctx.date = end;
       R _end = this.internals.calendars.formatDateTime(calendar, ctx, value, false, r.date, r.time, r.wrapper);
@@ -370,14 +372,21 @@ public class CalendarsImpl implements Calendars {
       return value.render();
     }
 
+    CalendarPatterns patterns = this.manager.getCalendarPatterns(calendar.value);
+    
     R _date = null;
     if (req.date != null) {
-      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get(), options.alt);
       _date = this.internals.calendars.formatDateTime(calendar, ctx, value, true, req.date, null, null);
+    }
+    
+    if (req.time != null) {
+      R _time = this.internals.calendars.formatDateTime(calendar, ctx, value, true, req.time, null, null);
+      WrapperPattern wrapper = this.internals.general.parseWrapper(patterns.getWrapperPattern(wrap, atTime));
+      value.wrap(wrapper, Arrays.asList(_time, _date));
+      return value.render();
     }
 
     if (req.range != null) {
-      CalendarContext<CalendarDate> ctx = this._context(start, params, options.context.get(), options.alt);
       R _range = this.internals.calendars.formatInterval(calendar, ctx, value, _date == null, end, req.range);
       if (_date == null) {
         return _range;
@@ -389,8 +398,7 @@ public class CalendarsImpl implements Calendars {
       // https://www.unicode.org/cldr/trac/ticket/11158
       // Docs don't mention this edge case:
       // https://www.unicode.org/reports/tr35/tr35-dates.html#intervalFormats
-      CalendarPatterns patterns = this.manager.getCalendarPatterns(calendar.value);
-      WrapperPattern wrapper = this.internals.general.parseWrapper(patterns.getWrapperPattern(FormatWidthType.MEDIUM, atTime));
+      WrapperPattern wrapper = this.internals.general.parseWrapper(patterns.getWrapperPattern(wrap, atTime));
       value.wrap(wrapper, Arrays.asList(_range, _date));
       return value.render();
     }

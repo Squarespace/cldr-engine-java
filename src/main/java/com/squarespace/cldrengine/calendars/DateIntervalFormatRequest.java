@@ -9,6 +9,7 @@ import lombok.ToString;
 class DateIntervalFormatRequest {
 
   public DateTimePattern date;
+  public DateTimePattern time;
   public DateTimePattern range;
   public String skeleton;
   public NumberParams params;

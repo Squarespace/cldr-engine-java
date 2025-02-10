@@ -74,7 +74,7 @@ public class DateIntervalFormatSuiteTest extends CoverageSuite {
               DateIntervalFormatOptions opts = options.get(n);
               String expected = results.get(n).getAsString();
               String actual = cldr.Calendars.formatDateInterval(start, end, opts);
-              assertEquals(actual, expected, "case " + cases + " id=" + locales.get(i) +
+              assertEquals(actual, expected, "case " + cases + " row = " + row + " id=" + locales.get(i) +
                   " " + start + "  " + end + " " + opts);
               cases++;
               if ((cases % 100000) == 0) {

@@ -30,8 +30,7 @@ class DateSkeleton {
   }
 
   /**
-   * Split this compound skeleton, removing all time fields and copying
-   * them to another skeleton.
+   * Split this compound skeleton, removing all time fields and copying them to another skeleton.
    */
   public DateSkeleton split() {
     DateSkeleton r = new DateSkeleton();
@@ -61,16 +60,13 @@ class DateSkeleton {
     for (int i = 0; i < Field.MAX_TYPE.ordinal(); i++) {
       SkeletonField info = this.info[i];
       if (info != null) {
-        // Skip day period for backwards-compatibility
-        if (info.field != 'a') {
-          int repeat = info.repeat;
-          // Override skeleton repeat for these fields.
-          if ("GEzvQ".indexOf(info.field) != -1) {
-            repeat = 1;
-          }
-          for (int j = 0; j < repeat; j++) {
-            r.append(info.field);
-          }
+        int repeat = info.repeat;
+        // Override skeleton repeat for these fields.
+        if ("GEzvQ".indexOf(info.field) != -1) {
+          repeat = 1;
+        }
+        for (int j = 0; j < repeat; j++) {
+          r.append(info.field);
         }
       }
     }

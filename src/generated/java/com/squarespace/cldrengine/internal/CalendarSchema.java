@@ -13,7 +13,7 @@ public class CalendarSchema {
   public final CalendarFields standAlone;
   public final Vector1Arrow<String> availableFormats;
   public final Vector2Arrow<PluralType, String> pluralFormats;
-  public final Vector2Arrow<DateTimePatternFieldType, String> intervalFormats;
+  public final Vector2Arrow<String, DateTimePatternFieldType> intervalFormats;
   public final Vector1Arrow<FormatWidthType> dateFormats;
   public final Vector1Arrow<FormatWidthType> timeFormats;
   public final Vector1Arrow<FormatWidthType> dateTimeFormats;
@@ -26,7 +26,7 @@ public class CalendarSchema {
       CalendarFields standAlone,
       Vector1Arrow<String> availableFormats,
       Vector2Arrow<PluralType, String> pluralFormats,
-      Vector2Arrow<DateTimePatternFieldType, String> intervalFormats,
+      Vector2Arrow<String, DateTimePatternFieldType> intervalFormats,
       Vector1Arrow<FormatWidthType> dateFormats,
       Vector1Arrow<FormatWidthType> timeFormats,
       Vector1Arrow<FormatWidthType> dateTimeFormats,

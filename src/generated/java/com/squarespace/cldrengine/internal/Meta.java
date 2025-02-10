@@ -1035,6 +1035,7 @@ public final class Meta extends MetaBase {
     MetaZoneType.GAMBIER,
     MetaZoneType.GEORGIA,
     MetaZoneType.GILBERT_ISLANDS,
+    MetaZoneType.GREENLAND,
     MetaZoneType.GREENLAND_EASTERN,
     MetaZoneType.GREENLAND_WESTERN,
     MetaZoneType.GUAM,
@@ -1064,7 +1065,6 @@ public final class Meta extends MetaBase {
     MetaZoneType.LINE_ISLANDS,
     MetaZoneType.LORD_HOWE,
     MetaZoneType.MACAU,
-    MetaZoneType.MACQUARIE,
     MetaZoneType.MAGADAN,
     MetaZoneType.MALAYSIA,
     MetaZoneType.MALDIVES,
@@ -1072,7 +1072,6 @@ public final class Meta extends MetaBase {
     MetaZoneType.MARSHALL_ISLANDS,
     MetaZoneType.MAURITIUS,
     MetaZoneType.MAWSON,
-    MetaZoneType.MEXICO_NORTHWEST,
     MetaZoneType.MEXICO_PACIFIC,
     MetaZoneType.MONGOLIA,
     MetaZoneType.MOSCOW,
@@ -1417,6 +1416,7 @@ public final class Meta extends MetaBase {
     CurrencyType.XBC,
     CurrencyType.XBD,
     CurrencyType.XCD,
+    CurrencyType.XCG,
     CurrencyType.XDR,
     CurrencyType.XEU,
     CurrencyType.XFO,
@@ -2983,7 +2983,6 @@ public final class Meta extends MetaBase {
     "America/Montserrat",
     "America/Nassau",
     "America/New_York",
-    "America/Nipigon",
     "America/Nome",
     "America/Noronha",
     "America/North_Dakota/Beulah",
@@ -2991,7 +2990,6 @@ public final class Meta extends MetaBase {
     "America/North_Dakota/New_Salem",
     "America/Ojinaga",
     "America/Panama",
-    "America/Pangnirtung",
     "America/Paramaribo",
     "America/Phoenix",
     "America/Port-au-Prince",
@@ -2999,13 +2997,11 @@ public final class Meta extends MetaBase {
     "America/Porto_Velho",
     "America/Puerto_Rico",
     "America/Punta_Arenas",
-    "America/Rainy_River",
     "America/Rankin_Inlet",
     "America/Recife",
     "America/Regina",
     "America/Resolute",
     "America/Rio_Branco",
-    "America/Santa_Isabel",
     "America/Santarem",
     "America/Santiago",
     "America/Santo_Domingo",
@@ -3021,7 +3017,6 @@ public final class Meta extends MetaBase {
     "America/Swift_Current",
     "America/Tegucigalpa",
     "America/Thule",
-    "America/Thunder_Bay",
     "America/Tijuana",
     "America/Toronto",
     "America/Tortola",
@@ -3029,7 +3024,6 @@ public final class Meta extends MetaBase {
     "America/Whitehorse",
     "America/Winnipeg",
     "America/Yakutat",
-    "America/Yellowknife",
     "Antarctica/Casey",
     "Antarctica/Davis",
     "Antarctica/DumontDUrville",
@@ -3138,7 +3132,6 @@ public final class Meta extends MetaBase {
     "Australia/Adelaide",
     "Australia/Brisbane",
     "Australia/Broken_Hill",
-    "Australia/Currie",
     "Australia/Darwin",
     "Australia/Eucla",
     "Australia/Hobart",
@@ -3199,7 +3192,6 @@ public final class Meta extends MetaBase {
     "Europe/Tallinn",
     "Europe/Tirane",
     "Europe/Ulyanovsk",
-    "Europe/Uzhgorod",
     "Europe/Vaduz",
     "Europe/Vatican",
     "Europe/Vienna",
@@ -3207,7 +3199,6 @@ public final class Meta extends MetaBase {
     "Europe/Volgograd",
     "Europe/Warsaw",
     "Europe/Zagreb",
-    "Europe/Zaporozhye",
     "Europe/Zurich",
     "Indian/Antananarivo",
     "Indian/Chagos",
@@ -3235,7 +3226,6 @@ public final class Meta extends MetaBase {
     "Pacific/Guadalcanal",
     "Pacific/Guam",
     "Pacific/Honolulu",
-    "Pacific/Johnston",
     "Pacific/Kanton",
     "Pacific/Kiritimati",
     "Pacific/Kosrae",
@@ -3864,45 +3854,45 @@ public final class Meta extends MetaBase {
     /* TimeZones = */ new TimeZoneSchema(
       /* metaZones = */ new MetaZoneInfo(
         /* short_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(23154, KEY_TIMEZONE_TYPE, KEY_METAZONE),
-        /* long_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(23632, KEY_TIMEZONE_TYPE, KEY_METAZONE)
+        /* long_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(23629, KEY_TIMEZONE_TYPE, KEY_METAZONE)
       ),
-      /* exemplarCity = */ new Vector1Arrow<String>(24110, KEY_TIMEZONE_ID),
-      /* gmtFormat = */ new FieldArrow(24542),
-      /* hourFormat = */ new FieldArrow(24543),
-      /* gmtZeroFormat = */ new FieldArrow(24544),
-      /* regionFormat = */ new FieldArrow(24545)
+      /* exemplarCity = */ new Vector1Arrow<String>(24104, KEY_TIMEZONE_ID),
+      /* gmtFormat = */ new FieldArrow(24526),
+      /* hourFormat = */ new FieldArrow(24527),
+      /* gmtZeroFormat = */ new FieldArrow(24528),
+      /* regionFormat = */ new FieldArrow(24529)
     ),
     /* Currencies = */ new CurrenciesSchema(
-      /* displayName = */ new Vector1Arrow<CurrencyType>(24546, KEY_CURRENCY_ID),
-      /* decimal = */ new Vector1Arrow<CurrencyType>(24852, KEY_CURRENCY_ID),
-      /* pluralName = */ new Vector2Arrow<PluralType, CurrencyType>(25158, KEY_PLURAL_KEY, KEY_CURRENCY_ID),
-      /* symbol = */ new Vector2Arrow<AltType, CurrencyType>(26989, KEY_ALT_KEY, KEY_CURRENCY_ID)
+      /* displayName = */ new Vector1Arrow<CurrencyType>(24530, KEY_CURRENCY_ID),
+      /* decimal = */ new Vector1Arrow<CurrencyType>(24837, KEY_CURRENCY_ID),
+      /* pluralName = */ new Vector2Arrow<PluralType, CurrencyType>(25144, KEY_PLURAL_KEY, KEY_CURRENCY_ID),
+      /* symbol = */ new Vector2Arrow<AltType, CurrencyType>(26981, KEY_ALT_KEY, KEY_CURRENCY_ID)
     ),
     /* Units = */ new UnitsSchema(
       /* long = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(29125, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(30350, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(30555, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(30760),
-        /* timesPattern = */ new FieldArrow(30761)
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(29124, KEY_PLURAL_KEY, KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(30349, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(30554, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(30759),
+        /* timesPattern = */ new FieldArrow(30760)
       ),
       /* narrow = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(30762, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(31987, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(32192, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(32397),
-        /* timesPattern = */ new FieldArrow(32398)
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(30761, KEY_PLURAL_KEY, KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(31986, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(32191, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(32396),
+        /* timesPattern = */ new FieldArrow(32397)
       ),
       /* short = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(32399, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(33624, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(33829, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(34034),
-        /* timesPattern = */ new FieldArrow(34035)
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(32398, KEY_PLURAL_KEY, KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(33623, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(33828, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(34033),
+        /* timesPattern = */ new FieldArrow(34034)
       )
     ),
     /* ContextTransforms = */ new ContextTransformsSchema(
-      /* contextTransforms = */ new Vector1Arrow<ContextTransformFieldType>(34036, KEY_CONTEXT_TRANSFORM_FIELD)
+      /* contextTransforms = */ new Vector1Arrow<ContextTransformFieldType>(34035, KEY_CONTEXT_TRANSFORM_FIELD)
     )  );
 
 }

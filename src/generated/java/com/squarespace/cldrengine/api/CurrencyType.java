@@ -286,6 +286,7 @@ public enum CurrencyType implements StringEnum<CurrencyType> {
   XBC("XBC"),
   XBD("XBD"),
   XCD("XCD"),
+  XCG("XCG"),
   XDR("XDR"),
   XEU("XEU"),
   XFO("XFO"),

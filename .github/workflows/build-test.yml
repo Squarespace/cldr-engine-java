@@ -25,13 +25,16 @@ jobs:
       with:
         gradle-version: wrapper
 
+    - name: Install Yarn
+      run: npm install -g yarn
+
     - name: Generate code and test suite data
       run: |
         cd codegen
-        npm i
-        npm run build
-        npm run generate
-        npm run suite
+        yarn install --verbose
+        yarn build
+        yarn generate
+        yarn suite
 
     - name: Gradle build and test
       run: ./gradlew build

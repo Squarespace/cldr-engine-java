@@ -79,3 +79,9 @@ export const write = (path: string, data: string) => {
   console.log(`writing ${path}`);
   fs.writeFileSync(path, data, { encoding: 'utf-8' });
 };
+export const timed = (name: string, func: () => void) => {
+    const start = +new Date();
+    func();
+    const elapsed = +new Date() - start;
+    console.log(`wrote ${name} in ${elapsed / 1000} seconds`);
+};

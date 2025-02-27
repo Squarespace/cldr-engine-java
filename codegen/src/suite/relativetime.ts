@@ -11,6 +11,7 @@ import { framework } from './framework';
 import { Dimension, product, reduce } from './dimension';
 
 import { DATES, LOCALES, ZONES } from './data';
+import { timed } from "../utils";
 
 const REL_FIELDS: RelativeTimeFieldType[] = [
   'year',
@@ -99,7 +100,6 @@ const buildRelativeTimeFormat = <T>(
   method: string,
   dims: Dimension<RelativeTimeFieldFormatOptions>[],
 ) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
   const items = dims.map((e) => e.build());
@@ -161,7 +161,6 @@ const buildRelativeTimeField = (
   name: string,
   dims: Dimension<RelativeTimeFieldFormatOptions>[],
 ) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
   const items = dims.map((e) => e.build());
@@ -204,18 +203,20 @@ const buildRelativeTimeField = (
 };
 
 export const relativeSuite = (root: string) => {
-  buildRelativeTimeFormat(
-    join(root, 'relativetime-format.txt'),
+  let name = 'relativetime-format.txt';
+  timed(name, () => buildRelativeTimeFormat(
+    join(root, name),
     'formatRelativeTime',
     [DIM_DOW, DIM_FIELD],
-  );
+  ));
 
-  buildRelativeTimeField(join(root, 'relativetime-field.txt'), [
+  name =  'relativetime-field.txt';
+  timed(name, () => buildRelativeTimeField(join(root, name), [
     DIM_CONTEXT,
     DIM_WIDTH,
     DIM_ALWNOW,
     DIM_NUMONLY,
-  ]);
+  ]));
 };
 
 relativeSuite(process.argv[2]);

@@ -26,6 +26,7 @@ import {
   FactorDef,
   UnitFactors,
 } from '@phensley/unit-converter';
+import { timed } from "../utils";
 
 const FACTORS: { [name: string]: FactorDef[] } = {
   ACCELERATION,
@@ -52,7 +53,6 @@ const FACTORS: { [name: string]: FactorDef[] } = {
 };
 
 const buildUnitConvert = (name: string) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
   for (const name of Object.keys(FACTORS)) {
@@ -80,7 +80,8 @@ const buildUnitConvert = (name: string) => {
 };
 
 const unitConvertSuite = (root: string) => {
-  buildUnitConvert(join(root, 'unit-convert.txt'));
+  let name = 'unit-convert.txt';
+  timed(name, () => buildUnitConvert(join(root, name)));
 };
 
 unitConvertSuite(process.argv[2]);

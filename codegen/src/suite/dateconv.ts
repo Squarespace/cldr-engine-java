@@ -5,9 +5,9 @@ import { framework } from './framework';
 import { RNG } from './rng';
 
 import { DATES } from './data';
+import { timed } from "../utils";
 
 const buildDateConvert = (name: string) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
   const count = 1000;
@@ -68,7 +68,8 @@ const buildDateConvert = (name: string) => {
 };
 
 export const dateConvertSuite = (root: string) => {
-  buildDateConvert(join(root, 'dateconv.txt'));
+  let name = 'dateconv.txt';
+  timed(name,() => buildDateConvert(join(root, name))); 
 };
 
 dateConvertSuite(process.argv[2]);

@@ -13,6 +13,7 @@ import { framework } from './framework';
 import { Dimension, product, reduce } from './dimension';
 
 import { DATES, LOCALES, ZONES } from './data';
+import { timed } from "../utils";
 
 const SKELETONS: (string | undefined)[] = [
   undefined,
@@ -122,7 +123,6 @@ const buildDateFormat = <T, R>(
   dims: Dimension<T>[],
   meth: DateFunc<R>,
 ) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
   const items = dims.map((e) => e.build());
   const properties = dims.map((d) => d.property);
@@ -171,7 +171,6 @@ const buildDateIntervalFormat = <T, R>(
   dims: Dimension<T>[],
   meth: DateIntFunc<R>,
 ) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
   const items = dims.map((e) => e.build());
   const options = reduce(product(items));
@@ -225,7 +224,6 @@ const buildDateIntervalFormat = <T, R>(
 };
 
 const buildRawFormat = (name: string) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
   const cldrs = LOCALES.map((id) => framework.get(id));
@@ -289,19 +287,21 @@ export const dateSuite = (root: string) => {
     DIM_SKEL,
     DIM_CONTEXT,
   ];
-  buildDateFormat(join(root, 'dateformat.txt'), 'formatDate', datedims, f1);
+  let name = 'dateformat.txt';
+  timed(name, () => buildDateFormat(join(root, name), 'formatDate', datedims, f1));
 
   const f2 = <DateFormatOptions>(
     c: CLDR,
     date: CalendarDate,
     opts: DateFormatOptions,
   ) => c.Calendars.formatDateToParts(date, opts!);
-  buildDateFormat(
-    join(root, 'dateformat-parts.txt'),
+  name = 'dateformat-parts.txt';
+  timed(name, () => buildDateFormat(
+    join(root, name),
     'formatDateToParts',
     datedims,
     f2,
-  );
+  ));
 
   let intdims: Dimension<DateIntervalFormatOptions>[];
 
@@ -313,13 +313,16 @@ export const dateSuite = (root: string) => {
   ) => c.Calendars.formatDateInterval(start, end, opts!);
 
   intdims = [INT_SKELETON, INT_CONTEXT];
-  buildDateIntervalFormat(
-    join(root, 'dateinterval.txt'),
+  name = 'dateinterval.txt';
+  timed(name, () => buildDateIntervalFormat(
+    join(root, name),
     'formatDateInterval',
     intdims,
     f3,
-  );
-  buildRawFormat(join(root, 'dateformat-raw.txt'));
+  ));
+
+  name = 'dateformat-raw.txt';
+  timed(name, () => buildRawFormat(join(root, name)));
 };
 
 dateSuite(process.argv[2]);

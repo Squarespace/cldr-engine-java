@@ -11,6 +11,7 @@ import {
 } from '@phensley/cldr';
 import { framework } from './framework';
 import { LOCALES } from './data';
+import { timed } from "../utils";
 
 type Formatter = (cldr: CLDR, id: string) => string;
 
@@ -68,7 +69,6 @@ const FORMATTERS: { [key: string]: [keyof SchemaConfig, Formatter] } = {
 };
 
 const buildDisplayNames = (name: string) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
   let r = JSON.stringify({
@@ -104,7 +104,8 @@ const buildDisplayNames = (name: string) => {
 };
 
 export const displayNameSuite = (root: string) => {
-  buildDisplayNames(join(root, 'display-names.txt'));
+  let name = 'display-names.txt';
+  timed(name, () => buildDisplayNames(join(root, name)));
 };
 
 displayNameSuite(process.argv[2]);

@@ -7,6 +7,7 @@ import {
   MathContext,
   RoundingModeType,
 } from '@phensley/cldr';
+import { timed } from "../utils";
 
 const { PI } = DecimalConstants;
 
@@ -67,7 +68,6 @@ for (const round of ROUNDING) {
 }
 
 const buildMath = (name: string) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
   let add: Decimal;
@@ -143,7 +143,8 @@ const buildMath = (name: string) => {
 };
 
 export const mathSuite = (root: string) => {
-  buildMath(join(root, 'math.txt'));
+  let name = 'math.txt';
+  timed(name, () => buildMath(join(root, name)));
 };
 
 mathSuite(process.argv[2]);

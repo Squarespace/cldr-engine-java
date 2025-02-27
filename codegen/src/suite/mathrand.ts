@@ -2,10 +2,10 @@ import * as fs from 'fs';
 import { join } from 'path';
 import { Decimal } from '@phensley/cldr';
 import { RNG } from './rng';
+import { timed } from "../utils";
 
 const buildRandomMath = (name: string) => {
   const rnd = new RNG('cldr-engine');
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
   const count = 100;
@@ -57,7 +57,8 @@ const buildRandomMath = (name: string) => {
 };
 
 const mathRandomSuite = (root: string) => {
-  buildRandomMath(join(root, 'math-random.txt'));
+  let name = 'math-random.txt';
+  timed(name, () => buildRandomMath(join(root, name)));
 };
 
 mathRandomSuite(process.argv[2]);

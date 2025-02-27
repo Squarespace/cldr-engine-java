@@ -20,6 +20,7 @@ import {
 import { framework } from './framework';
 import { LOCALES } from './data';
 import { Dimension, product, reduce } from './dimension';
+import { timed } from "../utils";
 
 const NUMBERS: string[] = [
   '0',
@@ -168,7 +169,6 @@ const buildDecimal = <T>(
   dims: Dimension<T>[],
   meth: DecimalFunc,
 ) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
   const items = dims.map((e) => e.build());
   const numbers = NUMBERS.concat(NUMBERS.map((n) => `-${n}`));
@@ -213,7 +213,6 @@ const buildCurrency = <T>(
   currencies: CurrencyType[],
   meth: CurrencyFunc,
 ) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
   const items = dims.map((e) => e.build());
   const numbers = NUMBERS.concat(NUMBERS.map((n) => `-${n}`));
@@ -265,12 +264,13 @@ export const currencySuite = (root: string) => {
   ) => c.Numbers.formatCurrency(n, code, opts!);
 
   dims = [CURFMT_STYLE, NUMFMT_NUM_SYSTEMS, NUMFMT_GROUP];
-  buildCurrency(
-    join(root, 'currencyformat-numsystems.txt'),
+  let name = 'currencyformat-numsystems.txt';
+  timed(name, () => buildCurrency(
+    join(root, name),
     dims,
     CURRENCIES,
     f,
-  );
+  ));
 
   dims = [
     CURFMT_CASH,
@@ -279,7 +279,8 @@ export const currencySuite = (root: string) => {
     NUMFMT_GROUP,
     NUMFMT_TRIMZERO,
   ];
-  buildCurrency(join(root, 'currencyformat.txt'), dims, CURRENCIES, f);
+  name = 'currencyformat.txt';
+  timed(name, () => buildCurrency(join(root, name), dims, CURRENCIES, f));
 
   dims = [
     CURFMT_CASH,
@@ -288,7 +289,8 @@ export const currencySuite = (root: string) => {
     CURFMT_SYMBOLWIDTH,
     NUMFMT_GROUP,
   ];
-  buildCurrency(join(root, 'currencyformat-compact.txt'), dims, CURRENCIES, f);
+  name = 'currencyformat-compact.txt';
+  timed(name, () => buildCurrency(join(root, name), dims, CURRENCIES, f));
 };
 
 export const decimalSuite = (root: string) => {
@@ -300,7 +302,8 @@ export const decimalSuite = (root: string) => {
   ) => c.Numbers.formatDecimal(n, o!);
 
   dims = [NUMFMT_NUM_SYSTEMS, DECFMT_STYLE, NUMFMT_GROUP];
-  buildDecimal(join(root, 'decimalformat-numsystems.txt'), dims, f);
+  let name = 'decimalformat-numsystems.txt';
+  timed(name, () => buildDecimal(join(root, name), dims, f));
 
   dims = [
     DECFMT_STYLE,
@@ -310,13 +313,16 @@ export const decimalSuite = (root: string) => {
     DECADJ_MINFRAC,
     DECADJ_MAXFRAC,
   ];
-  buildDecimal(join(root, 'decimalformat.txt'), dims, f);
+  name = 'decimalformat.txt';
+  timed(name, () => buildDecimal(join(root, name), dims, f));
 
   dims = [DECFMT_NEGZERO, DECADJ_ROUND, DECFMT_MININT];
-  buildDecimal(join(root, 'decimalformat-negzero.txt'), dims, f);
+  name = 'decimalformat-negzero.txt';
+  timed(name, () => buildDecimal(join(root, name), dims, f));
 
   dims = [DECADJ_ROUND, DECFMT_MININT, DECADJ_MAXSIG, DECADJ_MINSIG];
-  buildDecimal(join(root, 'decimalformat-sig.txt'), dims, f);
+  name = 'decimalformat-sig.txt';
+  timed(name, () => buildDecimal(join(root, name), dims, f));
 
   dims = [
     DECFMT_DIVISOR,
@@ -326,7 +332,8 @@ export const decimalSuite = (root: string) => {
     DECADJ_MINFRAC,
     DECADJ_MAXFRAC,
   ];
-  buildDecimal(join(root, 'decimalformat-compact.txt'), dims, f);
+  name = 'decimalformat-compact.txt';
+  timed(name, () => buildDecimal(join(root, name), dims, f));
 
   dims = [
     DECADJ_ROUND,
@@ -335,7 +342,8 @@ export const decimalSuite = (root: string) => {
     DECADJ_MAXSIG,
     DECADJ_MINSIG,
   ];
-  buildDecimal(join(root, 'decimalformat-compact-sig.txt'), dims, f);
+  name = 'decimalformat-compact-sig.txt';
+  timed(name, () => buildDecimal(join(root, name), dims, f));
 };
 
 currencySuite(process.argv[2]);

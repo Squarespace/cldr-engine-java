@@ -6,6 +6,7 @@ import { framework } from './framework';
 import { Dimension, product, reduce } from './dimension';
 
 import { DATES } from './data';
+import { timed } from "../utils";
 
 const FIELDS: TimePeriodField[] = [
   'year',
@@ -41,7 +42,6 @@ const VALUES: (undefined | number)[] = [
 const BASES: number[] = [...DATES, 1581527437123];
 
 const buildDates = (name: string, dims: Dimension<Partial<TimePeriod>>[]) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
   const items = dims.map((e) => e.build());
@@ -92,7 +92,8 @@ export const dateMathSuite = (root: string) => {
     new Dimension<Partial<TimePeriod>>('day', VALUES),
   ];
 
-  buildDates(join(root, 'datemath-dates.txt'), datedims);
+  let name = 'datemath-dates.txt';
+  timed(name, () => buildDates(join(root, name), datedims));
 
   const timedims: Dimension<Partial<TimePeriod>>[] = [
     new Dimension<Partial<TimePeriod>>('hour', VALUES),
@@ -101,7 +102,8 @@ export const dateMathSuite = (root: string) => {
     new Dimension<Partial<TimePeriod>>('millis', VALUES),
   ];
 
-  buildDates(join(root, 'datemath-times.txt'), timedims);
+  name = 'datemath-times.txt';
+  timed(name, () => buildDates(join(root, name), timedims));
 };
 
 dateMathSuite(process.argv[2]);

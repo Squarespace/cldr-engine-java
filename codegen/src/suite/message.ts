@@ -11,6 +11,7 @@ import {
 } from '@phensley/cldr';
 
 import { RNG } from './rng';
+import { timed } from "../utils";
 
 const VALID: string[] = [
   '{0 upper}',
@@ -23,7 +24,6 @@ const VALID: string[] = [
 const GARBAGE = ["'", "''", '-', '{-', ',', ' ', '{', '}', '*'];
 
 const buildMessage = (name: string) => {
-  console.log(`writing ${name}`);
   const fd = fs.openSync(name, 'w');
 
   const rng = new RNG('cldr-engine');
@@ -96,7 +96,8 @@ const buildMessage = (name: string) => {
 };
 
 const messageSuite = (root: string) => {
-  buildMessage(join(root, 'messages.txt'));
+  let name = 'messages.txt';
+  timed(name, () => buildMessage(join(root, name)));
 };
 
 messageSuite(process.argv[2]);

@@ -329,7 +329,17 @@ class CalendarManager {
     // Parse the input skeleton.
     DateSkeleton query = patterns.parseSkeleton(skeleton);
 
+    // If we are not using a default pattern, check a few cases and
+    // augment the skeleton accordingly
     if (!defaulted) {
+      // In non-strict mode, if the query requested time fields only
+      // and the date fields differ, insert some context.
+      boolean strict = options.strict.or(false);
+      if (!strict && dateDiffers && !query.isDate) {
+        skeleton = "yMMMd" + skeleton;
+        query = patterns.parseSkeleton(skeleton);
+      }
+      
       // Interval skeletons for bare seconds 's' and minutes 'm' do not
       // exist in the CLDR data. We fill in the gap to ensure we at least
       // match on the correct hour field for the current locale.
@@ -340,8 +350,6 @@ class CalendarManager {
       }
     }
 
-    System.out.println("query: " + query.canonical() + " fovd: " + fovd);
-    
     // BEGIN formatting rules.
 
     // RULE 1. Skeleton contains both date and time fields
@@ -369,8 +377,12 @@ class CalendarManager {
       }
     }
 
-    // RULE 2: skeleton only contains date fields
-    // RULE 3: skeleotn only contains time fields
+    // RULE 2b ELSE format date standalone (!dateDiffers)
+    if (!dateDiffers && !query.isTime) {
+      req.date = this.matchAvailablePattern(patterns, start, query, params);
+      return req;
+    }
+    
     if (!fovd.equals(DateTimePatternFieldType.SECOND)) {
       // RULE 2a IF dateDiffers, format date range
       // RULE 3a IF timeDiffers, format time range
@@ -395,7 +407,6 @@ class CalendarManager {
         }
       }
     } else {
-      // RULE 2b ELSE format date standalone
       // RULE 3b ELSE format time standalone
       req.date = this.matchAvailablePattern(patterns, start, query, params);
     }

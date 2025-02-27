@@ -116,6 +116,7 @@ const DateFormatAltOptions = new Option('DateFormatAltOptions')
   .field('dayPeriod', 'DayPeriodAltType');
 
 const DateIntervalFormatOptions = new Option('DateIntervalFormatOptions')
+  .field('strict', 'Boolean')
   .field('skeleton', 'String')
   .field('date', 'String')
   .field('time', 'String')

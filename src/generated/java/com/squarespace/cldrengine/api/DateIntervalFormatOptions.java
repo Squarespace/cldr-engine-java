@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class DateIntervalFormatOptions {
 
+  public final Option<Boolean> strict = Option.option();
   public final Option<String> skeleton = Option.option();
   public final Option<String> date = Option.option();
   public final Option<String> time = Option.option();
@@ -21,6 +22,7 @@ public class DateIntervalFormatOptions {
   }
 
   public DateIntervalFormatOptions(DateIntervalFormatOptions arg) {
+    this.strict.set(arg.strict);
     this.skeleton.set(arg.skeleton);
     this.date.set(arg.date);
     this.time.set(arg.time);
@@ -30,6 +32,16 @@ public class DateIntervalFormatOptions {
     this.alt.set(arg.alt);
     this.atTime.set(arg.atTime);
     this.wrap.set(arg.wrap);
+  }
+
+  public DateIntervalFormatOptions strict(Boolean arg) {
+    this.strict.set(arg);
+    return this;
+  }
+
+  public DateIntervalFormatOptions strict(Option<Boolean> arg) {
+    this.strict.set(arg);
+    return this;
   }
 
   public DateIntervalFormatOptions skeleton(String arg) {
@@ -139,6 +151,7 @@ public class DateIntervalFormatOptions {
   }
 
   protected void _mergeIf(DateIntervalFormatOptions o) {
+    this.strict.setIf(o.strict);
     this.skeleton.setIf(o.skeleton);
     this.date.setIf(o.date);
     this.time.setIf(o.time);
@@ -159,6 +172,7 @@ public class DateIntervalFormatOptions {
   }
 
   protected void _merge(DateIntervalFormatOptions o) {
+    this.strict.set(o.strict);
     this.skeleton.set(o.skeleton);
     this.date.set(o.date);
     this.time.set(o.time);
@@ -179,6 +193,9 @@ public class DateIntervalFormatOptions {
   }
 
   protected void _tostring(StringBuilder buf) {
+    if (strict.ok()) {
+      buf.append("strict=").append(strict).append(' ');
+    }
     if (skeleton.ok()) {
       buf.append("skeleton=").append(skeleton).append(' ');
     }

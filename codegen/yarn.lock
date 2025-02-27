@@ -627,17 +627,17 @@
     "@types/esquery" "^1.5.0"
     esquery "^1.5.0"
 
-"@phensley/cldr-compiler@1.10.1'":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/cldr-compiler/-/cldr-compiler-1.10.1.tgz#416ef5f3e196e4c7b086032fd9fd6bd606da1b2d"
-  integrity sha512-sV7yDxtnN0cf1tjy/S2UvhwTX/b4oLmv6lhZ0cHZQMFbLG3O4LqeAaF0HxXoOhGr7vr+t8oObDpTm9fLOmsI1w==
+"@phensley/cldr-compiler@1.10.2'":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/cldr-compiler/-/cldr-compiler-1.10.2.tgz#1e05217f0b3c08f6c13216614c827b1f4c864fc1"
+  integrity sha512-++/JmF7daMITddM481jpiRLAamz07OLiG+71nWNukrqG1BHuY5toN2nXsxAT7BV9J2xYgb9NBh+27pOlouo2WA==
   dependencies:
-    "@phensley/cldr-core" "~1.10.1"
-    "@phensley/cldr-ext-rbnf" "~1.10.1"
-    "@phensley/cldr-types" "~1.10.1"
-    "@phensley/cldr-utils" "~1.10.1"
-    "@phensley/decimal" "~1.10.1"
-    "@phensley/timezone" "~1.10.1"
+    "@phensley/cldr-core" "~1.10.2"
+    "@phensley/cldr-ext-rbnf" "~1.10.2"
+    "@phensley/cldr-types" "~1.10.2"
+    "@phensley/cldr-utils" "~1.10.2"
+    "@phensley/decimal" "~1.10.2"
+    "@phensley/timezone" "~1.10.2"
     "@prettier/sync" "^0.5.2"
     "@types/node-fetch" "^2.6.2"
     "@types/yargs" "17.0.33"
@@ -646,127 +646,127 @@
     minimatch "^7.4.6"
     node-fetch "^2.6.7"
     partial.lenses "^14.17.0"
-    prettier "^3.4.2"
+    prettier "^3.5.2"
     tar "^7.4.3"
     tslib "^2.8.1"
     yaml "^2.7.0"
     yargs "17.7.2"
 
-"@phensley/cldr-core@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/cldr-core/-/cldr-core-1.10.1.tgz#6d690dee2f49127511dfb7f94762e1e8200f473e"
-  integrity sha512-AMHdCXFR5ptWC1V/qh7IUIGDhGl3+jX7JCOXhcgIHRfcu6AArgQCa4E8M740ndLZ/3ADwpx2ejmNSIU3FOz1oA==
+"@phensley/cldr-core@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/cldr-core/-/cldr-core-1.10.2.tgz#dfab7807056af50752107a475dc8f84fc1ce44cb"
+  integrity sha512-SGH533968MB334TKq3XeWC2pKGBnAOA8uQJrPO1L4WtZ4ijqyQjYSifDIqjY5tVub1KdzqEHOP+d8G9bG8lSKg==
   dependencies:
-    "@phensley/cldr-types" "~1.10.1"
-    "@phensley/cldr-utils" "~1.10.1"
-    "@phensley/decimal" "~1.10.1"
-    "@phensley/language-tag" "~1.10.1"
-    "@phensley/locale" "~1.10.1"
-    "@phensley/locale-matcher" "~1.10.1"
-    "@phensley/messageformat" "~1.10.1"
-    "@phensley/plurals" "~1.10.1"
-    "@phensley/timezone" "~1.10.1"
+    "@phensley/cldr-types" "~1.10.2"
+    "@phensley/cldr-utils" "~1.10.2"
+    "@phensley/decimal" "~1.10.2"
+    "@phensley/language-tag" "~1.10.2"
+    "@phensley/locale" "~1.10.2"
+    "@phensley/locale-matcher" "~1.10.2"
+    "@phensley/messageformat" "~1.10.2"
+    "@phensley/plurals" "~1.10.2"
+    "@phensley/timezone" "~1.10.2"
     tslib "^2.8.1"
 
-"@phensley/cldr-ext-rbnf@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/cldr-ext-rbnf/-/cldr-ext-rbnf-1.10.1.tgz#461efa16c6e499fdfd18345a089827ee5b6fafba"
-  integrity sha512-MhndAqIRp5jX23df26zpRXcXGZettSSsRogSSzvy6y5MtmrI71O9X1a8dQCQ1zjFsa5dpum65SpDpgXry/U14g==
+"@phensley/cldr-ext-rbnf@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/cldr-ext-rbnf/-/cldr-ext-rbnf-1.10.2.tgz#fd7ba7f6e863a2be00a06c646a2a7a496e4b433c"
+  integrity sha512-3B1vU1qfOAqZ4OatmdrUIDy/03wlP5o3Trwb/VyZ5upYpT29AqtHkA2yKjt2JLFk0ELqDp0sJRsTsUWtznOR6w==
   dependencies:
-    "@phensley/cldr-types" "~1.10.1"
-    "@phensley/decimal" "~1.10.1"
-    "@phensley/plurals" "~1.10.1"
+    "@phensley/cldr-types" "~1.10.2"
+    "@phensley/decimal" "~1.10.2"
+    "@phensley/plurals" "~1.10.2"
     tslib "^2.8.1"
 
-"@phensley/cldr-types@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/cldr-types/-/cldr-types-1.10.1.tgz#b396b86652b8f7d8b13f0b685202045f11aeb15c"
-  integrity sha512-hZz5Q7vcFs/0Z+IX/+w/xx4Aq75CkUneFer77zW2/I9TUTwlp+pVN5MjFdOlz4OPxj3T4kLxxE++f7IEi2Xyng==
-  dependencies:
-    tslib "^2.8.1"
-
-"@phensley/cldr-utils@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/cldr-utils/-/cldr-utils-1.10.1.tgz#43f08429d638f143d0c7889d13afd5b525e462ea"
-  integrity sha512-OoSOqpzO0T+9RYo92+dfuX7WupVTF1fmRdnIk7t+1iiUpSIGAeIlv9+Vd9K0SNfMkpal86pkrK7qSUkhD+UAXg==
+"@phensley/cldr-types@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/cldr-types/-/cldr-types-1.10.2.tgz#53f3a686c6f8862aa81d9d546c874c93a38b8c96"
+  integrity sha512-SZKIGa0+bvR8cVJubwKqKJvf22eqoScjA8iAVhZOiywst9ZM1d8imDvnc6fk33j4tKtbNGJAeNfehlefDm+RRQ==
   dependencies:
     tslib "^2.8.1"
 
-"@phensley/cldr@1.10.1'":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/cldr/-/cldr-1.10.1.tgz#b67d717c442349401a99662bca5e97ec4036e241"
-  integrity sha512-1+ZjM6a4QDmTZp4ZcaoC4R8OAD5Y0Uw8PwLBXUEipqSA1oWrdWsID5n95hUHApm5wtq86Y9TfN3uClAtyCLUlA==
-  dependencies:
-    "@phensley/cldr-core" "~1.10.1"
-    "@phensley/cldr-utils" "~1.10.1"
-    "@phensley/messageformat" "~1.10.1"
-    tslib "^2.8.1"
-
-"@phensley/decimal@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/decimal/-/decimal-1.10.1.tgz#094565b7dd334182899695c47a6dadebd3b91318"
-  integrity sha512-6Ji00p25zRF3xlfaAYqLfjWvAgDyP6KETdp+GBstUc/n5X4gUZcsCy4xZET+Bio8k+xNnXTMBMoEo0qwsg5QaA==
+"@phensley/cldr-utils@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/cldr-utils/-/cldr-utils-1.10.2.tgz#83f31ddce5fd1dfa2a5a6199f739233325d41f72"
+  integrity sha512-qt/EHCBooETLv5aD4yb6Qoc36cmoXxYE6w668chqc8xyPh8x1wtdtQfbNStGtitnZ2TN7Bu61ktORB8Dgqpetg==
   dependencies:
     tslib "^2.8.1"
 
-"@phensley/language-tag@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/language-tag/-/language-tag-1.10.1.tgz#7056dfb0ade78c8b1d2f1546f9e0642509428170"
-  integrity sha512-2HFC5DG3Ikl7htAk93KXoiRuonWB12AQ2ntHSzb5T2gpddFSikHfvc65JSPgoJEMLkbH74Zm0nhBs4x6hvskEA==
+"@phensley/cldr@1.10.2'":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/cldr/-/cldr-1.10.2.tgz#25d87b6b15450b4fa3eb14bf29540cc3aa549589"
+  integrity sha512-RmIG517AWhpqBAMiP369597wozHKGdaJZSJC7eeCoyCpzojOBR18ekDuODFmojTCzT6zDdofSbLsYxO0Rway/g==
+  dependencies:
+    "@phensley/cldr-core" "~1.10.2"
+    "@phensley/cldr-utils" "~1.10.2"
+    "@phensley/messageformat" "~1.10.2"
+    tslib "^2.8.1"
+
+"@phensley/decimal@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/decimal/-/decimal-1.10.2.tgz#4d147442e4e703e3871c8bc821fb6fac3e07a6d0"
+  integrity sha512-1NTsjgql+LKDc1Nn4APMduhY4I4RgecIdvaHfZETh53p9BpMwqsozO6T5ONpOveUrLfkpnBp6FfUn0cQ0Qe0HA==
   dependencies:
     tslib "^2.8.1"
 
-"@phensley/locale-matcher@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/locale-matcher/-/locale-matcher-1.10.1.tgz#83e9b1d1acb42d3da9ab9f63224ea987c79111d3"
-  integrity sha512-yWDbV+DBKgOoXP4lBQgn2Mj7DpXmoOgFoVVsBOQG8F8epw0eJxfKNNCoc/coW3jZjH5xBlSUgNn0SJgMxkX6LQ==
+"@phensley/language-tag@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/language-tag/-/language-tag-1.10.2.tgz#fdced18c57ccd21555ecfb360c228f081168c157"
+  integrity sha512-Xdui/GVDztdYb9oGzysHRRnakD9FKJIRIRTYvq5SoeGmglAgtDXOLEAm+yTMl8sqMr6AdVCz3/kH7F9wNeGnSQ==
   dependencies:
-    "@phensley/language-tag" "~1.10.1"
-    "@phensley/locale" "~1.10.1"
     tslib "^2.8.1"
 
-"@phensley/locale@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/locale/-/locale-1.10.1.tgz#8c6753ed207cc7b626d2347d3018624d270c1d06"
-  integrity sha512-rZWzy033P2P52Vg0dNwApPLNCYnytdTWeFNudOVjxk+IIFQs1COsp5nS19J1TDM4fHYk2cwXl3OA0tecCVwzjQ==
+"@phensley/locale-matcher@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/locale-matcher/-/locale-matcher-1.10.2.tgz#f29282d4e7482d068bd5178f8d7da80277fc8beb"
+  integrity sha512-6ZlWXRC+0g6MSN/BYxaaDVNCelyed2zYDT2ynTpkMbb2bbpjhFXOAweA0MdEkNtnMaFOZPSTyYnA5znUvOnh2Q==
   dependencies:
-    "@phensley/language-tag" "~1.10.1"
+    "@phensley/language-tag" "~1.10.2"
+    "@phensley/locale" "~1.10.2"
     tslib "^2.8.1"
 
-"@phensley/messageformat@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/messageformat/-/messageformat-1.10.1.tgz#a2f950277933605b4410e48cd2ff120deb492a73"
-  integrity sha512-/MaplGdUNkPXdKJVnuBuJmHrAe/Ho1J7P2YVT7b/kqjdN+9Zbmo5fb++g5fZkdgHB+/gGMzt9oThFuh5iaaSyQ==
+"@phensley/locale@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/locale/-/locale-1.10.2.tgz#88e204b8c06fa75371deb9fde879b48b7d66248e"
+  integrity sha512-5mLF7Tr6M/qnRdDTZ+h15hyTiektvJzqbP1NX5hc9cu/OcN/fT3CLZTRHH2xMl43VPb06psnOsdTiliBydoPpw==
   dependencies:
-    "@phensley/cldr-utils" "~1.10.1"
-    "@phensley/decimal" "~1.10.1"
-    "@phensley/plurals" "~1.10.1"
+    "@phensley/language-tag" "~1.10.2"
     tslib "^2.8.1"
 
-"@phensley/plurals@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/plurals/-/plurals-1.10.1.tgz#baf683fab7b51cd5044fab15dfa1cf74e24bab3d"
-  integrity sha512-3o8v3EOvzb66kavt6zAFqhiTOmAnsLXSfa2QaAlsmYbdUaSNYVyXl7cl5obNlc2b3xRDHAm86x6RKoNUwmXIqg==
+"@phensley/messageformat@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/messageformat/-/messageformat-1.10.2.tgz#0fbe2bb2ba1f935784ea9ba8fdd2f903f9c1598e"
+  integrity sha512-ADVfsC6xFwgFc+mveXuMjJRUZWCx6TvLiJ4aNoO1S6FQfOm6Sx82YjG4xilhR8KruH4GoRrQeNcqk/IHQuGx/Q==
   dependencies:
-    "@phensley/decimal" "~1.10.1"
+    "@phensley/cldr-utils" "~1.10.2"
+    "@phensley/decimal" "~1.10.2"
+    "@phensley/plurals" "~1.10.2"
     tslib "^2.8.1"
 
-"@phensley/timezone@~1.10.1":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/timezone/-/timezone-1.10.1.tgz#e4145b325e834aa1dcd0d7d66228aa7c1cddcb24"
-  integrity sha512-Mgf+cQCwObjJphBDEwmCwNDl95j/ChRMduZk4/yJO1cLCLWbe3NUVcgok2kSKvkIodnqqKsUw9qJHMH/BADjXA==
+"@phensley/plurals@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/plurals/-/plurals-1.10.2.tgz#18de7df3763d7837b56e7ba028f38aa6ae546ad5"
+  integrity sha512-jCDnwGzQ/Z7wv1pB5/io9/FsCk0In411PwQL3d/JKWnMpCRjKNrxOA3Mr7/95m0Ov3fT0+wnNqUd9AXWghrlIQ==
   dependencies:
-    "@phensley/cldr-utils" "~1.10.1"
+    "@phensley/decimal" "~1.10.2"
     tslib "^2.8.1"
 
-"@phensley/unit-converter@1.10.1'":
-  version "1.10.1"
-  resolved "https://registry.npmjs.org/@phensley/unit-converter/-/unit-converter-1.10.1.tgz#56a6bfa8edd4eca6a847a88ed6bf02b4c2f90ee0"
-  integrity sha512-tkZeoYsgVOiFU/CMEXGK1XTdTkCTvNDDzuqgddvTqY51KSRdgdD3K0gDGxLzpz3v9eYVbbBwRHfhxHCnRLB54g==
+"@phensley/timezone@~1.10.2":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/timezone/-/timezone-1.10.2.tgz#601c0b3c9103bf7a0ed85861f76803f6ce85cf33"
+  integrity sha512-3ESIdQkI9UsNFIfVMyK8BUaY/mwgppfIow37LT03pXR9F8JhoiQKLEkyQBmn2rJbZXD3wDnLaN9bsMdHsCHPsQ==
   dependencies:
-    "@phensley/cldr-types" "~1.10.1"
-    "@phensley/cldr-utils" "~1.10.1"
-    "@phensley/decimal" "~1.10.1"
+    "@phensley/cldr-utils" "~1.10.2"
+    tslib "^2.8.1"
+
+"@phensley/unit-converter@1.10.2'":
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/@phensley/unit-converter/-/unit-converter-1.10.2.tgz#287f6dd7c882376c8fa1b88d5a972a075f18461a"
+  integrity sha512-j6PbfXXoQ0Z9H6n0jxeo0XBYoROyN8kStWs7RuA8B8igmaX6zXMKIznXflpPNOMIyCK0xDsOTK/At2DVY/3YtQ==
+  dependencies:
+    "@phensley/cldr-types" "~1.10.2"
+    "@phensley/cldr-utils" "~1.10.2"
+    "@phensley/decimal" "~1.10.2"
     tslib "^2.8.1"
 
 "@pkgjs/parseargs@^0.11.0":
@@ -2876,10 +2876,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^3.4.2:
-  version "3.5.0"
-  resolved "https://registry.npmjs.org/prettier/-/prettier-3.5.0.tgz#50325a28887c6dfdf2ca3f8eaba02b66a8429ca7"
-  integrity sha512-quyMrVt6svPS7CjQ9gKb3GLEX/rl3BCL2oa/QkNcXv4YNVBC9olt3s+H7ukto06q7B1Qz46PbrKLO34PR6vXcA==
+prettier@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.5.2.tgz#d066c6053200da0234bf8fa1ef45168abed8b914"
+  integrity sha512-lc6npv5PH7hVqozBR7lkBNOGXV9vMwROAPlumdBkX0wTbbzPu/U1hk5yL8p2pt4Xoc+2mkT8t/sow2YrV/M5qg==
 
 pretty-format@^29.0.0, pretty-format@^29.7.0:
   version "29.7.0"

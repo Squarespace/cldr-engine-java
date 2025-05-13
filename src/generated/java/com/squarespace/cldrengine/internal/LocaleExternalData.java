@@ -57,38 +57,38 @@ public class LocaleExternalData {
     ":am|ara:ar|arb:ar|arg:an|arm:hy|asd:snz|asm:as|aue:ktz|ava:av|ave:ae|aym:ay|ayr:ay|ayx:nun|aze:az|az" +
     "j:az|bak:ba|bam:bm|baq:eu|baz:nvo|bcc:bal|bcl:bik|bel:be|ben:bn|bgm:bcg|bh:bho|bhk:fbl|bic:bir|bih:b" +
     "ho|bis:bi|bjd:drl|bjq:bzc|bkb:ebk|blg:iba|bod:bo|bos:bs|bre:br|btb:beb|bul:bg|bur:my|bxk:luy|bxr:bua" +
-    "|cat:ca|ccq:rki|ces:cs|cha:ch|che:ce|chi:zh|chu:cu|chv:cv|cjr:mom|cka:cmr|cld:syr|cmk:xch|cmn:zh|cnr" +
-    ":sr-ME|cor:kw|cos:co|coy:pij|cqu:quh|cre:cr|cwd:cr|cym:cy|cze:cs|daf:dnj|dan:da|dap:njz|deu:de|dgo:d" +
-    "oi|dhd:mwr|dik:din|diq:zza|dit:dif|div:dv|djl:dze|dkl:aqd|drh:mn|drr:kzk|drw:fa-AF|dud:uth|duj:dwu|d" +
-    "ut:nl|dwl:dbt|dzo:dz|ekk:et|ell:el|elp:amq|emk:man|eng:en|epo:eo|esk:ik|est:et|eus:eu|ewe:ee|fao:fo|" +
-    "fas:fa|fat:ak|fij:fj|fin:fi|fra:fr|fre:fr|fry:fy|fuc:ff|ful:ff|gav:dev|gaz:om|gbc:wny|gbo:grb|geo:ka" +
-    "|ger:de|gfx:vaj|ggn:gvr|ggo:esg|ggr:gtu|gio:aou|gla:gd|gle:ga|glg:gl|gli:kzk|glv:gv|gno:gon|gre:el|g" +
-    "rn:gn|gti:nyc|gug:gn|guj:gu|guv:duz|gya:gba|hat:ht|hau:ha|hbs:sr-Latn|hdn:hai|hea:hmn|heb:he|her:hz|" +
-    "him:srx|hin:hi|hmo:ho|hrr:jal|hrv:hr|hun:hu|hye:hy|ibi:opa|ibo:ig|ice:is|ido:io|iii:ii|ike:iu|iku:iu" +
-    "|ile:ie|ill:ilm|ilw:gal|in:id|ina:ia|ind:id|ipk:ik|isl:is|ita:it|iw:he|izi:eza|jar:jgk|jav:jv|jeg:oy" +
-    "b|ji:yi|jpn:ja|jw:jv|kal:kl|kan:kn|kas:ks|kat:ka|kau:kr|kaz:kk|kdv:zkd|kgc:tdf|kgd:ncq|kgh:kml|kgm:p" +
-    "lu|khk:mn|khm:km|kik:ki|kin:rw|kir:ky|kmr:ku|knc:kr|kng:kg|knn:kok|koj:kwv|kom:kv|kon:kg|kor:ko|kpp:" +
-    "jkm|kpv:kv|krm:bmf|ktr:dtp|kua:kj|kur:ku|kvs:gdj|kwq:yam|kxe:tvd|kxl:kru|kzh:dgl|kzj:dtp|kzt:dtp|lak" +
-    ":ksp|lao:lo|lat:la|lav:lv|lbk:bnc|leg:enl|lii:raq|lim:li|lin:ln|lit:lt|llo:ngt|lmm:rmx|ltz:lb|lub:lu" +
-    "|lug:lg|lvs:lv|mac:mk|mah:mh|mal:ml|mao:mi|mar:mr|may:ms|meg:cir|mgx:jbk|mhr:chm|mkd:mk|mlg:mg|mlt:m" +
-    "t|mnk:man|mnt:wnn|mo:ro|mof:xnt|mol:ro|mon:mn|mri:mi|msa:ms|mst:mry|mup:raj|mwd:dmw|mwj:vaj|mya:my|m" +
-    "yd:aog|myt:mry|nad:xny|nau:na|nav:nv|nbf:nru|nbl:nr|nbx:ekc|ncp:kdz|nde:nd|ndo:ng|nep:ne|nld:nl|nln:" +
-    "azd|nlr:nrk|nno:nn|nns:nbr|nnx:ngv|nob:nb|nom:cbr|noo:dtd|nor:no|npi:ne|nts:pij|nxu:bpp|nya:ny|oci:o" +
-    "c|ojg:oj|oji:oj|ori:or|orm:om|ory:or|oss:os|oun:vaj|pan:pa|pat:kxr|pbu:ps|pcr:adx|per:fa|pes:fa|pli:" +
-    "pi|plt:mg|pmc:huw|pmk:crr|pmu:phr|pnb:lah|pol:pl|por:pt|ppa:bfy|ppr:lcq|prp:gu|prs:fa-AF|pry:prt|pus" +
-    ":ps|puz:pub|que:qu|quz:qu|rmr:emx|rmy:rom|roh:rm|ron:ro|rum:ro|run:rn|rus:ru|sag:sg|san:sa|sap:aqt|s" +
-    "ca:hle|scc:sr|scr:hr|sgl:isk|sgn--BR:bzs|sgn--CO:csn|sgn--DE:gsg|sgn--DK:dsl|sgn--ES:ssp|sgn--FR:fsl" +
-    "|sgn--GB:bfi|sgn--GR:gss|sgn--IE:isg|sgn--IT:ise|sgn--JP:jsl|sgn--MX:mfs|sgn--NI:ncs|sgn--NL:dse|sgn" +
-    "--NO:nsi|sgn--PT:psr|sgn--SE:swl|sgn--US:ase|sgn--ZA:sfs|sh:sr-Latn|sin:si|skk:oyb|slk:sk|slo:sk|slv" +
-    ":sl|smd:kmb|sme:se|smo:sm|sna:sn|snb:iba|snd:sd|som:so|sot:st|spa:es|spy:kln|sqi:sq|src:sc|srd:sc|sr" +
-    "p:sr|ssw:ss|sul:sgd|sum:ulw|sun:su|swa:sw|swc:sw-CD|swe:sv|swh:sw|szd:umi|tah:ty|tam:ta|tat:tt|tdu:d" +
-    "tp|tel:te|tgg:bjp|tgk:tg|tgl:fil|tha:th|thc:tpo|thw:ola|thx:oyb|tib:bo|tid:itd|tie:ras|tir:ti|tkk:tw" +
-    "m|tl:fil|tlw:weo|tmk:tdg|tmp:tyj|tne:kak|tnf:fa-AF|ton:to|tpw:tpn|tsf:taj|tsn:tn|tso:ts|ttq:tmh|tuk:" +
-    "tk|tur:tr|tw:ak|twi:ak|uig:ug|ukr:uk|umu:del|unp:wro|uok:ema|urd:ur|uzb:uz|uzn:uz|ven:ve|vie:vi|vol:" +
-    "vo|wel:cy|wgw:wgb|wit:nol|wiw:nwo|wln:wa|wol:wo|xba:cax|xho:xh|xia:acn|xkh:waw|xpe:kpe|xrq:dmw|xsj:s" +
-    "uj|xsl:den|xss:zko|ybd:rki|ydd:yi|yen:ynq|yid:yi|yiy:yrm|yma:lrr|ymt:mtm|yor:yo|yos:zom|yuu:yug|zai:" +
-    "zap|cmn-Hans:zh-Hans|cmn-Hant:zh-Hant|gan:gan|wuu:wuu|yue:yue|zha:za|zho:zh|zir:scv|zkb:kjh|zsm:ms|z" +
-    "ul:zu|zyb:za";
+    "|cat:ca|ccq:rki|ces:cs|cha:ch|che:ce|chi:zh|chu:cu|chv:cv|cjr:mom|cka:cmr|cld:syr|cls:sa|cmk:xch|cmn" +
+    ":zh|cnr:sr-ME|cor:kw|cos:co|coy:pij|cqu:quh|cre:cr|cwd:cr|cym:cy|cze:cs|daf:dnj|dan:da|dap:njz|deu:d" +
+    "e|dgo:doi|dhd:mwr|dik:din|diq:zza|dit:dif|div:dv|djl:dze|dkl:aqd|drh:mn|drr:kzk|drw:fa-AF|dud:uth|du" +
+    "j:dwu|dut:nl|dwl:dbt|dzo:dz|ekk:et|ell:el|elp:amq|emk:man|eng:en|epo:eo|esk:ik|est:et|eus:eu|ewe:ee|" +
+    "fao:fo|fas:fa|fat:ak|fij:fj|fin:fi|fra:fr|fre:fr|fry:fy|fuc:ff|ful:ff|gav:dev|gaz:om|gbc:wny|gbo:grb" +
+    "|geo:ka|ger:de|gfx:vaj|ggn:gvr|ggo:esg|ggr:gtu|gio:aou|gla:gd|gle:ga|glg:gl|gli:kzk|glv:gv|gno:gon|g" +
+    "om:kok|gre:el|grn:gn|gti:nyc|gug:gn|guj:gu|guv:duz|gya:gba|hat:ht|hau:ha|hbs:sr-Latn|hdn:hai|hea:hmn" +
+    "|heb:he|her:hz|him:srx|hin:hi|hmo:ho|hrr:jal|hrv:hr|hun:hu|hye:hy|ibi:opa|ibo:ig|ice:is|ido:io|iii:i" +
+    "i|ike:iu|iku:iu|ile:ie|ill:ilm|ilw:gal|in:id|ina:ia|ind:id|ipk:ik|isl:is|ita:it|iw:he|izi:eza|jar:jg" +
+    "k|jav:jv|jeg:oyb|ji:yi|jpn:ja|jw:jv|kal:kl|kan:kn|kas:ks|kat:ka|kau:kr|kaz:kk|kdv:zkd|kgc:tdf|kgd:nc" +
+    "q|kgh:kml|kgm:plu|khk:mn|khm:km|kik:ki|kin:rw|kir:ky|kmr:ku|knc:kr|kng:kg|koj:kwv|kom:kv|kon:kg|kor:" +
+    "ko|kpp:jkm|kpv:kv|krm:bmf|ktr:dtp|kua:kj|kur:ku|kvs:gdj|kwq:yam|kxe:tvd|kxl:kru|kzh:dgl|kzj:dtp|kzt:" +
+    "dtp|lak:ksp|lao:lo|lat:la|lav:lv|lbk:bnc|leg:enl|lii:raq|lim:li|lin:ln|lit:lt|llo:ngt|lmm:rmx|ltz:lb" +
+    "|lub:lu|lug:lg|lvs:lv|mac:mk|mah:mh|mal:ml|mao:mi|mar:mr|may:ms|meg:cir|mgx:jbk|mhr:chm|mkd:mk|mlg:m" +
+    "g|mlt:mt|mnk:man|mnt:wnn|mo:ro|mof:xnt|mol:ro|mon:mn|mri:mi|msa:ms|mst:mry|mup:raj|mwd:dmw|mwj:vaj|m" +
+    "ya:my|myd:aog|myt:mry|nad:xny|nau:na|nav:nv|nbf:nru|nbl:nr|nbx:gll|ncp:kdz|nde:nd|ndo:ng|nep:ne|nld:" +
+    "nl|nln:azd|nlr:nrk|nno:nn|nns:nbr|nnx:ngv|nob:nb|nom:cbr|noo:dtd|nor:no|npi:ne|nts:pij|nxu:bpp|nya:n" +
+    "y|oci:oc|ojg:oj|oji:oj|ori:or|orm:om|ory:or|oss:os|oun:vaj|pan:pa|pat:kxr|pbu:ps|pcr:adx|per:fa|pes:" +
+    "fa|pli:pi|plt:mg|pmc:huw|pmk:crr|pmu:phr|pnb:lah|pol:pl|por:pt|ppa:bfy|ppr:lcq|prp:gu|prs:fa-AF|pry:" +
+    "prt|pus:ps|puz:pub|que:qu|quz:qu|rmr:emx|rmy:rom|roh:rm|ron:ro|rum:ro|run:rn|rus:ru|sag:sg|san:sa|sa" +
+    "p:aqt|sca:hle|scc:sr|scr:hr|sgl:isk|sgn--BR:bzs|sgn--CO:csn|sgn--DE:gsg|sgn--DK:dsl|sgn--ES:ssp|sgn-" +
+    "-FR:fsl|sgn--GB:bfi|sgn--GR:gss|sgn--IE:isg|sgn--IT:ise|sgn--JP:jsl|sgn--MX:mfs|sgn--NI:ncs|sgn--NL:" +
+    "dse|sgn--NO:nsi|sgn--PT:psr|sgn--SE:swl|sgn--US:ase|sgn--ZA:sfs|sh:sr-Latn|sin:si|skk:oyb|slk:sk|slo" +
+    ":sk|slv:sl|smd:kmb|sme:se|smo:sm|sna:sn|snb:iba|snd:sd|som:so|sot:st|spa:es|spy:kln|sqi:sq|src:sc|sr" +
+    "d:sc|srp:sr|ssw:ss|sul:sgd|sum:ulw|sun:su|swa:sw|swc:sw-CD|swe:sv|swh:sw|szd:umi|tah:ty|tam:ta|tat:t" +
+    "t|tdu:dtp|tel:te|tgg:bjp|tgk:tg|tgl:fil|tha:th|thc:tpo|thw:ola|thx:oyb|tib:bo|tid:itd|tie:ras|tir:ti" +
+    "|tkk:twm|tl:fil|tlw:weo|tmk:tdg|tmp:tyj|tne:kak|tnf:fa-AF|ton:to|tpw:tpn|tsf:taj|tsn:tn|tso:ts|ttq:t" +
+    "mh|tuk:tk|tur:tr|tw:ak|twi:ak|uig:ug|ukr:uk|umu:del|unp:wro|uok:ema|urd:ur|uzb:uz|uzn:uz|ven:ve|vie:" +
+    "vi|vol:vo|wel:cy|wgw:wgb|wit:nol|wiw:nwo|wln:wa|wol:wo|xba:cax|xho:xh|xia:acn|xkh:waw|xpe:kpe|xrq:dm" +
+    "w|xsj:suj|xsl:den|xss:zko|ybd:rki|ydd:yi|yen:ynq|yid:yi|yiy:yrm|yma:lrr|ymt:mtm|yor:yo|yos:zom|yuu:y" +
+    "ug|zai:zap|cmn-Hans:zh-Hans|cmn-Hant:zh-Hant|gan:gan|wuu:wuu|yue:yue|zha:za|zho:zh|zir:scv|zkb:kjh|z" +
+    "sm:ms|zul:zu|zyb:za";
 
   public static final String SCRIPTALIASRAW =
     "Qaai:Zinh";
@@ -111,7 +111,7 @@ public class LocaleExternalData {
     "}]}}]},\"gsw\":{\"de\":[4,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"lb\":{\"de\":[4,{\"$\":{\"$\":[" +
     "50,{\"$\":{\"$\":4}}]}}]},\"da\":{\"no\":[8,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}],\"nb\":[8,{\"$\"" +
     ":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"ab\":{\"ru\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"ach" +
-    "\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"af\":{\"nl\":[20,{\"$\":{\"$\":[50,{\"$\":" +
+    "\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"af\":{\"en\":[20,{\"$\":{\"$\":[50,{\"$\":" +
     "{\"$\":4}}]}}]},\"ak\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"am\":{\"en\":[30,{\"Et" +
     "hi\":{\"Latn\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"ay\":{\"es\":[20,{\"" +
     "$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"az\":{\"ru\":[30,{\"Latn\":{\"Cyrl\":[10,{\"$\":{\"$\":4}}]}" +
@@ -171,23 +171,23 @@ public class LocaleExternalData {
     "[50,{\"$\":{\"$\":4}}]}}]},\"qu\":{\"es\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"rm\":{\"de\"" +
     ":[20,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"rn\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}" +
     "]}}]},\"rw\":{\"fr\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"sa\":{\"hi\":[30,{\"$\":{\"$\":[" +
-    "50,{\"$\":{\"$\":4}}]}}]},\"sd\":{\"en\":[30,{\"Arab\":{\"Latn\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"$\"" +
-    ":[50,{\"$\":{\"$\":4}}]}}]},\"si\":{\"en\":[30,{\"Sinh\":{\"Latn\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"" +
-    "$\":[50,{\"$\":{\"$\":4}}]}}]},\"sn\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"so\":{\"" +
-    "en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"sq\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\"" +
-    ":4}}]}}]},\"st\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"su\":{\"id\":[20,{\"$\":{\"$" +
-    "\":[50,{\"$\":{\"$\":4}}]}}]},\"sw\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"ta\":{\"" +
-    "en\":[30,{\"Taml\":{\"Latn\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}],\"ta\":[" +
-    "0,{\"Latn\":{\"Taml\":[20,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"te\":{\"en\"" +
-    ":[30,{\"Telu\":{\"Latn\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}],\"te\":[0,{\"" +
-    "Latn\":{\"Telu\":[20,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"tg\":{\"ru\":[30," +
-    "{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"ti\":{\"en\":[30,{\"Ethi\":{\"Latn\":[10,{\"$\":{\"$\":4}" +
-    "}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"tk\":{\"ru\":[30,{\"Latn\":{\"Cyrl\":[10,{\"$\":{\"$\"" +
-    ":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"tlh\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4" +
-    "}}]}}]},\"tn\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"to\":{\"en\":[30,{\"$\":{\"$\"" +
-    ":[50,{\"$\":{\"$\":4}}]}}]},\"tt\":{\"ru\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"tum\":{\"e" +
-    "n\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"ug\":{\"zh\":[20,{\"$\":{\"$\":[50,{\"$\":{\"$\":" +
-    "4}}]}}]},\"uk\":{\"ru\":[20,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"ur\":{\"en\":[30,{\"Arab\":{\"" +
+    "50,{\"$\":{\"$\":4}}]}}]},\"scn\":{\"it\":[20,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"sd\":{\"en\"" +
+    ":[30,{\"Arab\":{\"Latn\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"si\":{\"e" +
+    "n\":[30,{\"Sinh\":{\"Latn\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"sn\":{" +
+    "\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"so\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$" +
+    "\":4}}]}}]},\"sq\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"st\":{\"en\":[30,{\"$\":{\"" +
+    "$\":[50,{\"$\":{\"$\":4}}]}}]},\"su\":{\"id\":[20,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"sw\":{\"" +
+    "en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"ta\":{\"en\":[30,{\"Taml\":{\"Latn\":[10,{\"$\":" +
+    "{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}],\"ta\":[0,{\"Latn\":{\"Taml\":[20,{\"$\":{\"$\":" +
+    "4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"te\":{\"en\":[30,{\"Telu\":{\"Latn\":[10,{\"$\":{\"$" +
+    "\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}],\"te\":[0,{\"Latn\":{\"Telu\":[20,{\"$\":{\"$\":4}}]" +
+    "},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"tg\":{\"ru\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]" +
+    "},\"ti\":{\"en\":[30,{\"Ethi\":{\"Latn\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]" +
+    "}}]},\"tk\":{\"ru\":[30,{\"Latn\":{\"Cyrl\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4" +
+    "}}]}}]},\"tlh\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"tn\":{\"en\":[30,{\"$\":{\"$\"" +
+    ":[50,{\"$\":{\"$\":4}}]}}]},\"to\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"tt\":{\"ru" +
+    "\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"tum\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":" +
+    "4}}]}}]},\"ug\":{\"zh\":[20,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"ur\":{\"en\":[30,{\"Arab\":{\"" +
     "Latn\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"uz\":{\"ru\":[30,{\"Latn\":" +
     "{\"Cyrl\":[10,{\"$\":{\"$\":4}}]},\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"wo\":{\"fr\":[30,{\"$\":" +
     "{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"xh\":{\"en\":[30,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"yi\"" +
@@ -225,7 +225,7 @@ public class LocaleExternalData {
     ":{\"$\":4}}]}}]},\"oki\":{\"kln\":[10,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"pko\":{\"kln\":[10," +
     "{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"sgc\":{\"kln\":[10,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}" +
     "]},\"tec\":{\"kln\":[10,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"tuy\":{\"kln\":[10,{\"$\":{\"$\":" +
-    "[50,{\"$\":{\"$\":4}}]}}]},\"gom\":{\"kok\":[10,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"gkp\":{\"" +
+    "[50,{\"$\":{\"$\":4}}]}}]},\"knn\":{\"kok\":[10,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"gkp\":{\"" +
     "kpe\":[10,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"ida\":{\"luy\":[10,{\"$\":{\"$\":[50,{\"$\":{\"" +
     "$\":4}}]}}]},\"lkb\":{\"luy\":[10,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"lko\":{\"luy\":[10,{\"$" +
     "\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"lks\":{\"luy\":[10,{\"$\":{\"$\":[50,{\"$\":{\"$\":4}}]}}]},\"" +
@@ -342,40 +342,42 @@ public class LocaleExternalData {
     "K GL\"]},\"de\":{\"Latn\":[1,5,5,5,5,5,5,\"DE AT BE CH IT LI LU\"]},\"dsb\":{\"Latn\":[1,\"DE\"]},\"" +
     "el\":{\"Grek\":[1,5,9,\"GR CY GR-polyton\"]},\"en\":{\"Latn\":[1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5" +
     ",5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5" +
-    ",5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,\"US 001 150 AE AG AI A" +
-    "S AT AU BB BE BI BM BS BW BZ CA CC CH CK CM CX CY DE DG DK DM ER FI FJ FK FM GB GD GG GH GI GM GU GY" +
-    " HK ID IE IL IM IN IO JE JM KE KI KN KY LC LR LS MG MH MO MP MS MT MU MV MW MY NA NF NG NL NR NU NZ " +
-    "PG PH PK PN PR PW RW SB SC SD SE SG SH SI SL SS SX SZ TC TK TO TT TV TZ UG UM VC VG VI VU WS ZA ZM Z" +
-    "W\"]},\"es\":{\"Latn\":[1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,\"ES 419 AR BO BR BZ" +
-    " CL CO CR CU DO EA EC GQ GT HN IC MX NI PA PE PH PR PY SV US UY VE\"]},\"et\":{\"Latn\":[1,\"EE\"]}," +
-    "\"eu\":{\"Latn\":[1,\"ES\"]},\"fa\":{\"Arab\":[1,5,\"IR AF\"]},\"fi\":{\"Latn\":[1,\"FI\"]},\"fil\":" +
-    "{\"Latn\":[1,\"PH\"]},\"fr\":{\"Latn\":[1,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5," +
-    "5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,\"FR BE BF BI BJ BL CA CD CF CG CH CI CM DJ DZ GA GF GN GP GQ HT KM " +
-    "LU MA MC MF MG ML MQ MR MU NC NE PF PM RE RW SC SN SY TD TG TN VU WF YT\"]},\"ga\":{\"Latn\":[1,5,\"" +
-    "IE GB\"]},\"gd\":{\"Latn\":[1,\"GB\"]},\"gl\":{\"Latn\":[1,\"ES\"]},\"gu\":{\"Gujr\":[1,\"IN\"]},\"h" +
-    "a\":{\"Latn\":[1,5,5,\"NG GH NE\"]},\"he\":{\"Hebr\":[1,\"IL\"]},\"hi\":{\"Deva\":[1,\"IN\"],\"Latn\"" +
-    ":[3,\"IN\"]},\"hr\":{\"Latn\":[1,5,\"HR BA\"]},\"hsb\":{\"Latn\":[1,\"DE\"]},\"hu\":{\"Latn\":[1,\"H" +
-    "U\"]},\"hy\":{\"Armn\":[1,\"AM\"]},\"id\":{\"Latn\":[1,\"ID\"]},\"ig\":{\"Latn\":[1,\"NG\"]},\"is\":" +
-    "{\"Latn\":[1,\"IS\"]},\"it\":{\"Latn\":[1,5,5,5,\"IT CH SM VA\"]},\"ja\":{\"Jpan\":[1,\"JP\"]},\"jv\"" +
-    ":{\"Latn\":[1,\"ID\"]},\"ka\":{\"Geor\":[1,\"GE\"]},\"kk\":{\"Cyrl\":[1,\"KZ\"]},\"km\":{\"Khmr\":[1" +
-    ",\"KH\"]},\"kn\":{\"Knda\":[1,\"IN\"]},\"ko\":{\"Kore\":[1,5,5,\"KR CN KP\"]},\"kok\":{\"Deva\":[1,\"" +
-    "IN\"]},\"ky\":{\"Cyrl\":[1,\"KG\"]},\"lo\":{\"Laoo\":[1,\"LA\"]},\"lt\":{\"Latn\":[1,\"LT\"]},\"lv\"" +
-    ":{\"Latn\":[1,\"LV\"]},\"mk\":{\"Cyrl\":[1,\"MK\"]},\"ml\":{\"Mlym\":[1,\"IN\"]},\"mn\":{\"Cyrl\":[1" +
-    ",\"MN\"]},\"mr\":{\"Deva\":[1,\"IN\"]},\"ms\":{\"Latn\":[1,5,5,5,\"MY BN ID SG\"]},\"my\":{\"Mymr\":" +
-    "[1,\"MM\"]},\"nb\":{\"Latn\":[1,5,\"NO SJ\"]},\"ne\":{\"Deva\":[1,5,\"NP IN\"]},\"nl\":{\"Latn\":[1," +
-    "5,5,5,5,5,5,\"NL AW BE BQ CW SR SX\"]},\"nn\":{\"Latn\":[1,\"NO\"]},\"no\":{\"Latn\":[1,\"NO\"]},\"o" +
-    "r\":{\"Orya\":[1,\"IN\"]},\"pa\":{\"Guru\":[1,3,\"IN IN\"]},\"pl\":{\"Latn\":[1,\"PL\"]},\"ps\":{\"A" +
-    "rab\":[1,5,\"AF PK\"]},\"pt\":{\"Latn\":[1,5,5,5,5,5,5,5,5,5,5,5,\"BR AO CH CV GQ GW LU MO MZ PT ST " +
-    "TL\"]},\"ro\":{\"Latn\":[1,5,\"RO MD\"]},\"ru\":{\"Cyrl\":[1,5,5,5,5,5,\"RU BY KG KZ MD UA\"]},\"sd\"" +
-    ":{\"Arab\":[1,3,\"PK PK\"]},\"si\":{\"Sinh\":[1,\"LK\"]},\"sk\":{\"Latn\":[1,\"SK\"]},\"sl\":{\"Latn" +
-    "\":[1,\"SI\"]},\"so\":{\"Latn\":[1,5,5,5,\"SO DJ ET KE\"]},\"sq\":{\"Latn\":[1,5,5,\"AL MK XK\"]},\"" +
-    "sr\":{\"Cyrl\":[1,3,7,7,7,\"RS RS BA ME XK\"],\"Latn\":[3,7,7,7,\"RS BA ME XK\"]},\"sv\":{\"Latn\":[" +
-    "1,5,5,\"SE AX FI\"]},\"sw\":{\"Latn\":[1,5,5,5,\"TZ CD KE UG\"]},\"ta\":{\"Taml\":[1,5,5,5,\"IN LK M" +
-    "Y SG\"]},\"te\":{\"Telu\":[1,\"IN\"]},\"th\":{\"Thai\":[1,\"TH\"]},\"tk\":{\"Latn\":[1,\"TM\"]},\"tr" +
-    "\":{\"Latn\":[1,5,\"TR CY\"]},\"uk\":{\"Cyrl\":[1,\"UA\"]},\"ur\":{\"Arab\":[1,5,\"PK IN\"]},\"uz\":" +
-    "{\"Latn\":[1,3,\"UZ UZ\"]},\"vi\":{\"Latn\":[1,\"VN\"]},\"yo\":{\"Latn\":[1,5,\"NG BJ\"]},\"yue\":{\"" +
-    "Hant\":[1,3,\"HK HK\"],\"Hans\":[3,\"CN\"]},\"zh\":{\"Hans\":[1,3,7,7,7,\"CN CN HK MO SG\"],\"Hant\"" +
-    ":[3,7,7,\"TW HK MO\"]},\"zu\":{\"Latn\":[1,\"ZA\"]}}";
+    ",5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,\"" +
+    "US 001 150 AE AG AI AS AT AU BB BE BI BM BS BW BZ CA CC CH CK CM CX CY CZ DE DG DK DM ER ES FI FJ FK" +
+    " FM FR GB GD GG GH GI GM GS GU GY HK HU ID IE IL IM IN IO IT JE JM KE KI KN KY LC LR LS MG MH MO MP " +
+    "MS MT MU MV MW MY NA NF NG NL NO NR NU NZ PG PH PK PL PN PR PT PW RO RW SB SC SD SE SG SH SI SK SL S" +
+    "S SX SZ TC TK TO TT TV TZ UG UM VC VG VI VU WS ZA ZM ZW\"]},\"es\":{\"Latn\":[1,5,5,5,5,5,5,5,5,5,5," +
+    "5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,\"ES 419 AR BO BR BZ CL CO CR CU DO EA EC GQ GT HN IC MX NI PA PE " +
+    "PH PR PY SV US UY VE\"]},\"et\":{\"Latn\":[1,\"EE\"]},\"eu\":{\"Latn\":[1,\"ES\"]},\"fa\":{\"Arab\":" +
+    "[1,5,\"IR AF\"]},\"fi\":{\"Latn\":[1,\"FI\"]},\"fil\":{\"Latn\":[1,\"PH\"]},\"fr\":{\"Latn\":[1,5,5," +
+    "5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,\"FR BE BF BI " +
+    "BJ BL CA CD CF CG CH CI CM DJ DZ GA GF GN GP GQ HT KM LU MA MC MF MG ML MQ MR MU NC NE PF PM RE RW S" +
+    "C SN SY TD TG TN VU WF YT\"]},\"ga\":{\"Latn\":[1,5,\"IE GB\"]},\"gd\":{\"Latn\":[1,\"GB\"]},\"gl\":" +
+    "{\"Latn\":[1,\"ES\"]},\"gu\":{\"Gujr\":[1,\"IN\"]},\"ha\":{\"Latn\":[1,5,5,\"NG GH NE\"]},\"he\":{\"" +
+    "Hebr\":[1,\"IL\"]},\"hi\":{\"Deva\":[1,\"IN\"],\"Latn\":[3,\"IN\"]},\"hr\":{\"Latn\":[1,5,\"HR BA\"]" +
+    "},\"hsb\":{\"Latn\":[1,\"DE\"]},\"ht\":{\"Latn\":[1,\"HT\"]},\"hu\":{\"Latn\":[1,\"HU\"]},\"hy\":{\"" +
+    "Armn\":[1,\"AM\"]},\"id\":{\"Latn\":[1,\"ID\"]},\"ig\":{\"Latn\":[1,\"NG\"]},\"is\":{\"Latn\":[1,\"I" +
+    "S\"]},\"it\":{\"Latn\":[1,5,5,5,\"IT CH SM VA\"]},\"ja\":{\"Jpan\":[1,\"JP\"]},\"jv\":{\"Latn\":[1,\"" +
+    "ID\"]},\"ka\":{\"Geor\":[1,\"GE\"]},\"kk\":{\"Cyrl\":[1,3,5,\"KZ KZ KZ\"]},\"km\":{\"Khmr\":[1,\"KH\"" +
+    "]},\"kn\":{\"Knda\":[1,\"IN\"]},\"ko\":{\"Kore\":[1,5,5,\"KR CN KP\"]},\"kok\":{\"Deva\":[1,3,\"IN I" +
+    "N\"]},\"ky\":{\"Cyrl\":[1,\"KG\"]},\"lo\":{\"Laoo\":[1,\"LA\"]},\"lt\":{\"Latn\":[1,\"LT\"]},\"lv\":" +
+    "{\"Latn\":[1,\"LV\"]},\"mk\":{\"Cyrl\":[1,\"MK\"]},\"ml\":{\"Mlym\":[1,\"IN\"]},\"mn\":{\"Cyrl\":[1," +
+    "\"MN\"]},\"mr\":{\"Deva\":[1,\"IN\"]},\"ms\":{\"Latn\":[1,5,5,5,\"MY BN ID SG\"]},\"my\":{\"Mymr\":[" +
+    "1,\"MM\"]},\"nb\":{\"Latn\":[1,5,\"NO SJ\"]},\"ne\":{\"Deva\":[1,5,\"NP IN\"]},\"nl\":{\"Latn\":[1,5" +
+    ",5,5,5,5,5,\"NL AW BE BQ CW SR SX\"]},\"nn\":{\"Latn\":[1,\"NO\"]},\"no\":{\"Latn\":[1,\"NO\"]},\"or" +
+    "\":{\"Orya\":[1,\"IN\"]},\"pa\":{\"Guru\":[1,3,\"IN IN\"]},\"pcm\":{\"Latn\":[1,\"NG\"]},\"pl\":{\"L" +
+    "atn\":[1,\"PL\"]},\"ps\":{\"Arab\":[1,5,\"AF PK\"]},\"pt\":{\"Latn\":[1,5,5,5,5,5,5,5,5,5,5,5,\"BR A" +
+    "O CH CV GQ GW LU MO MZ PT ST TL\"]},\"ro\":{\"Latn\":[1,5,\"RO MD\"]},\"ru\":{\"Cyrl\":[1,5,5,5,5,5," +
+    "\"RU BY KG KZ MD UA\"]},\"sd\":{\"Arab\":[1,3,\"PK PK\"]},\"si\":{\"Sinh\":[1,\"LK\"]},\"sk\":{\"Lat" +
+    "n\":[1,\"SK\"]},\"sl\":{\"Latn\":[1,\"SI\"]},\"so\":{\"Latn\":[1,5,5,5,\"SO DJ ET KE\"]},\"sq\":{\"L" +
+    "atn\":[1,5,5,\"AL MK XK\"]},\"sr\":{\"Cyrl\":[1,3,7,7,7,\"RS RS BA ME XK\"],\"Latn\":[3,7,7,7,\"RS B" +
+    "A ME XK\"]},\"sv\":{\"Latn\":[1,5,5,\"SE AX FI\"]},\"sw\":{\"Latn\":[1,5,5,5,\"TZ CD KE UG\"]},\"ta\"" +
+    ":{\"Taml\":[1,5,5,5,\"IN LK MY SG\"]},\"te\":{\"Telu\":[1,\"IN\"]},\"th\":{\"Thai\":[1,\"TH\"]},\"ti" +
+    "\":{\"Ethi\":[1,5,\"ET ER\"]},\"tk\":{\"Latn\":[1,\"TM\"]},\"tr\":{\"Latn\":[1,5,\"TR CY\"]},\"uk\":" +
+    "{\"Cyrl\":[1,\"UA\"]},\"ur\":{\"Arab\":[1,5,\"PK IN\"]},\"uz\":{\"Latn\":[1,3,\"UZ UZ\"]},\"vi\":{\"" +
+    "Latn\":[1,\"VN\"]},\"yo\":{\"Latn\":[1,5,\"NG BJ\"]},\"yue\":{\"Hant\":[1,3,7,7,\"HK HK CN MO\"],\"H" +
+    "ans\":[3,\"CN\"]},\"zh\":{\"Hans\":[1,3,7,7,7,7,\"CN CN HK MO MY SG\"],\"Hant\":[3,7,7,7,\"TW HK MO " +
+    "MY\"]},\"zu\":{\"Latn\":[1,\"ZA\"]}}";
 
   public static final String REGIONS =
     "AC:α|AD:α|AE:α|AF:α|AG:β|AI:β|AL:α|AM:α|AO:α|AQ:α|AR:β|AS:γ|AT:α|AU:α|AW:β|AX:α|AZ:α|BA:α|BB:β|BD:α|" +
@@ -404,233 +406,205 @@ public class LocaleExternalData {
     "|zh-xiang:hsn";
 
   public static final String LIKELYSUBTAGS =
-    "{\"0\":{\"1\":{\"2\":\"en-0-US\",\"419\":\"es-0-\",\"AC\":\"en-0-\",\"AD\":\"ca-0-\",\"AE\":\"ar-2-\"" +
-    ",\"AF\":\"fa-2-\",\"AG\":\"en-0-\",\"AI\":\"en-0-\",\"AL\":\"sq-0-\",\"AM\":\"hy-15-\",\"AO\":\"pt-0" +
-    "-\",\"AQ\":\"en-0-\",\"AR\":\"es-0-\",\"AT\":\"de-0-\",\"AU\":\"en-0-\",\"AW\":\"nl-0-\",\"AX\":\"sv" +
-    "-0-\",\"AZ\":\"az-0-\",\"BA\":\"bs-0-\",\"BB\":\"en-0-\",\"BD\":\"bn-5-\",\"BE\":\"nl-0-\",\"BF\":\"" +
-    "fr-0-\",\"BG\":\"bg-3-\",\"BH\":\"ar-2-\",\"BI\":\"rn-0-\",\"BJ\":\"fr-0-\",\"BL\":\"fr-0-\",\"BM\":" +
-    "\"en-0-\",\"BN\":\"ms-0-\",\"BO\":\"es-0-\",\"BR\":\"pt-0-\",\"BS\":\"en-0-\",\"BV\":\"en-0-\",\"BW\"" +
-    ":\"en-0-\",\"BY\":\"be-3-\",\"BZ\":\"en-0-\",\"CA\":\"en-0-\",\"CC\":\"ms-2-\",\"CD\":\"sw-0-\",\"CF" +
-    "\":\"fr-0-\",\"CG\":\"fr-0-\",\"CH\":\"de-0-\",\"CI\":\"fr-0-\",\"CK\":\"en-0-\",\"CL\":\"es-0-\",\"" +
-    "CM\":\"fr-0-\",\"CN\":\"zh-7-\",\"CO\":\"es-0-\",\"CP\":\"en-0-\",\"CQ\":\"en-0-\",\"CR\":\"es-0-\"," +
-    "\"CU\":\"es-0-\",\"CV\":\"pt-0-\",\"CX\":\"en-0-\",\"CY\":\"el-1-\",\"CZ\":\"cs-0-\",\"DE\":\"de-0-\"" +
-    ",\"DG\":\"en-0-\",\"DJ\":\"aa-0-\",\"DK\":\"da-0-\",\"DM\":\"en-0-\",\"DO\":\"es-0-\",\"DZ\":\"ar-2-" +
-    "\",\"EA\":\"es-0-\",\"EC\":\"es-0-\",\"EE\":\"et-0-\",\"EG\":\"ar-2-\",\"EH\":\"ar-2-\",\"ER\":\"ti-" +
-    "4-\",\"ES\":\"es-0-\",\"ET\":\"am-4-\",\"FI\":\"fi-0-\",\"FJ\":\"en-0-\",\"FK\":\"en-0-\",\"FM\":\"e" +
-    "n-0-\",\"FO\":\"fo-0-\",\"FR\":\"fr-0-\",\"GA\":\"fr-0-\",\"GB\":\"en-0-\",\"GD\":\"en-0-\",\"GE\":\"" +
-    "ka-18-\",\"GF\":\"fr-0-\",\"GG\":\"en-0-\",\"GH\":\"ak-0-\",\"GI\":\"en-0-\",\"GM\":\"en-0-\",\"GN\"" +
-    ":\"fr-0-\",\"GP\":\"fr-0-\",\"GQ\":\"es-0-\",\"GR\":\"el-1-\",\"GS\":\"en-0-\",\"GT\":\"es-0-\",\"GU" +
-    "\":\"en-0-\",\"GW\":\"pt-0-\",\"GY\":\"en-0-\",\"HK\":\"zh-8-\",\"HM\":\"en-0-\",\"HN\":\"es-0-\",\"" +
-    "HR\":\"hr-0-\",\"HT\":\"ht-0-\",\"HU\":\"hu-0-\",\"IC\":\"es-0-\",\"ID\":\"id-0-\",\"IE\":\"en-0-\"," +
-    "\"IL\":\"he-14-\",\"IM\":\"en-0-\",\"IN\":\"hi-10-\",\"IO\":\"en-0-\",\"IQ\":\"ar-2-\",\"IR\":\"fa-2" +
-    "-\",\"IS\":\"is-0-\",\"IT\":\"it-0-\",\"JE\":\"en-0-\",\"JM\":\"en-0-\",\"JO\":\"ar-2-\",\"JP\":\"ja" +
-    "-17-\",\"KE\":\"sw-0-\",\"KG\":\"ky-3-\",\"KH\":\"km-19-\",\"KI\":\"en-0-\",\"KM\":\"ar-2-\",\"KN\":" +
-    "\"en-0-\",\"KP\":\"ko-21-\",\"KR\":\"ko-21-\",\"KW\":\"ar-2-\",\"KY\":\"en-0-\",\"KZ\":\"ru-3-\",\"L" +
-    "A\":\"lo-23-\",\"LB\":\"ar-2-\",\"LC\":\"en-0-\",\"LI\":\"de-0-\",\"LK\":\"si-32-\",\"LR\":\"en-0-\"" +
-    ",\"LS\":\"st-0-\",\"LT\":\"lt-0-\",\"LU\":\"fr-0-\",\"LV\":\"lv-0-\",\"LY\":\"ar-2-\",\"MA\":\"ar-2-" +
-    "\",\"MC\":\"fr-0-\",\"MD\":\"ro-0-\",\"ME\":\"sr-0-\",\"MF\":\"fr-0-\",\"MG\":\"mg-0-\",\"MH\":\"en-" +
-    "0-\",\"MK\":\"mk-3-\",\"MM\":\"my-27-\",\"MN\":\"mn-3-\",\"MO\":\"zh-8-\",\"MP\":\"en-0-\",\"MQ\":\"" +
-    "fr-0-\",\"MR\":\"ar-2-\",\"MS\":\"en-0-\",\"MT\":\"mt-0-\",\"MU\":\"mfe-0-\",\"MW\":\"en-0-\",\"MX\"" +
-    ":\"es-0-\",\"MY\":\"ms-0-\",\"MZ\":\"pt-0-\",\"NA\":\"af-0-\",\"NC\":\"fr-0-\",\"NE\":\"ha-0-\",\"NF" +
-    "\":\"en-0-\",\"NG\":\"en-0-\",\"NI\":\"es-0-\",\"NL\":\"nl-0-\",\"NO\":\"nb-0-\",\"NP\":\"ne-10-\",\"" +
-    "NR\":\"en-0-\",\"NU\":\"en-0-\",\"NZ\":\"en-0-\",\"OM\":\"ar-2-\",\"PA\":\"es-0-\",\"PE\":\"es-0-\"," +
-    "\"PF\":\"fr-0-\",\"PH\":\"fil-0-\",\"PK\":\"ur-2-\",\"PL\":\"pl-0-\",\"PM\":\"fr-0-\",\"PN\":\"en-0-" +
-    "\",\"PR\":\"es-0-\",\"PS\":\"ar-2-\",\"PT\":\"pt-0-\",\"PY\":\"gn-0-\",\"QA\":\"ar-2-\",\"RE\":\"fr-" +
-    "0-\",\"RO\":\"ro-0-\",\"RS\":\"sr-3-\",\"RU\":\"ru-3-\",\"RW\":\"rw-0-\",\"SA\":\"ar-2-\",\"SB\":\"e" +
-    "n-0-\",\"SC\":\"fr-0-\",\"SD\":\"ar-2-\",\"SE\":\"sv-0-\",\"SG\":\"en-0-\",\"SH\":\"en-0-\",\"SI\":\"" +
-    "sl-0-\",\"SJ\":\"nb-0-\",\"SK\":\"sk-0-\",\"SL\":\"kri-0-\",\"SM\":\"it-0-\",\"SN\":\"fr-0-\",\"SO\"" +
-    ":\"so-0-\",\"SR\":\"nl-0-\",\"SS\":\"ar-2-\",\"ST\":\"pt-0-\",\"SV\":\"es-0-\",\"SX\":\"en-0-\",\"SY" +
-    "\":\"ar-2-\",\"SZ\":\"en-0-\",\"TA\":\"en-0-\",\"TC\":\"en-0-\",\"TD\":\"fr-0-\",\"TF\":\"fr-0-\",\"" +
-    "TG\":\"fr-0-\",\"TH\":\"th-36-\",\"TJ\":\"tg-3-\",\"TL\":\"pt-0-\",\"TM\":\"tk-0-\",\"TN\":\"ar-2-\"" +
-    ",\"TO\":\"to-0-\",\"TR\":\"tr-0-\",\"TT\":\"en-0-\",\"TW\":\"zh-8-\",\"TZ\":\"sw-0-\",\"UA\":\"uk-3-" +
-    "\",\"UG\":\"sw-0-\",\"UM\":\"en-0-\",\"US\":\"en-0-\",\"UY\":\"es-0-\",\"UZ\":\"uz-0-\",\"VA\":\"it-" +
-    "0-\",\"VC\":\"en-0-\",\"VE\":\"es-0-\",\"VG\":\"en-0-\",\"VI\":\"en-0-\",\"VN\":\"vi-0-\",\"WF\":\"f" +
-    "r-0-\",\"XK\":\"sq-0-\",\"YE\":\"ar-2-\",\"YT\":\"fr-0-\",\"ZA\":\"en-0-\",\"ZM\":\"bem-0-\",\"ZW\":" +
-    "\"sn-0-\"},\"Adlm\":{\"2\":\"ff-12-GN\"},\"Arab\":{\"2\":\"ar-2-EG\",\"AF\":\"fa-2-\",\"CC\":\"ms-2-" +
-    "\",\"CN\":\"ug-2-\",\"GB\":\"ur-2-\",\"ID\":\"ms-2-\",\"IN\":\"ur-2-\",\"IR\":\"fa-2-\",\"MN\":\"kk-" +
-    "2-\",\"MU\":\"ur-2-\",\"NG\":\"ha-2-\",\"PK\":\"ur-2-\",\"TG\":\"apd-2-\",\"TH\":\"mfa-2-\",\"TJ\":\"" +
-    "fa-2-\",\"TR\":\"apc-2-\"},\"Armn\":{\"2\":\"hy-15-AM\"},\"Beng\":{\"2\":\"bn-5-BD\"},\"Bhks\":{\"2\"" +
-    ":\"sa-37-IN\"},\"Bopo\":{\"2\":\"zh-38-TW\"},\"Brai\":{\"2\":\"fr-39-FR\"},\"Cans\":{\"2\":\"iu-16-C" +
-    "A\"},\"Cher\":{\"2\":\"chr-9-US\"},\"Cyrl\":{\"2\":\"ru-3-RU\",\"AL\":\"mk-3-\",\"BA\":\"sr-3-\",\"B" +
-    "G\":\"bg-3-\",\"BY\":\"be-3-\",\"GE\":\"ab-3-\",\"GR\":\"mk-3-\",\"KG\":\"ky-3-\",\"MD\":\"uk-3-\",\"" +
-    "MK\":\"mk-3-\",\"MN\":\"mn-3-\",\"RO\":\"bg-3-\",\"RS\":\"sr-3-\",\"SK\":\"uk-3-\",\"TJ\":\"tg-3-\"," +
-    "\"UA\":\"uk-3-\",\"XK\":\"sr-3-\"},\"Deva\":{\"2\":\"hi-10-IN\",\"BT\":\"ne-10-\",\"NP\":\"ne-10-\"}" +
-    ",\"Dupl\":{\"2\":\"fr-40-FR\"},\"Elba\":{\"2\":\"sq-41-AL\"},\"Ethi\":{\"2\":\"am-4-ET\",\"ER\":\"ti" +
-    "-4-\"},\"Geor\":{\"2\":\"ka-18-GE\"},\"Gran\":{\"2\":\"sa-42-IN\"},\"Grek\":{\"2\":\"el-1-GR\"},\"Gu" +
-    "jr\":{\"2\":\"gu-13-IN\"},\"Guru\":{\"2\":\"pa-29-IN\"},\"Hanb\":{\"2\":\"zh-43-TW\"},\"Hang\":{\"2\"" +
-    ":\"ko-44-KR\"},\"Hani\":{\"2\":\"zh-45-CN\"},\"Hans\":{\"2\":\"zh-7-CN\"},\"Hant\":{\"2\":\"zh-8-TW\"" +
-    ",\"CA\":\"yue-8-\"},\"Hebr\":{\"2\":\"he-14-IL\",\"SE\":\"yi-14-\",\"UA\":\"yi-14-\",\"US\":\"yi-14-" +
-    "\"},\"Hira\":{\"2\":\"ja-46-JP\"},\"Hung\":{\"2\":\"hu-47-HU\"},\"Jamo\":{\"2\":\"ko-48-KR\"},\"Java" +
-    "\":{\"2\":\"jv-49-ID\"},\"Jpan\":{\"2\":\"ja-17-JP\"},\"Kana\":{\"2\":\"ja-50-JP\"},\"Khmr\":{\"2\":" +
-    "\"km-19-KH\"},\"Khoj\":{\"2\":\"sd-30-IN\"},\"Knda\":{\"2\":\"kn-20-IN\"},\"Kore\":{\"2\":\"ko-21-KR" +
-    "\"},\"Laoo\":{\"2\":\"lo-23-LA\"},\"Latn\":{\"2\":\"en-0-US\",\"419\":\"es-0-\",\"AD\":\"ca-0-\",\"A" +
-    "F\":\"tk-0-\",\"AL\":\"sq-0-\",\"AM\":\"ku-0-\",\"AO\":\"pt-0-\",\"AR\":\"es-0-\",\"AT\":\"de-0-\",\"" +
-    "AW\":\"nl-0-\",\"AX\":\"sv-0-\",\"AZ\":\"az-0-\",\"BA\":\"bs-0-\",\"BE\":\"nl-0-\",\"BF\":\"fr-0-\"," +
-    "\"BI\":\"rn-0-\",\"BJ\":\"fr-0-\",\"BL\":\"fr-0-\",\"BN\":\"ms-0-\",\"BO\":\"es-0-\",\"BR\":\"pt-0-\"" +
-    ",\"CD\":\"sw-0-\",\"CF\":\"fr-0-\",\"CG\":\"fr-0-\",\"CH\":\"de-0-\",\"CI\":\"fr-0-\",\"CL\":\"es-0-" +
-    "\",\"CM\":\"fr-0-\",\"CN\":\"za-0-\",\"CO\":\"es-0-\",\"CR\":\"es-0-\",\"CU\":\"es-0-\",\"CV\":\"pt-" +
-    "0-\",\"CY\":\"tr-0-\",\"CZ\":\"cs-0-\",\"DE\":\"de-0-\",\"DJ\":\"aa-0-\",\"DK\":\"da-0-\",\"DO\":\"e" +
-    "s-0-\",\"DZ\":\"fr-0-\",\"EA\":\"es-0-\",\"EC\":\"es-0-\",\"EE\":\"et-0-\",\"ES\":\"es-0-\",\"ET\":\"" +
-    "en-0-\",\"FI\":\"fi-0-\",\"FO\":\"fo-0-\",\"FR\":\"fr-0-\",\"GA\":\"fr-0-\",\"GE\":\"ku-0-\",\"GF\":" +
-    "\"fr-0-\",\"GH\":\"ak-0-\",\"GN\":\"fr-0-\",\"GP\":\"fr-0-\",\"GQ\":\"es-0-\",\"GT\":\"es-0-\",\"GW\"" +
-    ":\"pt-0-\",\"HN\":\"es-0-\",\"HR\":\"hr-0-\",\"HT\":\"ht-0-\",\"HU\":\"hu-0-\",\"IC\":\"es-0-\",\"ID" +
-    "\":\"id-0-\",\"IR\":\"tk-0-\",\"IS\":\"is-0-\",\"IT\":\"it-0-\",\"KE\":\"sw-0-\",\"KM\":\"fr-0-\",\"" +
-    "LI\":\"de-0-\",\"LS\":\"st-0-\",\"LT\":\"lt-0-\",\"LU\":\"fr-0-\",\"LV\":\"lv-0-\",\"MA\":\"fr-0-\"," +
-    "\"MC\":\"fr-0-\",\"MD\":\"ro-0-\",\"ME\":\"sr-0-\",\"MF\":\"fr-0-\",\"MG\":\"mg-0-\",\"MK\":\"sq-0-\"" +
-    ",\"MO\":\"pt-0-\",\"MQ\":\"fr-0-\",\"MR\":\"fr-0-\",\"MT\":\"mt-0-\",\"MU\":\"mfe-0-\",\"MX\":\"es-0" +
-    "-\",\"MY\":\"ms-0-\",\"MZ\":\"pt-0-\",\"NA\":\"af-0-\",\"NC\":\"fr-0-\",\"NE\":\"ha-0-\",\"NI\":\"es" +
-    "-0-\",\"NL\":\"nl-0-\",\"NO\":\"nb-0-\",\"PA\":\"es-0-\",\"PE\":\"es-0-\",\"PF\":\"fr-0-\",\"PH\":\"" +
-    "fil-0-\",\"PL\":\"pl-0-\",\"PM\":\"fr-0-\",\"PR\":\"es-0-\",\"PT\":\"pt-0-\",\"PY\":\"gn-0-\",\"RE\"" +
-    ":\"fr-0-\",\"RO\":\"ro-0-\",\"RS\":\"sr-0-\",\"RW\":\"rw-0-\",\"SC\":\"fr-0-\",\"SE\":\"sv-0-\",\"SI" +
-    "\":\"sl-0-\",\"SJ\":\"nb-0-\",\"SK\":\"sk-0-\",\"SL\":\"kri-0-\",\"SM\":\"it-0-\",\"SN\":\"fr-0-\",\"" +
-    "SO\":\"so-0-\",\"SR\":\"nl-0-\",\"ST\":\"pt-0-\",\"SV\":\"es-0-\",\"SY\":\"fr-0-\",\"TD\":\"fr-0-\"," +
-    "\"TF\":\"fr-0-\",\"TG\":\"fr-0-\",\"TL\":\"pt-0-\",\"TM\":\"tk-0-\",\"TN\":\"fr-0-\",\"TO\":\"to-0-\"" +
-    ",\"TR\":\"tr-0-\",\"TZ\":\"sw-0-\",\"UA\":\"pl-0-\",\"UG\":\"sw-0-\",\"UY\":\"es-0-\",\"UZ\":\"uz-0-" +
-    "\",\"VA\":\"it-0-\",\"VE\":\"es-0-\",\"VN\":\"vi-0-\",\"WF\":\"fr-0-\",\"XK\":\"sq-0-\",\"YT\":\"fr-" +
-    "0-\",\"ZM\":\"bem-0-\",\"ZW\":\"sn-0-\"},\"Mahj\":{\"2\":\"hi-51-IN\"},\"Marc\":{\"2\":\"bo-52-CN\"}" +
-    ",\"Mlym\":{\"2\":\"ml-24-IN\"},\"Modi\":{\"2\":\"mr-53-IN\"},\"Mong\":{\"2\":\"mn-25-CN\"},\"Mymr\":" +
-    "{\"2\":\"my-27-MM\"},\"Nand\":{\"2\":\"sa-54-IN\"},\"Orya\":{\"2\":\"or-28-IN\"},\"Osma\":{\"2\":\"s" +
-    "o-55-SO\"},\"Phag\":{\"2\":\"lzh-26-CN\"},\"Shaw\":{\"2\":\"en-11-GB\"},\"Shrd\":{\"2\":\"sa-56-IN\"" +
-    "},\"Sidd\":{\"2\":\"sa-57-IN\"},\"Sind\":{\"2\":\"sd-31-IN\"},\"Sinh\":{\"2\":\"si-32-LK\"},\"Sund\"" +
-    ":{\"2\":\"su-58-ID\"},\"Syrc\":{\"2\":\"syr-33-IQ\"},\"Taml\":{\"2\":\"ta-34-IN\"},\"Telu\":{\"2\":\"" +
-    "te-35-IN\"},\"Tglg\":{\"2\":\"fil-59-PH\"},\"Thai\":{\"2\":\"th-36-TH\"},\"Tibt\":{\"2\":\"bo-6-CN\"" +
-    "},\"Tirh\":{\"2\":\"mai-60-IN\"},\"Vith\":{\"2\":\"sq-61-AL\"},\"Yezi\":{\"2\":\"ku-22-GE\"}},\"aa\"" +
-    ":{\"1\":{\"2\":\"-0-ET\"}},\"aae\":{\"1\":{\"2\":\"-0-IT\"},\"Grek\":{\"2\":\"-1-IT\"}},\"aao\":{\"1" +
-    "\":{\"2\":\"-2-DZ\"}},\"aat\":{\"1\":{\"2\":\"-1-GR\"}},\"ab\":{\"1\":{\"2\":\"-3-GE\"}},\"abh\":{\"" +
-    "1\":{\"2\":\"-2-TJ\"}},\"abv\":{\"1\":{\"2\":\"-2-BH\"}},\"ach\":{\"1\":{\"2\":\"-0-UG\"}},\"acm\":{" +
-    "\"1\":{\"2\":\"-2-IQ\"}},\"acq\":{\"1\":{\"2\":\"-2-YE\"}},\"acw\":{\"1\":{\"2\":\"-2-SA\"}},\"acx\"" +
-    ":{\"1\":{\"2\":\"-2-OM\"}},\"acy\":{\"1\":{\"2\":\"-0-CY\"},\"Arab\":{\"2\":\"-2-CY\"},\"Grek\":{\"2" +
-    "\":\"-1-CY\"}},\"adf\":{\"1\":{\"2\":\"-2-OM\"}},\"aeb\":{\"1\":{\"2\":\"-2-TN\"}},\"aec\":{\"1\":{\"" +
-    "2\":\"-2-EG\"}},\"af\":{\"1\":{\"2\":\"-0-ZA\"}},\"afb\":{\"1\":{\"2\":\"-2-KW\"}},\"ak\":{\"1\":{\"" +
-    "2\":\"-0-GH\"}},\"aln\":{\"1\":{\"2\":\"-0-XK\"}},\"am\":{\"1\":{\"2\":\"-4-ET\"}},\"apc\":{\"1\":{\"" +
-    "2\":\"-2-SY\"}},\"apd\":{\"1\":{\"2\":\"-2-TG\"}},\"ar\":{\"1\":{\"2\":\"-2-EG\"}},\"arq\":{\"1\":{\"" +
-    "2\":\"-2-DZ\"}},\"ars\":{\"1\":{\"2\":\"-2-SA\"}},\"ary\":{\"1\":{\"2\":\"-2-MA\"}},\"arz\":{\"1\":{" +
-    "\"2\":\"-2-EG\"}},\"as\":{\"1\":{\"2\":\"-5-IN\"}},\"auz\":{\"1\":{\"2\":\"-2-UZ\"}},\"avl\":{\"1\":" +
-    "{\"2\":\"-2-EG\"}},\"ay\":{\"1\":{\"2\":\"-0-BO\"}},\"ayh\":{\"1\":{\"2\":\"-2-YE\"}},\"ayl\":{\"1\"" +
-    ":{\"2\":\"-2-LY\"}},\"ayn\":{\"1\":{\"2\":\"-2-YE\"}},\"ayp\":{\"1\":{\"2\":\"-2-IQ\"}},\"az\":{\"1\"" +
-    ":{\"2\":\"-0-AZ\",\"IQ\":\"-2-\",\"IR\":\"-2-\",\"RU\":\"-3-\"},\"Arab\":{\"2\":\"-2-IR\"}},\"azb\":" +
-    "{\"1\":{\"2\":\"-2-IR\"},\"Cyrl\":{\"2\":\"-3-AZ\"},\"Latn\":{\"2\":\"-0-AZ\"}},\"bal\":{\"1\":{\"2\"" +
-    ":\"-2-PK\"}},\"be\":{\"1\":{\"2\":\"-3-BY\"}},\"bem\":{\"1\":{\"2\":\"-0-ZM\"}},\"bg\":{\"1\":{\"2\"" +
-    ":\"-3-BG\"}},\"bhr\":{\"1\":{\"2\":\"-0-MG\"}},\"bjn\":{\"1\":{\"2\":\"-0-ID\"}},\"bmm\":{\"1\":{\"2" +
-    "\":\"-0-MG\"}},\"bn\":{\"1\":{\"2\":\"-5-BD\"}},\"bo\":{\"1\":{\"2\":\"-6-CN\"}},\"br\":{\"1\":{\"2\"" +
-    ":\"-0-FR\"}},\"bs\":{\"1\":{\"2\":\"-0-BA\"}},\"btj\":{\"1\":{\"2\":\"-0-ID\"}},\"bve\":{\"1\":{\"2\"" +
-    ":\"-0-ID\"}},\"bvu\":{\"1\":{\"2\":\"-0-ID\"}},\"bzc\":{\"1\":{\"2\":\"-0-MG\"}},\"ca\":{\"1\":{\"2\"" +
-    ":\"-0-ES\"}},\"cdo\":{\"1\":{\"2\":\"-7-CN\"},\"Hant\":{\"2\":\"-8-CN\"},\"Latn\":{\"2\":\"-0-CN\"}}" +
-    ",\"ceb\":{\"1\":{\"2\":\"-0-PH\"}},\"chr\":{\"1\":{\"2\":\"-9-US\"}},\"cjy\":{\"1\":{\"2\":\"-7-CN\"" +
-    "},\"Hant\":{\"2\":\"-8-CN\"}},\"ckb\":{\"1\":{\"2\":\"-2-IQ\"}},\"co\":{\"1\":{\"2\":\"-0-FR\"}},\"c" +
-    "oa\":{\"1\":{\"2\":\"-0-AU\"}},\"cpx\":{\"1\":{\"2\":\"-0-CN\"}},\"crs\":{\"1\":{\"2\":\"-0-SC\"}},\"" +
-    "cs\":{\"1\":{\"2\":\"-0-CZ\"}},\"cy\":{\"1\":{\"2\":\"-0-GB\"}},\"czh\":{\"1\":{\"2\":\"-7-CN\"},\"H" +
-    "ant\":{\"2\":\"-8-CN\"}},\"da\":{\"1\":{\"2\":\"-0-DK\"}},\"de\":{\"1\":{\"2\":\"-0-DE\"}},\"dsb\":{" +
-    "\"1\":{\"2\":\"-0-DE\"}},\"dty\":{\"1\":{\"2\":\"-10-NP\"}},\"dup\":{\"1\":{\"2\":\"-0-ID\"}},\"ee\"" +
-    ":{\"1\":{\"2\":\"-0-GH\"}},\"el\":{\"1\":{\"2\":\"-1-GR\"}},\"en\":{\"1\":{\"2\":\"-0-US\"},\"Shaw\"" +
-    ":{\"2\":\"-11-GB\"}},\"enb\":{\"1\":{\"2\":\"-0-KE\"}},\"eo\":{\"1\":{\"2\":\"-0-001\"}},\"es\":{\"1" +
-    "\":{\"2\":\"-0-ES\"}},\"et\":{\"1\":{\"2\":\"-0-EE\"}},\"eu\":{\"1\":{\"2\":\"-0-ES\"}},\"eyo\":{\"1" +
-    "\":{\"2\":\"-0-KE\"}},\"fa\":{\"1\":{\"2\":\"-2-IR\"}},\"ff\":{\"1\":{\"2\":\"-0-SN\"},\"Adlm\":{\"2" +
-    "\":\"-12-GN\"}},\"ffm\":{\"1\":{\"2\":\"-0-ML\"}},\"fi\":{\"1\":{\"2\":\"-0-FI\"}},\"fil\":{\"1\":{\"" +
-    "2\":\"-0-PH\"}},\"fo\":{\"1\":{\"2\":\"-0-FO\"}},\"fr\":{\"1\":{\"2\":\"-0-FR\"}},\"fub\":{\"1\":{\"" +
-    "2\":\"-2-CM\"}},\"fue\":{\"1\":{\"2\":\"-0-BJ\"}},\"fuf\":{\"1\":{\"2\":\"-0-GN\"}},\"fuh\":{\"1\":{" +
-    "\"2\":\"-0-NE\",\"BF\":\"-0-\"},\"Arab\":{\"2\":\"-2-NE\"}},\"fui\":{\"1\":{\"2\":\"-0-TD\"}},\"fuq\"" +
-    ":{\"1\":{\"2\":\"-0-NE\"}},\"fuv\":{\"1\":{\"2\":\"-0-NG\"}},\"fy\":{\"1\":{\"2\":\"-0-NL\"}},\"ga\"" +
-    ":{\"1\":{\"2\":\"-0-IE\"}},\"gaa\":{\"1\":{\"2\":\"-0-GH\"}},\"gan\":{\"1\":{\"2\":\"-7-CN\"}},\"gax" +
-    "\":{\"1\":{\"2\":\"-0-ET\"},\"Ethi\":{\"2\":\"-4-ET\"}},\"gd\":{\"1\":{\"2\":\"-0-GB\"}},\"gkp\":{\"" +
-    "1\":{\"2\":\"-0-GN\"}},\"gl\":{\"1\":{\"2\":\"-0-ES\"}},\"gn\":{\"1\":{\"2\":\"-0-PY\"}},\"gnw\":{\"" +
-    "1\":{\"2\":\"-0-BO\"}},\"gom\":{\"1\":{\"2\":\"-10-IN\"}},\"gsw\":{\"1\":{\"2\":\"-0-CH\"}},\"gu\":{" +
-    "\"1\":{\"2\":\"-13-IN\"}},\"gui\":{\"1\":{\"2\":\"-0-BO\"}},\"gun\":{\"1\":{\"2\":\"-0-BR\"}},\"ha\"" +
-    ":{\"1\":{\"2\":\"-0-NG\",\"CM\":\"-2-\",\"SD\":\"-2-\"}},\"hae\":{\"1\":{\"2\":\"-0-ET\"}},\"hak\":{" +
-    "\"1\":{\"2\":\"-7-CN\"}},\"haw\":{\"1\":{\"2\":\"-0-US\"}},\"he\":{\"1\":{\"2\":\"-14-IL\"}},\"hi\":" +
-    "{\"1\":{\"2\":\"-10-IN\"}},\"hji\":{\"1\":{\"2\":\"-0-ID\"}},\"hr\":{\"1\":{\"2\":\"-0-HR\"}},\"hsb\"" +
-    ":{\"1\":{\"2\":\"-0-DE\"}},\"hsn\":{\"1\":{\"2\":\"-7-CN\"}},\"ht\":{\"1\":{\"2\":\"-0-HT\"}},\"hu\"" +
-    ":{\"1\":{\"2\":\"-0-HU\"}},\"hy\":{\"1\":{\"2\":\"-15-AM\"}},\"ia\":{\"1\":{\"2\":\"-0-001\"}},\"id\"" +
-    ":{\"1\":{\"2\":\"-0-ID\"}},\"ida\":{\"1\":{\"2\":\"-0-KE\"}},\"ig\":{\"1\":{\"2\":\"-0-NG\"}},\"ikt\"" +
-    ":{\"1\":{\"2\":\"-0-CA\"},\"Cans\":{\"2\":\"-16-CA\"}},\"is\":{\"1\":{\"2\":\"-0-IS\"}},\"it\":{\"1\"" +
-    ":{\"2\":\"-0-IT\"}},\"iu\":{\"1\":{\"2\":\"-16-CA\"}},\"ja\":{\"1\":{\"2\":\"-17-JP\"}},\"jak\":{\"1" +
-    "\":{\"2\":\"-0-MY\"}},\"jax\":{\"1\":{\"2\":\"-0-ID\"}},\"jv\":{\"1\":{\"2\":\"-0-ID\"}},\"ka\":{\"1" +
-    "\":{\"2\":\"-18-GE\"}},\"kg\":{\"1\":{\"2\":\"-0-CD\"}},\"kk\":{\"1\":{\"2\":\"-3-KZ\",\"AF\":\"-2-\"" +
-    ",\"CN\":\"-2-\",\"IR\":\"-2-\",\"MN\":\"-2-\"},\"Arab\":{\"2\":\"-2-CN\"}},\"kln\":{\"1\":{\"2\":\"-" +
-    "0-KE\"}},\"km\":{\"1\":{\"2\":\"-19-KH\"}},\"kn\":{\"1\":{\"2\":\"-20-IN\"}},\"ko\":{\"1\":{\"2\":\"" +
-    "-21-KR\"}},\"kok\":{\"1\":{\"2\":\"-10-IN\"}},\"kpe\":{\"1\":{\"2\":\"-0-LR\"}},\"kri\":{\"1\":{\"2\"" +
-    ":\"-0-SL\"}},\"ku\":{\"1\":{\"2\":\"-0-TR\",\"LB\":\"-2-\"},\"Arab\":{\"2\":\"-2-IQ\"},\"Yezi\":{\"2" +
-    "\":\"-22-GE\"}},\"kvb\":{\"1\":{\"2\":\"-0-ID\"}},\"kvr\":{\"1\":{\"2\":\"-0-ID\"}},\"kxd\":{\"1\":{" +
-    "\"2\":\"-0-BN\"},\"Arab\":{\"2\":\"-2-BN\"}},\"ky\":{\"1\":{\"2\":\"-3-KG\",\"CN\":\"-2-\",\"TR\":\"" +
-    "-0-\"},\"Arab\":{\"2\":\"-2-CN\"},\"Latn\":{\"2\":\"-0-TR\"}},\"la\":{\"1\":{\"2\":\"-0-VA\"}},\"lb\"" +
-    ":{\"1\":{\"2\":\"-0-LU\"}},\"lce\":{\"1\":{\"2\":\"-0-ID\"}},\"lcf\":{\"1\":{\"2\":\"-0-ID\"}},\"lg\"" +
-    ":{\"1\":{\"2\":\"-0-UG\"}},\"liw\":{\"1\":{\"2\":\"-0-ID\"}},\"lkb\":{\"1\":{\"2\":\"-0-KE\"}},\"lko" +
-    "\":{\"1\":{\"2\":\"-0-KE\"}},\"lks\":{\"1\":{\"2\":\"-0-KE\"}},\"ln\":{\"1\":{\"2\":\"-0-CD\"}},\"lo" +
-    "\":{\"1\":{\"2\":\"-23-LA\"}},\"loz\":{\"1\":{\"2\":\"-0-ZM\"}},\"lri\":{\"1\":{\"2\":\"-0-KE\"}},\"" +
-    "lrm\":{\"1\":{\"2\":\"-0-KE\"}},\"lsm\":{\"1\":{\"2\":\"-0-UG\"}},\"lt\":{\"1\":{\"2\":\"-0-LT\"}},\"" +
-    "ltg\":{\"1\":{\"2\":\"-0-LV\"}},\"lto\":{\"1\":{\"2\":\"-0-KE\"}},\"lts\":{\"1\":{\"2\":\"-0-KE\"}}," +
-    "\"lua\":{\"1\":{\"2\":\"-0-CD\"}},\"luy\":{\"1\":{\"2\":\"-0-KE\"}},\"lv\":{\"1\":{\"2\":\"-0-LV\"}}" +
-    ",\"lwg\":{\"1\":{\"2\":\"-0-KE\"}},\"lzh\":{\"1\":{\"2\":\"-7-CN\"}},\"mai\":{\"1\":{\"2\":\"-10-IN\"" +
-    "}},\"max\":{\"1\":{\"2\":\"-0-ID\"}},\"meo\":{\"1\":{\"2\":\"-0-MY\"},\"Arab\":{\"2\":\"-2-MY\"}},\"" +
-    "mfa\":{\"1\":{\"2\":\"-2-TH\"}},\"mfb\":{\"1\":{\"2\":\"-0-ID\"}},\"mfe\":{\"1\":{\"2\":\"-0-MU\"}}," +
-    "\"mg\":{\"1\":{\"2\":\"-0-MG\"}},\"mi\":{\"1\":{\"2\":\"-0-NZ\"}},\"min\":{\"1\":{\"2\":\"-0-ID\"}}," +
-    "\"mk\":{\"1\":{\"2\":\"-3-MK\"}},\"ml\":{\"1\":{\"2\":\"-24-IN\"}},\"mn\":{\"1\":{\"2\":\"-3-MN\",\"" +
-    "CN\":\"-25-\"},\"Mong\":{\"2\":\"-25-CN\"}},\"mnp\":{\"1\":{\"2\":\"-0-CN\"}},\"mqg\":{\"1\":{\"2\":" +
-    "\"-0-ID\"}},\"mr\":{\"1\":{\"2\":\"-10-IN\"}},\"ms\":{\"1\":{\"2\":\"-0-MY\",\"CC\":\"-2-\"}},\"msh\"" +
-    ":{\"1\":{\"2\":\"-0-MG\"}},\"msi\":{\"1\":{\"2\":\"-0-MY\"}},\"mt\":{\"1\":{\"2\":\"-0-MT\"}},\"mui\"" +
-    ":{\"1\":{\"2\":\"-0-ID\"}},\"mvf\":{\"1\":{\"2\":\"-25-CN\"},\"Phag\":{\"2\":\"-26-CN\"}},\"my\":{\"" +
-    "1\":{\"2\":\"-27-MM\"}},\"nan\":{\"1\":{\"2\":\"-7-CN\"}},\"nb\":{\"1\":{\"2\":\"-0-NO\"}},\"ne\":{\"" +
-    "1\":{\"2\":\"-10-NP\"}},\"nhd\":{\"1\":{\"2\":\"-0-PY\"}},\"niq\":{\"1\":{\"2\":\"-0-KE\"}},\"nl\":{" +
-    "\"1\":{\"2\":\"-0-NL\"}},\"nle\":{\"1\":{\"2\":\"-0-KE\"}},\"nn\":{\"1\":{\"2\":\"-0-NO\"}},\"no\":{" +
-    "\"1\":{\"2\":\"-0-NO\"}},\"nso\":{\"1\":{\"2\":\"-0-ZA\"}},\"ny\":{\"1\":{\"2\":\"-0-MW\"}},\"nyd\":" +
-    "{\"1\":{\"2\":\"-0-KE\"}},\"nyn\":{\"1\":{\"2\":\"-0-UG\"}},\"oc\":{\"1\":{\"2\":\"-0-FR\"}},\"oki\"" +
-    ":{\"1\":{\"2\":\"-0-KE\"}},\"om\":{\"1\":{\"2\":\"-0-ET\"}},\"or\":{\"1\":{\"2\":\"-28-IN\"}},\"orc\"" +
-    ":{\"1\":{\"2\":\"-0-KE\"}},\"orn\":{\"1\":{\"2\":\"-0-MY\"}},\"ors\":{\"1\":{\"2\":\"-0-MY\"}},\"pa\"" +
-    ":{\"1\":{\"2\":\"-29-IN\",\"PK\":\"-2-\"},\"Arab\":{\"2\":\"-2-PK\"}},\"pbt\":{\"1\":{\"2\":\"-2-AF\"" +
-    "}},\"pcm\":{\"1\":{\"2\":\"-0-NG\"}},\"pel\":{\"1\":{\"2\":\"-0-ID\"}},\"pga\":{\"1\":{\"2\":\"-0-SS" +
-    "\"}},\"pko\":{\"1\":{\"2\":\"-0-KE\"}},\"pl\":{\"1\":{\"2\":\"-0-PL\"}},\"ps\":{\"1\":{\"2\":\"-2-AF" +
-    "\"}},\"pse\":{\"1\":{\"2\":\"-0-ID\"}},\"pst\":{\"1\":{\"2\":\"-2-PK\"}},\"pt\":{\"1\":{\"2\":\"-0-B" +
-    "R\"}},\"qu\":{\"1\":{\"2\":\"-0-PE\"}},\"qub\":{\"1\":{\"2\":\"-0-PE\"}},\"qud\":{\"1\":{\"2\":\"-0-" +
-    "EC\"}},\"quf\":{\"1\":{\"2\":\"-0-PE\"}},\"qug\":{\"1\":{\"2\":\"-0-EC\"}},\"quk\":{\"1\":{\"2\":\"-" +
-    "0-PE\"}},\"qul\":{\"1\":{\"2\":\"-0-BO\"}},\"qup\":{\"1\":{\"2\":\"-0-PE\"}},\"qur\":{\"1\":{\"2\":\"" +
-    "-0-PE\"}},\"qus\":{\"1\":{\"2\":\"-0-AR\"}},\"quw\":{\"1\":{\"2\":\"-0-EC\"}},\"qux\":{\"1\":{\"2\":" +
-    "\"-0-PE\"}},\"quy\":{\"1\":{\"2\":\"-0-PE\"}},\"qva\":{\"1\":{\"2\":\"-0-PE\"}},\"qvc\":{\"1\":{\"2\"" +
-    ":\"-0-PE\"}},\"qve\":{\"1\":{\"2\":\"-0-PE\"}},\"qvh\":{\"1\":{\"2\":\"-0-PE\"}},\"qvi\":{\"1\":{\"2" +
-    "\":\"-0-EC\"}},\"qvj\":{\"1\":{\"2\":\"-0-EC\"}},\"qvl\":{\"1\":{\"2\":\"-0-PE\"}},\"qvm\":{\"1\":{\"" +
-    "2\":\"-0-PE\"}},\"qvn\":{\"1\":{\"2\":\"-0-PE\"}},\"qvo\":{\"1\":{\"2\":\"-0-PE\"}},\"qvp\":{\"1\":{" +
-    "\"2\":\"-0-PE\"}},\"qvs\":{\"1\":{\"2\":\"-0-PE\"}},\"qvw\":{\"1\":{\"2\":\"-0-PE\"}},\"qvz\":{\"1\"" +
-    ":{\"2\":\"-0-EC\"}},\"qwa\":{\"1\":{\"2\":\"-0-PE\"}},\"qwc\":{\"1\":{\"2\":\"-0-PE\"}},\"qwh\":{\"1" +
-    "\":{\"2\":\"-0-PE\"}},\"qws\":{\"1\":{\"2\":\"-0-PE\"}},\"qxa\":{\"1\":{\"2\":\"-0-PE\"}},\"qxc\":{\"" +
-    "1\":{\"2\":\"-0-PE\"}},\"qxh\":{\"1\":{\"2\":\"-0-PE\"}},\"qxl\":{\"1\":{\"2\":\"-0-EC\"}},\"qxn\":{" +
-    "\"1\":{\"2\":\"-0-PE\"}},\"qxo\":{\"1\":{\"2\":\"-0-PE\"}},\"qxp\":{\"1\":{\"2\":\"-0-PE\"}},\"qxr\"" +
-    ":{\"1\":{\"2\":\"-0-EC\"}},\"qxt\":{\"1\":{\"2\":\"-0-PE\"}},\"qxu\":{\"1\":{\"2\":\"-0-PE\"}},\"qxw" +
-    "\":{\"1\":{\"2\":\"-0-PE\"}},\"rag\":{\"1\":{\"2\":\"-0-KE\"}},\"rm\":{\"1\":{\"2\":\"-0-CH\"}},\"rn" +
-    "\":{\"1\":{\"2\":\"-0-BI\"}},\"ro\":{\"1\":{\"2\":\"-0-RO\"}},\"ru\":{\"1\":{\"2\":\"-3-RU\"}},\"rw\"" +
-    ":{\"1\":{\"2\":\"-0-RW\"}},\"sa\":{\"1\":{\"2\":\"-10-IN\"}},\"sc\":{\"1\":{\"2\":\"-0-IT\"}},\"sd\"" +
-    ":{\"1\":{\"2\":\"-2-PK\",\"IN\":\"-10-\"},\"Deva\":{\"2\":\"-10-IN\"},\"Khoj\":{\"2\":\"-30-IN\"},\"" +
-    "Sind\":{\"2\":\"-31-IN\"}},\"sdc\":{\"1\":{\"2\":\"-0-IT\"}},\"sdn\":{\"1\":{\"2\":\"-0-IT\"}},\"sgc" +
-    "\":{\"1\":{\"2\":\"-0-KE\"}},\"shu\":{\"1\":{\"2\":\"-2-TD\"},\"Latn\":{\"2\":\"-0-TD\"}},\"si\":{\"" +
-    "1\":{\"2\":\"-32-LK\"}},\"sk\":{\"1\":{\"2\":\"-0-SK\"}},\"skg\":{\"1\":{\"2\":\"-0-MG\"}},\"sl\":{\"" +
-    "1\":{\"2\":\"-0-SI\"}},\"sn\":{\"1\":{\"2\":\"-0-ZW\"}},\"so\":{\"1\":{\"2\":\"-0-SO\"}},\"spv\":{\"" +
-    "1\":{\"2\":\"-28-IN\"}},\"sq\":{\"1\":{\"2\":\"-0-AL\"}},\"sr\":{\"1\":{\"2\":\"-3-RS\",\"ME\":\"-0-" +
-    "\",\"RO\":\"-0-\",\"RU\":\"-0-\",\"TR\":\"-0-\"}},\"sro\":{\"1\":{\"2\":\"-0-IT\"}},\"ssh\":{\"1\":{" +
-    "\"2\":\"-2-AE\"}},\"ssy\":{\"1\":{\"2\":\"-0-ER\"}},\"st\":{\"1\":{\"2\":\"-0-ZA\"}},\"su\":{\"1\":{" +
-    "\"2\":\"-0-ID\"}},\"sv\":{\"1\":{\"2\":\"-0-SE\"}},\"sw\":{\"1\":{\"2\":\"-0-TZ\"}},\"syr\":{\"1\":{" +
-    "\"2\":\"-33-IQ\"}},\"ta\":{\"1\":{\"2\":\"-34-IN\"}},\"tdx\":{\"1\":{\"2\":\"-0-MG\"}},\"te\":{\"1\"" +
-    ":{\"2\":\"-35-IN\"}},\"tec\":{\"1\":{\"2\":\"-0-KE\"}},\"tg\":{\"1\":{\"2\":\"-3-TJ\",\"PK\":\"-2-\"" +
-    "},\"Arab\":{\"2\":\"-2-PK\"}},\"th\":{\"1\":{\"2\":\"-36-TH\"}},\"ti\":{\"1\":{\"2\":\"-4-ET\"}},\"t" +
-    "k\":{\"1\":{\"2\":\"-0-TM\"}},\"tkg\":{\"1\":{\"2\":\"-0-MG\"}},\"tmw\":{\"1\":{\"2\":\"-0-MY\"}},\"" +
-    "tn\":{\"1\":{\"2\":\"-0-ZA\"}},\"to\":{\"1\":{\"2\":\"-0-TO\"}},\"tr\":{\"1\":{\"2\":\"-0-TR\"}},\"t" +
-    "t\":{\"1\":{\"2\":\"-3-RU\"}},\"tum\":{\"1\":{\"2\":\"-0-MW\"}},\"tuy\":{\"1\":{\"2\":\"-0-KE\"}},\"" +
-    "txy\":{\"1\":{\"2\":\"-0-MG\"}},\"ug\":{\"1\":{\"2\":\"-2-CN\",\"KZ\":\"-3-\",\"MN\":\"-3-\"},\"Cyrl" +
-    "\":{\"2\":\"-3-KZ\"}},\"uk\":{\"1\":{\"2\":\"-3-UA\"}},\"ur\":{\"1\":{\"2\":\"-2-PK\"}},\"urk\":{\"1" +
-    "\":{\"2\":\"-36-TH\"}},\"uz\":{\"1\":{\"2\":\"-0-UZ\",\"AF\":\"-2-\",\"CN\":\"-3-\"},\"Arab\":{\"2\"" +
-    ":\"-2-AF\"}},\"uzs\":{\"1\":{\"2\":\"-2-AF\"}},\"vi\":{\"1\":{\"2\":\"-0-VN\"}},\"vkk\":{\"1\":{\"2\"" +
-    ":\"-0-ID\"}},\"vkt\":{\"1\":{\"2\":\"-0-ID\"}},\"vro\":{\"1\":{\"2\":\"-0-EE\"}},\"wo\":{\"1\":{\"2\"" +
-    ":\"-0-SN\"}},\"wuu\":{\"1\":{\"2\":\"-7-CN\"}},\"xh\":{\"1\":{\"2\":\"-0-ZA\"}},\"xmm\":{\"1\":{\"2\"" +
-    ":\"-0-ID\"}},\"xmv\":{\"1\":{\"2\":\"-0-MG\"}},\"xmw\":{\"1\":{\"2\":\"-0-MG\"}},\"yi\":{\"1\":{\"2\"" +
-    ":\"-14-UA\"}},\"yih\":{\"1\":{\"2\":\"-14-DE\"}},\"yo\":{\"1\":{\"2\":\"-0-NG\"}},\"yue\":{\"1\":{\"" +
-    "2\":\"-8-HK\",\"CN\":\"-7-\"},\"Hans\":{\"2\":\"-7-CN\"}},\"za\":{\"1\":{\"2\":\"-0-CN\"}},\"zh\":{\"" +
-    "1\":{\"2\":\"-7-CN\",\"AU\":\"-8-\",\"BN\":\"-8-\",\"GB\":\"-8-\",\"GF\":\"-8-\",\"HK\":\"-8-\",\"ID" +
-    "\":\"-8-\",\"MO\":\"-8-\",\"PA\":\"-8-\",\"PF\":\"-8-\",\"PH\":\"-8-\",\"SR\":\"-8-\",\"TH\":\"-8-\"" +
-    ",\"TW\":\"-8-\",\"US\":\"-8-\",\"VN\":\"-8-\"},\"Bopo\":{\"2\":\"-38-TW\"},\"Hanb\":{\"2\":\"-43-TW\"" +
-    "},\"Hant\":{\"2\":\"-8-TW\"}},\"zlm\":{\"1\":{\"2\":\"-0-TG\"}},\"zmi\":{\"1\":{\"2\":\"-0-MY\"}},\"" +
-    "zu\":{\"1\":{\"2\":\"-0-ZA\"}},\"_\":[\"Latn\",\"Grek\",\"Arab\",\"Cyrl\",\"Ethi\",\"Beng\",\"Tibt\"" +
-    ",\"Hans\",\"Hant\",\"Cher\",\"Deva\",\"Shaw\",\"Adlm\",\"Gujr\",\"Hebr\",\"Armn\",\"Cans\",\"Jpan\"," +
-    "\"Geor\",\"Khmr\",\"Knda\",\"Kore\",\"Yezi\",\"Laoo\",\"Mlym\",\"Mong\",\"Phag\",\"Mymr\",\"Orya\",\"" +
-    "Guru\",\"Khoj\",\"Sind\",\"Sinh\",\"Syrc\",\"Taml\",\"Telu\",\"Thai\",\"Bhks\",\"Bopo\",\"Brai\",\"D" +
-    "upl\",\"Elba\",\"Gran\",\"Hanb\",\"Hang\",\"Hani\",\"Hira\",\"Hung\",\"Jamo\",\"Java\",\"Kana\",\"Ma" +
-    "hj\",\"Marc\",\"Modi\",\"Nand\",\"Osma\",\"Shrd\",\"Sidd\",\"Sund\",\"Tglg\",\"Tirh\",\"Vith\"]}";
+    "{\"0\":{\"1\":{\"2\":\"en-0-US\",\"419\":\"es-0-\",\"AD\":\"ca-0-\",\"AE\":\"ar-1-\",\"AF\":\"fa-1-\"" +
+    ",\"AL\":\"sq-0-\",\"AM\":\"hy-16-\",\"AO\":\"pt-0-\",\"AR\":\"es-0-\",\"AT\":\"de-0-\",\"AW\":\"nl-0" +
+    "-\",\"AX\":\"sv-0-\",\"AZ\":\"az-0-\",\"BA\":\"bs-0-\",\"BD\":\"bn-6-\",\"BE\":\"nl-0-\",\"BF\":\"fr" +
+    "-0-\",\"BG\":\"bg-3-\",\"BH\":\"ar-1-\",\"BI\":\"rn-0-\",\"BJ\":\"fr-0-\",\"BL\":\"fr-0-\",\"BN\":\"" +
+    "ms-0-\",\"BO\":\"es-0-\",\"BR\":\"pt-0-\",\"BV\":\"no-0-\",\"BY\":\"be-3-\",\"CC\":\"ms-1-\",\"CD\":" +
+    "\"fr-0-\",\"CG\":\"fr-0-\",\"CH\":\"de-0-\",\"CI\":\"fr-0-\",\"CL\":\"es-0-\",\"CM\":\"fr-0-\",\"CN\"" +
+    ":\"zh-8-\",\"CO\":\"es-0-\",\"CR\":\"es-0-\",\"CU\":\"es-0-\",\"CV\":\"pt-0-\",\"CY\":\"el-2-\",\"CZ" +
+    "\":\"cs-0-\",\"DE\":\"de-0-\",\"DJ\":\"fr-0-\",\"DK\":\"da-0-\",\"DO\":\"es-0-\",\"DZ\":\"ar-1-\",\"" +
+    "EA\":\"es-0-\",\"EC\":\"es-0-\",\"EE\":\"et-0-\",\"EG\":\"ar-1-\",\"EH\":\"ar-1-\",\"ER\":\"ti-5-\"," +
+    "\"ES\":\"es-0-\",\"ET\":\"am-5-\",\"FI\":\"fi-0-\",\"FO\":\"fo-0-\",\"FR\":\"fr-0-\",\"GA\":\"fr-0-\"" +
+    ",\"GE\":\"ka-19-\",\"GF\":\"fr-0-\",\"GH\":\"ak-0-\",\"GN\":\"fr-0-\",\"GP\":\"fr-0-\",\"GQ\":\"es-0" +
+    "-\",\"GR\":\"el-2-\",\"GT\":\"es-0-\",\"GW\":\"pt-0-\",\"HK\":\"zh-14-\",\"HN\":\"es-0-\",\"HR\":\"h" +
+    "r-0-\",\"HT\":\"ht-0-\",\"HU\":\"hu-0-\",\"IC\":\"es-0-\",\"ID\":\"id-0-\",\"IL\":\"he-15-\",\"IN\":" +
+    "\"hi-10-\",\"IQ\":\"ar-1-\",\"IR\":\"fa-1-\",\"IS\":\"is-0-\",\"IT\":\"it-0-\",\"JO\":\"ar-1-\",\"JP" +
+    "\":\"ja-18-\",\"KE\":\"sw-0-\",\"KG\":\"ky-3-\",\"KH\":\"km-20-\",\"KM\":\"ar-1-\",\"KP\":\"ko-22-\"" +
+    ",\"KR\":\"ko-22-\",\"KW\":\"ar-1-\",\"KZ\":\"ru-3-\",\"LA\":\"lo-24-\",\"LB\":\"ar-1-\",\"LI\":\"de-" +
+    "0-\",\"LK\":\"si-32-\",\"LS\":\"st-0-\",\"LT\":\"lt-0-\",\"LU\":\"fr-0-\",\"LV\":\"lv-0-\",\"LY\":\"" +
+    "ar-1-\",\"MA\":\"ar-1-\",\"MC\":\"fr-0-\",\"MD\":\"ro-0-\",\"ME\":\"sr-0-\",\"MF\":\"fr-0-\",\"MG\":" +
+    "\"mg-0-\",\"MK\":\"mk-3-\",\"MM\":\"my-27-\",\"MN\":\"mn-3-\",\"MO\":\"zh-14-\",\"MQ\":\"fr-0-\",\"M" +
+    "R\":\"ar-1-\",\"MT\":\"mt-0-\",\"MU\":\"fr-0-\",\"MX\":\"es-0-\",\"MY\":\"ms-0-\",\"MZ\":\"pt-0-\",\"" +
+    "NA\":\"af-0-\",\"NC\":\"fr-0-\",\"NE\":\"ha-0-\",\"NI\":\"es-0-\",\"NL\":\"nl-0-\",\"NO\":\"nb-0-\"," +
+    "\"NP\":\"ne-10-\",\"OM\":\"ar-1-\",\"PA\":\"es-0-\",\"PE\":\"es-0-\",\"PF\":\"fr-0-\",\"PH\":\"fil-0" +
+    "-\",\"PK\":\"ur-1-\",\"PL\":\"pl-0-\",\"PM\":\"fr-0-\",\"PR\":\"es-0-\",\"PS\":\"ar-1-\",\"PT\":\"pt" +
+    "-0-\",\"PY\":\"gn-0-\",\"QA\":\"ar-1-\",\"RE\":\"fr-0-\",\"RO\":\"ro-0-\",\"RS\":\"sr-3-\",\"RU\":\"" +
+    "ru-3-\",\"RW\":\"rw-0-\",\"SA\":\"ar-1-\",\"SC\":\"fr-0-\",\"SD\":\"ar-1-\",\"SE\":\"sv-0-\",\"SI\":" +
+    "\"sl-0-\",\"SJ\":\"nb-0-\",\"SK\":\"sk-0-\",\"SM\":\"it-0-\",\"SN\":\"wo-0-\",\"SO\":\"so-0-\",\"SR\"" +
+    ":\"nl-0-\",\"SS\":\"ar-1-\",\"ST\":\"pt-0-\",\"SV\":\"es-0-\",\"SY\":\"ar-1-\",\"TD\":\"ar-1-\",\"TF" +
+    "\":\"fr-0-\",\"TG\":\"fr-0-\",\"TH\":\"th-35-\",\"TJ\":\"tg-3-\",\"TL\":\"pt-0-\",\"TM\":\"tk-0-\",\"" +
+    "TN\":\"ar-1-\",\"TO\":\"to-0-\",\"TR\":\"tr-0-\",\"TW\":\"zh-14-\",\"TZ\":\"sw-0-\",\"UA\":\"uk-3-\"" +
+    ",\"UG\":\"sw-0-\",\"UY\":\"es-0-\",\"UZ\":\"uz-0-\",\"VA\":\"it-0-\",\"VE\":\"es-0-\",\"VN\":\"vi-0-" +
+    "\",\"WF\":\"fr-0-\",\"XK\":\"sq-0-\",\"YE\":\"ar-1-\",\"YT\":\"fr-0-\",\"ZW\":\"sn-0-\"},\"Adlm\":{\"" +
+    "2\":\"ff-12-GN\"},\"Arab\":{\"2\":\"ar-1-EG\",\"AF\":\"fa-1-\",\"AZ\":\"az-1-\",\"BN\":\"ms-1-\",\"C" +
+    "C\":\"ms-1-\",\"CN\":\"ug-1-\",\"GB\":\"ur-1-\",\"ID\":\"ms-1-\",\"IN\":\"ur-1-\",\"IR\":\"fa-1-\",\"" +
+    "MN\":\"kk-1-\",\"MU\":\"ur-1-\",\"NG\":\"ha-1-\",\"PK\":\"ur-1-\",\"TH\":\"mfa-1-\",\"TJ\":\"fa-1-\"" +
+    ",\"TR\":\"apc-1-\"},\"Armn\":{\"2\":\"hy-16-AM\"},\"Beng\":{\"2\":\"bn-6-BD\"},\"Bhks\":{\"2\":\"sa-" +
+    "36-IN\"},\"Bopo\":{\"2\":\"zh-37-TW\"},\"Brai\":{\"2\":\"fr-38-FR\"},\"Cans\":{\"2\":\"iu-17-CA\"},\"" +
+    "Cher\":{\"2\":\"chr-9-US\"},\"Cpmn\":{\"2\":\"-39-CY\"},\"Cyrl\":{\"2\":\"ru-3-RU\",\"AL\":\"mk-3-\"" +
+    ",\"AZ\":\"az-3-\",\"BA\":\"sr-3-\",\"BG\":\"bg-3-\",\"BY\":\"be-3-\",\"GE\":\"ab-3-\",\"GR\":\"mk-3-" +
+    "\",\"KG\":\"ky-3-\",\"MD\":\"uk-3-\",\"ME\":\"sr-3-\",\"MK\":\"mk-3-\",\"MN\":\"mn-3-\",\"RO\":\"bg-" +
+    "3-\",\"RS\":\"sr-3-\",\"SK\":\"uk-3-\",\"TJ\":\"tg-3-\",\"UA\":\"uk-3-\",\"UZ\":\"uz-3-\",\"XK\":\"s" +
+    "r-3-\"},\"Deva\":{\"2\":\"hi-10-IN\",\"BT\":\"ne-10-\",\"NP\":\"ne-10-\"},\"Dupl\":{\"2\":\"fr-40-FR" +
+    "\"},\"Elba\":{\"2\":\"sq-41-AL\"},\"Ethi\":{\"2\":\"am-5-ET\",\"ER\":\"ti-5-\"},\"Gara\":{\"2\":\"wo" +
+    "-42-SN\"},\"Geor\":{\"2\":\"ka-19-GE\"},\"Gran\":{\"2\":\"sa-43-IN\"},\"Grek\":{\"2\":\"el-2-GR\"},\"" +
+    "Gujr\":{\"2\":\"gu-13-IN\"},\"Guru\":{\"2\":\"pa-29-IN\"},\"Hanb\":{\"2\":\"zh-44-TW\"},\"Hang\":{\"" +
+    "2\":\"ko-45-KR\"},\"Hani\":{\"2\":\"zh-46-CN\"},\"Hans\":{\"2\":\"zh-8-CN\"},\"Hant\":{\"2\":\"zh-14" +
+    "-TW\",\"CA\":\"yue-14-\",\"CN\":\"yue-14-\"},\"Hebr\":{\"2\":\"he-15-IL\",\"SE\":\"yi-15-\",\"UA\":\"" +
+    "yi-15-\",\"US\":\"yi-15-\"},\"Hira\":{\"2\":\"ja-47-JP\"},\"Hung\":{\"2\":\"hu-48-HU\"},\"Jamo\":{\"" +
+    "2\":\"ko-49-KR\"},\"Java\":{\"2\":\"jv-50-ID\"},\"Jpan\":{\"2\":\"ja-18-JP\"},\"Kana\":{\"2\":\"ja-5" +
+    "1-JP\"},\"Khmr\":{\"2\":\"km-20-KH\"},\"Khoj\":{\"2\":\"sd-30-IN\"},\"Knda\":{\"2\":\"kn-21-IN\"},\"" +
+    "Kore\":{\"2\":\"ko-22-KR\"},\"Laoo\":{\"2\":\"lo-24-LA\"},\"Latn\":{\"AE\":\"en-0-\",\"AF\":\"tk-0-\"" +
+    ",\"AM\":\"ku-0-\",\"BD\":\"en-0-\",\"BG\":\"en-0-\",\"BT\":\"en-0-\",\"CC\":\"en-0-\",\"CN\":\"za-0-" +
+    "\",\"CY\":\"tr-0-\",\"DZ\":\"fr-0-\",\"EG\":\"en-0-\",\"ER\":\"en-0-\",\"ET\":\"en-0-\",\"GE\":\"ku-" +
+    "0-\",\"GR\":\"en-0-\",\"HK\":\"en-0-\",\"IL\":\"en-0-\",\"IN\":\"en-0-\",\"IQ\":\"en-0-\",\"IR\":\"t" +
+    "k-0-\",\"JO\":\"en-0-\",\"KM\":\"fr-0-\",\"KZ\":\"en-0-\",\"LB\":\"en-0-\",\"LK\":\"en-0-\",\"MA\":\"" +
+    "fr-0-\",\"MK\":\"sq-0-\",\"MO\":\"en-0-\",\"MR\":\"fr-0-\",\"MV\":\"en-0-\",\"NP\":\"en-0-\",\"PK\":" +
+    "\"en-0-\",\"SD\":\"en-0-\",\"SS\":\"en-0-\",\"SY\":\"ku-0-\",\"TD\":\"fr-0-\",\"TH\":\"en-0-\",\"TN\"" +
+    ":\"fr-0-\",\"UA\":\"pl-0-\",\"YE\":\"en-0-\"},\"Mahj\":{\"2\":\"hi-52-IN\"},\"Marc\":{\"2\":\"bo-53-" +
+    "CN\"},\"Mlym\":{\"2\":\"ml-25-IN\"},\"Modi\":{\"2\":\"mr-54-IN\"},\"Mong\":{\"2\":\"mn-26-CN\"},\"My" +
+    "mr\":{\"2\":\"my-27-MM\"},\"Nand\":{\"2\":\"sa-55-IN\"},\"Orya\":{\"2\":\"or-28-IN\"},\"Osma\":{\"2\"" +
+    ":\"so-56-SO\"},\"Phag\":{\"2\":\"lzh-57-CN\"},\"Shaw\":{\"2\":\"en-11-GB\"},\"Shrd\":{\"2\":\"sa-58-" +
+    "IN\"},\"Sidd\":{\"2\":\"sa-59-IN\"},\"Sind\":{\"2\":\"sd-31-IN\"},\"Sinh\":{\"2\":\"si-32-LK\"},\"Su" +
+    "nd\":{\"2\":\"su-60-ID\"},\"Syrc\":{\"2\":\"syr-4-IQ\"},\"Taml\":{\"2\":\"ta-33-IN\"},\"Telu\":{\"2\"" +
+    ":\"te-34-IN\"},\"Tglg\":{\"2\":\"fil-61-PH\"},\"Thai\":{\"2\":\"th-35-TH\"},\"Tibt\":{\"2\":\"bo-7-C" +
+    "N\"},\"Tirh\":{\"2\":\"mai-62-IN\"},\"Todr\":{\"2\":\"sq-63-AL\"},\"Tutg\":{\"2\":\"sa-64-IN\"},\"Vi" +
+    "th\":{\"2\":\"sq-65-AL\"},\"Yezi\":{\"2\":\"ku-23-GE\"}},\"aa\":{\"1\":{\"2\":\"-0-ET\"}},\"aae\":{\"" +
+    "1\":{\"2\":\"-0-IT\"}},\"aao\":{\"1\":{\"2\":\"-1-DZ\"}},\"aat\":{\"1\":{\"2\":\"-2-GR\"}},\"ab\":{\"" +
+    "1\":{\"2\":\"-3-GE\"}},\"abh\":{\"1\":{\"2\":\"-1-TJ\"}},\"abv\":{\"1\":{\"2\":\"-1-BH\"}},\"ach\":{" +
+    "\"1\":{\"2\":\"-0-UG\"}},\"acm\":{\"1\":{\"2\":\"-1-IQ\"}},\"acq\":{\"1\":{\"2\":\"-1-YE\"}},\"acw\"" +
+    ":{\"1\":{\"2\":\"-1-SA\"}},\"acx\":{\"1\":{\"2\":\"-1-OM\"}},\"acy\":{\"1\":{\"2\":\"-0-CY\"}},\"adf" +
+    "\":{\"1\":{\"2\":\"-1-OM\"}},\"aeb\":{\"1\":{\"2\":\"-1-TN\"}},\"aec\":{\"1\":{\"2\":\"-1-EG\"}},\"a" +
+    "f\":{\"1\":{\"2\":\"-0-ZA\"}},\"afb\":{\"1\":{\"2\":\"-1-KW\"}},\"aii\":{\"1\":{\"2\":\"-4-IQ\"}},\"" +
+    "ak\":{\"1\":{\"2\":\"-0-GH\"}},\"aln\":{\"1\":{\"2\":\"-0-XK\"}},\"am\":{\"1\":{\"2\":\"-5-ET\"}},\"" +
+    "apc\":{\"1\":{\"2\":\"-1-SY\"}},\"apd\":{\"1\":{\"2\":\"-1-SD\"}},\"ar\":{\"1\":{\"2\":\"-1-EG\"}},\"" +
+    "arq\":{\"1\":{\"2\":\"-1-DZ\"}},\"ars\":{\"1\":{\"2\":\"-1-SA\"}},\"ary\":{\"1\":{\"2\":\"-1-MA\"}}," +
+    "\"arz\":{\"1\":{\"2\":\"-1-EG\"}},\"as\":{\"1\":{\"2\":\"-6-IN\"}},\"auz\":{\"1\":{\"2\":\"-1-UZ\"}}" +
+    ",\"avl\":{\"1\":{\"2\":\"-1-EG\"}},\"ay\":{\"1\":{\"2\":\"-0-BO\"}},\"ayh\":{\"1\":{\"2\":\"-1-YE\"}" +
+    "},\"ayl\":{\"1\":{\"2\":\"-1-LY\"}},\"ayn\":{\"1\":{\"2\":\"-1-YE\"}},\"ayp\":{\"1\":{\"2\":\"-1-IQ\"" +
+    "}},\"az\":{\"1\":{\"2\":\"-0-AZ\",\"IQ\":\"-1-\",\"IR\":\"-1-\",\"RU\":\"-3-\"},\"Arab\":{\"2\":\"-1" +
+    "-IR\"}},\"azb\":{\"1\":{\"2\":\"-1-IR\"}},\"bal\":{\"1\":{\"2\":\"-1-PK\"}},\"be\":{\"1\":{\"2\":\"-" +
+    "3-BY\"}},\"bem\":{\"1\":{\"2\":\"-0-ZM\"}},\"bg\":{\"1\":{\"2\":\"-3-BG\"}},\"bhr\":{\"1\":{\"2\":\"" +
+    "-0-MG\"}},\"bjn\":{\"1\":{\"2\":\"-0-ID\"}},\"bmm\":{\"1\":{\"2\":\"-0-MG\"}},\"bn\":{\"1\":{\"2\":\"" +
+    "-6-BD\"}},\"bo\":{\"1\":{\"2\":\"-7-CN\"}},\"br\":{\"1\":{\"2\":\"-0-FR\"}},\"bs\":{\"1\":{\"2\":\"-" +
+    "0-BA\"}},\"btj\":{\"1\":{\"2\":\"-0-ID\"}},\"bve\":{\"1\":{\"2\":\"-0-ID\"}},\"bvu\":{\"1\":{\"2\":\"" +
+    "-0-ID\"}},\"bzc\":{\"1\":{\"2\":\"-0-MG\"}},\"ca\":{\"1\":{\"2\":\"-0-ES\"}},\"cdo\":{\"1\":{\"2\":\"" +
+    "-8-CN\"}},\"ceb\":{\"1\":{\"2\":\"-0-PH\"}},\"chr\":{\"1\":{\"2\":\"-9-US\"}},\"cjy\":{\"1\":{\"2\":" +
+    "\"-8-CN\"}},\"ckb\":{\"1\":{\"2\":\"-1-IQ\"}},\"co\":{\"1\":{\"2\":\"-0-FR\"}},\"coa\":{\"1\":{\"2\"" +
+    ":\"-0-AU\"}},\"cpx\":{\"1\":{\"2\":\"-0-CN\"}},\"crs\":{\"1\":{\"2\":\"-0-SC\"}},\"cs\":{\"1\":{\"2\"" +
+    ":\"-0-CZ\"}},\"cy\":{\"1\":{\"2\":\"-0-GB\"}},\"czh\":{\"1\":{\"2\":\"-8-CN\"}},\"da\":{\"1\":{\"2\"" +
+    ":\"-0-DK\"}},\"de\":{\"1\":{\"2\":\"-0-DE\"}},\"dsb\":{\"1\":{\"2\":\"-0-DE\"}},\"dty\":{\"1\":{\"2\"" +
+    ":\"-10-NP\"}},\"dup\":{\"1\":{\"2\":\"-0-ID\"}},\"ee\":{\"1\":{\"2\":\"-0-GH\"}},\"el\":{\"1\":{\"2\"" +
+    ":\"-2-GR\"}},\"en\":{\"1\":{\"2\":\"-0-US\"},\"Shaw\":{\"2\":\"-11-GB\"}},\"enb\":{\"1\":{\"2\":\"-0" +
+    "-KE\"}},\"eo\":{\"1\":{\"2\":\"-0-001\"}},\"es\":{\"1\":{\"2\":\"-0-ES\"}},\"et\":{\"1\":{\"2\":\"-0" +
+    "-EE\"}},\"eu\":{\"1\":{\"2\":\"-0-ES\"}},\"eyo\":{\"1\":{\"2\":\"-0-KE\"}},\"fa\":{\"1\":{\"2\":\"-1" +
+    "-IR\"}},\"ff\":{\"1\":{\"2\":\"-0-SN\"},\"Adlm\":{\"2\":\"-12-GN\"}},\"ffm\":{\"1\":{\"2\":\"-0-ML\"" +
+    "}},\"fi\":{\"1\":{\"2\":\"-0-FI\"}},\"fil\":{\"1\":{\"2\":\"-0-PH\"}},\"fo\":{\"1\":{\"2\":\"-0-FO\"" +
+    "}},\"fr\":{\"1\":{\"2\":\"-0-FR\"}},\"fub\":{\"1\":{\"2\":\"-1-CM\"}},\"fue\":{\"1\":{\"2\":\"-0-BJ\"" +
+    "}},\"fuf\":{\"1\":{\"2\":\"-0-GN\"}},\"fuh\":{\"1\":{\"2\":\"-0-NE\"}},\"fui\":{\"1\":{\"2\":\"-0-TD" +
+    "\"}},\"fuq\":{\"1\":{\"2\":\"-0-NE\"}},\"fuv\":{\"1\":{\"2\":\"-0-NG\"}},\"fy\":{\"1\":{\"2\":\"-0-N" +
+    "L\"}},\"ga\":{\"1\":{\"2\":\"-0-IE\"}},\"gaa\":{\"1\":{\"2\":\"-0-GH\"}},\"gan\":{\"1\":{\"2\":\"-8-" +
+    "CN\"}},\"gax\":{\"1\":{\"2\":\"-0-ET\"}},\"gd\":{\"1\":{\"2\":\"-0-GB\"}},\"gkp\":{\"1\":{\"2\":\"-0" +
+    "-GN\"}},\"gl\":{\"1\":{\"2\":\"-0-ES\"}},\"gn\":{\"1\":{\"2\":\"-0-PY\"}},\"gnw\":{\"1\":{\"2\":\"-0" +
+    "-BO\"}},\"gsw\":{\"1\":{\"2\":\"-0-CH\"}},\"gu\":{\"1\":{\"2\":\"-13-IN\"}},\"gui\":{\"1\":{\"2\":\"" +
+    "-0-BO\"}},\"gun\":{\"1\":{\"2\":\"-0-BR\"}},\"ha\":{\"1\":{\"2\":\"-0-NG\",\"CM\":\"-1-\",\"SD\":\"-" +
+    "1-\"}},\"hae\":{\"1\":{\"2\":\"-0-ET\"}},\"hak\":{\"1\":{\"2\":\"-8-CN\",\"TW\":\"-14-\"},\"Hant\":{" +
+    "\"2\":\"-14-TW\"}},\"haw\":{\"1\":{\"2\":\"-0-US\"}},\"he\":{\"1\":{\"2\":\"-15-IL\"}},\"hi\":{\"1\"" +
+    ":{\"2\":\"-10-IN\"}},\"hji\":{\"1\":{\"2\":\"-0-ID\"}},\"hr\":{\"1\":{\"2\":\"-0-HR\"}},\"hsb\":{\"1" +
+    "\":{\"2\":\"-0-DE\"}},\"hsn\":{\"1\":{\"2\":\"-8-CN\"}},\"ht\":{\"1\":{\"2\":\"-0-HT\"}},\"hu\":{\"1" +
+    "\":{\"2\":\"-0-HU\"}},\"hy\":{\"1\":{\"2\":\"-16-AM\"}},\"ia\":{\"1\":{\"2\":\"-0-001\"}},\"id\":{\"" +
+    "1\":{\"2\":\"-0-ID\"}},\"ida\":{\"1\":{\"2\":\"-0-KE\"}},\"ig\":{\"1\":{\"2\":\"-0-NG\"}},\"ikt\":{\"" +
+    "1\":{\"2\":\"-0-CA\"}},\"is\":{\"1\":{\"2\":\"-0-IS\"}},\"it\":{\"1\":{\"2\":\"-0-IT\"}},\"iu\":{\"1" +
+    "\":{\"2\":\"-17-CA\"}},\"ja\":{\"1\":{\"2\":\"-18-JP\"}},\"jak\":{\"1\":{\"2\":\"-0-MY\"}},\"jax\":{" +
+    "\"1\":{\"2\":\"-0-ID\"}},\"jv\":{\"1\":{\"2\":\"-0-ID\"}},\"ka\":{\"1\":{\"2\":\"-19-GE\"}},\"kg\":{" +
+    "\"1\":{\"2\":\"-0-CD\"}},\"kk\":{\"1\":{\"2\":\"-3-KZ\",\"AF\":\"-1-\",\"CN\":\"-1-\",\"IR\":\"-1-\"" +
+    ",\"MN\":\"-1-\"},\"Arab\":{\"2\":\"-1-CN\"}},\"kln\":{\"1\":{\"2\":\"-0-KE\"}},\"km\":{\"1\":{\"2\":" +
+    "\"-20-KH\"}},\"kn\":{\"1\":{\"2\":\"-21-IN\"}},\"knn\":{\"1\":{\"2\":\"-10-IN\"}},\"ko\":{\"1\":{\"2" +
+    "\":\"-22-KR\"}},\"kok\":{\"1\":{\"2\":\"-10-IN\"}},\"kpe\":{\"1\":{\"2\":\"-0-LR\"}},\"kri\":{\"1\":" +
+    "{\"2\":\"-0-SL\"}},\"ku\":{\"1\":{\"2\":\"-0-TR\",\"LB\":\"-1-\"},\"Arab\":{\"2\":\"-1-IQ\"},\"Yezi\"" +
+    ":{\"2\":\"-23-GE\"}},\"kvb\":{\"1\":{\"2\":\"-0-ID\"}},\"kvr\":{\"1\":{\"2\":\"-0-ID\"}},\"kxd\":{\"" +
+    "1\":{\"2\":\"-0-BN\"}},\"ky\":{\"1\":{\"2\":\"-3-KG\",\"CN\":\"-1-\",\"TR\":\"-0-\"},\"Arab\":{\"2\"" +
+    ":\"-1-CN\"},\"Latn\":{\"2\":\"-0-TR\"}},\"la\":{\"1\":{\"2\":\"-0-VA\"}},\"lb\":{\"1\":{\"2\":\"-0-L" +
+    "U\"}},\"lce\":{\"1\":{\"2\":\"-0-ID\"}},\"lcf\":{\"1\":{\"2\":\"-0-ID\"}},\"lg\":{\"1\":{\"2\":\"-0-" +
+    "UG\"}},\"liw\":{\"1\":{\"2\":\"-0-ID\"}},\"lkb\":{\"1\":{\"2\":\"-0-KE\"}},\"lko\":{\"1\":{\"2\":\"-" +
+    "0-KE\"}},\"lks\":{\"1\":{\"2\":\"-0-KE\"}},\"ln\":{\"1\":{\"2\":\"-0-CD\"}},\"lo\":{\"1\":{\"2\":\"-" +
+    "24-LA\"}},\"loz\":{\"1\":{\"2\":\"-0-ZM\"}},\"lri\":{\"1\":{\"2\":\"-0-KE\"}},\"lrm\":{\"1\":{\"2\":" +
+    "\"-0-KE\"}},\"lsm\":{\"1\":{\"2\":\"-0-UG\"}},\"lt\":{\"1\":{\"2\":\"-0-LT\"}},\"ltg\":{\"1\":{\"2\"" +
+    ":\"-0-LV\"}},\"lto\":{\"1\":{\"2\":\"-0-KE\"}},\"lts\":{\"1\":{\"2\":\"-0-KE\"}},\"lua\":{\"1\":{\"2" +
+    "\":\"-0-CD\"}},\"luy\":{\"1\":{\"2\":\"-0-KE\"}},\"lv\":{\"1\":{\"2\":\"-0-LV\"}},\"lwg\":{\"1\":{\"" +
+    "2\":\"-0-KE\"}},\"lzh\":{\"1\":{\"2\":\"-8-CN\"}},\"mai\":{\"1\":{\"2\":\"-10-IN\"}},\"max\":{\"1\":" +
+    "{\"2\":\"-0-ID\"}},\"meo\":{\"1\":{\"2\":\"-0-MY\"}},\"mfa\":{\"1\":{\"2\":\"-1-TH\"}},\"mfb\":{\"1\"" +
+    ":{\"2\":\"-0-ID\"}},\"mfe\":{\"1\":{\"2\":\"-0-MU\"}},\"mg\":{\"1\":{\"2\":\"-0-MG\"}},\"mi\":{\"1\"" +
+    ":{\"2\":\"-0-NZ\"}},\"min\":{\"1\":{\"2\":\"-0-ID\"}},\"mk\":{\"1\":{\"2\":\"-3-MK\"}},\"ml\":{\"1\"" +
+    ":{\"2\":\"-25-IN\"}},\"mn\":{\"1\":{\"2\":\"-3-MN\",\"CN\":\"-26-\"},\"Mong\":{\"2\":\"-26-CN\"}},\"" +
+    "mnp\":{\"1\":{\"2\":\"-0-CN\"}},\"mqg\":{\"1\":{\"2\":\"-0-ID\"}},\"mr\":{\"1\":{\"2\":\"-10-IN\"}}," +
+    "\"ms\":{\"1\":{\"2\":\"-0-MY\",\"CC\":\"-1-\"}},\"msh\":{\"1\":{\"2\":\"-0-MG\"}},\"msi\":{\"1\":{\"" +
+    "2\":\"-0-MY\"}},\"mt\":{\"1\":{\"2\":\"-0-MT\"}},\"mui\":{\"1\":{\"2\":\"-0-ID\"}},\"mvf\":{\"1\":{\"" +
+    "2\":\"-26-CN\"}},\"my\":{\"1\":{\"2\":\"-27-MM\"}},\"nan\":{\"1\":{\"2\":\"-8-CN\",\"TW\":\"-14-\"}," +
+    "\"Hant\":{\"2\":\"-14-TW\"}},\"nb\":{\"1\":{\"2\":\"-0-NO\"}},\"ne\":{\"1\":{\"2\":\"-10-NP\"}},\"nh" +
+    "d\":{\"1\":{\"2\":\"-0-PY\"}},\"niq\":{\"1\":{\"2\":\"-0-KE\"}},\"nl\":{\"1\":{\"2\":\"-0-NL\"}},\"n" +
+    "le\":{\"1\":{\"2\":\"-0-KE\"}},\"nn\":{\"1\":{\"2\":\"-0-NO\"}},\"no\":{\"1\":{\"2\":\"-0-NO\"}},\"n" +
+    "so\":{\"1\":{\"2\":\"-0-ZA\"}},\"ny\":{\"1\":{\"2\":\"-0-MW\"}},\"nyd\":{\"1\":{\"2\":\"-0-KE\"}},\"" +
+    "nyn\":{\"1\":{\"2\":\"-0-UG\"}},\"oc\":{\"1\":{\"2\":\"-0-FR\"}},\"oki\":{\"1\":{\"2\":\"-0-KE\"}},\"" +
+    "om\":{\"1\":{\"2\":\"-0-ET\"}},\"or\":{\"1\":{\"2\":\"-28-IN\"}},\"orc\":{\"1\":{\"2\":\"-0-KE\"}},\"" +
+    "orn\":{\"1\":{\"2\":\"-0-MY\"}},\"ors\":{\"1\":{\"2\":\"-0-MY\"}},\"pa\":{\"1\":{\"2\":\"-29-IN\",\"" +
+    "PK\":\"-1-\"},\"Arab\":{\"2\":\"-1-PK\"}},\"pbt\":{\"1\":{\"2\":\"-1-AF\"}},\"pcm\":{\"1\":{\"2\":\"" +
+    "-0-NG\"}},\"pel\":{\"1\":{\"2\":\"-0-ID\"}},\"pga\":{\"1\":{\"2\":\"-0-SS\"}},\"pko\":{\"1\":{\"2\":" +
+    "\"-0-KE\"}},\"pl\":{\"1\":{\"2\":\"-0-PL\"}},\"ps\":{\"1\":{\"2\":\"-1-AF\"}},\"pse\":{\"1\":{\"2\":" +
+    "\"-0-ID\"}},\"pst\":{\"1\":{\"2\":\"-1-PK\"}},\"pt\":{\"1\":{\"2\":\"-0-BR\"}},\"qu\":{\"1\":{\"2\":" +
+    "\"-0-PE\"}},\"qub\":{\"1\":{\"2\":\"-0-PE\"}},\"qud\":{\"1\":{\"2\":\"-0-EC\"}},\"quf\":{\"1\":{\"2\"" +
+    ":\"-0-PE\"}},\"qug\":{\"1\":{\"2\":\"-0-EC\"}},\"quk\":{\"1\":{\"2\":\"-0-PE\"}},\"qul\":{\"1\":{\"2" +
+    "\":\"-0-BO\"}},\"qup\":{\"1\":{\"2\":\"-0-PE\"}},\"qur\":{\"1\":{\"2\":\"-0-PE\"}},\"qus\":{\"1\":{\"" +
+    "2\":\"-0-AR\"}},\"quw\":{\"1\":{\"2\":\"-0-EC\"}},\"qux\":{\"1\":{\"2\":\"-0-PE\"}},\"quy\":{\"1\":{" +
+    "\"2\":\"-0-PE\"}},\"qva\":{\"1\":{\"2\":\"-0-PE\"}},\"qvc\":{\"1\":{\"2\":\"-0-PE\"}},\"qve\":{\"1\"" +
+    ":{\"2\":\"-0-PE\"}},\"qvh\":{\"1\":{\"2\":\"-0-PE\"}},\"qvi\":{\"1\":{\"2\":\"-0-EC\"}},\"qvj\":{\"1" +
+    "\":{\"2\":\"-0-EC\"}},\"qvl\":{\"1\":{\"2\":\"-0-PE\"}},\"qvm\":{\"1\":{\"2\":\"-0-PE\"}},\"qvn\":{\"" +
+    "1\":{\"2\":\"-0-PE\"}},\"qvo\":{\"1\":{\"2\":\"-0-PE\"}},\"qvp\":{\"1\":{\"2\":\"-0-PE\"}},\"qvs\":{" +
+    "\"1\":{\"2\":\"-0-PE\"}},\"qvw\":{\"1\":{\"2\":\"-0-PE\"}},\"qvz\":{\"1\":{\"2\":\"-0-EC\"}},\"qwa\"" +
+    ":{\"1\":{\"2\":\"-0-PE\"}},\"qwc\":{\"1\":{\"2\":\"-0-PE\"}},\"qwh\":{\"1\":{\"2\":\"-0-PE\"}},\"qws" +
+    "\":{\"1\":{\"2\":\"-0-PE\"}},\"qxa\":{\"1\":{\"2\":\"-0-PE\"}},\"qxc\":{\"1\":{\"2\":\"-0-PE\"}},\"q" +
+    "xh\":{\"1\":{\"2\":\"-0-PE\"}},\"qxl\":{\"1\":{\"2\":\"-0-EC\"}},\"qxn\":{\"1\":{\"2\":\"-0-PE\"}},\"" +
+    "qxo\":{\"1\":{\"2\":\"-0-PE\"}},\"qxp\":{\"1\":{\"2\":\"-0-PE\"}},\"qxr\":{\"1\":{\"2\":\"-0-EC\"}}," +
+    "\"qxt\":{\"1\":{\"2\":\"-0-PE\"}},\"qxu\":{\"1\":{\"2\":\"-0-PE\"}},\"qxw\":{\"1\":{\"2\":\"-0-PE\"}" +
+    "},\"rag\":{\"1\":{\"2\":\"-0-KE\"}},\"rm\":{\"1\":{\"2\":\"-0-CH\"}},\"rn\":{\"1\":{\"2\":\"-0-BI\"}" +
+    "},\"ro\":{\"1\":{\"2\":\"-0-RO\"}},\"ru\":{\"1\":{\"2\":\"-3-RU\"}},\"rw\":{\"1\":{\"2\":\"-0-RW\"}}" +
+    ",\"sa\":{\"1\":{\"2\":\"-10-IN\"}},\"sc\":{\"1\":{\"2\":\"-0-IT\"}},\"scn\":{\"1\":{\"2\":\"-0-IT\"}" +
+    "},\"sd\":{\"1\":{\"2\":\"-1-PK\",\"IN\":\"-10-\"},\"Deva\":{\"2\":\"-10-IN\"},\"Khoj\":{\"2\":\"-30-" +
+    "IN\"},\"Sind\":{\"2\":\"-31-IN\"}},\"sdc\":{\"1\":{\"2\":\"-0-IT\"}},\"sdn\":{\"1\":{\"2\":\"-0-IT\"" +
+    "}},\"sgc\":{\"1\":{\"2\":\"-0-KE\"}},\"shu\":{\"1\":{\"2\":\"-1-TD\"}},\"si\":{\"1\":{\"2\":\"-32-LK" +
+    "\"}},\"sk\":{\"1\":{\"2\":\"-0-SK\"}},\"skg\":{\"1\":{\"2\":\"-0-MG\"}},\"sl\":{\"1\":{\"2\":\"-0-SI" +
+    "\"}},\"sn\":{\"1\":{\"2\":\"-0-ZW\"}},\"so\":{\"1\":{\"2\":\"-0-SO\"}},\"spv\":{\"1\":{\"2\":\"-28-I" +
+    "N\"}},\"sq\":{\"1\":{\"2\":\"-0-AL\"}},\"sr\":{\"1\":{\"2\":\"-3-RS\",\"ME\":\"-0-\",\"RO\":\"-0-\"," +
+    "\"TR\":\"-0-\"}},\"sro\":{\"1\":{\"2\":\"-0-IT\"}},\"ssh\":{\"1\":{\"2\":\"-1-AE\"}},\"ssy\":{\"1\":" +
+    "{\"2\":\"-0-ER\"}},\"st\":{\"1\":{\"2\":\"-0-ZA\"}},\"su\":{\"1\":{\"2\":\"-0-ID\"}},\"sv\":{\"1\":{" +
+    "\"2\":\"-0-SE\"}},\"sw\":{\"1\":{\"2\":\"-0-TZ\"}},\"syr\":{\"1\":{\"2\":\"-4-IQ\"}},\"ta\":{\"1\":{" +
+    "\"2\":\"-33-IN\"}},\"tdx\":{\"1\":{\"2\":\"-0-MG\"}},\"te\":{\"1\":{\"2\":\"-34-IN\"}},\"tec\":{\"1\"" +
+    ":{\"2\":\"-0-KE\"}},\"tg\":{\"1\":{\"2\":\"-3-TJ\",\"PK\":\"-1-\"},\"Arab\":{\"2\":\"-1-PK\"}},\"th\"" +
+    ":{\"1\":{\"2\":\"-35-TH\"}},\"ti\":{\"1\":{\"2\":\"-5-ET\"}},\"tk\":{\"1\":{\"2\":\"-0-TM\"}},\"tkg\"" +
+    ":{\"1\":{\"2\":\"-0-MG\"}},\"tmw\":{\"1\":{\"2\":\"-0-MY\"}},\"tn\":{\"1\":{\"2\":\"-0-ZA\"}},\"to\"" +
+    ":{\"1\":{\"2\":\"-0-TO\"}},\"tr\":{\"1\":{\"2\":\"-0-TR\"}},\"tt\":{\"1\":{\"2\":\"-3-RU\"}},\"tum\"" +
+    ":{\"1\":{\"2\":\"-0-MW\"}},\"tuy\":{\"1\":{\"2\":\"-0-KE\"}},\"txy\":{\"1\":{\"2\":\"-0-MG\"}},\"ug\"" +
+    ":{\"1\":{\"2\":\"-1-CN\",\"KZ\":\"-3-\",\"MN\":\"-3-\"},\"Cyrl\":{\"2\":\"-3-KZ\"}},\"uk\":{\"1\":{\"" +
+    "2\":\"-3-UA\"}},\"ur\":{\"1\":{\"2\":\"-1-PK\"}},\"urk\":{\"1\":{\"2\":\"-35-TH\"}},\"uz\":{\"1\":{\"" +
+    "2\":\"-0-UZ\",\"AF\":\"-1-\",\"CN\":\"-3-\"},\"Arab\":{\"2\":\"-1-AF\"}},\"uzs\":{\"1\":{\"2\":\"-1-" +
+    "AF\"}},\"vi\":{\"1\":{\"2\":\"-0-VN\"}},\"vkk\":{\"1\":{\"2\":\"-0-ID\"}},\"vkt\":{\"1\":{\"2\":\"-0" +
+    "-ID\"}},\"vro\":{\"1\":{\"2\":\"-0-EE\"}},\"wo\":{\"1\":{\"2\":\"-0-SN\"}},\"wuu\":{\"1\":{\"2\":\"-" +
+    "8-CN\"}},\"xh\":{\"1\":{\"2\":\"-0-ZA\"}},\"xmm\":{\"1\":{\"2\":\"-0-ID\"}},\"xmv\":{\"1\":{\"2\":\"" +
+    "-0-MG\"}},\"xmw\":{\"1\":{\"2\":\"-0-MG\"}},\"yi\":{\"1\":{\"2\":\"-15-UA\"}},\"yih\":{\"1\":{\"2\":" +
+    "\"-15-DE\"}},\"yo\":{\"1\":{\"2\":\"-0-NG\"}},\"yue\":{\"1\":{\"2\":\"-14-HK\",\"CN\":\"-8-\"},\"Han" +
+    "s\":{\"2\":\"-8-CN\"}},\"za\":{\"1\":{\"2\":\"-0-CN\"}},\"zh\":{\"1\":{\"2\":\"-8-CN\",\"AU\":\"-14-" +
+    "\",\"BN\":\"-14-\",\"GB\":\"-14-\",\"GF\":\"-14-\",\"HK\":\"-14-\",\"ID\":\"-14-\",\"MO\":\"-14-\",\"" +
+    "PA\":\"-14-\",\"PF\":\"-14-\",\"PH\":\"-14-\",\"SR\":\"-14-\",\"TH\":\"-14-\",\"TW\":\"-14-\",\"US\"" +
+    ":\"-14-\",\"VN\":\"-14-\"},\"Bopo\":{\"2\":\"-37-TW\"},\"Hanb\":{\"2\":\"-44-TW\"},\"Hant\":{\"2\":\"" +
+    "-14-TW\"}},\"zlm\":{\"1\":{\"2\":\"-0-MY\"}},\"zmi\":{\"1\":{\"2\":\"-0-MY\"}},\"zu\":{\"1\":{\"2\":" +
+    "\"-0-ZA\"}},\"_\":[\"Latn\",\"Arab\",\"Grek\",\"Cyrl\",\"Syrc\",\"Ethi\",\"Beng\",\"Tibt\",\"Hans\"," +
+    "\"Cher\",\"Deva\",\"Shaw\",\"Adlm\",\"Gujr\",\"Hant\",\"Hebr\",\"Armn\",\"Cans\",\"Jpan\",\"Geor\",\"" +
+    "Khmr\",\"Knda\",\"Kore\",\"Yezi\",\"Laoo\",\"Mlym\",\"Mong\",\"Mymr\",\"Orya\",\"Guru\",\"Khoj\",\"S" +
+    "ind\",\"Sinh\",\"Taml\",\"Telu\",\"Thai\",\"Bhks\",\"Bopo\",\"Brai\",\"Cpmn\",\"Dupl\",\"Elba\",\"Ga" +
+    "ra\",\"Gran\",\"Hanb\",\"Hang\",\"Hani\",\"Hira\",\"Hung\",\"Jamo\",\"Java\",\"Kana\",\"Mahj\",\"Mar" +
+    "c\",\"Modi\",\"Nand\",\"Osma\",\"Phag\",\"Shrd\",\"Sidd\",\"Sund\",\"Tglg\",\"Tirh\",\"Todr\",\"Tutg" +
+    "\",\"Vith\"]}";
 
 
 }

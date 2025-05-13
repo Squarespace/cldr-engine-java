@@ -313,6 +313,7 @@ public enum CurrencyType implements StringEnum<CurrencyType> {
   ZRN("ZRN"),
   ZRZ("ZRZ"),
   ZWD("ZWD"),
+  ZWG("ZWG"),
   ZWL("ZWL"),
   ZWR("ZWR")
   ;

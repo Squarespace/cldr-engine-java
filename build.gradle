@@ -4,7 +4,7 @@ plugins {
   id 'me.champeau.jmh' version '0.7.1'
   id 'net.researchgate.release' version '3.0.2'
   id 'com.github.node-gradle.node' version '7.0.0'
-	id 'jacoco'
+  id 'jacoco'
   id 'java-library'
   id 'maven-publish'
   id 'signing'
@@ -91,11 +91,16 @@ test {
 }
 
 jacocoTestReport {
-    reports {
-        xml.required = true
-        csv.required = true
-        html.destination file("${buildDir}/jacoco-report")
-    }
+  reports {
+    xml.required = true
+    csv.required = true
+    html.destination file("${buildDir}/jacoco-report")
+  }
+}
+
+javadoc {
+  destinationDir = file("${buildDir}/docs/javadoc")
+  options.showFromPublic()
 }
 
 // Disable Javadoc linting under Java 8+
@@ -147,64 +152,64 @@ java {
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId = 'cldr-engine'
-            from components.java
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionOf('runtimeClasspath')
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
-            pom {
-                name = 'cldr-engine'
-                description = 'Squarespace cldr-engine'
-                url = 'https://github.com/squarespace/cldr-engine-java'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'pathensley'
-                        name = 'Patrick Hensley'
-                        email = 'pathensley@gmail.com'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:git@github.com:Squarespace/cldr-engine-java.git'
-                    developerConnection = 'scm:git:git@github.com:Squarespace/cldr-engine-java.git'
-                    url = 'https://github.com/squarespace/cldr-engine-java'
-                }
-            }
+  publications {
+    mavenJava(MavenPublication) {
+      artifactId = 'cldr-engine'
+      from components.java
+      versionMapping {
+        usage('java-api') {
+          fromResolutionOf('runtimeClasspath')
         }
-    }
-    repositories {
-        maven {
-          def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
-          def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
-          def _username = project.ext.properties.OSS_USERNAME
-          def _password = project.ext.properties.OSS_PASSWORD
-
-          if (project.hasProperty('publish-internal')) {
-            releasesRepoUrl = NEXUS_INTERNAL_RELEASE_URL
-            snapshotsRepoUrl = NEXUS_INTERNAL_SNAPSHOT_URL
-            _username = NEXUS_USERNAME
-            _password = System.getenv('NEXUS_PASSWORD')
-          }
-
-          url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-          credentials {
-            username = _username
-            password = _password
+        usage('java-runtime') {
+          fromResolutionResult()
+        }
+      }
+      pom {
+        name = 'cldr-engine'
+        description = 'Squarespace cldr-engine'
+        url = 'https://github.com/squarespace/cldr-engine-java'
+        licenses {
+          license {
+            name = 'The Apache License, Version 2.0'
+            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
           }
         }
+        developers {
+          developer {
+            id = 'pathensley'
+            name = 'Patrick Hensley'
+            email = 'pathensley@gmail.com'
+          }
+        }
+        scm {
+          connection = 'scm:git:git@github.com:Squarespace/cldr-engine-java.git'
+          developerConnection = 'scm:git:git@github.com:Squarespace/cldr-engine-java.git'
+          url = 'https://github.com/squarespace/cldr-engine-java'
+        }
+      }
     }
+  }
+  repositories {
+    maven {
+      def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+      def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+      def _username = project.ext.properties.OSS_USERNAME
+      def _password = project.ext.properties.OSS_PASSWORD
+
+      if (project.hasProperty('publish-internal')) {
+        releasesRepoUrl = NEXUS_INTERNAL_RELEASE_URL
+        snapshotsRepoUrl = NEXUS_INTERNAL_SNAPSHOT_URL
+        _username = NEXUS_USERNAME
+        _password = System.getenv('NEXUS_PASSWORD')
+      }
+
+      url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+      credentials {
+        username = _username
+        password = _password
+      }
+    }
+  }
 }
 
 tasks.withType(Sign) {
@@ -212,7 +217,7 @@ tasks.withType(Sign) {
 }
 
 signing {
-    sign publishing.publications.mavenJava
-    useGpgCmd()
+  sign publishing.publications.mavenJava
+  useGpgCmd()
 }
 

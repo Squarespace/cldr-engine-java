@@ -1,6 +1,5 @@
 package com.squarespace.cldrengine.plurals;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.squarespace.cldrengine.api.Decimal;

@@ -2,19 +2,11 @@ package com.squarespace.cldrengine.api;
 
 import static org.testng.Assert.assertEquals;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.squarespace.cldrengine.CLDR;
-import com.squarespace.cldrengine.api.CalendarDate;
-import com.squarespace.cldrengine.api.GregorianDate;
 import com.squarespace.cldrengine.calendars.DayOfWeek;
 
 public class GregorianDateTest {
-
-	private static final CLDR EN = CLDR.get("en");
-	private static final String UTC = "Etc/UTC";
-	private static final String NEW_YORK = "America/New_York";
 
 	private static final long unixEpochFromJD(long jd, long msDay) {
 		long days = jd - CalendarConstants.JD_UNIX_EPOCH;

@@ -65,6 +65,12 @@ plugins.withType(EclipsePlugin) {
 sourceSets.main.java.srcDirs = ['src/main/java', 'src/generated/java']
 sourceSets.main.resources.srcDirs = ['src/main/resources', 'src/generated/resources']
 
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 eclipse {
 	project {
 		name = 'cldr-engine-java'

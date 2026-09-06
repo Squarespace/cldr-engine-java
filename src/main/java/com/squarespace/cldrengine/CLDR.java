@@ -7,6 +7,8 @@ import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.CLDRException;
 import com.squarespace.cldrengine.api.CLocale;
 import com.squarespace.cldrengine.api.Calendars;
+import com.squarespace.cldrengine.api.CurrencyFractions;
+import com.squarespace.cldrengine.api.CurrencyType;
 import com.squarespace.cldrengine.api.General;
 import com.squarespace.cldrengine.api.LanguageTag;
 import com.squarespace.cldrengine.api.Numbers;
@@ -25,6 +27,7 @@ import com.squarespace.cldrengine.locale.CLocaleImpl;
 import com.squarespace.cldrengine.locale.LanguageTagParser;
 import com.squarespace.cldrengine.locale.LocaleResolver;
 import com.squarespace.cldrengine.numbers.NumbersImpl;
+import com.squarespace.cldrengine.numbers.NumberInternals;
 import com.squarespace.cldrengine.units.UnitsImpl;
 
 /**
@@ -148,6 +151,27 @@ public class CLDR {
    */
   public static LanguageTag parseLanguageTag(String tag) {
     return LanguageTagParser.parse(tag);
+  }
+
+  /**
+   * Returns the currency fractions of the given currency code.
+   * <p>
+   * Mirrors the TS top-level `getCurrencyFractions` export (bundle-independent,
+   * no resource pack dependency), so it can be called without a CLDR instance.
+   */
+  public static CurrencyFractions getCurrencyFractions(CurrencyType code) {
+    return NumberInternals.currencyFractions(code);
+  }
+
+  /**
+   * Returns the currency code to use for a given region.
+   * <p>
+   * Mirrors the TS top-level `getCurrencyForRegion` export (bundle-independent,
+   * no resource pack dependency), so it can be called without a CLDR instance.
+   * Unknown regions and the special region 'ZZ' resolve to USD.
+   */
+  public static CurrencyType getCurrencyForRegion(String region) {
+    return NumberInternals.currencyForRegion(region);
   }
 
   private static CLDR get(CLocale locale, boolean resolve) {

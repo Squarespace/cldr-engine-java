@@ -45,6 +45,10 @@ public class NumbersImpl implements Numbers {
     return this.numbers.adjustDecimal(num, options);
   }
 
+  public Decimal parseDecimal(String num) {
+    return new Decimal(num);
+  }
+
   public String formatDecimal(Decimal n) {
     return formatDecimal(n, null);
   }

@@ -15,6 +15,11 @@ public interface Numbers {
   Decimal adjustDecimal(Decimal num, DecimalAdjustOptions options);
 
   /**
+   * Parses a decimal number from its string representation.
+   */
+  Decimal parseDecimal(String num);
+
+  /**
    * Formats a decimal number to string.
    */
   String formatDecimal(Decimal n);

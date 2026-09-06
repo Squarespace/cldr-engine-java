@@ -432,6 +432,28 @@ public class NumberInternals {
     return CURRENCY_REGIONS.getOrDefault(region, CurrencyType.USD);
   }
 
+  /**
+   * Bundle-independent currency fraction lookup shared with the static CLDR
+   * API. Mirrors the TS top-level export getCurrencyFractions
+   * (packages/cldr-core/src/internals/numbers/util.ts):
+   * currencyFractions[code] || defaultCurrencyFractions.
+   */
+  public static CurrencyFractions currencyFractions(CurrencyType code) {
+    CurrencyFractions res = CURRENCY_FRACTIONS.get(code);
+    return res == null ? DEFAULT_CURRENCY_FRACTIONS : res;
+  }
+
+  /**
+   * Bundle-independent region to currency lookup shared with the static CLDR
+   * API. Mirrors the TS top-level export getCurrencyForRegion
+   * (packages/cldr-core/src/internals/numbers/util.ts):
+   * (region !== 'ZZ' && currencyRegions[region]) || 'USD'.
+   */
+  public static CurrencyType currencyForRegion(String region) {
+    CurrencyType code = "ZZ".equals(region) ? null : CURRENCY_REGIONS.get(region);
+    return code == null ? CurrencyType.USD : code;
+  }
+
   protected Decimal negzero(Decimal n, boolean show) {
     return !show && n.isZero() && n.isNegative() ? n.abs() : n;
   }

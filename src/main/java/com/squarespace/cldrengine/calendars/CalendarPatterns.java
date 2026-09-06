@@ -9,6 +9,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.CalendarDate;
+import com.squarespace.cldrengine.api.DayPeriodAltType;
+import com.squarespace.cldrengine.api.EraAltType;
+import com.squarespace.cldrengine.api.EraWidthType;
 import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.PluralType;
 import com.squarespace.cldrengine.internal.CalendarExternalData;
@@ -76,6 +79,7 @@ class CalendarPatterns {
   protected final Internals internals;
   protected final Map<String, String> rawAvailableFormats;
   protected final Map<PluralType, Map<String, String>> rawPluralFormats;
+  protected final CalendarSchema schema;
 
   public CalendarPatterns(Bundle bundle, Internals internals, CalendarSchema schema) {
     this.bundle = bundle;
@@ -88,6 +92,7 @@ class CalendarPatterns {
     this.wrapperFormats = schema.dateTimeFormats.mapping(bundle);
     this.wrapperFormatsAt = schema.dateTimeFormatsAt.mapping(bundle);
     this.skeletonParser = buildSkeletonParser();
+    this.schema = schema;
 
     this.rawAvailableFormats = schema.availableFormats.mapping(bundle);
     this.rawPluralFormats = schema.pluralFormats.mapping(bundle);
@@ -100,6 +105,46 @@ class CalendarPatterns {
 
   public DateSkeleton parseSkeleton(String raw) {
     return this.skeletonParser.parse(raw, false);
+  }
+
+  /**
+   * Map of day period alternate names for each width.
+   * Equivalent to TS: `schema.standAlone.dayPeriods.mapping(bundle)`.
+   */
+  public Map<String, Map<String, Map<DayPeriodAltType, String>>> dayPeriods() {
+    return this.schema.standAlone.dayPeriods.mapping(this.bundle);
+  }
+
+  /**
+   * Map of era names for each width and alternate.
+   * Equivalent to TS: `schema.eras.mapping(bundle)`.
+   */
+  public Map<EraWidthType, Map<String, Map<EraAltType, String>>> eras() {
+    return this.schema.eras.mapping(this.bundle);
+  }
+
+  /**
+   * Map of standalone month names for each width.
+   * Equivalent to TS: `schema.standAlone.months.mapping(bundle)`.
+   */
+  public Map<String, Map<String, String>> months() {
+    return this.schema.standAlone.months.mapping(this.bundle);
+  }
+
+  /**
+   * Map of standalone quarter names for each width.
+   * Equivalent to TS: `schema.standAlone.quarters.mapping(bundle)`.
+   */
+  public Map<String, Map<String, String>> quarters() {
+    return this.schema.standAlone.quarters.mapping(this.bundle);
+  }
+
+  /**
+   * Map of standalone weekday names for each width.
+   * Equivalent to TS: `schema.standAlone.weekdays.mapping(bundle)`.
+   */
+  public Map<String, Map<String, String>> weekdays() {
+    return this.schema.standAlone.weekdays.mapping(this.bundle);
   }
 
   public DateTimePattern getDatePattern(FormatWidthType width) {

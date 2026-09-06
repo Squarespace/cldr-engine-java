@@ -2,6 +2,7 @@ package com.squarespace.cldrengine.api;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface Calendars {
 
@@ -128,6 +129,72 @@ public interface Calendars {
    * Formats the relative time from a start to end date.
    */
   String formatRelativeTime(CalendarDate start, CalendarDate end, RelativeTimeFormatOptions options);
+
+  /**
+   * Return the first day of the week. 1 denotes Sunday, 7 denotes Saturday.
+   */
+  int firstDayOfWeek();
+
+  /**
+   * Return the minimum number of days required in the first week of the year.
+   */
+  int minDaysInFirstWeek();
+
+  /**
+   * Return a localized display name for the given date field type, e.g. "day", "month".
+   */
+  String dateField(DateFieldType type, DateFieldFormatOptions options);
+
+  /**
+   * Return the localized day periods for the calendar.
+   *
+   * The TypeScript API returns an `any` value with a nested object structure.
+   * In Java this is mapped to a nested {@code Map<String, Object>} whose leaf
+   * values are always {@code String}s. Intermediate map keys correspond to
+   * the JSON object keys in TypeScript: the day-period key (e.g. "am",
+   * "noon") maps to a sub-map keyed by alternate (“none”, “casing”).
+   */
+  Map<String, Object> dayPeriods(CalendarFieldsOptions options);
+
+  /**
+   * Return the localized era names for the calendar.
+   *
+   * The TypeScript API returns an `any` value with a nested object structure.
+   * In Java this is mapped to a nested {@code Map<String, Object>} whose leaf
+   * values are always {@code String}s. The era key (e.g. "0", "1") maps to a
+   * sub-map keyed by alternate (“none”, “sensitive”).
+   */
+  Map<String, Object> eras(EraFieldsOptions options);
+
+  /**
+   * Return the localized month names for the calendar.
+   *
+   * The TypeScript API returns an `any` value with a nested object structure.
+   * In Java this is mapped to a nested {@code Map<String, Object>} whose leaf
+   * values are always {@code String}s; here the map is flat, keyed by month
+   * number ("1".."12").
+   */
+  Map<String, Object> months(CalendarFieldsOptions options);
+
+  /**
+   * Return the localized quarter names for the calendar.
+   *
+   * The TypeScript API returns an `any` value with a nested object structure.
+   * In Java this is mapped to a nested {@code Map<String, Object>} whose leaf
+   * values are always {@code String}s; here the map is flat, keyed by quarter
+   * number ("1".."4").
+   */
+  Map<String, Object> quarters(CalendarFieldsOptions options);
+
+  /**
+   * Return the localized weekday names for the calendar.
+   *
+   * The TypeScript API returns an `any` value with a nested object structure.
+   * In Java this is mapped to a nested {@code Map<String, Object>} whose leaf
+   * values are always {@code String}s; here the map is flat, keyed by weekday
+   * number ("1"=Sunday .. "7"=Saturday).
+   */
+  Map<String, Object> weekdays(CalendarFieldsOptions options);
 
   // formatDateRaw
 

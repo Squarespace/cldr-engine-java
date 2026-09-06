@@ -64,7 +64,7 @@ public abstract class VectorArrowImpl {
         }
       } else {
         // Drill one level deeper
-        Object val = this._mapping(bundle, k, ix + (i * this.factors[k]));
+        Object val = this._mapping(bundle, k + 1, ix + (i * this.factors[k]));
         o.put(key, val);
       }
     }

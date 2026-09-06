@@ -5,16 +5,21 @@ import static com.squarespace.cldrengine.utils.TypeUtils.defaulter;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.squarespace.cldrengine.api.BuddhistDate;
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.CalendarDate;
+import com.squarespace.cldrengine.api.CalendarFieldsOptions;
 import com.squarespace.cldrengine.api.CalendarType;
 import com.squarespace.cldrengine.api.Calendars;
 import com.squarespace.cldrengine.api.ContextTransformFieldType;
 import com.squarespace.cldrengine.api.ContextType;
+import com.squarespace.cldrengine.api.DayPeriodAltType;
+import com.squarespace.cldrengine.api.DateFieldFormatOptions;
+import com.squarespace.cldrengine.api.DateFieldType;
 import com.squarespace.cldrengine.api.DateFieldWidthType;
 import com.squarespace.cldrengine.api.DateFormatAltOptions;
 import com.squarespace.cldrengine.api.DateFormatOptions;
@@ -22,7 +27,11 @@ import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
 import com.squarespace.cldrengine.api.DateRawFormatOptions;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.DateDiffOptions;
+import com.squarespace.cldrengine.api.EraAltType;
+import com.squarespace.cldrengine.api.EraFieldsOptions;
+import com.squarespace.cldrengine.api.EraWidthType;
 import com.squarespace.cldrengine.api.ExemplarCity;
+import com.squarespace.cldrengine.api.FieldWidthType;
 import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.GregorianDate;
 import com.squarespace.cldrengine.api.ISO8601Date;
@@ -46,6 +55,7 @@ import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.internal.PartsValue;
 import com.squarespace.cldrengine.internal.PrivateApi;
+import com.squarespace.cldrengine.internal.StringEnum;
 import com.squarespace.cldrengine.internal.StringValue;
 import com.squarespace.cldrengine.internal.TimeZoneSchema;
 import com.squarespace.cldrengine.numbers.NumberParams;
@@ -252,6 +262,128 @@ public class CalendarsImpl implements Calendars {
       relField = DOW_FIELDS[(int)dow];
     }
     return formatRelativeTimeField(new Decimal(amount), relField, options);
+  }
+
+  @Override
+  public int firstDayOfWeek() {
+    return this.firstDay;
+  }
+
+  @Override
+  public int minDaysInFirstWeek() {
+    return this.minDays;
+  }
+
+  @Override
+  public String dateField(DateFieldType type, DateFieldFormatOptions options) {
+    options = defaulter(options, DateFieldFormatOptions::build);
+    DateFieldWidthType width = options.width.get() == null ? DateFieldWidthType.WIDE : options.width.get();
+    String field = this.internals.schema.DateFields.displayName.get(this.bundle, type, width);
+    return this._transformField(field, ContextTransformFieldType.CALENDAR_FIELD, options.context.get());
+  }
+
+  @Override
+  public Map<String, Object> dayPeriods(CalendarFieldsOptions options) {
+    options = defaulter(options, CalendarFieldsOptions::build);
+    String w = options.width.get() == null ? "wide" : options.width.get().value();
+    Map<String, Map<DayPeriodAltType, String>> fields = this._getPatterns(options.calendar.get()).dayPeriods().get(w);
+    return this._transformFields(fields, null, options.context.get());
+  }
+
+  @Override
+  public Map<String, Object> eras(EraFieldsOptions options) {
+    options = defaulter(options, EraFieldsOptions::build);
+    EraWidthType w = options.width.get() == null ? EraWidthType.NAMES : options.width.get();
+    Map<String, Map<EraAltType, String>> fields = this._getPatterns(options.calendar.get()).eras().get(w);
+    ContextTransformFieldType tx = w == EraWidthType.ABBR ? ContextTransformFieldType.ERA_ABBR
+        : w == EraWidthType.NAMES ? ContextTransformFieldType.ERA_NAME
+            : null;
+    return this._transformFields(fields, tx, options.context.get());
+  }
+
+  @Override
+  public Map<String, Object> months(CalendarFieldsOptions options) {
+    options = defaulter(options, CalendarFieldsOptions::build);
+    // TS: opt.width === 'short' ? 'narrow' : opt.width || 'wide'
+    FieldWidthType width = options.width.get();
+    String w;
+    if (width == null) {
+      w = "wide";
+    } else if (width == FieldWidthType.SHORT) {
+      w = "narrow";
+    } else {
+      w = width.value();
+    }
+    Map<String, String> fields = this._getPatterns(options.calendar.get()).months().get(w);
+    ContextTransformFieldType tx = "narrow".equals(w) ? null
+        : ContextTransformFieldType.MONTH_STANDALONE_EXCEPT_NARROW;
+    return this._transformFields(fields, tx, options.context.get());
+  }
+
+  @Override
+  public Map<String, Object> quarters(CalendarFieldsOptions options) {
+    options = defaulter(options, CalendarFieldsOptions::build);
+    String w = options.width.get() == null ? "wide" : options.width.get().value();
+    Map<String, String> fields = this._getPatterns(options.calendar.get()).quarters().get(w);
+    return this._transformFields(fields, null, options.context.get());
+  }
+
+  @Override
+  public Map<String, Object> weekdays(CalendarFieldsOptions options) {
+    options = defaulter(options, CalendarFieldsOptions::build);
+    String w = options.width.get() == null ? "wide" : options.width.get().value();
+    Map<String, String> fields = this._getPatterns(options.calendar.get()).weekdays().get(w);
+    ContextTransformFieldType tx = "narrow".equals(w) ? null
+        : ContextTransformFieldType.DAY_STANDALONE_EXCEPT_NARROW;
+    return this._transformFields(fields, tx, options.context.get());
+  }
+
+  /**
+   * Select the calendar to use and return its patterns.
+   * Equivalent to TS: `selectCalendar(bundle, type)` then `manager.getCalendarPatterns(calendar)`.
+   */
+  protected CalendarPatterns _getPatterns(CalendarType type) {
+    CalendarType calendar = this.internals.calendars.selectCalendar(this.bundle, type);
+    return this.manager.getCalendarPatterns(calendar.value);
+  }
+
+  /**
+   * Copy the fields, applying an optional context transform to the string values.
+   * Equivalent to TS `_transformFields` in api/calendars.ts. Enum map keys are
+   * converted to their string values so the result is always a
+   * {@code Map<String, Object>} with {@code String} leaves.
+   */
+  protected Map<String, Object> _transformFields(Map<?, ?> fields, ContextTransformFieldType type,
+      ContextType context) {
+    Map<String, Object> res = new LinkedHashMap<>();
+    if (fields != null) {
+      for (Map.Entry<?, ?> e : fields.entrySet()) {
+        Object val = e.getValue();
+        res.put(this._fieldKey(e.getKey()),
+            val instanceof String ? this._transformField((String) val, type, context)
+                : this._transformFields((Map<?, ?>) val, type, context));
+      }
+    }
+    return res;
+  }
+
+  /**
+   * Equivalent to TS `_transformField` in api/calendars.ts:
+   * returns the field unchanged unless a context is specified.
+   */
+  protected String _transformField(String field, ContextTransformFieldType type, ContextType context) {
+    Map<ContextTransformFieldType, String> transform = this.privateApi.getContextTransformInfo();
+    return context != null ? this.internals.general.contextTransform(field, transform, context, type) : field;
+  }
+
+  /**
+   * Convert a map key to its string form. Enum keys are converted via their
+   * string value (e.g. {@code EraAltType.NONE} -> "none").
+   */
+  protected String _fieldKey(Object key) {
+    return key instanceof StringEnum
+        ? ((StringEnum<?>) key).value()
+        : key.toString();
   }
 
   @Override

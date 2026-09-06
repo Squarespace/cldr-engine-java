@@ -3851,121 +3851,129 @@ public final class Meta extends MetaBase {
       /* intervalFormats = */ new Vector2Arrow<String, DateTimePatternFieldType>(18926, KEY_BUDDHIST_INTERVAL_FORMAT, KEY_DATE_TIME_PATTERN_FIELD),
       /* dateFormats = */ new Vector1Arrow<FormatWidthType>(19437, KEY_FORMAT_WIDTH),
       /* timeFormats = */ new Vector1Arrow<FormatWidthType>(19442, KEY_FORMAT_WIDTH),
-      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(19447, KEY_FORMAT_WIDTH),
-      /* dateTimeFormatsAt = */ new Vector1Arrow<FormatWidthType>(19452, KEY_FORMAT_WIDTH),
-      /* intervalFormatFallback = */ new FieldArrow(19457)
+      /* dateSkeletons = */ new Vector1Arrow<FormatWidthType>(19447, KEY_FORMAT_WIDTH),
+      /* timeSkeletons = */ new Vector1Arrow<FormatWidthType>(19452, KEY_FORMAT_WIDTH),
+      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(19457, KEY_FORMAT_WIDTH),
+      /* dateTimeFormatsAt = */ new Vector1Arrow<FormatWidthType>(19462, KEY_FORMAT_WIDTH),
+      /* intervalFormatFallback = */ new FieldArrow(19467)
     ),
     /* Gregorian = */ new GregorianSchema(
-      /* eras = */ new Vector3Arrow<EraWidthType, String, EraAltType>(19458, KEY_ERA_TYPE, KEY_GREGORIAN_ERA, KEY_ERA_ALT_KEY),
+      /* eras = */ new Vector3Arrow<EraWidthType, String, EraAltType>(19468, KEY_ERA_TYPE, KEY_GREGORIAN_ERA, KEY_ERA_ALT_KEY),
       /* format = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(19471, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(19500, KEY_FIELD_WIDTH, KEY_GREGORIAN_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(19549, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(19566, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
+        /* weekdays = */ new Vector2Arrow<String, String>(19481, KEY_FIELD_WIDTH, KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(19510, KEY_FIELD_WIDTH, KEY_GREGORIAN_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(19559, KEY_FIELD_WIDTH, KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(19576, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
       ),
       /* standAlone = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(19663, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(19692, KEY_FIELD_WIDTH, KEY_GREGORIAN_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(19741, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(19758, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
+        /* weekdays = */ new Vector2Arrow<String, String>(19673, KEY_FIELD_WIDTH, KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(19702, KEY_FIELD_WIDTH, KEY_GREGORIAN_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(19751, KEY_FIELD_WIDTH, KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(19768, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
       ),
-      /* availableFormats = */ new Vector1Arrow<String>(19855, KEY_GREGORIAN_AVAILABLE_FORMAT),
-      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(19939, KEY_PLURAL_KEY, KEY_GREGORIAN_PLURAL_FORMAT),
-      /* intervalFormats = */ new Vector2Arrow<String, DateTimePatternFieldType>(19952, KEY_GREGORIAN_INTERVAL_FORMAT, KEY_DATE_TIME_PATTERN_FIELD),
-      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(20433, KEY_FORMAT_WIDTH),
-      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(20438, KEY_FORMAT_WIDTH),
-      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(20443, KEY_FORMAT_WIDTH),
-      /* dateTimeFormatsAt = */ new Vector1Arrow<FormatWidthType>(20448, KEY_FORMAT_WIDTH),
-      /* intervalFormatFallback = */ new FieldArrow(20453)
+      /* availableFormats = */ new Vector1Arrow<String>(19865, KEY_GREGORIAN_AVAILABLE_FORMAT),
+      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(19949, KEY_PLURAL_KEY, KEY_GREGORIAN_PLURAL_FORMAT),
+      /* intervalFormats = */ new Vector2Arrow<String, DateTimePatternFieldType>(19962, KEY_GREGORIAN_INTERVAL_FORMAT, KEY_DATE_TIME_PATTERN_FIELD),
+      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(20443, KEY_FORMAT_WIDTH),
+      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(20448, KEY_FORMAT_WIDTH),
+      /* dateSkeletons = */ new Vector1Arrow<FormatWidthType>(20453, KEY_FORMAT_WIDTH),
+      /* timeSkeletons = */ new Vector1Arrow<FormatWidthType>(20458, KEY_FORMAT_WIDTH),
+      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(20463, KEY_FORMAT_WIDTH),
+      /* dateTimeFormatsAt = */ new Vector1Arrow<FormatWidthType>(20468, KEY_FORMAT_WIDTH),
+      /* intervalFormatFallback = */ new FieldArrow(20473)
     ),
     /* Japanese = */ new JapaneseSchema(
-      /* eras = */ new Vector3Arrow<EraWidthType, String, EraAltType>(20454, KEY_ERA_TYPE, KEY_JAPANESE_ERA, KEY_ERA_ALT_KEY),
+      /* eras = */ new Vector3Arrow<EraWidthType, String, EraAltType>(20474, KEY_ERA_TYPE, KEY_JAPANESE_ERA, KEY_ERA_ALT_KEY),
       /* format = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(21877, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(21906, KEY_FIELD_WIDTH, KEY_JAPANESE_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(21955, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(21972, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
+        /* weekdays = */ new Vector2Arrow<String, String>(21897, KEY_FIELD_WIDTH, KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(21926, KEY_FIELD_WIDTH, KEY_JAPANESE_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(21975, KEY_FIELD_WIDTH, KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(21992, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
       ),
       /* standAlone = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(22069, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(22098, KEY_FIELD_WIDTH, KEY_JAPANESE_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(22147, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(22164, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
+        /* weekdays = */ new Vector2Arrow<String, String>(22089, KEY_FIELD_WIDTH, KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(22118, KEY_FIELD_WIDTH, KEY_JAPANESE_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(22167, KEY_FIELD_WIDTH, KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(22184, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
       ),
-      /* availableFormats = */ new Vector1Arrow<String>(22261, KEY_JAPANESE_AVAILABLE_FORMAT),
-      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(22353, KEY_PLURAL_KEY, KEY_JAPANESE_PLURAL_FORMAT),
-      /* intervalFormats = */ new Vector2Arrow<String, DateTimePatternFieldType>(22354, KEY_JAPANESE_INTERVAL_FORMAT, KEY_DATE_TIME_PATTERN_FIELD),
-      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(22865, KEY_FORMAT_WIDTH),
-      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(22870, KEY_FORMAT_WIDTH),
-      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(22875, KEY_FORMAT_WIDTH),
-      /* dateTimeFormatsAt = */ new Vector1Arrow<FormatWidthType>(22880, KEY_FORMAT_WIDTH),
-      /* intervalFormatFallback = */ new FieldArrow(22885)
+      /* availableFormats = */ new Vector1Arrow<String>(22281, KEY_JAPANESE_AVAILABLE_FORMAT),
+      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(22373, KEY_PLURAL_KEY, KEY_JAPANESE_PLURAL_FORMAT),
+      /* intervalFormats = */ new Vector2Arrow<String, DateTimePatternFieldType>(22374, KEY_JAPANESE_INTERVAL_FORMAT, KEY_DATE_TIME_PATTERN_FIELD),
+      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(22885, KEY_FORMAT_WIDTH),
+      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(22890, KEY_FORMAT_WIDTH),
+      /* dateSkeletons = */ new Vector1Arrow<FormatWidthType>(22895, KEY_FORMAT_WIDTH),
+      /* timeSkeletons = */ new Vector1Arrow<FormatWidthType>(22900, KEY_FORMAT_WIDTH),
+      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(22905, KEY_FORMAT_WIDTH),
+      /* dateTimeFormatsAt = */ new Vector1Arrow<FormatWidthType>(22910, KEY_FORMAT_WIDTH),
+      /* intervalFormatFallback = */ new FieldArrow(22915)
     ),
     /* Persian = */ new PersianSchema(
-      /* eras = */ new Vector3Arrow<EraWidthType, String, EraAltType>(22886, KEY_ERA_TYPE, KEY_PERSIAN_ERA, KEY_ERA_ALT_KEY),
+      /* eras = */ new Vector3Arrow<EraWidthType, String, EraAltType>(22916, KEY_ERA_TYPE, KEY_PERSIAN_ERA, KEY_ERA_ALT_KEY),
       /* format = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(22893, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(22922, KEY_FIELD_WIDTH, KEY_PERSIAN_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(22971, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(22988, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
+        /* weekdays = */ new Vector2Arrow<String, String>(22923, KEY_FIELD_WIDTH, KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(22952, KEY_FIELD_WIDTH, KEY_PERSIAN_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(23001, KEY_FIELD_WIDTH, KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(23018, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
       ),
       /* standAlone = */ new CalendarFields(
-        /* weekdays = */ new Vector2Arrow<String, String>(23085, KEY_FIELD_WIDTH, KEY_WEEKDAY),
-        /* months = */ new Vector2Arrow<String, String>(23114, KEY_FIELD_WIDTH, KEY_PERSIAN_MONTH),
-        /* quarters = */ new Vector2Arrow<String, String>(23163, KEY_FIELD_WIDTH, KEY_QUARTER),
-        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(23180, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
+        /* weekdays = */ new Vector2Arrow<String, String>(23115, KEY_FIELD_WIDTH, KEY_WEEKDAY),
+        /* months = */ new Vector2Arrow<String, String>(23144, KEY_FIELD_WIDTH, KEY_PERSIAN_MONTH),
+        /* quarters = */ new Vector2Arrow<String, String>(23193, KEY_FIELD_WIDTH, KEY_QUARTER),
+        /* dayPeriods = */ new Vector3Arrow<String, String, DayPeriodAltType>(23210, KEY_FIELD_WIDTH, KEY_DAY_PERIOD, KEY_DAY_PERIOD_ALT_KEY)
       ),
-      /* availableFormats = */ new Vector1Arrow<String>(23277, KEY_PERSIAN_AVAILABLE_FORMAT),
-      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(23369, KEY_PLURAL_KEY, KEY_PERSIAN_PLURAL_FORMAT),
-      /* intervalFormats = */ new Vector2Arrow<String, DateTimePatternFieldType>(23370, KEY_PERSIAN_INTERVAL_FORMAT, KEY_DATE_TIME_PATTERN_FIELD),
-      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(23881, KEY_FORMAT_WIDTH),
-      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(23886, KEY_FORMAT_WIDTH),
-      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(23891, KEY_FORMAT_WIDTH),
-      /* dateTimeFormatsAt = */ new Vector1Arrow<FormatWidthType>(23896, KEY_FORMAT_WIDTH),
-      /* intervalFormatFallback = */ new FieldArrow(23901)
+      /* availableFormats = */ new Vector1Arrow<String>(23307, KEY_PERSIAN_AVAILABLE_FORMAT),
+      /* pluralFormats = */ new Vector2Arrow<PluralType, String>(23399, KEY_PLURAL_KEY, KEY_PERSIAN_PLURAL_FORMAT),
+      /* intervalFormats = */ new Vector2Arrow<String, DateTimePatternFieldType>(23400, KEY_PERSIAN_INTERVAL_FORMAT, KEY_DATE_TIME_PATTERN_FIELD),
+      /* dateFormats = */ new Vector1Arrow<FormatWidthType>(23911, KEY_FORMAT_WIDTH),
+      /* timeFormats = */ new Vector1Arrow<FormatWidthType>(23916, KEY_FORMAT_WIDTH),
+      /* dateSkeletons = */ new Vector1Arrow<FormatWidthType>(23921, KEY_FORMAT_WIDTH),
+      /* timeSkeletons = */ new Vector1Arrow<FormatWidthType>(23926, KEY_FORMAT_WIDTH),
+      /* dateTimeFormats = */ new Vector1Arrow<FormatWidthType>(23931, KEY_FORMAT_WIDTH),
+      /* dateTimeFormatsAt = */ new Vector1Arrow<FormatWidthType>(23936, KEY_FORMAT_WIDTH),
+      /* intervalFormatFallback = */ new FieldArrow(23941)
     ),
     /* TimeZones = */ new TimeZoneSchema(
       /* metaZones = */ new MetaZoneInfo(
-        /* short_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(23902, KEY_TIMEZONE_TYPE, KEY_METAZONE),
-        /* long_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(24383, KEY_TIMEZONE_TYPE, KEY_METAZONE)
+        /* short_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(23942, KEY_TIMEZONE_TYPE, KEY_METAZONE),
+        /* long_ = */ new Vector2Arrow<TimeZoneNameType, MetaZoneType>(24423, KEY_TIMEZONE_TYPE, KEY_METAZONE)
       ),
-      /* exemplarCity = */ new Vector1Arrow<String>(24864, KEY_TIMEZONE_ID),
-      /* gmtFormat = */ new FieldArrow(25285),
-      /* hourFormat = */ new FieldArrow(25286),
-      /* gmtZeroFormat = */ new FieldArrow(25287),
-      /* regionFormat = */ new FieldArrow(25288)
+      /* exemplarCity = */ new Vector1Arrow<String>(24904, KEY_TIMEZONE_ID),
+      /* gmtFormat = */ new FieldArrow(25325),
+      /* hourFormat = */ new FieldArrow(25326),
+      /* gmtZeroFormat = */ new FieldArrow(25327),
+      /* regionFormat = */ new FieldArrow(25328)
     ),
     /* Currencies = */ new CurrenciesSchema(
-      /* displayName = */ new Vector1Arrow<CurrencyType>(25289, KEY_CURRENCY_ID),
-      /* decimal = */ new Vector1Arrow<CurrencyType>(25597, KEY_CURRENCY_ID),
-      /* pluralName = */ new Vector2Arrow<PluralType, CurrencyType>(25905, KEY_PLURAL_KEY, KEY_CURRENCY_ID),
-      /* symbol = */ new Vector2Arrow<AltType, CurrencyType>(27748, KEY_ALT_KEY, KEY_CURRENCY_ID)
+      /* displayName = */ new Vector1Arrow<CurrencyType>(25329, KEY_CURRENCY_ID),
+      /* decimal = */ new Vector1Arrow<CurrencyType>(25637, KEY_CURRENCY_ID),
+      /* pluralName = */ new Vector2Arrow<PluralType, CurrencyType>(25945, KEY_PLURAL_KEY, KEY_CURRENCY_ID),
+      /* symbol = */ new Vector2Arrow<AltType, CurrencyType>(27788, KEY_ALT_KEY, KEY_CURRENCY_ID)
     ),
     /* Units = */ new UnitsSchema(
       /* long = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(29898, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(31291, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(31524, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(31757),
-        /* timesPattern = */ new FieldArrow(31758)
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(29938, KEY_PLURAL_KEY, KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(31331, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(31564, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(31797),
+        /* timesPattern = */ new FieldArrow(31798)
       ),
       /* narrow = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(31759, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(33152, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(33385, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(33618),
-        /* timesPattern = */ new FieldArrow(33619)
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(31799, KEY_PLURAL_KEY, KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(33192, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(33425, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(33658),
+        /* timesPattern = */ new FieldArrow(33659)
       ),
       /* short = */ new UnitInfo(
-        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(33620, KEY_PLURAL_KEY, KEY_UNIT_ID),
-        /* displayName = */ new Vector1Arrow<UnitType>(35013, KEY_UNIT_ID),
-        /* perUnitPattern = */ new Vector1Arrow<UnitType>(35246, KEY_UNIT_ID),
-        /* perPattern = */ new FieldArrow(35479),
-        /* timesPattern = */ new FieldArrow(35480)
+        /* unitPattern = */ new Vector2Arrow<PluralType, UnitType>(33660, KEY_PLURAL_KEY, KEY_UNIT_ID),
+        /* displayName = */ new Vector1Arrow<UnitType>(35053, KEY_UNIT_ID),
+        /* perUnitPattern = */ new Vector1Arrow<UnitType>(35286, KEY_UNIT_ID),
+        /* perPattern = */ new FieldArrow(35519),
+        /* timesPattern = */ new FieldArrow(35520)
       )
     ),
     /* ContextTransforms = */ new ContextTransformsSchema(
-      /* contextTransforms = */ new Vector1Arrow<ContextTransformFieldType>(35481, KEY_CONTEXT_TRANSFORM_FIELD)
+      /* contextTransforms = */ new Vector1Arrow<ContextTransformFieldType>(35521, KEY_CONTEXT_TRANSFORM_FIELD)
     )  );
 
 }

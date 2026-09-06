@@ -17,6 +17,8 @@ public class GregorianSchema extends CalendarSchema {
       Vector2Arrow<String, DateTimePatternFieldType> intervalFormats,
       Vector1Arrow<FormatWidthType> dateFormats,
       Vector1Arrow<FormatWidthType> timeFormats,
+      Vector1Arrow<FormatWidthType> dateSkeletons,
+      Vector1Arrow<FormatWidthType> timeSkeletons,
       Vector1Arrow<FormatWidthType> dateTimeFormats,
       Vector1Arrow<FormatWidthType> dateTimeFormatsAt,
       FieldArrow intervalFormatFallback) {
@@ -29,6 +31,8 @@ public class GregorianSchema extends CalendarSchema {
       intervalFormats,
       dateFormats,
       timeFormats,
+      dateSkeletons,
+      timeSkeletons,
       dateTimeFormats,
       dateTimeFormatsAt,
       intervalFormatFallback

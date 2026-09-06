@@ -16,6 +16,8 @@ public class CalendarSchema {
   public final Vector2Arrow<String, DateTimePatternFieldType> intervalFormats;
   public final Vector1Arrow<FormatWidthType> dateFormats;
   public final Vector1Arrow<FormatWidthType> timeFormats;
+  public final Vector1Arrow<FormatWidthType> dateSkeletons;
+  public final Vector1Arrow<FormatWidthType> timeSkeletons;
   public final Vector1Arrow<FormatWidthType> dateTimeFormats;
   public final Vector1Arrow<FormatWidthType> dateTimeFormatsAt;
   public final FieldArrow intervalFormatFallback;
@@ -29,6 +31,8 @@ public class CalendarSchema {
       Vector2Arrow<String, DateTimePatternFieldType> intervalFormats,
       Vector1Arrow<FormatWidthType> dateFormats,
       Vector1Arrow<FormatWidthType> timeFormats,
+      Vector1Arrow<FormatWidthType> dateSkeletons,
+      Vector1Arrow<FormatWidthType> timeSkeletons,
       Vector1Arrow<FormatWidthType> dateTimeFormats,
       Vector1Arrow<FormatWidthType> dateTimeFormatsAt,
       FieldArrow intervalFormatFallback) {
@@ -40,6 +44,8 @@ public class CalendarSchema {
     this.intervalFormats = intervalFormats;
     this.dateFormats = dateFormats;
     this.timeFormats = timeFormats;
+    this.dateSkeletons = dateSkeletons;
+    this.timeSkeletons = timeSkeletons;
     this.dateTimeFormats = dateTimeFormats;
     this.dateTimeFormatsAt = dateTimeFormatsAt;
     this.intervalFormatFallback = intervalFormatFallback;

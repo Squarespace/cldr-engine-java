@@ -1,6 +1,6 @@
 package com.squarespace.cldrengine.api;
 
-class CalendarConstants {
+public class CalendarConstants {
 
   public static final int ISO8601_MIN_DAYS = 4;
 
@@ -13,6 +13,8 @@ class CalendarConstants {
   // Date of cutover to the Gregorian calendar, Oct 15, 1582
   public static final long JD_GREGORIAN_CUTOVER = 2299161;
   public static final long JD_GREGORIAN_CUTOVER_YEAR = 1582;
+  public static final long JD_GREGORIAN_CUTOVER_MONTH = 10;
+  public static final long JD_GREGORIAN_CUTOVER_DAY = 15;
 
   // Julian day for Jan 1, 1 first day of the Gregorian calendar common era
   public static final long JD_GREGORIAN_EPOCH = 1721426;

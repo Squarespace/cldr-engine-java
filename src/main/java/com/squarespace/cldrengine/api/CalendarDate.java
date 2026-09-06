@@ -8,9 +8,8 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-import com.squarespace.cldrengine.calendars.DayOfWeek;
-import com.squarespace.cldrengine.calendars.TimeZoneData;
 import com.squarespace.cldrengine.calendars.ZoneInfo;
+import com.squarespace.cldrengine.internal.CalendarMath;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.MathFix;
 
@@ -801,14 +800,11 @@ public abstract class CalendarDate {
   }
 
   protected void initFromUnixEpoch(long ms, String zoneId) {
-    zoneId = TimeZoneData.substituteZoneAlias(zoneId);
-    this.zoneInfo = TimeZoneData.zoneInfoFromUTC(zoneId, ms);
-    jdFromUnixEpoch(ms + this.zoneInfo.offset, this.fields);
-    computeBaseFields(this.fields);
+    this.zoneInfo = CalendarMath.initBaseFromUnixEpoch(this.fields, ms, zoneId);
   }
 
   protected void initFromJD(long jd, long msDay, String zoneId) {
-    long unixEpoch = unixEpochFromJD(jd, msDay);
+    long unixEpoch = CalendarMath.unixEpochFromJD(jd, msDay);
     this.initFromUnixEpoch(unixEpoch, zoneId);
   }
 
@@ -899,71 +895,10 @@ public abstract class CalendarDate {
   protected long[] utcfields() {
     long u = this.unixEpoch();
     long[] f = Arrays.copyOf(this.fields, this.fields.length);
-    jdFromUnixEpoch(u, f);
-    computeBaseFields(f);
+    CalendarMath.fieldsFromUnixEpoch(u, f);
+    CalendarMath.computeBaseFields(f);
     initFields(f);
     return f;
-  }
-
-  /**
-   * Compute Julian day from timezone-adjusted Unix epoch milliseconds.
-   */
-  protected void jdFromUnixEpoch(long ms, long[] f) {
-    long oneDayMS = CalendarConstants.ONE_DAY_MS;
-    long days = MathFix.floorDiv(ms, oneDayMS);
-    long jd = days + CalendarConstants.JD_UNIX_EPOCH;
-    long msDay = ms - (days * oneDayMS);
-
-    f[DateField.JULIAN_DAY] = jd;
-    f[DateField.MILLIS_IN_DAY] = msDay;
-  }
-
-  /**
-   * Given a Julian day and local milliseconds (in UTC), return the Unix
-   * epoch milliseconds UTC.
-   */
-  protected long unixEpochFromJD (long jd, long msDay) {
-    long days = jd - CalendarConstants.JD_UNIX_EPOCH;
-    return (days * CalendarConstants.ONE_DAY_MS) + msDay;
-  }
-
-  /**
-   * Compute fields common to all calendars. Before calling this, we must
-   * have the JULIAN_DAY and MILLIS_IN_DAY fields set. Every calculation
-   * is relative to these.
-   */
-  protected void computeBaseFields(long[] f) {
-    long jd = clamp(f[DateField.JULIAN_DAY], CalendarConstants.JD_MIN, CalendarConstants.JD_MAX);
-//    checkJDRange(jd);
-
-    long msDay = f[DateField.MILLIS_IN_DAY];
-    long ms = msDay + ((jd - CalendarConstants.JD_UNIX_EPOCH) * CalendarConstants.ONE_DAY_MS);
-
-    f[DateField.LOCAL_MILLIS] = ms;
-    f[DateField.JULIAN_DAY] = jd;
-    f[DateField.MILLIS_IN_DAY] = msDay;
-    f[DateField.MILLIS] = msDay % 1000;
-
-    msDay = msDay / 1000;
-    f[DateField.SECOND] = msDay % 60;
-
-    msDay = msDay / 60;
-    f[DateField.MINUTE] = msDay % 60;
-
-    msDay = msDay / 60;
-    f[DateField.HOUR_OF_DAY] = msDay;
-    f[DateField.AM_PM] = msDay / 12;
-    f[DateField.HOUR] = msDay % 12;
-
-    long dow = (jd + DayOfWeek.MONDAY) % 7;
-    if (dow < DayOfWeek.SUNDAY) {
-      dow += 7;
-    }
-    f[DateField.DAY_OF_WEEK] = dow;
-  }
-
-  private static long clamp(long n, long min, long max) {
-    return n < min ? min : (n > max ? max : n);
   }
 
 //  protected long checkJDRange(long jd) {

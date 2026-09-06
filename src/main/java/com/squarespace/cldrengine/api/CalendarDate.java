@@ -28,6 +28,38 @@ public abstract class CalendarDate {
       of(DateField.SECOND, DateTimePatternFieldType.SECOND)
       );
 
+  /**
+   * Factory shape of a calendar's static `fromUnixEpoch`, used by the
+   * `_gregorian` hook to render any date's fields in the Gregorian calendar.
+   * Port of the TS forward reference `CalendarDate._gregorian`
+   * (calendar.ts:44-45, tag v1.15.0).
+   */
+  @FunctionalInterface
+  protected interface FromUnixEpoch {
+    CalendarDate from(CalendarDate d, boolean utc, int firstDay, int minDays);
+  }
+
+  /**
+   * Installed by GregorianDate's static initializer (TS gregorian.ts module-
+   * load `_init`). Used by {@link #_toISOString(CalendarDate, boolean)};
+   * ISO strings are ALWAYS rendered in the Gregorian calendar.
+   */
+  protected static FromUnixEpoch _gregorian;
+
+  static {
+    // JVM note: make sure the _gregorian hook is installed before any date is
+    // used, even when the first date constructed is a non-Gregorian calendar
+    // (PersianDate, BuddhistDate, ...). A static FIELD read triggers class
+    // initialization (JLS 12.4.1) whereas a `GregorianDate.class` reference
+    // does not. HOOK_READY is deliberately not a compile-time constant (JLS
+    // 4.12.4) — a `static final boolean X = true` would be constant-folded at
+    // every use site and never force initialization.
+    if (GregorianDate.HOOK_READY) {
+      // intentional no-op: the field read above forces GregorianDate's
+      // static initializer to run, installing CalendarDate._gregorian.
+    }
+  }
+
   protected final long[] fields = new long[DateField.LENGTH];
   protected final CalendarType type;
   protected final int firstDay;
@@ -54,6 +86,26 @@ public abstract class CalendarDate {
    */
   public CalendarType type() {
     return this.type;
+  }
+
+  /**
+   * Returns a formatted ISO-8601 string of the date in UTC. Note that this
+   * always returns a date in the Gregorian calendar.
+   *
+   * Port of calendar.ts `toISOString` (tag v1.15.0).
+   */
+  public String toISOString() {
+    return this._toISOString(this, true);
+  }
+
+  /**
+   * Returns a formatted ISO 8601 string of the date with local timezone
+   * offset. Note that this always returns a date in the Gregorian calendar.
+   *
+   * Port of calendar.ts `toLocalISOString` (tag v1.15.0).
+   */
+  public String toLocalISOString() {
+    return this._toISOString(this, false);
   }
 
   /**
@@ -200,6 +252,68 @@ public abstract class CalendarDate {
         .second(this.second())
         .millis(this.milliseconds())
         .zoneId(this.timeZoneId());
+  }
+
+  /**
+   * Return a java.util.Date instance with the same instant as this date.
+   *
+   * TS `asJSDate()` is `new Date(this.toLocalISOString())`: the ISO string is
+   * parsed back to the epoch instant. `date.js` `new Date(ms)` and
+   * `Date.parse(isoString)` yield the same instant, so
+   * {@code new java.util.Date(this.unixEpoch())} is the equivalent.
+   *
+   * Port of calendar.ts `asJSDate` (tag v1.15.0).
+   */
+  public java.util.Date asJavaDate() {
+    return new java.util.Date(this.unixEpoch());
+  }
+
+  /**
+   * Return a string containing the date.
+   *
+   * Port of calendar.ts `toDateString` (tag v1.15.0).
+   */
+  public String toDateString() {
+    long y = this.extendedYear();
+    boolean neg = y < 0;
+    return (neg ? "-" : "") + zeropad(Math.abs(y), 4)
+        + "-" + zeropad(this.month(), 2) + "-" + zeropad(this.dayOfMonth(), 2);
+  }
+
+  /**
+   * Return a string containing the time, with optional timezone.
+   *
+   * Port of calendar.ts `toTimeString` (tag v1.15.0).
+   */
+  public String toTimeString(TimeStringOptions options) {
+    String s = zeropad(this.hourOfDay(), 2) + ":" + zeropad(this.minute(), 2)
+        + ":" + zeropad(this.second(), 2);
+    long ms = this.milliseconds();
+
+    // Check if user disabled display of milliseconds when zero
+    boolean showMilliseconds = !(options != null && options.optionalMilliseconds.or(false) && ms == 0);
+    if (showMilliseconds) {
+      s += "." + zeropad(ms, 3);
+    }
+    if (options != null) {
+      if (options.includeZoneOffset.or(false)) {
+        s += formatZoneOffset(this);
+      }
+      if (options.includeZoneId.or(false)) {
+        s += " " + this.timeZoneId();
+      }
+    }
+    return s;
+  }
+
+  /**
+   * Return a compact string containing just date and time, with optional
+   * timezone.
+   *
+   * Port of calendar.ts `toDateTimeString` (tag v1.15.0).
+   */
+  public String toDateTimeString(TimeStringOptions options) {
+    return this.toDateString() + " " + this.toTimeString(options);
   }
 
   public boolean isAM() {
@@ -584,6 +698,80 @@ public abstract class CalendarDate {
   protected void initFromJD(long jd, long msDay, String zoneId) {
     long unixEpoch = CalendarMath.unixEpochFromJD(jd, msDay);
     this.initFromUnixEpoch(unixEpoch, zoneId);
+  }
+
+  /**
+   * Render the date as an ISO-8601 string, always in the Gregorian calendar
+   * (via the `_gregorian` hook). The offset suffix is derived from THIS
+   * date's zone: 'Z' in UTC mode, otherwise the local offset rendered as
+   * {@code ±HH:MM} with a '0'-padded base 60 offset (LMT offsets like
+   * -04:56 included).
+   *
+   * Port of calendar.ts `_toISOString` (calendar.ts:755-771, tag v1.15.0).
+   */
+  private String _toISOString(CalendarDate d, boolean utc) {
+    d = _gregorian.from(this, utc, this.firstDay, this.minDays);
+    String z = "Z";
+    if (!utc) {
+      // TS: (timeZoneOffset() / ONE_MINUTE_MS) | 0 — ToInt32 truncation.
+      // Java long division truncates toward zero identically; `%` keeps the
+      // dividend's sign and zeropad strips it, so -296 minutes yields
+      // "-04:56" exactly as in TS.
+      long o = this.timeZoneOffset() / CalendarConstants.ONE_MINUTE_MS;
+      z = (o < 0 ? "-" : "+") + zeropad(o / 60, 2) + ":" + zeropad(o % 60, 2);
+    }
+    long y = d.extendedYear();
+    boolean neg = y < 0;
+    return (neg ? "-" : "") + zeropad(Math.abs(y), 4)
+        + "-" + zeropad(d.month(), 2) + "-" + zeropad(d.dayOfMonth(), 2)
+        + "T" + zeropad(d.hourOfDay(), 2) + ":" + zeropad(d.minute(), 2)
+        + ":" + zeropad(d.second(), 2) + "." + zeropad(d.milliseconds(), 3) + z;
+  }
+
+  /**
+   * Format a zone offset as {@code +HH:MM}, used by toTimeString when
+   * includeZoneOffset is set. Port of calendar.ts `formatZoneOffset`
+   * (calendar.ts:920-930, tag v1.15.0), which consumes {@code getTZC}: the
+   * offset is negated and split into absolute hour/minute components; the
+   * sign is '+' for a zero offset.
+   *
+   * NB: this deliberately does NOT share code with the calendar formatter's
+   * own offset rendering — the two renderings must stay byte-identical to TS.
+   */
+  private static String formatZoneOffset(CalendarDate date) {
+    long offset = date.timeZoneOffset();
+    boolean negative = offset < 0;
+    if (negative) {
+      offset *= -1;
+    }
+    offset /= 60000;
+    long hours = offset / 60;
+    long minutes = offset % 60;
+    boolean zero = hours == 0 && minutes == 0;
+    String s = zero ? "+" : (negative ? "-" : "+");
+    s += zeropad(hours, 2);
+    s += ":";
+    s += zeropad(minutes, 2);
+    return s;
+  }
+
+  /**
+   * Port of TS `zeropad` (calendar.ts:12, tag v1.15.0) which delegates to
+   * INTERNAL_NUMBERING.formatString -> fastFormatDecimal: all non-digit
+   * characters (including '-') are stripped from the integer, then the result
+   * is left-padded with '0' to the given width. E.g. zeropad(-5, 2) == "05",
+   * zeropad(-56, 2) == "56".
+   */
+  private static String zeropad(long n, int w) {
+    String s = Long.toString(Math.abs(n));
+    if (s.length() >= w) {
+      return s;
+    }
+    StringBuilder buf = new StringBuilder(w);
+    for (int i = s.length(); i < w; i++) {
+      buf.append('0');
+    }
+    return buf.append(s).toString();
   }
 
   protected String _toString(String type) {

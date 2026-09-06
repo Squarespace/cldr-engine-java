@@ -11,6 +11,27 @@ import com.squarespace.cldrengine.internal.GregorianMath;
  */
 public class GregorianDate extends CalendarDate {
 
+  /**
+   * Marker referenced from CalendarDate's static block to force this class's
+   * initialization (and thereby the install of {@code CalendarDate._gregorian})
+   * before any date is used.
+   *
+   * NB: this is deliberately NOT a compile-time constant — a {@code static
+   * final boolean X = true} initializer would make it a constant variable (JLS
+   * 4.12.4) that javac folds at every use site, and a constant read does NOT
+   * trigger class initialization (JLS 12.4.1). Assigning it from the static
+   * initializer below keeps HOOK_READY an ordinary (non-constant) field.
+   */
+  static final boolean HOOK_READY;
+
+  static {
+    // TS gregorian.ts module-load static `_init`: (d, utc, fd, md) =>
+    // GregorianDate.fromUnixEpoch(d.unixEpoch(), utc ? 'Etc/UTC' : d.timeZoneId(), fd, md)
+    CalendarDate._gregorian = (d, utc, fd, md) -> GregorianDate.fromUnixEpoch(
+        d.unixEpoch(), utc ? "Etc/UTC" : d.timeZoneId(), fd, md);
+    HOOK_READY = true;
+  }
+
   // TS gregorian.ts ZEROS: defaults applied by fromFields (no zoneId).
   private static final CalendarDateFields ZEROS = CalendarDateFields.build()
       .year(1970).month(1).day(1).hour(0).minute(0).second(0).millis(0);

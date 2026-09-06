@@ -14,6 +14,7 @@ import com.squarespace.cldrengine.decimal.DecimalFormatter;
 import com.squarespace.cldrengine.decimal.DecimalMath;
 import com.squarespace.cldrengine.decimal.DecimalMath.DivideResult;
 import com.squarespace.cldrengine.decimal.DecimalMath.MathCtx;
+import com.squarespace.cldrengine.decimal.PartsDecimalFormatter;
 import com.squarespace.cldrengine.decimal.StringDecimalFormatter;
 
 import lombok.AllArgsConstructor;
@@ -633,9 +634,68 @@ public class Decimal {
     return this.flag != 0 ? this.formatFlags() : this.formatString(this, 1);
   }
 
-  // TODO: toParts
+  /**
+   * Return the integer part.
+   */
+  public Decimal toInteger() {
+    return this.flag != 0 ? this : this.setScale(0, RoundingModeType.DOWN);
+  }
 
-  // TODO: toScientificParts
+  /**
+   * Format this number to scientific notation as a string.
+   */
+  public String toScientificString() {
+    return toScientificString(1);
+  }
+
+  /**
+   * Format this number to scientific notation as a string.
+   */
+  public String toScientificString(int minIntDigits) {
+    if (this.flag != 0) {
+      return this.formatFlags();
+    }
+    Scientific s = this.scientific(minIntDigits);
+    Decimal coeff = s.coefficient;
+    int exp = s.exponent;
+    String r = this.formatString(coeff, minIntDigits);
+    return coeff.isZero() ? r : exp == 0 ? r : r + "E" + (exp > 0 ? "+" : "") + exp;
+  }
+
+  /**
+   * Format this number to an array of parts.
+   */
+  public List<Part> toParts() {
+    return this.flag != 0 ? this.formatFlagsParts() : this.formatParts(this, 1);
+  }
+
+  /**
+   * Format this number to scientific notation as an array of parts.
+   */
+  public List<Part> toScientificParts() {
+    return toScientificParts(1);
+  }
+
+  /**
+   * Format this number to scientific notation as an array of parts.
+   */
+  public List<Part> toScientificParts(int minIntDigits) {
+    if (this.flag != 0) {
+      return this.formatFlagsParts();
+    }
+    Scientific s = this.scientific(minIntDigits);
+    Decimal coeff = s.coefficient;
+    int exp = s.exponent;
+    List<Part> r = this.formatParts(coeff, minIntDigits);
+    if (coeff.isZero() || exp == 0) {
+      return r;
+    }
+    List<Part> res = new ArrayList<>(r);
+    res.add(new Part("exp", "E"));
+    res.add(exp < 0 ? new Part("minus", "-") : new Part("plus", "+"));
+    res.add(new Part("integer", Integer.toString(Math.abs(exp))));
+    return res;
+  }
 
   /**
    * Low-level formatting of string and Part[] forms.
@@ -779,7 +839,16 @@ public class Decimal {
     }
   }
 
-  // TODO: formatFlagsParts
+  protected List<Part> formatFlagsParts() {
+    switch (this.flag) {
+      case DecimalFlag.NAN:
+        return Arrays.asList(new Part("nan", "NaN"));
+      case DecimalFlag.INFINITY:
+      default:
+        String s = this.sign == 1 ? "Infinity" : "-Infinity";
+        return Arrays.asList(new Part("infinity", s));
+    }
+  }
 
   protected String formatString(Decimal d, int minInt) {
     StringDecimalFormatter f = new StringDecimalFormatter();
@@ -788,7 +857,18 @@ public class Decimal {
     return d.sign == -1 ? "-" + r : r;
   }
 
-  // TODO: formatParts
+  protected List<Part> formatParts(Decimal d, int minInt) {
+    PartsDecimalFormatter f = new PartsDecimalFormatter(".", "");
+    d.format(f, ".", "", minInt, 1, 3, 3, true, DECIMAL_DIGITS);
+    List<Part> r = f.render();
+    if (d.sign == -1) {
+      List<Part> res = new ArrayList<>();
+      res.add(new Part("minus", "-"));
+      res.addAll(r);
+      return res;
+    }
+    return r;
+  }
 
   /**
    * Handle setting of flags for operations per the IEEE-754-2008 specification.

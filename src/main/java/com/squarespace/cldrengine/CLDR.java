@@ -107,10 +107,16 @@ public class CLDR {
   /**
    * Fetch the CLDR instance for the given locale id. If not an exact
    * match, the id will be resolved before fetching.
+   * <p>
+   * The instance is cached under the canonical resolved locale id, so every
+   * input spelling of the same resolved locale fetches the same instance
+   * ("en-US", "en-us", "en_US", "en-Latn-US" and "EN-US" all resolve to
+   * "en-Latn-US" and share one cached instance). This path delegates to
+   * {@link #get(CLocale)} so both entry points use the identical canonical
+   * keying.
    */
   public static CLDR get(String id) {
-    CLDR cldr = CLDRS.get(id);
-    return cldr == null ? get(resolveLocale(id), false) : cldr;
+    return get(resolveLocale(id));
   }
 
   /**
@@ -180,9 +186,9 @@ public class CLDR {
   }
 
   private static CLDR get(CLocale locale, boolean resolve) {
-    // Always resolve the locale before fetching to ensure the "id" is
-    // the minimal bundle identifier. This ensures the BUNDLES map
-    // does not grow without bound.
+    // Always resolve the locale before fetching so the cache is keyed by the
+    // resolved compact locale id (e.g. "en-Latn-US"), never the raw input
+    // spelling. This ensures the CLDRS map does not grow without bound.
     CLocale resolved = resolve ? resolveLocale(locale.tag()) : locale;
     CLDR cldr = build(resolved);
     return cldr == null ? build(DEFAULT_LOCALE) : cldr;

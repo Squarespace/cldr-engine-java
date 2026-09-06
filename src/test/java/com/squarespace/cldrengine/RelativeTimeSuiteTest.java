@@ -104,6 +104,9 @@ public class RelativeTimeSuiteTest extends CoverageSuite {
         case "dayOfWeek":
           opts.dayOfWeek(boolValue(raw));
           break;
+        case "allowWeeks":
+          opts.allowWeeks(boolValue(raw));
+          break;
       }
     }
     return opts;

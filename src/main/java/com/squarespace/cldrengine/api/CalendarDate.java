@@ -4,9 +4,7 @@ package com.squarespace.cldrengine.api;
 import static com.squarespace.cldrengine.api.Pair.of;
 
 import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 import com.squarespace.cldrengine.calendars.TimeZoneData;
 import com.squarespace.cldrengine.calendars.ZoneInfo;
@@ -14,7 +12,6 @@ import com.squarespace.cldrengine.internal.CalendarMath;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.MathFix;
 
-import lombok.AllArgsConstructor;
 
 public abstract class CalendarDate {
 
@@ -307,18 +304,34 @@ public abstract class CalendarDate {
   /**
    * Calculate the relative time between two dates. If a field is specified
    * the time will be calculated in terms of that single field. Otherwise
-   * the field of greatest difference will be used.
+   * the field will be auto-selected; WEEK is never auto-selected, it only
+   * appears when requested via {@code field} or {@code includeWeeks}.
+   *
+   * The result is signed: positive when {@code other} is after this date,
+   * negative when it is before (the 1.13.0 behavior change; callers must
+   * not flip the sign themselves).
+   *
+   * Port of calendar.ts:505-521 (tag v1.15.0).
    */
-  public Pair<TimePeriodField, Double> relativeTime(CalendarDate other, TimePeriodField field) {
-    Swap swap = this.swap(other);
-    TimePeriod diff = this._diff(swap.start, swap.startFields, swap.endFields);
-    TimePeriodField _field = field;
-    if (_field == null) {
-      _field = largestRelativeField(diff);
+  public Pair<TimePeriodField, Double> relativeTime(CalendarDate other, TimePeriodField field, DateDiffOptions options) {
+    if (options == null) {
+      options = DateDiffOptions.build();
     }
-    TimePeriod res = this._rollup(diff, swap.startFields, swap.endFields, Arrays.asList(_field));
-    Double value = getRelativeField(res, _field);
-    return Pair.of(_field, value);
+    TimePeriod result;
+
+    // If no field is specified, calculate the difference in all fields and select the largest.
+    if (field == null) {
+      DateDiffOptions copy = options.copy().rollupFractional(false);
+      // TS: { ...options, fields: undefined } — clear any fields restriction.
+      copy.fields((List<TimePeriodField>) null);
+      result = CalendarDifference.difference(this, other, copy);
+      field = relativeField(result);
+    }
+
+    // Calculate the difference in terms of the requested or auto-selected field.
+    result = CalendarDifference.difference(this, other, options.copy().fields(Arrays.asList(field)));
+    double value = periodField(result, field);
+    return Pair.of(field, value != 0.0 ? value : 0.0);
   }
 
   /**
@@ -503,49 +516,44 @@ public abstract class CalendarDate {
   protected abstract int daysInYear(long year);
   protected abstract long monthStart(long eyear, double month, boolean useMonth);
 
-  protected TimePeriodField largestRelativeField(TimePeriod p) {
-    if (p.year != 0.0) {
-      return TimePeriodField.YEAR;
-    }
-    if (p.month != 0.0) {
-      return TimePeriodField.MONTH;
-    }
-    if (p.week != 0.0) {
-      return TimePeriodField.WEEK;
-    }
-    if (p.day != 0.0) {
-      return TimePeriodField.DAY;
-    }
-    if (p.hour != 0.0) {
-      return TimePeriodField.HOUR;
-    }
-    if (p.minute != 0.0) {
-      return TimePeriodField.MINUTE;
-    }
-    if (p.second != 0.0) {
-      return TimePeriodField.SECOND;
+  /**
+   * Automatically select the best field to represent the time period.
+   * Iterates the fields in TIME_PERIOD_FIELDS order (year, month, week,
+   * day, hour, minute, second, millis — the TimePeriodField enum is declared
+   * in that order) and returns the first field whose value is non-zero (TS
+   * truthiness: -0.0 is falsy, so {@code != 0.0} matches). WEEK is not
+   * special-cased: the all-fields difference only computes a week value when
+   * weeks were requested.
+   *
+   * Port of calendar.ts:86-93 (tag v1.15.0).
+   */
+  private static TimePeriodField relativeField(TimePeriod p) {
+    for (TimePeriodField f : TimePeriodField.values()) {
+      if (periodField(p, f) != 0.0) {
+        return f;
+      }
     }
     return TimePeriodField.MILLIS;
   }
 
-  protected double getRelativeField(TimePeriod period, TimePeriodField field) {
+  private static double periodField(TimePeriod p, TimePeriodField field) {
     switch (field) {
       case YEAR:
-        return period.year;
+        return p.year;
       case MONTH:
-        return period.month;
+        return p.month;
       case WEEK:
-        return period.week;
+        return p.week;
       case DAY:
-        return period.day;
+        return p.day;
       case HOUR:
-        return period.hour;
+        return p.hour;
       case MINUTE:
-        return period.minute;
+        return p.minute;
       case SECOND:
-        return period.second;
+        return p.second;
       default:
-        return period.millis;
+        return p.millis;
     }
   }
 
@@ -564,298 +572,6 @@ public abstract class CalendarDate {
 
   private double invert(double v) {
     return v == 0 ? v : -v;
-  }
-
-  @AllArgsConstructor
-  protected static class Swap {
-    CalendarDate start;
-    long[] startFields;
-    CalendarDate end;
-    long[] endFields;
-  }
-
-  protected Swap swap(CalendarDate other) {
-    CalendarDate start = this;
-    CalendarDate end = other;
-    if (this.compare(other) == 1) {
-      CalendarDate tmp = start;
-      start = end;
-      end = tmp;
-    }
-    return new Swap(start, start.utcfields(), end, end.utcfields());
-  }
-
-  /**
-   * Roll up time period fields into a subset of fields.
-   */
-  protected TimePeriod _rollup(TimePeriod span, long[] sf, long[] ef, List<TimePeriodField> fields) {
-    int f = timePeriodFieldFlags(fields);
-    if (f == 0) {
-      return span;
-    }
-
-    int mc = this.monthCount();
-
-    double year = span.year;
-    double month = span.month;
-    double day = (span.week * 7) + span.day;
-    double ms = (span.hour * CalendarConstants.ONE_HOUR_MS) +
-        (span.minute * CalendarConstants.ONE_MINUTE_MS) +
-        (span.second * CalendarConstants.ONE_SECOND_MS) +
-        span.millis;
-
-    if (((f & FLAG_YEAR) != 0) && ((f & FLAG_MONTH) != 0)) {
-      // Both year and month were requested, so use their integer values.
-
-    } else if ((f & FLAG_MONTH) != 0) {
-      // Month was requested so convert years into months
-      month += year * mc;
-      year = 0;
-
-    } else if ((f & FLAG_YEAR) != 0 && month > 0) {
-      // Year was requested so convert months into days
-
-      // This is a little more verbose but necessary to accurately convert
-      // months into days. Example:
-      //
-      //  2001-03-11  and 2001-09-09   5 months and 29 days apart
-      //  == (last month days) + (full month days) + (first month days)
-      //  == 9 + 31 + 31 + 30 + 31 + 30 + (31 - 11)
-      //  == 182 days
-
-      long endy = ef[DateField.EXTENDED_YEAR];
-      long endm = ef[DateField.MONTH] - 1;
-
-      // TODO: create a cursor for year/month calculations to reduce
-      // the verbosity of this block
-
-      // Subtract the number of days to find the "day of month"
-      // relative to each of the months to be converted.
-      double dom = ef[DateField.DAY_OF_MONTH] - day;
-      if (dom < 0) {
-        endm--;
-        if (endm < 0) {
-          endm += mc;
-          endy--;
-        }
-        dom += this.daysInMonth(endy, (int)endm);
-      }
-
-      // Convert each month except the last into days
-      double tmpd = dom;
-      while (month > 1) {
-        endm--;
-        if (endm < 0) {
-          endm += mc;
-          endy--;
-        }
-        tmpd += this.daysInMonth(endy, (int)endm);
-        month--;
-      }
-
-      // Convert the last month into days
-      endm--;
-      if (endm < 0) {
-        endm += mc;
-        endy--;
-      }
-
-      tmpd += this.daysInMonth(endy, (int)endm) - dom;
-      day += tmpd;
-      month = 0;
-
-    } else {
-      // Neither year nor month were requested, so we ignore those parts
-      // of the time period, and re-calculate the days directly from the
-      // original date fields.
-      day = ef[DateField.JULIAN_DAY] - sf[DateField.JULIAN_DAY];
-      ms = ef[DateField.MILLIS_IN_DAY] - sf[DateField.MILLIS_IN_DAY];
-      if (ms < 0) {
-        day--;
-        ms += CalendarConstants.ONE_DAY_MS;
-      }
-      year = month = 0;
-    }
-
-    // We have integer year, month, and millis computed at this point
-
-    ms += CalendarConstants.ONE_DAY_MS * day;
-    day = 0;
-
-    long onedy = CalendarConstants.ONE_DAY_MS;
-    long onewk = onedy * 7;
-    long onehr = CalendarConstants.ONE_HOUR_MS;
-    long onemn = CalendarConstants.ONE_MINUTE_MS;
-
-    double week = 0;
-    double hour = 0;
-    double minute = 0;
-    double second = 0;
-    double millis = 0;
-
-    // Roll down
-    if ((f & FLAG_WEEK) != 0) {
-      week = Math.floor(ms / onewk);
-      ms -= week * onewk;
-    }
-    if ((f & FLAG_DAY) != 0) {
-      day = Math.floor(ms / onedy);
-      ms -= day * onedy;
-    }
-    if ((f & FLAG_HOUR) != 0) {
-      hour = Math.floor(ms / onehr);
-      ms -= hour * onehr;
-    }
-    if ((f & FLAG_MINUTE) != 0) {
-      minute = Math.floor(ms / onemn);
-      ms -= minute * onemn;
-    }
-    if ((f & FLAG_SECOND) != 0) {
-      second = Math.floor(ms / 1000);
-      ms -= second * 1000;
-    }
-    if ((f & FLAG_MILLIS) != 0) {
-      millis = ms;
-    }
-
-    double dayms = ms / CalendarConstants.ONE_DAY_MS;
-
-    // Roll up fractional
-    if (f < FLAG_MONTH) {
-      // Days in the last year before adding the remaining fields
-      long diy = this.daysInYear((long) (sf[DateField.EXTENDED_YEAR] + year));
-      year += (day + dayms) / diy;
-      day = 0;
-    } else if (f < FLAG_WEEK) {
-      long ey = ef[DateField.YEAR];
-      long em = ef[DateField.MONTH] - 2;
-      if (em < 0) {
-        em += mc;
-        ey--;
-      }
-      int dim = this.daysInMonth(ey, (int)em);
-      month += (day + dayms) / dim;
-    } else if (f < FLAG_DAY) {
-      week += (day + dayms) / 7;
-    } else if (f < FLAG_HOUR) {
-      day += dayms;
-    } else if (f < FLAG_MINUTE) {
-      hour += ms / onehr;
-    } else if (f < FLAG_SECOND) {
-      minute += ms / onemn;
-    } else if (f < FLAG_MILLIS) {
-      second += ms / 1000;
-    }
-
-    return TimePeriod.build()
-        .year(year)
-        .month(month)
-        .week(week)
-        .day(day)
-        .hour(hour)
-        .minute(minute)
-        .second(second)
-        .millis(millis);
-  }
-
-  /**
-   * Compute the number of years, months, days, etc, between two dates. The result will
-   * have all fields as integers.
-   */
-  protected TimePeriod _diff(CalendarDate s, long[] sf, long[] ef) {
-    // Use a borrow-based method to compute fields. If a field X is negative, we borrow
-    // from the next-higher field until X is positive. Repeat until all fields are
-    // positive.
-    long millis = ef[DateField.MILLIS_IN_DAY] - sf[DateField.MILLIS_IN_DAY];
-    long day = ef[DateField.DAY_OF_MONTH] - sf[DateField.DAY_OF_MONTH];
-    long month = ef[DateField.MONTH] - sf[DateField.MONTH];
-    long year = ef[DateField.EXTENDED_YEAR] - sf[DateField.EXTENDED_YEAR];
-
-    // Convert days into milliseconds
-    if (millis < 0) {
-      millis += CalendarConstants.ONE_DAY_MS;
-      day--;
-    }
-
-    // Convert months into days
-    // This is a little more complex since months can have 28, 29 30 or 31 days.
-    // We work backwards from the current month and successively convert months
-    // into days until days are positive.
-    int mc = s.monthCount();
-    long m = ef[DateField.MONTH] - 1; // convert to 0-based month
-    long y = ef[DateField.EXTENDED_YEAR];
-    while (day < 0) {
-      // move to previous month
-      m--;
-      // add back the number of days in the current month, wrapping around to December
-      if (m < 0) {
-        m += mc;
-        y--;
-      }
-      int dim = this.daysInMonth(y, (int)m);
-      day += dim;
-      month--;
-    }
-
-    // Convert years into months
-    if (month < 0) {
-      month += mc;
-      year--;
-    }
-
-    // Convert days to weeks
-    long week = day > 0 ? day / 7 : 0;
-    if (week > 0) {
-      day -= week * 7;
-    }
-
-    // Break down milliseconds into components
-    long hour = millis / CalendarConstants.ONE_HOUR_MS;
-    millis -= hour * CalendarConstants.ONE_HOUR_MS;
-    long minute = millis / CalendarConstants.ONE_MINUTE_MS;
-    millis -= minute * CalendarConstants.ONE_MINUTE_MS;
-    long second = millis / CalendarConstants.ONE_SECOND_MS;
-    millis -= second * CalendarConstants.ONE_SECOND_MS;
-
-    return TimePeriod.build()
-        .year(year)
-        .month(month)
-        .week(week)
-        .day(day)
-        .hour(hour)
-        .minute(minute)
-        .second(second)
-        .millis(millis);
-  }
-
-  protected int timePeriodFieldFlags(List<TimePeriodField> fields) {
-    int flags = 0;
-    for (TimePeriodField field : fields) {
-      flags |= FIELDMAP.get(field);
-    }
-    return flags;
-  }
-
-  private static final Map<TimePeriodField, Integer> FIELDMAP = new EnumMap<>(TimePeriodField.class);
-
-  private static final int FLAG_YEAR = 1;
-  private static final int FLAG_MONTH = 2;
-  private static final int FLAG_WEEK = 4;
-  private static final int FLAG_DAY = 8;
-  private static final int FLAG_HOUR = 16;
-  private static final int FLAG_MINUTE = 32;
-  private static final int FLAG_SECOND = 64;
-  private static final int FLAG_MILLIS = 128;
-
-  static {
-    FIELDMAP.put(TimePeriodField.YEAR, FLAG_YEAR);
-    FIELDMAP.put(TimePeriodField.MONTH, FLAG_MONTH);
-    FIELDMAP.put(TimePeriodField.WEEK, FLAG_WEEK);
-    FIELDMAP.put(TimePeriodField.DAY, FLAG_DAY);
-    FIELDMAP.put(TimePeriodField.HOUR, FLAG_HOUR);
-    FIELDMAP.put(TimePeriodField.MINUTE, FLAG_MINUTE);
-    FIELDMAP.put(TimePeriodField.SECOND, FLAG_SECOND);
-    FIELDMAP.put(TimePeriodField.MILLIS, FLAG_MILLIS);
   }
 
   /**
@@ -952,15 +668,6 @@ public abstract class CalendarDate {
     }
     long weekNo = MathFix.floorDiv(desiredDay + psow - 1, 7);
     return ((7 - psow) >= minDays) ? weekNo + 1 : weekNo;
-  }
-
-  protected long[] utcfields() {
-    long u = this.unixEpoch();
-    long[] f = Arrays.copyOf(this.fields, this.fields.length);
-    CalendarMath.fieldsFromUnixEpoch(u, f);
-    CalendarMath.computeBaseFields(f);
-    initFields(f);
-    return f;
   }
 
 //  protected long checkJDRange(long jd) {

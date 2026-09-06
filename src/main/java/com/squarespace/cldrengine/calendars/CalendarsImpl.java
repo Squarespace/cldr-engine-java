@@ -21,6 +21,7 @@ import com.squarespace.cldrengine.api.DateFormatOptions;
 import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
 import com.squarespace.cldrengine.api.DateRawFormatOptions;
 import com.squarespace.cldrengine.api.Decimal;
+import com.squarespace.cldrengine.api.DateDiffOptions;
 import com.squarespace.cldrengine.api.ExemplarCity;
 import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.GregorianDate;
@@ -222,14 +223,22 @@ public class CalendarsImpl implements Calendars {
 
   @Override
   public String formatRelativeTime(CalendarDate start, CalendarDate end, RelativeTimeFormatOptions options) {
-    options = defaulter(options, RelativeTimeFormatOptions::build)
-        .mergeIf(RELATIVE_OPTIONS_DEFAULT);
-    Pair<TimePeriodField, Double> res = start.relativeTime(end, options.field.get());
+    // TS api/calendars.ts: options = options || { width: 'wide',
+    // maximumFractionDigits: 0, group: true }. The round-to-integer
+    // maximumFractionDigits default applies ONLY when no options are passed;
+    // when options are provided any unset maximumFractionDigits must stay
+    // undefined so the NumberContext fraction-digit resolution can raise it
+    // (TS parity, e.g. minimumFractionDigits: 1 -> amount 1.5 stays 1.5).
+    if (options == null) {
+      options = RELATIVE_OPTIONS_DEFAULT;
+    }
+    // TS api/calendars.ts:346-349: signed difference with rollupFractional
+    // and includeWeeks=allowWeeks. The signed result handles direction, so
+    // no manual sign flip (1.13.0 behavior change).
+    Pair<TimePeriodField, Double> res = start.relativeTime(end, options.field.or(null),
+        DateDiffOptions.build().rollupFractional(true).includeWeeks(options.allowWeeks.or(null)));
     TimePeriodField field = res._1;
     double amount = res._2;
-    if (start.compare(end) == 1) {
-      amount *= -1;
-    }
 
     if (field == TimePeriodField.MILLIS) {
       amount /= 1000.0;

@@ -54,6 +54,11 @@ const DIM_DOW = new Dimension<RelativeTimeFormatOptions>('dayOfWeek', [
   false,
   true,
 ]);
+const DIM_ALLOWWEEKS = new Dimension<RelativeTimeFormatOptions>('allowWeeks', [
+  undefined,
+  true,
+  false,
+]);
 const DIM_FIELD = new Dimension<RelativeTimeFormatOptions>('field', [
   undefined,
   'year',
@@ -207,7 +212,7 @@ export const relativeSuite = (root: string) => {
   timed(name, () => buildRelativeTimeFormat(
     join(root, name),
     'formatRelativeTime',
-    [DIM_DOW, DIM_FIELD],
+    [DIM_DOW, DIM_FIELD, DIM_ALLOWWEEKS],
   ));
 
   name =  'relativetime-field.txt';

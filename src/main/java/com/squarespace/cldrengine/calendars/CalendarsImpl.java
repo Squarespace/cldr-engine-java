@@ -530,6 +530,22 @@ public class CalendarsImpl implements Calendars {
   }
 
   @Override
+  public ZoneInfo timeZoneFromUTC(long utc, String zoneId) {
+    // TS api/calendars.ts: TZ.fromUTC(zoneid, utc); unknown ids yield
+    // undefined, which maps to null here.
+    TimeZoneData.TZInfo info = TimeZoneData.fromUTC(zoneId, utc);
+    return info == null ? null : TimeZoneData.toZoneInfo(zoneId, info, utc);
+  }
+
+  @Override
+  public Pair<Long, ZoneInfo> timeZoneFromWall(long wall, String zoneId) {
+    // TS api/calendars.ts: TZ.fromWall(zoneid, wall); unknown ids yield
+    // undefined, which maps to null here.
+    Pair<Long, TimeZoneData.TZInfo> res = TimeZoneData.fromWall(zoneId, wall);
+    return res == null ? null : Pair.of(res._1, TimeZoneData.toZoneInfo(zoneId, res._2, res._1));
+  }
+
+  @Override
   public List<Quantity> timePeriodToQuantity(TimePeriod period) {
     // TS api/calendars.ts:444-455: iterate TIME_PERIOD_FIELDS in order
     // (year, month, week, day, hour, minute, second, millis) and emit a

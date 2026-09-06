@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.squarespace.cldrengine.calendars.ZoneInfo;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 
 public interface Calendars {
@@ -301,6 +302,27 @@ public interface Calendars {
    * localized exemplar city.
    */
   TimeZoneInfo timeZoneInfo(String zoneId);
+
+  /**
+   * Return the timezone info (abbreviation, dst flag and offset from UTC)
+   * for the given timezone id at a UTC timestamp.
+   *
+   * Returns null if the timezone id does not match a known zone or alias.
+   */
+  ZoneInfo timeZoneFromUTC(long utc, String zoneId);
+
+  /**
+   * Return the resolved UTC timestamp and timezone info for the given
+   * timezone id and local "wall clock" timestamp.
+   *
+   * Since daylight savings time can result in a clock being moved backwards,
+   * resolving a wall clock time to a UTC time can be ambiguous. The returned
+   * UTC timestamp resolves the ambiguity in the most intuitive way: for a
+   * time that occurs twice, the earlier (pre-transition) offset is used.
+   *
+   * Returns null if the timezone id does not match a known zone or alias.
+   */
+  Pair<Long, ZoneInfo> timeZoneFromWall(long wall, String zoneId);
 
   /**
    * Convert a time period into an array of quantity objects, in field order (year, month, week, day, hour, minute,

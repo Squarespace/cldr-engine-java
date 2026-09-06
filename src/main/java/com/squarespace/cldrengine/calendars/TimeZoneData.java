@@ -83,7 +83,14 @@ public class TimeZoneData {
     if (info == null) {
       info = UTC;
     }
+    return toZoneInfo(zoneId, info, utc);
+  }
 
+  /**
+   * Map a raw timezone info record to the richer API-facing {@link ZoneInfo},
+   * resolving the CLDR stable id and metazone id at the given UTC timestamp.
+   */
+  static ZoneInfo toZoneInfo(String zoneId, TZInfo info, long utc) {
     // For the purposes of CLDR stable timezone ids, check if the passed-in
     // id is an alias to a current/valid tzdb id.
     boolean isstable = CLDR_STABLEIDS.contains(zoneId);

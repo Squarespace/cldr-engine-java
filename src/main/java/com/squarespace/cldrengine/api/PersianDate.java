@@ -2,7 +2,6 @@ package com.squarespace.cldrengine.api;
 
 import com.squarespace.cldrengine.internal.CalendarMath;
 import com.squarespace.cldrengine.internal.MathFix;
-import com.squarespace.cldrengine.utils.MathUtil;
 
 /**
  * Construct a date using the rules of the Persian calendar.
@@ -102,7 +101,7 @@ public class PersianDate extends CalendarDate {
   @Override
   protected long monthStart(long eyear, double month, boolean useMonth) {
     long jd = CalendarConstants.JD_PERSIAN_EPOCH - 1 + 365 * (eyear - 1) +
-          (long)Math.floor((8 * eyear + 21) / 33);
+          MathFix.floorDiv(8 * eyear + 21, 33);
     if (month != 0) {
       int m = (int)Math.floor(month);
       double d = month - m;
@@ -113,7 +112,7 @@ public class PersianDate extends CalendarDate {
       if (d != 0) {
         // number of days in Esfand determined by:
         // "number of days between two vernal equinoxes"
-        boolean isLeap = leapPersian(eyear - 1);
+        boolean isLeap = leapPersian(eyear);
 
         // note: the 'month' parameter must always be <= # months in the calendar
         // year, so <= 12 in this case.
@@ -143,9 +142,13 @@ public class PersianDate extends CalendarDate {
   }
 
   private boolean leapPersian(long year) {
-    long[] rem = new long[] { 0 };
-    MathUtil.floorDiv(25 * year + 11, 33, rem);
-    return rem[0] < 8;
+    // Mirrors the TS leapPersian, which reads the remainder from
+    // floorDiv(25*y+11, 33, rem). The TS floorDiv returns the C-style
+    // remainder (n % d, sign of the dividend) even though its quotient is
+    // floored, and negative years depend on that: e.g. y = -2 gives
+    // -39 % 33 = -6 (< 8, leap) in TS, while a true floor remainder (27)
+    // would not. Java's native % matches the TS remainder exactly.
+    return (25 * year + 11) % 33 < 8;
   }
 
   /**

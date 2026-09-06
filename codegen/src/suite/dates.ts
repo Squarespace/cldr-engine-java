@@ -70,7 +70,7 @@ const buildDates = (name: string, dims: Dimension<Partial<TimePeriod>>[]) => {
       results.push(d1);
       results.push(d2);
       for (const field of FIELDS) {
-        const d3 = start.difference(e1, [field]);
+        const d3 = start.difference(e1, { fields: [field] });
         results.push(d3);
       }
     }

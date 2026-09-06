@@ -13,13 +13,12 @@ import com.squarespace.cldrengine.utils.JsonUtils;
  */
 public class FileResourcePackLoader implements ResourcePackLoader {
 
-  private static final ConcurrentHashMap<String, ResourcePack> PACKS = new ConcurrentHashMap<>();
+  private final ConcurrentHashMap<String, ResourcePack> packs = new ConcurrentHashMap<>();
   private final Path directory;
   private final boolean compressed;
 
   public FileResourcePackLoader(Path directory) {
     this(directory, false);
-    System.out.println(directory.toAbsolutePath());
   }
 
   public FileResourcePackLoader(Path directory, boolean compressed) {
@@ -28,11 +27,13 @@ public class FileResourcePackLoader implements ResourcePackLoader {
   }
 
   public ResourcePack get(String language) {
-    return PACKS.computeIfAbsent(language, lang -> {
+    return packs.computeIfAbsent(language, lang -> {
       String name = language + (compressed ? ".json.gz" : ".json");
       Path path = this.directory.resolve(name);
       try {
-        JsonObject obj = JsonUtils.loadJsonFile(path.toString());
+        JsonObject obj = compressed
+            ? JsonUtils.loadJsonFileGzip(path.toString())
+            : JsonUtils.loadJsonFile(path.toString());
         return obj == null ? null : new ResourcePack(obj);
       } catch (IOException e) {
         throw new RuntimeException("Fatal: failed to load resource pack: '" + name + "'", e);

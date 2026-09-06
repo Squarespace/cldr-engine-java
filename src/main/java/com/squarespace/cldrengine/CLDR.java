@@ -43,7 +43,7 @@ public class CLDR {
 
   private static final ConcurrentHashMap<String, CLDR> CLDRS = new ConcurrentHashMap<>(100);
 
-  private static ResourcePackLoader loader = new DefaultResourcePackLoader();
+  private static volatile ResourcePackLoader loader = new DefaultResourcePackLoader();
 
   public final General General;
   public final Calendars Calendars;
@@ -64,9 +64,14 @@ public class CLDR {
 
   /**
    * Set a custom global resource pack loader for the library.
+   * <p>
+   * Mirrors the TypeScript framework semantics where a resource pack loader
+   * is fixed at construction: swapping the loader invalidates all previously
+   * built CLDR instances so the new loader takes effect immediately.
    */
   public void resourcePackLoader(ResourcePackLoader loader) {
     CLDR.loader = loader;
+    CLDRS.clear();
   }
 
   /**

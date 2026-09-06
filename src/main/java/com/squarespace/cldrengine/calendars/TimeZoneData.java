@@ -305,6 +305,17 @@ public class TimeZoneData {
     long[] offsets = StringUtils.longArray(root.get("offsets").getAsString());
     long[] untils = StringUtils.longArray(root.get("untils").getAsString());
 
+    // Metazone transition times in the CLDR data are epoch SECONDS; scale them
+    // to milliseconds before comparing against the milliseconds UTC timestamp
+    // in getMetazone. Preserve the "-1" sentinel that marks open-ended ranges.
+    // Mirrors the TypeScript engine, which maps the raw untils via
+    // numarray(raw.untils, 36).map(n => n === -1 ? n : n * 1000).
+    for (int i = 0; i < untils.length; i++) {
+      if (untils[i] != -1) {
+        untils[i] *= 1000;
+      }
+    }
+
     // Decode all metazone records
     METAZONES = new MetazoneRecord[index.length / 2];
     for (int i = 0; i < index.length; i += 2) {

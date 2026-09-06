@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
+
 public interface Calendars {
 
   /**
@@ -156,6 +158,13 @@ public interface Calendars {
   String formatDateRaw(CalendarDate date, DateRawFormatOptions options);
 
   /**
+   * Formats a date-time value to an array of parts using a raw date-time pattern.
+   *
+   * Warning: You should not use this for general formatting.
+   */
+  List<Part> formatDateRawToParts(CalendarDate date, DateRawFormatOptions options);
+
+  /**
    * Formats a date-time value to string.
    */
   String formatDate(CalendarDate date, DateFormatOptions options);
@@ -174,6 +183,15 @@ public interface Calendars {
    * Formats a date-time interval for the given skeleton to an array of parts.
    */
   List<Part> formatDateIntervalToParts(CalendarDate start, CalendarDate end, DateIntervalFormatOptions options);
+
+  /**
+   * Find the field of visual difference between two dates. For example, the dates "2019-03-31" and "2019-04-01" differ
+   * visually in the month field, even though the dates are only 1 day apart.
+   *
+   * This can be used by applications to select an appropriate skeleton for date interval formatting, e.g. to format
+   * "March 31 - April 01, 2019"
+   */
+  DateTimePatternFieldType fieldOfVisualDifference(CalendarDate a, CalendarDate b);
 
   /**
    * Formats a relative time field to string.
@@ -251,9 +269,17 @@ public interface Calendars {
    */
   Map<String, Object> weekdays(CalendarFieldsOptions options);
 
-  // formatDateRaw
+  /**
+   * Format a string date (already formatted) and string time (already formatted) into a string, joined using the
+   * locale's date-time wrapper pattern for the given width.
+   */
+  String formatDateWrapper(String date, String time, DateWrapperFormatOptions options);
 
-  // formatDateRawToParts
+  /**
+   * Format parts for a date and parts for a time into a parts array, joined using the locale's date-time wrapper
+   * pattern for the given width.
+   */
+  List<Part> formatDateWrapperToParts(List<Part> date, List<Part> time, DateWrapperFormatOptions options);
 
   /**
    * Return information about the locale's preferred and allowed time cycles.
@@ -276,6 +302,10 @@ public interface Calendars {
    */
   TimeZoneInfo timeZoneInfo(String zoneId);
 
-  // timePeriodToQuantity
+  /**
+   * Convert a time period into an array of quantity objects, in field order (year, month, week, day, hour, minute,
+   * second, millis). Fields with a value of zero are omitted.
+   */
+  List<Quantity> timePeriodToQuantity(TimePeriod period);
 
 }

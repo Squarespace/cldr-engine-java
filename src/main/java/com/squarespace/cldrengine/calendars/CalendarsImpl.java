@@ -3,6 +3,7 @@ package com.squarespace.cldrengine.calendars;
 import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
 import static com.squarespace.cldrengine.utils.TypeUtils.defaulter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -26,6 +27,7 @@ import com.squarespace.cldrengine.api.DateFormatAltOptions;
 import com.squarespace.cldrengine.api.DateFormatOptions;
 import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
 import com.squarespace.cldrengine.api.DateRawFormatOptions;
+import com.squarespace.cldrengine.api.DateWrapperFormatOptions;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.DateDiffOptions;
 import com.squarespace.cldrengine.api.EraAltType;
@@ -44,13 +46,16 @@ import com.squarespace.cldrengine.api.Option;
 import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.PersianDate;
+import com.squarespace.cldrengine.api.Quantity;
 import com.squarespace.cldrengine.api.RelativeTimeFieldFormatOptions;
 import com.squarespace.cldrengine.api.RelativeTimeFieldType;
 import com.squarespace.cldrengine.api.RelativeTimeFormatOptions;
 import com.squarespace.cldrengine.api.TimeData;
+import com.squarespace.cldrengine.api.TimePeriod;
 import com.squarespace.cldrengine.api.TimePeriodField;
 import com.squarespace.cldrengine.api.TimeZoneInfo;
 import com.squarespace.cldrengine.api.TimeZoneNameType;
+import com.squarespace.cldrengine.api.UnitType;
 import com.squarespace.cldrengine.internal.AbstractValue;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.Internals;
@@ -248,6 +253,7 @@ public class CalendarsImpl implements Calendars {
    * This can be used by applications to select an appropriate skeleton for date interval formatting, e.g. to format
    * "March 31 - April 01, 2019"
    */
+  @Override
   public DateTimePatternFieldType fieldOfVisualDifference(CalendarDate a, CalendarDate b) {
 
     // Determine calendar type to use for comparison. We use the type for
@@ -277,6 +283,11 @@ public class CalendarsImpl implements Calendars {
   }
 
   @Override
+  public List<Part> formatDateRawToParts(CalendarDate date, DateRawFormatOptions options) {
+    return this._formatDateRaw(new PartsValue(), date, options);
+  }
+
+  @Override
   public String formatDateInterval(CalendarDate start, CalendarDate end, DateIntervalFormatOptions options) {
     return this._formatInterval(new StringValue(), start, end, options);
   }
@@ -284,6 +295,16 @@ public class CalendarsImpl implements Calendars {
   @Override
   public List<Part> formatDateIntervalToParts(CalendarDate start, CalendarDate end, DateIntervalFormatOptions options) {
     return this._formatInterval(new PartsValue(), start, end, options);
+  }
+
+  @Override
+  public String formatDateWrapper(String date, String time, DateWrapperFormatOptions options) {
+    return this._formatDateWrapper(new StringValue(), date, time, options);
+  }
+
+  @Override
+  public List<Part> formatDateWrapperToParts(List<Part> date, List<Part> time, DateWrapperFormatOptions options) {
+    return this._formatDateWrapper(new PartsValue(), date, time, options);
   }
 
   @Override
@@ -508,6 +529,46 @@ public class CalendarsImpl implements Calendars {
     );
   }
 
+  @Override
+  public List<Quantity> timePeriodToQuantity(TimePeriod period) {
+    // TS api/calendars.ts:444-455: iterate TIME_PERIOD_FIELDS in order
+    // (year, month, week, day, hour, minute, second, millis) and emit a
+    // Quantity for each non-zero field; 'millis' maps to the unit
+    // 'millisecond'. The TimePeriodField enum is declared in TIME_PERIOD_FIELDS
+    // order. Truthiness `if (v)` matches `!= 0.0` (TS -0.0 is falsy).
+    List<Quantity> q = new ArrayList<>();
+    for (TimePeriodField f : TimePeriodField.values()) {
+      double v = timePeriodFieldValue(period, f);
+      if (v != 0.0) {
+        String unit = f == TimePeriodField.MILLIS ? "millisecond" : f.toString();
+        q.add(Quantity.build().value(new Decimal(v)).unit(UnitType.fromString(unit)));
+      }
+    }
+    return q;
+  }
+
+  private static double timePeriodFieldValue(TimePeriod period, TimePeriodField field) {
+    switch (field) {
+      case YEAR:
+        return period.year;
+      case MONTH:
+        return period.month;
+      case WEEK:
+        return period.week;
+      case DAY:
+        return period.day;
+      case HOUR:
+        return period.hour;
+      case MINUTE:
+        return period.minute;
+      case SECOND:
+        return period.second;
+      case MILLIS:
+      default:
+        return period.millis;
+    }
+  }
+
   protected static final RelativeTimeFieldType[] DOW_FIELDS = new RelativeTimeFieldType[] {
       RelativeTimeFieldType.SUN,
       RelativeTimeFieldType.MON,
@@ -624,6 +685,22 @@ public class CalendarsImpl implements Calendars {
     NumberParams params = this.privateApi.getNumberParams(options.numberSystem.get(), "default");
     CalendarContext<CalendarDate> ctx = this._context(date, params, options.context.get(), options.alt);
     return this.internals.calendars.formatDateTime(calendar, ctx, value, true, pattern, null, null);
+  }
+
+  /**
+   * Port of TS {@code _formatDateWrapper} (api/calendars.ts:520-529): select the calendar, look up the wrapper pattern
+   * for the given width (default 'medium') and atTime flag, parse it, then wrap the parts with the TIME first and the
+   * DATE second.
+   */
+  protected <R> R _formatDateWrapper(AbstractValue<R> value, R date, R time, DateWrapperFormatOptions options) {
+    options = defaulter(options, DateWrapperFormatOptions::build);
+    CalendarType calendar = this.internals.calendars.selectCalendar(bundle, options.calendar.get());
+    CalendarPatterns patterns = this.manager.getCalendarPatterns(calendar.value);
+    boolean atTime = options.atTime.or(true);
+    FormatWidthType width = options.width.or(FormatWidthType.MEDIUM);
+    WrapperPattern wrapper = this.internals.general.parseWrapper(patterns.getWrapperPattern(width, atTime));
+    value.wrap(wrapper, Arrays.asList(time, date));
+    return value.render();
   }
 
   protected <T extends CalendarDate> CalendarContext<T> _context(T date, NumberParams params, ContextType context,

@@ -157,7 +157,11 @@ public class DecimalMath {
     }
 
     int nplusm = n + m;
-    if (nplusm < m) {
+    // TS: if (nplusm < n) — the guard fires when the dividend has fewer
+    // digits than the divisor (m < 0). The original port inverted this to
+    // (nplusm < m), a condition that can never hold, so a degenerate input
+    // slipped through to an out-of-bounds read instead of a clean error.
+    if (nplusm < n) {
       throw new RuntimeException("n + m must be >= n, got " + m);
     }
 

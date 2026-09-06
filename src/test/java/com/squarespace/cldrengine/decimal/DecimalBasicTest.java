@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.MathContext;
+import com.squarespace.cldrengine.decimal.DecimalMath;
 
 public class DecimalBasicTest {
 
@@ -166,6 +167,30 @@ public class DecimalBasicTest {
 
   private static Decimal dec(String s) {
     return new Decimal(s);
+  }
+
+  /**
+   * DecimalMath.divide degenerate guard is inverted in the port
+   * (nplusm < m instead of TS nplusm < n). TS throws a clean Error when the
+   * dividend has fewer digits than the divisor; Java used to let the input
+   * slip into an out-of-bounds read.
+   *
+   * @see com.squarespace.cldrengine.decimal.DecimalMath#divide
+   */
+  @Test
+  public void testDivideDegenerateGuard() {
+    // u = [5], v = [1, 2] -> m = -1 (dividend 2 words shorter). All internal
+    // callers pre-align so this is only reachable directly.
+    try {
+      DecimalMath.divide(new long[] { 5 }, new long[] { 1, 2 });
+      fail("Expected exception for degenerate divide");
+    } catch (RuntimeException e) {
+      assertTrue(e.toString().contains("n + m must be >= n, got -1"), e.toString());
+    }
+
+    // Aligned inputs still work.
+    DecimalMath.DivideResult r = DecimalMath.divide(new long[] { 5, 1 }, new long[] { 5, 1 });
+    assertTrue(r.quotient.length > 0);
   }
 
 }

@@ -82,7 +82,9 @@ public class UnitConverter {
 
   /**
    * Convert the decimal value from `src` to `dst` units. Returns null when
-   * the category is unknown or no conversion path exists.
+   * the category is unknown or no conversion path exists. Affine
+   * conversions (e.g. temperature) apply the combined additive offset
+   * after the multiplicative factor.
    */
   public Decimal convert(String category, Decimal n, String src, String dst, MathContext ctx) {
     UnitConversion conv = this.get(category, src, dst);
@@ -93,6 +95,7 @@ public class UnitConverter {
     for (Rational c : conv.factors) {
       fac = fac.multiply(c, ctx);
     }
-    return n.multiply(fac.toDecimal(ctx), ctx);
+    Decimal res = n.multiply(fac.toDecimal(ctx), ctx);
+    return conv.offset != null ? res.add(conv.offset.toDecimal(ctx)) : res;
   }
 }

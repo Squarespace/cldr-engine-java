@@ -60,11 +60,13 @@ public class UnitConverterTest {
     // Categories are sorted.
     assertEquals(c.categories(), Arrays.asList("acceleration", "angle", "length"));
 
-    // Path and factors for revolution -> arc-minute.
+    // Path and factors for revolution -> arc-minute. Mirror of the post-tag
+    // TS converter.test.ts: the CLDR star table adds a direct inverse edge
+    // (1 revolution = 21600 arc-minutes).
     UnitConversion f = c.get("angle", "revolution", "arc-minute");
-    assertEquals(values(f.path), Arrays.asList("revolution", "degree", "arc-minute"));
+    assertEquals(values(f.path), Arrays.asList("revolution", "arc-minute"));
     assertEquals(f.factors.stream().map(r -> r.toString()).collect(Collectors.toList()),
-        Arrays.asList("360 / 1", "60 / 1"));
+        Arrays.asList("21600 / 1"));
 
     // Unknown unit within a known category.
     assertNull(c.get("angle", "unknown", "arc-minute"));

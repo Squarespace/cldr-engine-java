@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,7 +42,10 @@ public class UnitFactors {
   public final Set<UnitType> unitset = new HashSet<>();
   public final List<UnitType> units;
   private final List<FactorDef> factors;
-  private final Map<UnitType, Map<UnitType, Edge>> graph = new EnumMap<>(UnitType.class);
+  // Inner maps are insertion-ordered (LinkedHashMap) to mirror the TS plain-object
+  // graph: JS keys iterate in insertion order, and shortestPath relaxation order
+  // acts as the tie-break between equal-cost paths (see foot -> yard in LENGTH).
+  private final Map<UnitType, Map<UnitType, Edge>> graph = new LinkedHashMap<>();
   private final ConcurrentMap<UnitType, ConcurrentMap<UnitType, UnitConversion>> cache =
       new ConcurrentHashMap<>();
 
@@ -144,7 +148,7 @@ public class UnitFactors {
       // Convert src -> dst
       Map<UnitType, Edge> m = this.graph.get(src);
       if (m == null) {
-        m = new EnumMap<>(UnitType.class);
+        m = new LinkedHashMap<>();
         this.graph.put(src, m);
       }
       m.put(dst, new Edge(rat, off));
@@ -153,7 +157,7 @@ public class UnitFactors {
       // Inverting `dst = src × rat + off` gives `src = dst × (1/rat) − off/rat`.
       m = this.graph.get(dst);
       if (m == null) {
-        m = new EnumMap<>(UnitType.class);
+        m = new LinkedHashMap<>();
         this.graph.put(dst, m);
       }
       Edge tmp = m.get(src);

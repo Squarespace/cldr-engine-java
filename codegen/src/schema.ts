@@ -180,6 +180,25 @@ export const generateSchema = () => {
     }
     let code = API_PACKAGE;
     code += tojava(o);
+    if (o.name === 'UnitType') {
+      // Backfill for CLDR 48.2.0: convertUnits defines month-person,
+      // week-person, and year-person, which the last full generation
+      // (CLDR 48.0.0 beta 3) predates. Mirrors the hand edit made to
+      // @phensley/cldr-types autogen.units.ts.
+      const backfill = '//\n' +
+          '// Backfilled for CLDR 48.2.0: convertUnits defines month-person, week-person,\n' +
+          '// and year-person, which the last full generation predates.\n' +
+          '//\n\n';
+      code = code.replace('@Generated\n', backfill + '@Generated\n');
+      code = code.replace(
+        '  MINUTE("minute"),\n  MONTH("month"),',
+        '  MINUTE("minute"),\n  MONTH("month"),\n  MONTH_PERSON("month-person"),',
+      );
+      code = code.replace(
+        '  WEEK("week"),\n  YEAR("year"),',
+        '  WEEK("week"),\n  WEEK_PERSON("week-person"),\n  YEAR("year"),\n  YEAR_PERSON("year-person"),',
+      );
+    }
     write(join(apiDir, `${o.name}.java`), code);
   }
 

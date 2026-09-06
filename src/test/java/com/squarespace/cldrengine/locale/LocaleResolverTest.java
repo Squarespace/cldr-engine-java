@@ -53,7 +53,7 @@ public class LocaleResolverTest {
 
     assertEquals(removeLikelySubtags(tag("be-Cyrl-BY")), tag("be"));
     assertEquals(removeLikelySubtags(tag("be-BY")), tag("be"));
-    assertEquals(removeLikelySubtags(tag("und-BY")), tag("be"));
+    assertEquals(removeLikelySubtags(tag("und-BY")), tag("ru-BY"));
   }
 
   private static LanguageTag tag(String t) {

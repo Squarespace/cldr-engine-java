@@ -46,7 +46,7 @@ public class CalendarsApiTest {
 
     tz = EN.Calendars.timeZoneInfo(UTC);
     assertEquals(tz.id(), UTC);
-    assertEquals(tz.city().name(), "Unknown City");
+    assertEquals(tz.city().name(), "Unknown Location");
     assertEquals(tz.metazone(), "GMT");
     assertEquals(tz.latitude(), 0);
     assertEquals(tz.longitude(), 0);
@@ -55,11 +55,11 @@ public class CalendarsApiTest {
 
     tz = EN.Calendars.timeZoneInfo(UNK);
     assertEquals(tz.id(), UNK);
-    assertEquals(tz.city().name(), "Unknown City");
+    assertEquals(tz.city().name(), "Unknown Location");
 
     tz = EN.Calendars.timeZoneInfo(INVALID);
     assertEquals(tz.id(), UNK);
-    assertEquals(tz.city().name(), "Unknown City");
+    assertEquals(tz.city().name(), "Unknown Location");
 
     tz = ES.Calendars.timeZoneInfo(NEWYORK);
     assertEquals(tz.id(), NEWYORK);

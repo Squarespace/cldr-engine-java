@@ -23,6 +23,7 @@ public enum UnitCategory implements StringEnum<UnitCategory> {
   GRAPHICS("graphics"),
   LENGTH("length"),
   LIGHT("light"),
+  MAGNETIC("magnetic"),
   MASS("mass"),
   POWER("power"),
   PRESSURE("pressure"),

@@ -10,139 +10,140 @@ public class TimeZoneExternalData {
     "a/Anchorage";
 
   public static final String METAZONEDATA =
-    "{\"zoneindex\":\"87 3 8 c d e k 13 p r 1b 11 15 af 17 1c 1d 1e 1f 1g 1h 1k 23 28 2f 3i 1l 3y 1m 1n 1" +
-    "o 1p 1q 1r 1t 1u 1v 1w 1x 1y 20 21 22 24 25 26 27 29 2b 2c 2d 2g -1 2i 2k 2l 2m 2n 2o 2q 2r 2s 2t 2u" +
-    " 2v 2x 2y 31 32 33 34 35 36 3e 37 38 39 3a 3b 3c 3d 3f 3g 3h 3j 3p 3k 3m 3n 3o 3r 3s 3t 3v 3w 3x 3z " +
-    "40 41 42 43 44 45 46 49 4a 4b 4c 4d 4e 2w 4f 4g 4h 4i 4k 4l 5a 4n 4o 4p 4q 4r 4s 4t 4u 4v 4w 4x 4y 5" +
-    "0 55 56 57 58 59 5b 5c 5d 5e 5f 5g 5i 5j 5l 5m 5o 5p 5s 5t 5u 5v 5w 5x 5y 5z 61 a8 -1 63 64 67 68 69" +
-    " 6a 6b ag 6d 6e 6f 6g 7e 6h 6i 6j 6k 6l 6m 6n 6o 6p 6q 6r 66 6s 6u 6w 6x 6y 6z 71 72 73 74 75 77 78 " +
-    "79 7a 7b 7d 7f 7g 7h 7i 7j 7k 7l 7m 7n 7o 7p 7q -1 7r 7s 7t 7v 7w a9 7x 7y 7z 80 81 82 83 84 86 88 8" +
-    "9 8a 8b 8c 8d 8e 8f 8g 8h 8i 8j 8k -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1" +
-    " -1 -1 -1 -1 8k 8m 8n 8o a4 9u 9a 8t 8u 8w 8y 8z 9d 93 95 -1 96 97 99 9b 9c 9e 9g 9i 9k 9l 9z 9n 9q " +
-    "9r 9t 9v 9w 9x a0 a1 a2 a3 a5 -1 a7 ad ae ah ai aj ak al am ao ap ar as b9 bc av an aw ax ay b0 b2 b" +
-    "3 b4 b5 b6 b7 b8 bg bb bd bi bf\",\"metazoneids\":[\"GMT\",\"Africa_Eastern\",\"Europe_Western\",\"E" +
+    "{\"zoneindex\":\"8a 3 8 c d e k 13 p r 1b 11 15 aj 17 1c 1d 1e 1f 1g 1h 1k 23 28 2f 3j 1l 3z 1m 1n 1" +
+    "o 1p 1q 1r 1t 1u 1v 1w 1x 1y 20 21 22 24 25 26 27 29 2b 2c 2d 2g 2h 2j 2l 2m 2n 2o 2p 2r 2s 2t 2u 2v" +
+    " 2w 2y 2z 32 33 34 35 36 37 3f 38 39 3a 3b 3c 3d 3e 3g 3h 3i 3k 3q 3l 3n 3o 3p 3s 3t 3u 3w 3x 3y 40 " +
+    "41 42 43 44 45 46 47 4a 4b 4c 4d 4e 4f 2x 4g 4h 4i 4j 4l 4m 5b 4o 4p 4q 4r 4s 4t 4u 4v 4w 4x 4y 4z 5" +
+    "1 56 57 58 59 5a 5c 5d 5e 5f 5g 5h 5j 5k 5m 5n 5p 5q 5t 5u 5v 5w 5x 5y 5z 60 62 ac 64 65 66 69 6a 6b" +
+    " 6c 6d ak 6f 6g 6h 6i 7g 6j 6k 6l 6m 6n 6o 6p 6q 6r 6s 6t 68 6u 6w 6y 6z 70 71 73 74 75 76 77 79 7a " +
+    "7b 7c 7d 7f 7h 7i 7j 7k 7l 7m 7n 7o 7p 7q 7r 7s 7t 7u 7v 7w 7y 7z ad 80 81 82 83 84 85 86 87 89 8b 8" +
+    "c 8d 8e 8f 8g 8h 8i 8j 8k 8l 8m 8n -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1" +
+    " -1 -1 -1 -1 8n 8p 8q 8r a8 9y 9e 8w 8x 8z 91 92 9h 96 98 9a 99 9b 9d 9f 9g 9i 9k 9m 9o 9p a3 9r 9u " +
+    "9v 9x 9z a0 a1 a4 a5 a6 a7 a9 -1 ab ah ai al am an ao ap aq as at av aw bd bg az ar b0 b1 b2 b4 b6 b" +
+    "7 b8 b9 ba bb bc bk bf bh bm bj\",\"metazoneids\":[\"GMT\",\"Africa_Eastern\",\"Europe_Western\",\"E" +
     "urope_Central\",\"Africa_Western\",\"Africa_FarWestern\",\"Africa_Central\",\"Europe_Eastern\",\"Afr" +
     "ica_Southern\",\"Liberia\",\"Bering\",\"Hawaii_Aleutian\",\"Alaska_Hawaii\",\"Alaska\",\"Atlantic\"," +
     "\"Brasilia\",\"Argentina\",\"Argentina_Western\",\"Paraguay\",\"America_Mountain\",\"America_Central" +
     "\",\"Amazon\",\"Colombia\",\"America_Eastern\",\"Venezuela\",\"French_Guiana\",\"Mexico_Pacific\",\"" +
-    "Greenland_Western\",\"America_Pacific\",\"Yukon\",\"Acre\",\"Greenland\",\"Goose_Bay\",\"Ecuador\",\"" +
-    "Guyana\",\"Cuba\",\"Bolivia\",\"Peru\",\"Pierre_Miquelon\",\"Uruguay\",\"Noronha\",\"Dutch_Guiana\"," +
-    "\"Suriname\",\"Chile\",\"Dominican\",\"Greenland_Central\",\"Greenland_Eastern\",\"Newfoundland\",\"" +
+    "Chile\",\"Greenland_Western\",\"America_Pacific\",\"Yukon\",\"Acre\",\"Greenland\",\"Goose_Bay\",\"E" +
+    "cuador\",\"Guyana\",\"Cuba\",\"Bolivia\",\"Peru\",\"Pierre_Miquelon\",\"Uruguay\",\"Noronha\",\"Dutc" +
+    "h_Guiana\",\"Suriname\",\"Dominican\",\"Greenland_Central\",\"Greenland_Eastern\",\"Newfoundland\",\"" +
     "Australia_Western\",\"Casey\",\"Davis\",\"DumontDUrville\",\"Australia_Eastern\",\"Mawson\",\"New_Ze" +
     "aland\",\"Rothera\",\"Syowa\",\"Vostok\",\"Arabian\",\"Almaty\",\"Kazakhstan_Eastern\",\"Kazakhstan\"" +
-    ",\"Anadyr\",\"Magadan\",\"Shevchenko\",\"Aqtau\",\"Kazakhstan_Western\",\"Aktyubinsk\",\"Aqtobe\",\"" +
-    "Ashkhabad\",\"Turkmenistan\",\"Gulf\",\"Baku\",\"Azerbaijan\",\"Indochina\",\"Frunze\",\"Kyrgystan\"" +
-    ",\"Brunei\",\"India\",\"Yakutsk\",\"Irkutsk\",\"Lanka\",\"Dacca\",\"Bangladesh\",\"East_Timor\",\"In" +
-    "donesia_Central\",\"Dushanbe\",\"Tajikistan\",\"Israel\",\"Hong_Kong\",\"Hovd\",\"Indonesia_Western\"" +
-    ",\"Indonesia_Eastern\",\"Afghanistan\",\"Kamchatka\",\"Karachi\",\"Pakistan\",\"Nepal\",\"Vladivosto" +
-    "k\",\"Krasnoyarsk\",\"Malaya\",\"Malaysia\",\"Borneo\",\"Macau\",\"China\",\"Philippines\",\"Novosib" +
-    "irsk\",\"Omsk\",\"Uralsk\",\"Oral\",\"Korea\",\"Pyongyang\",\"Kizilorda\",\"Qyzylorda\",\"Myanmar\"," +
-    "\"Sakhalin\",\"Samarkand\",\"Tashkent\",\"Uzbekistan\",\"Singapore\",\"Taipei\",\"Tbilisi\",\"Georgi" +
-    "a\",\"Iran\",\"Bhutan\",\"Japan\",\"Mongolia\",\"Urumqi\",\"Sverdlovsk\",\"Yekaterinburg\",\"Yerevan" +
-    "\",\"Armenia\",\"Azores\",\"Cape_Verde\",\"South_Georgia\",\"Falkland\",\"Australia_Central\",\"Aust" +
-    "ralia_CentralWestern\",\"Lord_Howe\",\"Moscow\",\"Irish\",\"British\",\"Turkey\",\"Europe_Further_Ea" +
-    "stern\",\"Kuybyshev\",\"Samara\",\"Volgograd\",\"Indian_Ocean\",\"Christmas\",\"Cocos\",\"French_Sou" +
-    "thern\",\"Seychelles\",\"Maldives\",\"Mauritius\",\"Reunion\",\"Apia\",\"Papua_New_Guinea\",\"Chatha" +
-    "m\",\"Easter\",\"Vanuatu\",\"Phoenix_Islands\",\"Tokelau\",\"Fiji\",\"Tuvalu\",\"Galapagos\",\"Gambi" +
-    "er\",\"Solomon\",\"Guam\",\"Chamorro\",\"Line_Islands\",\"Kosrae\",\"Kwajalein\",\"Marshall_Islands\"" +
-    ",\"Marquesas\",\"Samoa\",\"Nauru\",\"Niue\",\"Norfolk\",\"New_Caledonia\",\"Palau\",\"Pitcairn\",\"P" +
-    "onape\",\"Cook\",\"North_Mariana\",\"Tahiti\",\"Gilbert_Islands\",\"Tonga\",\"Truk\",\"Wake\",\"Wall" +
-    "is\"],\"index\":\"0 1 1 2 2 3 3 7 7 8 8 9 9 a a b b d d e e f f g g h h k k m m n n o o p p q q r r " +
-    "t t u u v v w w x x 10 10 11 11 14 14 15 15 16 16 17 17 18 18 19 19 1a 1a 1b 1b 1c 1c 1d 1d 1e 1e 1f" +
-    " 1f 1g 1g 1h 1h 1j 1j 1k 1k 1l 1l 1m 1m 1n 1n 1o 1o 1p 1p 1s 1s 1z 1z 20 20 24 24 26 26 28 28 29 29 " +
-    "2a 2a 2b 2b 2g 2g 2j 2j 2l 2l 2q 2q 2z 2z 33 33 35 35 36 36 37 37 38 38 3a 3a 3b 3b 3c 3c 3d 3d 3e 3" +
-    "e 3f 3f 3g 3g 3h 3h 3i 3i 3n 3n 3o 3o 3u 3u 3v 3v 3z 3z 40 40 41 41 42 42 45 45 49 49 4a 4a 4c 4c 4d" +
-    " 4d 4e 4e 4f 4f 4g 4g 4i 4i 4k 4k 4m 4m 4n 4n 4o 4o 4p 4p 4q 4q 4t 4t 4u 4u 4w 4w 4x 4x 4y 4y 50 50 " +
-    "53 53 56 56 57 57 58 58 59 59 5a 5a 5b 5b 5c 5c 5d 5d 5e 5e 5h 5h 5k 5k 5o 5o 5q 5q 5r 5r 5u 5u 5x 5" +
-    "x 5y 5y 60 60 63 63 64 64 66 66 69 69 6b 6b 6c 6c 6d 6d 6e 6e 6f 6f 6i 6i 6j 6j 6k 6k 6r 6r 6s 6s 6t" +
-    " 6t 6u 6u 6v 6v 6w 6w 6z 6z 71 71 74 74 78 78 79 79 7b 7b 7c 7c 7d 7d 7e 7e 7f 7f 7g 7g 7h 7h 7j 7j " +
-    "7k 7k 7m 7m 7o 7o 7q 7q 7t 7t 7u 7u 7w 7w 7x 7x 7y 7y 7z 7z 80 80 81 81 82 82 85 85 86 86 87 87 8c 8" +
-    "c 8f 8f 8h 8h 8i 8i 8m 8m 8n 8n 8q 8q 8s 8s 8t 8t 8u 8u 8v 8v 8w 8w 8x 8x 8y 8y 90 90 91 91 92 92 93" +
-    " 93 94 94 95 95 96 96 98 98 99 99 9a 9a 9r 9r 9s 9s 9t 9t 9u 9u 9v 9v 9w 9w 9y 9y 9z 9z a0 a0 a1 a1 " +
-    "a2 a2 a3 a3 a4 a4 a7 a7 a8 a8 ab ab af af aj aj al al an an ao ao aq aq as as at at au au aw aw ax a" +
-    "x ay ay b1 b1 b4 b4 b5 b5 b7 b7 ba ba bb bb bd bd be be bg bg bi bi bj bj bk bk bl bl bm bm bn bn bo" +
-    " bo bp bp bq bq bs bs bt bt bw bw bx bx bz bz c1 c1 c2 c2 c4 c4 c5 c5 c6 c6 c7 c7 c8 c8 c9 c9 cc cc " +
-    "cd cd ce ce ci ci cj cj cl cl co co cq cq cs cs cx cx cy cy cz cz d0 d0 d1 d1 d5 d5 d6 d6 d7 d7 d8 d" +
-    "8 d9 d9 da da dc dc de de df df dh dh di di dj dj dk dk dn dn do do dp dp dq dq ds ds du du dx dx dy" +
-    " dy dz dz e0 e0 e1 e1 e2 e2 e3 e3 e4 e4 e5 e5 e6 e6 e7 e7 e8 e8 e9 e9 ea ea eb eb ec ec ed ed ef ef " +
-    "eg eg eh eh ei ei ej ej ek ek el el em em en en eo eo ep ep eq eq er er es es et et eu eu ew ew ex e" +
-    "x ez ez f0 f0 f2 f2 f3 f3 f5 f5 f9 f9 fb fb ff ff fh fh fl fl fm fm fo fo fp fp fq fq fr fr fs fs fw" +
-    " fw fx fx g0 g0 g1 g1 g2 g2 g3 g3 g4 g4 g6 g6 g7 g7 gb gb gc gc gd gd ge ge gj gj gk gk gl gl gm gm " +
-    "go go gp gp gq gq gr gr gs gs gt gt gx gx gy gy gz gz h0 h0 h1 h1 h2 h2 h3 h3 h4 h4 h5 h5 h6 h6 h7 h" +
-    "7 h8 h8 h9 h9 ha ha hb hb hc hc hd hd he he hf hf hg hg hh hh hi hi hj hj hk hk hl hl hm hm ho ho hp" +
-    " hp hq hq hs hs hu hu hv hv hw hw hy hy hz hz i0 i0 i2 i2 i3 i3 i4 i4 i5 i5 i6 i6 i8 i8 i9 i9 ia ia " +
-    "ib ib ic ic id id if if ig ig ih ih ii ii ij ij ik ik il\",\"offsets\":\"0 0 1 2 3 2 3 1 0 4 0 5 0 6" +
-    " 4 6 7 2 3 2 2 3 0 0 1 1 4 5 2 0 6 6 8 6 1 6 1 6 1 6 6 4 4 4 0 4 6 6 4 6 8 8 1 9 0 1 4 4 0 0 4 0 4 0" +
-    " 7 3 7 3 7 3 7 3 8 6 4 6 a b c d e e f g h g h g g h g g g g h g h g g h g h g h g h g g g h g g g e" +
-    " i f j k e f k e l m j g j k n k j l k n k n k n o g g h g p n k k q k k q k j n g g k j l e r 0 s t" +
-    " s j j n e j u l u k s j f e r v e w e n e n e e k x y e z q k n k n k n k n k n n k n n k n n k n n" +
-    " s j n k n n g g s s d k n e 10 11 s n k n e f k n k n k n k l e e k q g g g n k k n k s d s d k e 1" +
-    "2 e k 13 e n n a d 14 j k j k j k k j k n 15 16 j e n l e 17 k n k f k k n k n k u l u l f 17 18 e n" +
-    " e f 19 1a v s d e 1b e e e e j k k e s n e s s t k d 1c 1d 1c 1d 1c 1d 1c 1d 1c 1d 1c 1d 1c 1d 1c 1" +
-    "d 1c 1e 1f 1g 1h 1i g 17 1j 1k 0 1l 3 1m 1n 1o 1p 7 1q 1r 1q 1s 1t 1u 1p 1v 1w 1u 1p 1x 1y 1u 1p 1m " +
-    "1z 1m 20 21 22 7 23 24 25 26 27 28 27 26 29 26 7 2a 2b 2c 2d 2c 1z 2e 2f 7 2g 7 2g 7 2h 2i 28 2j 2k " +
-    "2g 2l 2m 2n 2o 2p 27 2q 27 2r 2s 2t 2u 2t 1m 2v 2w 1r 2d 2x 1z 7 2r 2y 2r 2y 2z 30 31 1u 1p 22 2d 2j" +
-    " 32 33 32 1z 1m 1o 1p 34 35 1o 1u 1p 36 1m 22 37 38 39 38 3a 32 2w 3b 1r 3c 39 3a 3d 3e 3f 26 3g 3h " +
-    "3i 3j 27 1r 2q 22 2q 27 3k 3l 3m 3n 3o 2 3o e 2 3p 2 2 0 3q 0 3r 3s 1g 3s 3s 3t 1g 1g 1g 3u 1g 1c 1g" +
-    " 0 3 3 3v 7 3 3 3 3 7 3 3 3v 7 3 3w 0 3 3x 0 7 3x 0 7 3y 7 3y 3x 0 3v 7 3z 7 3v 7 3 2 3 2 3 3x 0 3 3" +
-    " 3 7 3v 7 3z 3v 3 3v 7 3v 3 3 3 3 3v 7 3 40 3v 7 41 3 3 3v 3v 7 3v 7 3v 3 7 3 3v 7 3 3v 3 3 3 3v 7 3" +
-    " 7 42 3 3 3 1 43 44 45 1 46 47 48 49 1 4a 4b 1i 4c 4d 4e 4f 4g 4h 4i 4j x 4k 4l 4m 4n 4o c b 4p 4q 4" +
-    "r 4s 4s 4t a 4u 4v 4w 4x 4y a 4u 4z 50 51 4c 52 53 4o 54 55 56 57 58 59\",\"untils\":\"-1 -1 -1 -1 4" +
-    "2lp80 54et80 5wuyo0 -1 -1 -1 -1 -1 2lxk40 -1 -1 -1 -1 -1 7eveo0 8cm580 -1 7eveo0 -1 -1 -1 -1 -1 -1 3" +
-    "a22s0 -1 -1 -1 -1 -1 fodfs0 qnth00 -1 -1 fodfs0 oyph00 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 17r" +
-    "zf0 -1 -1 -1 -1 -1 -1 -1 p1uqs0 pkmo40 -1 69gig0 am3h80 dyil40 ehhx40 md8w00 mv76o0 -1 -1 ajtx40 cmz" +
-    "h40 oyaqg0 -1 79e140 -1 79dyc0 -1 -1 -1 -1 b1l480 b51cg0 hym0c0 hzl9s0 -1 hym0c0 hzl9s0 -1 bdkr40 -1" +
-    " b1l480 b51cg0 hyk5o0 i1e340 -1 ajh9k0 b6bn40 fj0b00 fqtsc0 hyk5o0 i1e340 juz1k0 krc0g0 -1 bdkr40 hy" +
-    "m0c0 hz8b40 -1 hzl9s0 -1 -1 -1 -1 l0ch00 -1 -1 -1 -1 -1 -1 -1 -1 -1 fkgjk0 g36jg0 g3jck0 gb3vo0 -1 -" +
-    "1 696680 6sej80 eincs0 ex1so0 nj3280 -1 -1 bdkr40 hym0c0 hzl9s0 -1 -1 -1 -1 eqxno0 rkk3k0 -1 eqxno0 " +
-    "rkk3k0 rm5co0 -1 -1 bdkr40 -1 -1 -1 -1 -1 dkhf00 1ztvo0 qj3vg0 -1 1e0p00 -1 -1 -1 -1 -1 k2yb80 mw14g" +
-    "0 -1 -1 nkw140 -1 -1 -1 saxk40 -1 9iylto 9trc9o -1 nkvss0 p5ezg0 -1 -1 -1 -1 -1 -1 -1 -1 -1 bdxy40 i" +
-    "x3240 -1 23fcs0 2ijss0 -1 432zg0 ix3240 jqyzg0 -1 ix3240 -1 -1 ix3240 jqyzg0 -1 ix3240 jeqbk0 -1 -1 " +
-    "4v6bs0 -1 fkge00 g36jg0 -1 -1 bcuts0 -1 5n9fs0 79dyc0 -1 g36jg0 -1 -1 -1 -1 -1 23fcs0 2ijss0 -1 -1 -" +
-    "1 1qkbc0 2ob1w0 bhceg0 bv2gk0 c05vc0 e3bck0 -1 -1 -1 -1 -1 -1 bwats0 i4mr40 -1 1qgos0 -1 696680 6p60" +
-    "s0 -1 nx4rs0 phnyg0 plmjs0 -1 -1 5e3cg0 -1 -1 -1 -1 -1 -1 -1 79dyc0 -1 -1 lbi8w0 -1 bwo3k0 -1 hncu80" +
-    " -1 eqxno0 rkk3k0 -1 -1 32jwe0 -1 -1 -1 -1 -1 -1 -1 g36jg0 gb3sw0 -1 -1 -1 g36jg0 gb3sw0 j7vy40 jeqb" +
-    "k0 -1 k2yb80 mw14g0 -1 k2y8g0 -1 -1 2ijn80 g36go0 g4za00 -1 -1 5v6080 sb6tg0 -1 79dyc0 -1 -1 -1 -1 -" +
-    "1 -1 -1 17qro0 -1 -1 -1 -1 -1 -1 -1 qj3vg0 -1 79dyc0 -1 kro7c0 kyrj00 ltqko0 lzr5w0 ofen40 p5dwk0 pg" +
-    "70w0 pogv40 pytbg0 q6tz40 qhmv5o qpws40 r0cxto r8mus0 rj30ho rr7ls0 -1 -1 -1 -1 -1 -1 6fn4c0 -1 -1 -" +
-    "1 -1 -1 -1 -1 i6ey80 s9mq00 -1 -1 kzy1k0 ne06w0 -1 bghm40 i6f3s0 s9mq00 -1 bghm40 i6f100 s9mq00 -1 b" +
-    "dx3k0 i6f3s0 s9mq00 -1 -1 19d0w0 -1 baxow0 -1 -1 -1 bazjk0 -1 -1 -1 ne0cg0 o4nrc0 -1 drxa20 ixq620 -" +
-    "1 -1 n30o0 -1 3b0ho0 g0zls0 -1 -1 bbgac0 -1 -1 dkh140 -1 dkh140 -1 -1 -1 -1 -1 -1 -1 -1 -1 n33g0 -1 " +
-    "-1 hqrlo0 lreus0 -1 -1 69g1s0 -1 69g1s0 -1 -1 fmzwg0 -1 -1 -1 -1 -1 -1 kzyfg0 ne0ks0 -1 -1 -1 bghow0" +
-    " i6f3s0 s9mq00 -1 -1 9e5gg0 -1 nt2v00 p87lo0 -1 19d0w0 i6f100 s9mq00 -1 bghm40 i6f100 pk1rc0 s9mq00 " +
-    "-1 -1 2uaps0 -1 -1 64pu00 6e2vc0 bb18o0 -1 -1 -1 -1 -1 -1 bb18o0 -1 b3kvk0 -1 -1 99fa20 -1 -1 -1 -1 " +
-    "5vapo0 lres00 -1 -1 -1 -1 bi8t40 -1 bc64w0 -1 bzwaw0 c8qqs0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -" +
-    "1 -1 -1 -1 5tp880 -1 -1 -1 -1 -1 -1 blufs0 -1 -1 -1 -1 -1 -1 -1 -1 -1 am7100 -1 -1 yd6w0 -1 -1 yd6w0" +
-    " -1 -1 yd6w0 -1 4fid00 7zfx00 od3p00 -1 yd6w0 -1 a1bbw0 liow00 ne0vw0 -1 ap2t40 -1 3ijk00 bv7pg0 dp3" +
-    "xg0 -1 -1 yd6w0 -1 -1 -1 -1 -1 b34fw0 liow00 ne2ns0 -1 -1 b34fw0 bi8yo0 -1 -1 -1 -1 -1 a1bbw0 -1 -1 " +
-    "a1b940 b34fw0 bchk00 -1 -1 blufs0 -1 ap2vw0 cp3bo0 e7u040 n382o0 -1 -1 -1 -1 a1bbw0 -1 bi8yo0 -1 -1 " +
-    "-1 -1 a1bbw0 eqk2s0 fkg040 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -" +
-    "1 -1 8cmlw0 -1 -1 -1 g5z2w0 -1 77sp80 -1 -1 -1 cc3yo0 -1 -1 -1 77ss00 -1 -1 -1 -1 -1 77ss00 -1 -1 -1" +
-    " -1 -1 -1 g5z2w0 -1 -1 -1 -1 -1 -1\",\"stableids\":\"0:Africa/Accra|13:Africa/Addis_Ababa|13:Africa/" +
-    "Asmera|0:Africa/Bamako|10:Africa/Bangui|0:Africa/Banjul|11:Africa/Blantyre|10:Africa/Brazzaville|11:" +
-    "Africa/Bujumbura|0:Africa/Conakry|0:Africa/Dakar|13:Africa/Dar_es_Salaam|13:Africa/Djibouti|10:Afric" +
-    "a/Douala|0:Africa/Freetown|11:Africa/Gaborone|11:Africa/Harare|13:Africa/Kampala|11:Africa/Kigali|10" +
-    ":Africa/Kinshasa|10:Africa/Libreville|0:Africa/Lome|10:Africa/Luanda|11:Africa/Lubumbashi|11:Africa/" +
-    "Lusaka|10:Africa/Malabo|7:Africa/Maseru|7:Africa/Mbabane|13:Africa/Mogadishu|10:Africa/Niamey|0:Afri" +
-    "ca/Nouakchott|0:Africa/Ouagadougou|10:Africa/Porto-Novo|117:America/Anguilla|117:America/Antigua|117" +
-    ":America/Aruba|117:America/Blanc-Sablon|22:America/Buenos_Aires|23:America/Catamarca|112:America/Cay" +
-    "man|112:America/Coral_Harbour|24:America/Cordoba|114:America/Creston|117:America/Curacao|117:America" +
-    "/Dominica|110:America/Godthab|117:America/Grenada|117:America/Guadeloupe|73:America/Indianapolis|25:" +
-    "America/Jujuy|117:America/Kralendijk|85:America/Louisville|117:America/Lower_Princes|117:America/Mar" +
-    "igot|27:America/Mendoza|117:America/Montserrat|135:America/Nassau|117:America/Port_of_Spain|117:Amer" +
-    "ica/St_Barthelemy|117:America/St_Kitts|117:America/St_Lucia|117:America/St_Thomas|117:America/St_Vin" +
-    "cent|117:America/Tortola|336:Antarctica/DumontDUrville|312:Antarctica/McMurdo|200:Antarctica/Syowa|2" +
-    "73:Arctic/Longyearbyen|200:Asia/Aden|197:Asia/Bahrain|185:Asia/Brunei|183:Asia/Calcutta|181:Asia/Kat" +
-    "mandu|205:Asia/Kuala_Lumpur|200:Asia/Kuwait|166:Asia/Muscat|157:Asia/Phnom_Penh|219:Asia/Rangoon|171" +
-    ":Asia/Saigon|157:Asia/Vientiane|226:Atlantic/Faeroe|0:Atlantic/Reykjavik|0:Atlantic/St_Helena|274:Eu" +
-    "rope/Amsterdam|292:Europe/Bratislava|306:Europe/Busingen|273:Europe/Copenhagen|286:Europe/Guernsey|2" +
-    "86:Europe/Isle_of_Man|286:Europe/Jersey|284:Europe/Kiev|272:Europe/Ljubljana|274:Europe/Luxembourg|2" +
-    "80:Europe/Mariehamn|291:Europe/Monaco|273:Europe/Oslo|272:Europe/Podgorica|294:Europe/San_Marino|272" +
-    ":Europe/Sarajevo|272:Europe/Skopje|273:Europe/Stockholm|306:Europe/Vaduz|294:Europe/Vatican|272:Euro" +
-    "pe/Zagreb|13:Indian/Antananarivo|157:Indian/Christmas|219:Indian/Cocos|13:Indian/Comoro|309:Indian/K" +
-    "erguelen|166:Indian/Mahe|13:Indian/Mayotte|166:Indian/Reunion|324:Pacific/Enderbury|339:Pacific/Funa" +
-    "futi|339:Pacific/Majuro|333:Pacific/Midway|321:Pacific/Ponape|322:Pacific/Saipan|336:Pacific/Truk|33" +
-    "9:Pacific/Wake|339:Pacific/Wallis\"}";
+    ",\"Anadyr\",\"Magadan\",\"Kamchatka\",\"Shevchenko\",\"Aqtau\",\"Kazakhstan_Western\",\"Aktyubinsk\"" +
+    ",\"Aqtobe\",\"Ashkhabad\",\"Turkmenistan\",\"Gulf\",\"Baku\",\"Azerbaijan\",\"Indochina\",\"Krasnoya" +
+    "rsk\",\"Frunze\",\"Kyrgystan\",\"Brunei\",\"India\",\"Yakutsk\",\"Irkutsk\",\"Lanka\",\"Dacca\",\"Ba" +
+    "ngladesh\",\"East_Timor\",\"Indonesia_Central\",\"Dushanbe\",\"Tajikistan\",\"Israel\",\"Hong_Kong\"" +
+    ",\"Hovd\",\"Indonesia_Western\",\"Indonesia_Eastern\",\"Afghanistan\",\"Karachi\",\"Pakistan\",\"Nep" +
+    "al\",\"Vladivostok\",\"Malaya\",\"Malaysia\",\"Borneo\",\"Macau\",\"China\",\"Philippines\",\"Novosi" +
+    "birsk\",\"Omsk\",\"Uralsk\",\"Oral\",\"Korea\",\"Pyongyang\",\"Kizilorda\",\"Qyzylorda\",\"Myanmar\"" +
+    ",\"Sakhalin\",\"Samarkand\",\"Tashkent\",\"Uzbekistan\",\"Singapore\",\"Taipei\",\"Tbilisi\",\"Georg" +
+    "ia\",\"Iran\",\"Bhutan\",\"Japan\",\"Mongolia\",\"Urumqi\",\"Sverdlovsk\",\"Yekaterinburg\",\"Yereva" +
+    "n\",\"Armenia\",\"Azores\",\"Cape_Verde\",\"South_Georgia\",\"Falkland\",\"Australia_Central\",\"Aus" +
+    "tralia_CentralWestern\",\"Lord_Howe\",\"Moscow\",\"Samara\",\"Irish\",\"British\",\"Turkey\",\"Europ" +
+    "e_Further_Eastern\",\"Kuybyshev\",\"Volgograd\",\"Indian_Ocean\",\"Christmas\",\"Cocos\",\"French_So" +
+    "uthern\",\"Seychelles\",\"Maldives\",\"Mauritius\",\"Reunion\",\"Apia\",\"Papua_New_Guinea\",\"Chath" +
+    "am\",\"Easter\",\"Vanuatu\",\"Phoenix_Islands\",\"Tokelau\",\"Fiji\",\"Tuvalu\",\"Galapagos\",\"Gamb" +
+    "ier\",\"Solomon\",\"Guam\",\"Chamorro\",\"Hawaii\",\"Line_Islands\",\"Kosrae\",\"Kwajalein\",\"Marsh" +
+    "all_Islands\",\"Marquesas\",\"Samoa\",\"Nauru\",\"Niue\",\"Norfolk\",\"New_Caledonia\",\"Palau\",\"P" +
+    "itcairn\",\"Ponape\",\"Cook\",\"North_Mariana\",\"Tahiti\",\"Gilbert_Islands\",\"Tonga\",\"Truk\",\"" +
+    "Wake\",\"Wallis\"],\"index\":\"0 1 1 2 2 3 3 7 7 8 8 9 9 a a b b d d e e f f g g h h k k m m n n o o" +
+    " p p q q r r t t u u v v w w x x 10 10 11 11 14 14 15 15 16 16 17 17 18 18 19 19 1a 1a 1b 1b 1c 1c 1" +
+    "d 1d 1e 1e 1f 1f 1g 1g 1h 1h 1j 1j 1k 1k 1l 1l 1m 1m 1n 1n 1o 1o 1p 1p 1s 1s 1z 1z 20 20 24 24 26 26" +
+    " 28 28 29 29 2a 2a 2b 2b 2g 2g 2j 2j 2l 2l 2q 2q 2z 2z 33 33 35 35 36 36 37 37 38 38 3a 3a 3b 3b 3c " +
+    "3c 3d 3d 3e 3e 3f 3f 3g 3g 3h 3h 3i 3i 3n 3n 3o 3o 3u 3u 3v 3v 3z 3z 40 40 41 41 42 42 45 45 49 49 4" +
+    "a 4a 4c 4c 4d 4d 4e 4e 4f 4f 4g 4g 4h 4h 4j 4j 4l 4l 4n 4n 4o 4o 4p 4p 4q 4q 4r 4r 4u 4u 4v 4v 4x 4x" +
+    " 4y 4y 4z 4z 51 51 54 54 57 57 58 58 59 59 5a 5a 5b 5b 5c 5c 5d 5d 5e 5e 5f 5f 5i 5i 5l 5l 5p 5p 5r " +
+    "5r 5s 5s 5v 5v 5y 5y 5z 5z 61 61 64 64 65 65 67 67 6a 6a 6c 6c 6d 6d 6e 6e 6f 6f 6g 6g 6j 6j 6k 6k 6" +
+    "l 6l 6s 6s 6t 6t 6u 6u 6v 6v 6w 6w 6x 6x 70 70 72 72 75 75 79 79 7a 7a 7c 7c 7d 7d 7e 7e 7f 7f 7g 7g" +
+    " 7h 7h 7i 7i 7k 7k 7l 7l 7n 7n 7p 7p 7r 7r 7u 7u 7v 7v 7x 7x 7y 7y 7z 7z 80 80 81 81 82 82 83 83 86 " +
+    "86 87 87 88 88 8d 8d 8g 8g 8i 8i 8j 8j 8n 8n 8o 8o 8r 8r 8t 8t 8u 8u 8v 8v 8w 8w 8x 8x 8y 8y 8z 8z 9" +
+    "1 91 92 92 93 93 94 94 95 95 96 96 97 97 99 99 9a 9a 9b 9b 9s 9s 9t 9t 9u 9u 9v 9v 9w 9w 9x 9x 9z 9z" +
+    " a0 a0 a1 a1 a2 a2 a3 a3 a4 a4 a5 a5 a8 a8 a9 a9 ac ac ag ag ak ak am am ao ao ap ap ar ar at at au " +
+    "au av av aw aw ay ay az az b0 b0 b3 b3 b6 b6 b7 b7 b9 b9 bc bc bd bd bf bf bh bh bj bj bl bl bm bm b" +
+    "n bn bo bo bp bp bq bq br br bs bs bt bt bv bv bw bw bz bz c0 c0 c2 c2 c4 c4 c5 c5 c7 c7 c8 c8 c9 c9" +
+    " ca ca cb cb cc cc cf cf ch ch ci ci cm cm cn cn cp cp cs cs cu cu cw cw d1 d1 d2 d2 d3 d3 d4 d4 d7 " +
+    "d7 db db dc dc dd dd de de dg dg dh dh dj dj dl dl dm dm do do dp dp dq dq dr dr ds ds dv dv dw dw d" +
+    "x dx dy dy e0 e0 e2 e2 e5 e5 e6 e6 e7 e7 e8 e8 e9 e9 ea ea eb eb ec ec ed ed ee ee ef ef eg eg eh eh" +
+    " ei ei ej ej ek ek el el en en eo eo ep ep eq eq er er es es et et ev ev ew ew ex ex ey ey ez ez f0 " +
+    "f0 f1 f1 f2 f2 f3 f3 f5 f5 f6 f6 f8 f8 f9 f9 fb fb fc fc fe fe fi fi fk fk fo fo fq fq fr fr fv fv f" +
+    "w fw fy fy fz fz g0 g0 g1 g1 g2 g2 g6 g6 g7 g7 ga ga gb gb gc gc gd gd ge ge gg gg gh gh gl gl gm gm" +
+    " gn gn gp gp gu gu gv gv gw gw gx gx gz gz h0 h0 h2 h2 h3 h3 h4 h4 h5 h5 h9 h9 hb hb hc hc hd hd he " +
+    "he hf hf hg hg hh hh hi hi hj hj hk hk hl hl hm hm hn hn ho ho hp hp hq hq hr hr hs hs ht ht hu hu h" +
+    "v hv hw hw hx hx hy hy hz hz i1 i1 i2 i2 i3 i3 i5 i5 i6 i6 i7 i7 i8 i8 ia ia ib ib ic ic ie ie if if" +
+    " ig ig ih ih ii ii ik ik il il im im in in io io ip ip ir ir is is it it iu iu iv iv iw iw ix\",\"of" +
+    "fsets\":\"0 0 1 2 3 2 3 1 0 4 0 5 0 6 4 6 7 2 3 2 2 3 0 0 1 1 4 5 2 0 6 6 8 6 1 6 1 6 1 6 6 4 4 4 0 " +
+    "4 6 6 4 6 8 8 1 9 0 1 4 4 0 0 4 0 4 0 7 3 7 3 7 3 7 3 8 6 4 6 a b c d e e f g h g h g g h g g g g h " +
+    "g h g g h g h g h g h g g g h g g g e i f j k e f k e l m j g j k n k j l k n k n k n o g g h g p n " +
+    "k k q k k q k j n g g k r j l e s 0 t u t j j n e j v l v k t j f e s w e x e n e n e e k y z e 10 q" +
+    " k n k n k n k n k n n k n n k n n k n n t j n k n n g g t t d k n e 11 12 t n k n e f k n k n k n k" +
+    " l e e k q g g g n k k n k t d t d k e 13 e k 14 e n n a d 15 j k j k j k k j k n 16 17 j e n l e r " +
+    "k n k f k k n k n k v l v l f r 18 e n e f 19 1a w t d e 1b e e e e j k k e t n e t t u k d 1c 1d 1c" +
+    " 1d 1c 1d 1c 1d 1c 1d 1c 1d 1c 1d 1c 1d 1c 1e 1f 1g 1h 1i g r 1j 1k 0 1l 3 1m 1n 1o 1p 7 1q 1r 1s 1t" +
+    " 1u 1v 1p 1w 1x 1v 1p 1y 1z 1v 1p 1m 20 1m 21 22 23 24 7 25 26 27 28 29 2a 29 28 2b 28 7 2c 2d 2e 2f" +
+    " 2e 20 2g 2h 7 7 2i 7 2i 7 2j 2k 2a 2l 2m 2i 2n 1s 2o 2p 2q 29 2r 29 24 2s 2t 2u 2t 1m 2v 2w 1r 2f 2" +
+    "x 20 7 24 2y 24 2y 24 2z 30 31 1v 1p 23 2f 2l 32 33 32 20 1m 1o 1p 34 35 1o 1v 1p 36 1m 23 37 1r 1r " +
+    "38 39 38 3a 32 2w 3b 1r 1r 3c 39 3a 3d 3e 3f 28 3g 3h 24 3i 3j 29 1r 2r 23 2r 29 3k 3l 3m 3n 3o 2 3o" +
+    " e 2 3p 2 2 0 3q 0 3r 3s 1g 3s 3s 3t 1g 1g 1g 3u 1g 1c 1g 0 3 3 3v 3w 7 3 3 3 3 7 3 3 3v 7 3 3x 0 3 " +
+    "3y 0 7 3y 0 7 3z 7 3z 3y 0 3v 7 40 7 3v 7 3v 3 2 3 2 3 3y 0 3 3 3 7 3v 7 40 3v 3 3v 7 3v 3 3 3 3 3v " +
+    "7 3 41 3v 7 3w 3 3 3v 3w 3v 7 3v 7 3v 3 7 3 3v 7 3 3v 3w 3 3 3 3v 7 3 7 42 3v 3 3 3 1 43 44 45 1 46 " +
+    "47 48 49 1 4a 4b 1i 4c 4d 4e 4f 4g 4h 4i 4j y 4k 4l 4m 4n 4o 4p 4q 4r 4s 4t 4t 4u a 4v 4w 4x 4y 4z a" +
+    " 4v 50 51 52 4c 53 54 4o 55 56 57 58 59 5a\",\"untils\":\"-1 -1 -1 -1 42lp80 54et80 5wuyo0 -1 -1 -1 " +
+    "-1 -1 2lxk40 -1 -1 -1 -1 -1 7eveo0 8cm580 -1 7eveo0 -1 -1 -1 -1 -1 -1 3a22s0 -1 -1 -1 -1 -1 fodfs0 q" +
+    "nth00 -1 -1 fodfs0 oyph00 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 11v0r0 -1 -1 -1 -1 -1 -1 -1 p1uq" +
+    "s0 pkmo40 -1 69gig0 am3h80 dyil40 ehhx40 md8w00 mv76o0 -1 -1 ajtx40 cmzh40 oyaqg0 -1 79e140 -1 79dyc" +
+    "0 -1 -1 -1 -1 b1l480 b51cg0 hym0c0 hzl9s0 -1 hym0c0 hzl9s0 -1 bdkr40 -1 b1l480 b51cg0 hyk5o0 i1e340 " +
+    "-1 ajh9k0 b6bn40 fj0b00 fqtsc0 hyk5o0 i1e340 juz1k0 krc0g0 -1 bdkr40 hym0c0 hz8b40 -1 hzl9s0 -1 -1 -" +
+    "1 -1 l0ch00 -1 -1 -1 -1 -1 -1 -1 -1 -1 fkgjk0 g36jg0 g3jck0 gb3vo0 -1 -1 696680 6sej80 eincs0 ex1so0" +
+    " nj3280 -1 -1 bdkr40 hym0c0 hzl9s0 -1 -1 -1 -1 eqxno0 rkk3k0 -1 eqxno0 rkk3k0 rm5co0 -1 -1 bdkr40 -1" +
+    " -1 -1 -1 -1 -1 dkhf00 1ztvo0 qj3vg0 -1 1e0p00 -1 -1 -1 -1 -1 k2yb80 mw14g0 -1 -1 nkw140 -1 -1 -1 sa" +
+    "xk40 -1 9iylto 9trc9o -1 nkvss0 p5ezg0 -1 -1 -1 -1 -1 -1 -1 -1 -1 bdxy40 ix3240 -1 23fcs0 2ijss0 -1 " +
+    "432zg0 ix3240 jqyzg0 -1 ix3240 -1 -1 ix3240 jqyzg0 -1 ix3240 jeqbk0 -1 -1 4v6bs0 -1 fkge00 g36jg0 -1" +
+    " -1 bcuts0 -1 5n9fs0 79dyc0 -1 g36jg0 -1 -1 -1 -1 -1 23fcs0 2ijss0 -1 -1 -1 1qkbc0 2ob1w0 bhceg0 bv2" +
+    "gk0 c05vc0 e3bck0 -1 -1 -1 -1 -1 -1 bwats0 i4mr40 -1 1qgos0 -1 696680 6p60s0 -1 nx4rs0 phnyg0 plmjs0" +
+    " -1 -1 5e3cg0 -1 -1 -1 -1 -1 -1 -1 79dyc0 -1 -1 lbi8w0 -1 bwo3k0 -1 hncu80 -1 eqxno0 rkk3k0 -1 -1 32" +
+    "jwe0 -1 -1 -1 -1 -1 -1 -1 g36jg0 gb3sw0 -1 -1 -1 g36jg0 gb3sw0 j7vy40 jeqbk0 -1 k2yb80 mw14g0 -1 k2y" +
+    "8g0 -1 -1 2ijn80 g36go0 g4za00 -1 -1 5v6080 sb6tg0 -1 79dyc0 -1 -1 -1 -1 -1 -1 -1 17qro0 -1 -1 -1 -1" +
+    " -1 -1 -1 qj3vg0 -1 79dyc0 -1 kro7c0 kyrj00 ltqko0 lzr5w0 ofen40 p5dwk0 pg70w0 pogv40 pytbg0 q6tz40 " +
+    "qhmv5o qpws40 r0cxto r8mus0 rj30ho rr7ls0 -1 -1 -1 -1 -1 -1 6fn4c0 -1 -1 -1 -1 -1 -1 -1 i6ey80 s9mq0" +
+    "0 -1 -1 kzy1k0 lio700 -1 bghm40 i6f3s0 s9mq00 -1 bghm40 i6f100 s9mq00 -1 bi8t40 i6f3s0 s9mq00 -1 -1 " +
+    "19d0w0 -1 b34d40 -1 o4nww0 -1 -1 b347k0 -1 -1 -1 ne0f80 o4nrc0 -1 drxa20 ixq620 -1 -1 n30o0 -1 3b0ho" +
+    "0 g0zls0 -1 -1 bbgac0 -1 oyk840 -1 dkh140 -1 dkh140 -1 -1 -1 -1 -1 -1 -1 -1 -1 n33g0 -1 -1 hqrlo0 lr" +
+    "eus0 -1 -1 69g1s0 -1 69g1s0 -1 -1 fmzwg0 -1 -1 -1 -1 -1 -1 kzyfg0 ne0ks0 -1 oasa80 -1 -1 bghow0 i6f3" +
+    "s0 s9mq00 -1 -1 9e5gg0 -1 nt2v00 p87lo0 -1 19d0w0 i6f100 s9mq00 -1 bghm40 i6f100 pk1rc0 s9mq00 -1 -1" +
+    " 2uaps0 -1 ne09o0 o690g0 -1 64pu00 6e2vc0 bb18o0 -1 -1 -1 -1 o63gg0 -1 -1 b347k0 -1 b34d40 -1 -1 99f" +
+    "a20 -1 o7wkw0 -1 -1 -1 5vapo0 lres00 -1 -1 -1 -1 bi8t40 -1 b34d40 -1 bzwaw0 c8qqs0 -1 -1 -1 -1 -1 -1" +
+    " -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 5tp880 -1 -1 -1 -1 -1 -1 blufs0 o4o580 -1 -1 -1 -1 -1 -1 -1 -1 -1 " +
+    "am73s0 -1 -1 yd6w0 -1 -1 yd6w0 -1 -1 yd6w0 -1 4fid00 7qp980 od3p00 -1 yd6w0 -1 a1bbw0 liow00 ne0vw0 " +
+    "-1 ap2t40 ne0t40 -1 3ijk00 bv7pg0 dp3xg0 -1 -1 yd6w0 -1 -1 -1 -1 -1 b34fw0 liow00 ne2ns0 -1 -1 b34fw" +
+    "0 bi8yo0 -1 -1 -1 -1 -1 a1bbw0 -1 -1 a1b940 b34fw0 bchk00 -1 -1 blufs0 ohmt80 -1 ap2vw0 cp3bo0 e7u04" +
+    "0 n382o0 -1 -1 -1 -1 a1bbw0 -1 bi8yo0 o4o580 -1 -1 -1 -1 a1bbw0 eqk2s0 fkg040 -1 qlyvs0 -1 -1 -1 -1 " +
+    "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 8cmlw0 -1 -1 -1 g5z2w0 -1 -1 -1 -1 cc" +
+    "3yo0 -1 -1 -1 77ss00 -1 -1 -1 -1 -1 77ss00 -1 -1 -1 -1 -1 -1 g5z2w0 -1 -1 -1 -1 -1 -1\",\"stableids\"" +
+    ":\"0:Africa/Accra|13:Africa/Addis_Ababa|13:Africa/Asmera|0:Africa/Bamako|10:Africa/Bangui|0:Africa/B" +
+    "anjul|11:Africa/Blantyre|10:Africa/Brazzaville|11:Africa/Bujumbura|0:Africa/Conakry|0:Africa/Dakar|1" +
+    "3:Africa/Dar_es_Salaam|13:Africa/Djibouti|10:Africa/Douala|0:Africa/Freetown|11:Africa/Gaborone|11:A" +
+    "frica/Harare|13:Africa/Kampala|11:Africa/Kigali|10:Africa/Kinshasa|10:Africa/Libreville|0:Africa/Lom" +
+    "e|10:Africa/Luanda|11:Africa/Lubumbashi|11:Africa/Lusaka|10:Africa/Malabo|7:Africa/Maseru|7:Africa/M" +
+    "babane|13:Africa/Mogadishu|10:Africa/Niamey|0:Africa/Nouakchott|0:Africa/Ouagadougou|10:Africa/Porto" +
+    "-Novo|117:America/Anguilla|117:America/Antigua|117:America/Aruba|117:America/Blanc-Sablon|22:America" +
+    "/Buenos_Aires|23:America/Catamarca|112:America/Cayman|112:America/Coral_Harbour|24:America/Cordoba|1" +
+    "14:America/Creston|117:America/Curacao|117:America/Dominica|110:America/Godthab|117:America/Grenada|" +
+    "117:America/Guadeloupe|73:America/Indianapolis|25:America/Jujuy|117:America/Kralendijk|85:America/Lo" +
+    "uisville|117:America/Lower_Princes|117:America/Marigot|27:America/Mendoza|117:America/Montserrat|135" +
+    ":America/Nassau|117:America/Port_of_Spain|117:America/St_Barthelemy|117:America/St_Kitts|117:America" +
+    "/St_Lucia|117:America/St_Thomas|117:America/St_Vincent|117:America/Tortola|336:Antarctica/DumontDUrv" +
+    "ille|312:Antarctica/McMurdo|200:Antarctica/Syowa|273:Arctic/Longyearbyen|200:Asia/Aden|197:Asia/Bahr" +
+    "ain|185:Asia/Brunei|183:Asia/Calcutta|181:Asia/Katmandu|205:Asia/Kuala_Lumpur|200:Asia/Kuwait|166:As" +
+    "ia/Muscat|157:Asia/Phnom_Penh|219:Asia/Rangoon|171:Asia/Saigon|157:Asia/Vientiane|226:Atlantic/Faero" +
+    "e|0:Atlantic/Reykjavik|0:Atlantic/St_Helena|274:Europe/Amsterdam|292:Europe/Bratislava|306:Europe/Bu" +
+    "singen|273:Europe/Copenhagen|286:Europe/Guernsey|286:Europe/Isle_of_Man|286:Europe/Jersey|284:Europe" +
+    "/Kiev|272:Europe/Ljubljana|274:Europe/Luxembourg|280:Europe/Mariehamn|291:Europe/Monaco|273:Europe/O" +
+    "slo|272:Europe/Podgorica|294:Europe/San_Marino|272:Europe/Sarajevo|272:Europe/Skopje|273:Europe/Stoc" +
+    "kholm|306:Europe/Vaduz|294:Europe/Vatican|272:Europe/Zagreb|13:Indian/Antananarivo|157:Indian/Christ" +
+    "mas|219:Indian/Cocos|13:Indian/Comoro|309:Indian/Kerguelen|166:Indian/Mahe|13:Indian/Mayotte|166:Ind" +
+    "ian/Reunion|324:Pacific/Enderbury|339:Pacific/Funafuti|339:Pacific/Majuro|333:Pacific/Midway|321:Pac" +
+    "ific/Ponape|322:Pacific/Saipan|336:Pacific/Truk|339:Pacific/Wake|339:Pacific/Wallis\"}";
 
   public static final String STABLEIDS =
     "[\"Africa/Abidjan\",\"Africa/Accra\",\"Africa/Addis_Ababa\",\"Africa/Algiers\",\"Africa/Asmera\",\"A" +
@@ -163,71 +164,71 @@ public class TimeZoneExternalData {
     "rica/Boa_Vista\",\"America/Bogota\",\"America/Boise\",\"America/Buenos_Aires\",\"America/Cambridge_B" +
     "ay\",\"America/Campo_Grande\",\"America/Cancun\",\"America/Caracas\",\"America/Catamarca\",\"America" +
     "/Cayenne\",\"America/Cayman\",\"America/Chicago\",\"America/Chihuahua\",\"America/Ciudad_Juarez\",\"" +
-    "America/Coral_Harbour\",\"America/Cordoba\",\"America/Costa_Rica\",\"America/Creston\",\"America/Cui" +
-    "aba\",\"America/Curacao\",\"America/Danmarkshavn\",\"America/Dawson\",\"America/Dawson_Creek\",\"Ame" +
-    "rica/Denver\",\"America/Detroit\",\"America/Dominica\",\"America/Edmonton\",\"America/Eirunepe\",\"A" +
-    "merica/El_Salvador\",\"America/Fort_Nelson\",\"America/Fortaleza\",\"America/Glace_Bay\",\"America/G" +
-    "odthab\",\"America/Goose_Bay\",\"America/Grand_Turk\",\"America/Grenada\",\"America/Guadeloupe\",\"A" +
-    "merica/Guatemala\",\"America/Guayaquil\",\"America/Guyana\",\"America/Halifax\",\"America/Havana\",\"" +
-    "America/Hermosillo\",\"America/Indiana/Knox\",\"America/Indiana/Marengo\",\"America/Indiana/Petersbu" +
-    "rg\",\"America/Indiana/Tell_City\",\"America/Indiana/Vevay\",\"America/Indiana/Vincennes\",\"America" +
-    "/Indiana/Winamac\",\"America/Indianapolis\",\"America/Inuvik\",\"America/Iqaluit\",\"America/Jamaica" +
-    "\",\"America/Jujuy\",\"America/Juneau\",\"America/Kentucky/Monticello\",\"America/Kralendijk\",\"Ame" +
-    "rica/La_Paz\",\"America/Lima\",\"America/Los_Angeles\",\"America/Louisville\",\"America/Lower_Prince" +
-    "s\",\"America/Maceio\",\"America/Managua\",\"America/Manaus\",\"America/Marigot\",\"America/Martiniq" +
-    "ue\",\"America/Matamoros\",\"America/Mazatlan\",\"America/Mendoza\",\"America/Menominee\",\"America/" +
-    "Merida\",\"America/Metlakatla\",\"America/Mexico_City\",\"America/Miquelon\",\"America/Moncton\",\"A" +
-    "merica/Monterrey\",\"America/Montevideo\",\"America/Montserrat\",\"America/Nassau\",\"America/New_Yo" +
-    "rk\",\"America/Nome\",\"America/Noronha\",\"America/North_Dakota/Beulah\",\"America/North_Dakota/Cen" +
-    "ter\",\"America/North_Dakota/New_Salem\",\"America/Ojinaga\",\"America/Panama\",\"America/Paramaribo" +
-    "\",\"America/Phoenix\",\"America/Port-au-Prince\",\"America/Port_of_Spain\",\"America/Porto_Velho\"," +
-    "\"America/Puerto_Rico\",\"America/Punta_Arenas\",\"America/Rankin_Inlet\",\"America/Recife\",\"Ameri" +
-    "ca/Regina\",\"America/Resolute\",\"America/Rio_Branco\",\"America/Santarem\",\"America/Santiago\",\"" +
-    "America/Santo_Domingo\",\"America/Sao_Paulo\",\"America/Scoresbysund\",\"America/Sitka\",\"America/S" +
-    "t_Barthelemy\",\"America/St_Johns\",\"America/St_Kitts\",\"America/St_Lucia\",\"America/St_Thomas\"," +
-    "\"America/St_Vincent\",\"America/Swift_Current\",\"America/Tegucigalpa\",\"America/Thule\",\"America" +
-    "/Tijuana\",\"America/Toronto\",\"America/Tortola\",\"America/Vancouver\",\"America/Whitehorse\",\"Am" +
-    "erica/Winnipeg\",\"America/Yakutat\",\"Antarctica/Casey\",\"Antarctica/Davis\",\"Antarctica/DumontDU" +
-    "rville\",\"Antarctica/Macquarie\",\"Antarctica/Mawson\",\"Antarctica/McMurdo\",\"Antarctica/Palmer\"" +
-    ",\"Antarctica/Rothera\",\"Antarctica/Syowa\",\"Antarctica/Troll\",\"Antarctica/Vostok\",\"Arctic/Lon" +
-    "gyearbyen\",\"Asia/Aden\",\"Asia/Almaty\",\"Asia/Amman\",\"Asia/Anadyr\",\"Asia/Aqtau\",\"Asia/Aqtob" +
-    "e\",\"Asia/Ashgabat\",\"Asia/Atyrau\",\"Asia/Baghdad\",\"Asia/Bahrain\",\"Asia/Baku\",\"Asia/Bangkok" +
-    "\",\"Asia/Barnaul\",\"Asia/Beirut\",\"Asia/Bishkek\",\"Asia/Brunei\",\"Asia/Calcutta\",\"Asia/Chita\"" +
-    ",\"Asia/Colombo\",\"Asia/Damascus\",\"Asia/Dhaka\",\"Asia/Dili\",\"Asia/Dubai\",\"Asia/Dushanbe\",\"" +
-    "Asia/Famagusta\",\"Asia/Gaza\",\"Asia/Hebron\",\"Asia/Hong_Kong\",\"Asia/Hovd\",\"Asia/Irkutsk\",\"A" +
-    "sia/Jakarta\",\"Asia/Jayapura\",\"Asia/Jerusalem\",\"Asia/Kabul\",\"Asia/Kamchatka\",\"Asia/Karachi\"" +
-    ",\"Asia/Katmandu\",\"Asia/Khandyga\",\"Asia/Krasnoyarsk\",\"Asia/Kuala_Lumpur\",\"Asia/Kuching\",\"A" +
-    "sia/Kuwait\",\"Asia/Macau\",\"Asia/Magadan\",\"Asia/Makassar\",\"Asia/Manila\",\"Asia/Muscat\",\"Asi" +
-    "a/Nicosia\",\"Asia/Novokuznetsk\",\"Asia/Novosibirsk\",\"Asia/Omsk\",\"Asia/Oral\",\"Asia/Phnom_Penh" +
-    "\",\"Asia/Pontianak\",\"Asia/Pyongyang\",\"Asia/Qatar\",\"Asia/Qostanay\",\"Asia/Qyzylorda\",\"Asia/" +
-    "Rangoon\",\"Asia/Riyadh\",\"Asia/Saigon\",\"Asia/Sakhalin\",\"Asia/Samarkand\",\"Asia/Seoul\",\"Asia" +
-    "/Shanghai\",\"Asia/Singapore\",\"Asia/Srednekolymsk\",\"Asia/Taipei\",\"Asia/Tashkent\",\"Asia/Tbili" +
-    "si\",\"Asia/Tehran\",\"Asia/Thimphu\",\"Asia/Tokyo\",\"Asia/Tomsk\",\"Asia/Ulaanbaatar\",\"Asia/Urum" +
-    "qi\",\"Asia/Ust-Nera\",\"Asia/Vientiane\",\"Asia/Vladivostok\",\"Asia/Yakutsk\",\"Asia/Yekaterinburg" +
-    "\",\"Asia/Yerevan\",\"Atlantic/Azores\",\"Atlantic/Bermuda\",\"Atlantic/Canary\",\"Atlantic/Cape_Ver" +
-    "de\",\"Atlantic/Faeroe\",\"Atlantic/Madeira\",\"Atlantic/Reykjavik\",\"Atlantic/South_Georgia\",\"At" +
-    "lantic/St_Helena\",\"Atlantic/Stanley\",\"Australia/Adelaide\",\"Australia/Brisbane\",\"Australia/Br" +
-    "oken_Hill\",\"Australia/Darwin\",\"Australia/Eucla\",\"Australia/Hobart\",\"Australia/Lindeman\",\"A" +
-    "ustralia/Lord_Howe\",\"Australia/Melbourne\",\"Australia/Perth\",\"Australia/Sydney\",\"Etc/UTC\",\"" +
-    "Etc/Unknown\",\"Europe/Amsterdam\",\"Europe/Andorra\",\"Europe/Astrakhan\",\"Europe/Athens\",\"Europ" +
-    "e/Belgrade\",\"Europe/Berlin\",\"Europe/Bratislava\",\"Europe/Brussels\",\"Europe/Bucharest\",\"Euro" +
-    "pe/Budapest\",\"Europe/Busingen\",\"Europe/Chisinau\",\"Europe/Copenhagen\",\"Europe/Dublin\",\"Euro" +
-    "pe/Gibraltar\",\"Europe/Guernsey\",\"Europe/Helsinki\",\"Europe/Isle_of_Man\",\"Europe/Istanbul\",\"" +
-    "Europe/Jersey\",\"Europe/Kaliningrad\",\"Europe/Kiev\",\"Europe/Kirov\",\"Europe/Lisbon\",\"Europe/L" +
-    "jubljana\",\"Europe/London\",\"Europe/Luxembourg\",\"Europe/Madrid\",\"Europe/Malta\",\"Europe/Marie" +
-    "hamn\",\"Europe/Minsk\",\"Europe/Monaco\",\"Europe/Moscow\",\"Europe/Oslo\",\"Europe/Paris\",\"Europ" +
-    "e/Podgorica\",\"Europe/Prague\",\"Europe/Riga\",\"Europe/Rome\",\"Europe/Samara\",\"Europe/San_Marin" +
-    "o\",\"Europe/Sarajevo\",\"Europe/Saratov\",\"Europe/Simferopol\",\"Europe/Skopje\",\"Europe/Sofia\"," +
-    "\"Europe/Stockholm\",\"Europe/Tallinn\",\"Europe/Tirane\",\"Europe/Ulyanovsk\",\"Europe/Vaduz\",\"Eu" +
-    "rope/Vatican\",\"Europe/Vienna\",\"Europe/Vilnius\",\"Europe/Volgograd\",\"Europe/Warsaw\",\"Europe/" +
-    "Zagreb\",\"Europe/Zurich\",\"Indian/Antananarivo\",\"Indian/Chagos\",\"Indian/Christmas\",\"Indian/C" +
-    "ocos\",\"Indian/Comoro\",\"Indian/Kerguelen\",\"Indian/Mahe\",\"Indian/Maldives\",\"Indian/Mauritius" +
-    "\",\"Indian/Mayotte\",\"Indian/Reunion\",\"Pacific/Apia\",\"Pacific/Auckland\",\"Pacific/Bougainvill" +
-    "e\",\"Pacific/Chatham\",\"Pacific/Easter\",\"Pacific/Efate\",\"Pacific/Enderbury\",\"Pacific/Fakaofo" +
-    "\",\"Pacific/Fiji\",\"Pacific/Funafuti\",\"Pacific/Galapagos\",\"Pacific/Gambier\",\"Pacific/Guadalc" +
-    "anal\",\"Pacific/Guam\",\"Pacific/Honolulu\",\"Pacific/Kanton\",\"Pacific/Kiritimati\",\"Pacific/Kos" +
-    "rae\",\"Pacific/Kwajalein\",\"Pacific/Majuro\",\"Pacific/Marquesas\",\"Pacific/Midway\",\"Pacific/Na" +
-    "uru\",\"Pacific/Niue\",\"Pacific/Norfolk\",\"Pacific/Noumea\",\"Pacific/Pago_Pago\",\"Pacific/Palau\"" +
+    "America/Coral_Harbour\",\"America/Cordoba\",\"America/Costa_Rica\",\"America/Coyhaique\",\"America/C" +
+    "reston\",\"America/Cuiaba\",\"America/Curacao\",\"America/Danmarkshavn\",\"America/Dawson\",\"Americ" +
+    "a/Dawson_Creek\",\"America/Denver\",\"America/Detroit\",\"America/Dominica\",\"America/Edmonton\",\"" +
+    "America/Eirunepe\",\"America/El_Salvador\",\"America/Fort_Nelson\",\"America/Fortaleza\",\"America/G" +
+    "lace_Bay\",\"America/Godthab\",\"America/Goose_Bay\",\"America/Grand_Turk\",\"America/Grenada\",\"Am" +
+    "erica/Guadeloupe\",\"America/Guatemala\",\"America/Guayaquil\",\"America/Guyana\",\"America/Halifax\"" +
+    ",\"America/Havana\",\"America/Hermosillo\",\"America/Indiana/Knox\",\"America/Indiana/Marengo\",\"Am" +
+    "erica/Indiana/Petersburg\",\"America/Indiana/Tell_City\",\"America/Indiana/Vevay\",\"America/Indiana" +
+    "/Vincennes\",\"America/Indiana/Winamac\",\"America/Indianapolis\",\"America/Inuvik\",\"America/Iqalu" +
+    "it\",\"America/Jamaica\",\"America/Jujuy\",\"America/Juneau\",\"America/Kentucky/Monticello\",\"Amer" +
+    "ica/Kralendijk\",\"America/La_Paz\",\"America/Lima\",\"America/Los_Angeles\",\"America/Louisville\"," +
+    "\"America/Lower_Princes\",\"America/Maceio\",\"America/Managua\",\"America/Manaus\",\"America/Marigo" +
+    "t\",\"America/Martinique\",\"America/Matamoros\",\"America/Mazatlan\",\"America/Mendoza\",\"America/" +
+    "Menominee\",\"America/Merida\",\"America/Metlakatla\",\"America/Mexico_City\",\"America/Miquelon\",\"" +
+    "America/Moncton\",\"America/Monterrey\",\"America/Montevideo\",\"America/Montserrat\",\"America/Nass" +
+    "au\",\"America/New_York\",\"America/Nome\",\"America/Noronha\",\"America/North_Dakota/Beulah\",\"Ame" +
+    "rica/North_Dakota/Center\",\"America/North_Dakota/New_Salem\",\"America/Ojinaga\",\"America/Panama\"" +
+    ",\"America/Paramaribo\",\"America/Phoenix\",\"America/Port-au-Prince\",\"America/Port_of_Spain\",\"A" +
+    "merica/Porto_Velho\",\"America/Puerto_Rico\",\"America/Punta_Arenas\",\"America/Rankin_Inlet\",\"Ame" +
+    "rica/Recife\",\"America/Regina\",\"America/Resolute\",\"America/Rio_Branco\",\"America/Santarem\",\"" +
+    "America/Santiago\",\"America/Santo_Domingo\",\"America/Sao_Paulo\",\"America/Scoresbysund\",\"Americ" +
+    "a/Sitka\",\"America/St_Barthelemy\",\"America/St_Johns\",\"America/St_Kitts\",\"America/St_Lucia\",\"" +
+    "America/St_Thomas\",\"America/St_Vincent\",\"America/Swift_Current\",\"America/Tegucigalpa\",\"Ameri" +
+    "ca/Thule\",\"America/Tijuana\",\"America/Toronto\",\"America/Tortola\",\"America/Vancouver\",\"Ameri" +
+    "ca/Whitehorse\",\"America/Winnipeg\",\"America/Yakutat\",\"Antarctica/Casey\",\"Antarctica/Davis\",\"" +
+    "Antarctica/DumontDUrville\",\"Antarctica/Macquarie\",\"Antarctica/Mawson\",\"Antarctica/McMurdo\",\"" +
+    "Antarctica/Palmer\",\"Antarctica/Rothera\",\"Antarctica/Syowa\",\"Antarctica/Troll\",\"Antarctica/Vo" +
+    "stok\",\"Arctic/Longyearbyen\",\"Asia/Aden\",\"Asia/Almaty\",\"Asia/Amman\",\"Asia/Anadyr\",\"Asia/A" +
+    "qtau\",\"Asia/Aqtobe\",\"Asia/Ashgabat\",\"Asia/Atyrau\",\"Asia/Baghdad\",\"Asia/Bahrain\",\"Asia/Ba" +
+    "ku\",\"Asia/Bangkok\",\"Asia/Barnaul\",\"Asia/Beirut\",\"Asia/Bishkek\",\"Asia/Brunei\",\"Asia/Calcu" +
+    "tta\",\"Asia/Chita\",\"Asia/Colombo\",\"Asia/Damascus\",\"Asia/Dhaka\",\"Asia/Dili\",\"Asia/Dubai\"," +
+    "\"Asia/Dushanbe\",\"Asia/Famagusta\",\"Asia/Gaza\",\"Asia/Hebron\",\"Asia/Hong_Kong\",\"Asia/Hovd\"," +
+    "\"Asia/Irkutsk\",\"Asia/Jakarta\",\"Asia/Jayapura\",\"Asia/Jerusalem\",\"Asia/Kabul\",\"Asia/Kamchat" +
+    "ka\",\"Asia/Karachi\",\"Asia/Katmandu\",\"Asia/Khandyga\",\"Asia/Krasnoyarsk\",\"Asia/Kuala_Lumpur\"" +
+    ",\"Asia/Kuching\",\"Asia/Kuwait\",\"Asia/Macau\",\"Asia/Magadan\",\"Asia/Makassar\",\"Asia/Manila\"," +
+    "\"Asia/Muscat\",\"Asia/Nicosia\",\"Asia/Novokuznetsk\",\"Asia/Novosibirsk\",\"Asia/Omsk\",\"Asia/Ora" +
+    "l\",\"Asia/Phnom_Penh\",\"Asia/Pontianak\",\"Asia/Pyongyang\",\"Asia/Qatar\",\"Asia/Qostanay\",\"Asi" +
+    "a/Qyzylorda\",\"Asia/Rangoon\",\"Asia/Riyadh\",\"Asia/Saigon\",\"Asia/Sakhalin\",\"Asia/Samarkand\"," +
+    "\"Asia/Seoul\",\"Asia/Shanghai\",\"Asia/Singapore\",\"Asia/Srednekolymsk\",\"Asia/Taipei\",\"Asia/Ta" +
+    "shkent\",\"Asia/Tbilisi\",\"Asia/Tehran\",\"Asia/Thimphu\",\"Asia/Tokyo\",\"Asia/Tomsk\",\"Asia/Ulaa" +
+    "nbaatar\",\"Asia/Urumqi\",\"Asia/Ust-Nera\",\"Asia/Vientiane\",\"Asia/Vladivostok\",\"Asia/Yakutsk\"" +
+    ",\"Asia/Yekaterinburg\",\"Asia/Yerevan\",\"Atlantic/Azores\",\"Atlantic/Bermuda\",\"Atlantic/Canary\"" +
+    ",\"Atlantic/Cape_Verde\",\"Atlantic/Faeroe\",\"Atlantic/Madeira\",\"Atlantic/Reykjavik\",\"Atlantic/" +
+    "South_Georgia\",\"Atlantic/St_Helena\",\"Atlantic/Stanley\",\"Australia/Adelaide\",\"Australia/Brisb" +
+    "ane\",\"Australia/Broken_Hill\",\"Australia/Darwin\",\"Australia/Eucla\",\"Australia/Hobart\",\"Aust" +
+    "ralia/Lindeman\",\"Australia/Lord_Howe\",\"Australia/Melbourne\",\"Australia/Perth\",\"Australia/Syd" +
+    "ney\",\"Etc/UTC\",\"Etc/Unknown\",\"Europe/Amsterdam\",\"Europe/Andorra\",\"Europe/Astrakhan\",\"Eur" +
+    "ope/Athens\",\"Europe/Belgrade\",\"Europe/Berlin\",\"Europe/Bratislava\",\"Europe/Brussels\",\"Europ" +
+    "e/Bucharest\",\"Europe/Budapest\",\"Europe/Busingen\",\"Europe/Chisinau\",\"Europe/Copenhagen\",\"Eu" +
+    "rope/Dublin\",\"Europe/Gibraltar\",\"Europe/Guernsey\",\"Europe/Helsinki\",\"Europe/Isle_of_Man\",\"" +
+    "Europe/Istanbul\",\"Europe/Jersey\",\"Europe/Kaliningrad\",\"Europe/Kiev\",\"Europe/Kirov\",\"Europe" +
+    "/Lisbon\",\"Europe/Ljubljana\",\"Europe/London\",\"Europe/Luxembourg\",\"Europe/Madrid\",\"Europe/Ma" +
+    "lta\",\"Europe/Mariehamn\",\"Europe/Minsk\",\"Europe/Monaco\",\"Europe/Moscow\",\"Europe/Oslo\",\"Eu" +
+    "rope/Paris\",\"Europe/Podgorica\",\"Europe/Prague\",\"Europe/Riga\",\"Europe/Rome\",\"Europe/Samara\"" +
+    ",\"Europe/San_Marino\",\"Europe/Sarajevo\",\"Europe/Saratov\",\"Europe/Simferopol\",\"Europe/Skopje\"" +
+    ",\"Europe/Sofia\",\"Europe/Stockholm\",\"Europe/Tallinn\",\"Europe/Tirane\",\"Europe/Ulyanovsk\",\"E" +
+    "urope/Vaduz\",\"Europe/Vatican\",\"Europe/Vienna\",\"Europe/Vilnius\",\"Europe/Volgograd\",\"Europe/" +
+    "Warsaw\",\"Europe/Zagreb\",\"Europe/Zurich\",\"Indian/Antananarivo\",\"Indian/Chagos\",\"Indian/Chri" +
+    "stmas\",\"Indian/Cocos\",\"Indian/Comoro\",\"Indian/Kerguelen\",\"Indian/Mahe\",\"Indian/Maldives\"," +
+    "\"Indian/Mauritius\",\"Indian/Mayotte\",\"Indian/Reunion\",\"Pacific/Apia\",\"Pacific/Auckland\",\"P" +
+    "acific/Bougainville\",\"Pacific/Chatham\",\"Pacific/Easter\",\"Pacific/Efate\",\"Pacific/Enderbury\"" +
+    ",\"Pacific/Fakaofo\",\"Pacific/Fiji\",\"Pacific/Funafuti\",\"Pacific/Galapagos\",\"Pacific/Gambier\"" +
+    ",\"Pacific/Guadalcanal\",\"Pacific/Guam\",\"Pacific/Honolulu\",\"Pacific/Kiritimati\",\"Pacific/Kosr" +
+    "ae\",\"Pacific/Kwajalein\",\"Pacific/Majuro\",\"Pacific/Marquesas\",\"Pacific/Midway\",\"Pacific/Nau" +
+    "ru\",\"Pacific/Niue\",\"Pacific/Norfolk\",\"Pacific/Noumea\",\"Pacific/Pago_Pago\",\"Pacific/Palau\"" +
     ",\"Pacific/Pitcairn\",\"Pacific/Ponape\",\"Pacific/Port_Moresby\",\"Pacific/Rarotonga\",\"Pacific/Sa" +
     "ipan\",\"Pacific/Tahiti\",\"Pacific/Tarawa\",\"Pacific/Tongatapu\",\"Pacific/Truk\",\"Pacific/Wake\"" +
     ",\"Pacific/Wallis\"]";

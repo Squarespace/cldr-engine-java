@@ -50,15 +50,7 @@ public class LanguageTagParser {
   }};
 
   // Grandfathered irregular and regular tags from IANA registry.
-  private static final Map<String, String> GRANDFATHERED_TAGS = new HashMap<String, String>() {{
-    // Additional fallbacks from ICU
-    this.put("cel-gaulish", "xtg-x-cel-gaulish");
-    this.put("en-GB-oed", "en-GB-x-oed");
-    this.put("i-default", "en-x-i-default");
-    this.put("i-enochian", "und-x-i-enochian");
-    this.put("i-mingo", "see-x-i-mingo");
-    this.put("zh-min", "nan-x-zh-min");
-  }};
+  private static final Map<String, String> GRANDFATHERED_TAGS = new HashMap<String, String>();
 
   static {
     // Grandfathered tag mapping
@@ -71,6 +63,15 @@ public class LanguageTagParser {
         GRANDFATHERED_TAGS.put(parts[0], parts[1]);
       }
     }
+
+    // Additional fallbacks from ICU, applied after the raw data so they win.
+    // Mirrors the TS construction order (...stringToObject(grandfatheredRaw), then ICU overrides).
+    GRANDFATHERED_TAGS.put("cel-gaulish", "xtg-x-cel-gaulish");
+    GRANDFATHERED_TAGS.put("en-GB-oed", "en-GB-x-oed");
+    GRANDFATHERED_TAGS.put("i-default", "en-x-i-default");
+    GRANDFATHERED_TAGS.put("i-enochian", "und-x-i-enochian");
+    GRANDFATHERED_TAGS.put("i-mingo", "see-x-i-mingo");
+    GRANDFATHERED_TAGS.put("zh-min", "nan-x-zh-min");
   }
 
   private String language;

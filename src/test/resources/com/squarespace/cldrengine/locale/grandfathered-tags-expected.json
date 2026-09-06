@@ -1,0 +1,218 @@
+{
+  "art-lojban": {
+    "language": "jbo",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "jbo"
+  },
+  "cel-gaulish": {
+    "language": "xtg",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "x-cel-gaulish",
+    "compact": "xtg-x-cel-gaulish"
+  },
+  "en-GB-oed": {
+    "language": "en",
+    "script": "Zzzz",
+    "region": "GB",
+    "variant": "",
+    "privateUse": "",
+    "compact": "en-GB"
+  },
+  "i-ami": {
+    "language": "ami",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "ami"
+  },
+  "i-bnn": {
+    "language": "bnn",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "bnn"
+  },
+  "i-default": {
+    "language": "en",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "x-i-default",
+    "compact": "en-x-i-default"
+  },
+  "i-enochian": {
+    "language": "und",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "x-i-enochian",
+    "compact": "und-x-i-enochian"
+  },
+  "i-hak": {
+    "language": "hak",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "hak"
+  },
+  "i-klingon": {
+    "language": "tlh",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "tlh"
+  },
+  "i-lux": {
+    "language": "lb",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "lb"
+  },
+  "i-mingo": {
+    "language": "see",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "x-i-mingo",
+    "compact": "see-x-i-mingo"
+  },
+  "i-navajo": {
+    "language": "nv",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "nv"
+  },
+  "i-pwn": {
+    "language": "pwn",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "pwn"
+  },
+  "i-tao": {
+    "language": "tao",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "tao"
+  },
+  "i-tay": {
+    "language": "tay",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "tay"
+  },
+  "i-tsu": {
+    "language": "tsu",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "tsu"
+  },
+  "no-bok": {
+    "language": "nb",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "nb"
+  },
+  "no-nyn": {
+    "language": "nn",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "nn"
+  },
+  "sgn-BE-FR": {
+    "language": "sgn",
+    "script": "Zzzz",
+    "region": "BE",
+    "variant": "",
+    "privateUse": "",
+    "compact": "sgn-BE"
+  },
+  "sgn-BE-NL": {
+    "language": "sgn",
+    "script": "Zzzz",
+    "region": "BE",
+    "variant": "",
+    "privateUse": "",
+    "compact": "sgn-BE"
+  },
+  "sgn-CH-DE": {
+    "language": "sgn",
+    "script": "Zzzz",
+    "region": "CH",
+    "variant": "",
+    "privateUse": "",
+    "compact": "sgn-CH"
+  },
+  "zh-guoyu": {
+    "language": "cmn",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "cmn"
+  },
+  "zh-hakka": {
+    "language": "hak",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "hak"
+  },
+  "zh-min": {
+    "language": "nan",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "x-zh-min",
+    "compact": "nan-x-zh-min"
+  },
+  "zh-min-nan": {
+    "language": "nan",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "nan"
+  },
+  "zh-xiang": {
+    "language": "hsn",
+    "script": "Zzzz",
+    "region": "ZZ",
+    "variant": "",
+    "privateUse": "",
+    "compact": "hsn"
+  },
+  "en-US": {
+    "language": "en",
+    "script": "Zzzz",
+    "region": "US",
+    "variant": "",
+    "privateUse": "",
+    "compact": "en-US"
+  }
+}

@@ -1,7 +1,6 @@
 package com.squarespace.cldrengine.internal;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
@@ -118,54 +117,46 @@ public class CalendarMathTest {
   public void testTruncateFields() {
     TimePeriod res = CalendarMath.truncateFields(TimePeriod.build()
         .hour(1.9).minute(1.1).second(-1.1).millis(3.999));
-    assertEquals((double)res.year.or(0.0), 0.0);
-    assertEquals((double)res.month.or(0.0), 0.0);
-    assertEquals((double)res.week.or(0.0), 0.0);
-    assertEquals((double)res.day.or(0.0), 0.0);
-    assertEquals((double)res.hour.or(0.0), 1.0);
-    assertEquals((double)res.minute.or(0.0), 1.0);
-    assertEquals((double)res.second.or(0.0), -1.0);
-    assertEquals((double)res.millis.or(0.0), 3.0);
+    assertEquals(res.year, 0.0);
+    assertEquals(res.month, 0.0);
+    assertEquals(res.week, 0.0);
+    assertEquals(res.day, 0.0);
+    assertEquals(res.hour, 1.0);
+    assertEquals(res.minute, 1.0);
+    assertEquals(res.second, -1.0);
+    assertEquals(res.millis, 3.0);
 
     res = CalendarMath.truncateFields(TimePeriod.build().hour(-1.9));
-    assertEquals((double)res.hour.or(0.0), -1.0);
-    assertEquals((double)res.year.or(0.0), 0.0);
-    assertEquals((double)res.month.or(0.0), 0.0);
-    assertEquals((double)res.week.or(0.0), 0.0);
-    assertEquals((double)res.day.or(0.0), 0.0);
-    assertEquals((double)res.minute.or(0.0), 0.0);
-    assertEquals((double)res.second.or(0.0), 0.0);
-    assertEquals((double)res.millis.or(0.0), 0.0);
+    assertEquals(res.hour, -1.0);
+    assertEquals(res.year, 0.0);
+    assertEquals(res.month, 0.0);
+    assertEquals(res.week, 0.0);
+    assertEquals(res.day, 0.0);
+    assertEquals(res.minute, 0.0);
+    assertEquals(res.second, 0.0);
+    assertEquals(res.millis, 0.0);
 
     // Unset fields are truncated from 0 and the result has all fields set.
     res = CalendarMath.truncateFields(TimePeriod.build());
-    assertEquals((double)res.year.or(0.0), 0.0);
-    assertEquals((double)res.month.or(0.0), 0.0);
-    assertEquals((double)res.week.or(0.0), 0.0);
-    assertEquals((double)res.day.or(0.0), 0.0);
-    assertEquals((double)res.hour.or(0.0), 0.0);
-    assertEquals((double)res.minute.or(0.0), 0.0);
-    assertEquals((double)res.second.or(0.0), 0.0);
-    assertEquals((double)res.millis.or(0.0), 0.0);
-    assertTrue(res.year.ok());
-    assertTrue(res.month.ok());
-    assertTrue(res.week.ok());
-    assertTrue(res.day.ok());
-    assertTrue(res.hour.ok());
-    assertTrue(res.minute.ok());
-    assertTrue(res.second.ok());
-    assertTrue(res.millis.ok());
+    assertEquals(res.year, 0.0);
+    assertEquals(res.month, 0.0);
+    assertEquals(res.week, 0.0);
+    assertEquals(res.day, 0.0);
+    assertEquals(res.hour, 0.0);
+    assertEquals(res.minute, 0.0);
+    assertEquals(res.second, 0.0);
+    assertEquals(res.millis, 0.0);
 
     res = CalendarMath.truncateFields(TimePeriod.build()
         .day(0.9).week(1.5).year(2.7).month(-1.7));
-    assertEquals((double)res.year.or(0.0), 2.0);
-    assertEquals((double)res.month.or(0.0), -1.0);
-    assertEquals((double)res.week.or(0.0), 1.0);
-    assertEquals((double)res.day.or(0.0), 0.0);
-    assertEquals((double)res.hour.or(0.0), 0.0);
-    assertEquals((double)res.minute.or(0.0), 0.0);
-    assertEquals((double)res.second.or(0.0), 0.0);
-    assertEquals((double)res.millis.or(0.0), 0.0);
+    assertEquals(res.year, 2.0);
+    assertEquals(res.month, -1.0);
+    assertEquals(res.week, 1.0);
+    assertEquals(res.day, 0.0);
+    assertEquals(res.hour, 0.0);
+    assertEquals(res.minute, 0.0);
+    assertEquals(res.second, 0.0);
+    assertEquals(res.millis, 0.0);
   }
 
   @Test

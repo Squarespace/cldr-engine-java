@@ -119,7 +119,9 @@ public class DateMathSuiteTest extends CoverageSuite {
     for (int i = 0; i < properties.size(); i++) {
       String property = properties.get(i);
       Double val = doubleValue(arr.get(i));
-      updatePeriod(res, property, val);
+      if (val != null) {
+        updatePeriod(res, property, val);
+      }
     }
     return res;
   }

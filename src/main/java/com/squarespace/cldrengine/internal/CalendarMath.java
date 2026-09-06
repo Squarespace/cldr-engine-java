@@ -112,10 +112,10 @@ public class CalendarMath {
    * Convert the time fields of a period to milliseconds.
    */
   public static double timeToMillis(TimePeriod period) {
-    return (period.hour.or(0.0) * CalendarConstants.ONE_HOUR_MS +
-        period.minute.or(0.0) * CalendarConstants.ONE_MINUTE_MS +
-        period.second.or(0.0) * CalendarConstants.ONE_SECOND_MS +
-        period.millis.or(0.0));
+    return (period.hour * CalendarConstants.ONE_HOUR_MS +
+        period.minute * CalendarConstants.ONE_MINUTE_MS +
+        period.second * CalendarConstants.ONE_SECOND_MS +
+        period.millis);
   }
 
   /**
@@ -132,21 +132,21 @@ public class CalendarMath {
   private static double value(TimePeriod period, TimePeriodField key) {
     switch (key) {
       case YEAR:
-        return period.year.or(0.0);
+        return period.year;
       case MONTH:
-        return period.month.or(0.0);
+        return period.month;
       case WEEK:
-        return period.week.or(0.0);
+        return period.week;
       case DAY:
-        return period.day.or(0.0);
+        return period.day;
       case HOUR:
-        return period.hour.or(0.0);
+        return period.hour;
       case MINUTE:
-        return period.minute.or(0.0);
+        return period.minute;
       case SECOND:
-        return period.second.or(0.0);
+        return period.second;
       default:
-        return period.millis.or(0.0);
+        return period.millis;
     }
   }
 

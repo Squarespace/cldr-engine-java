@@ -5,241 +5,231 @@ import lombok.EqualsAndHashCode;
 
 @Generated
 @EqualsAndHashCode
-public class TimePeriod {
+public class CalendarDateFields {
 
   public final Option<Double> year = Option.option();
   public final Option<Double> month = Option.option();
-  public final Option<Double> week = Option.option();
   public final Option<Double> day = Option.option();
   public final Option<Double> hour = Option.option();
   public final Option<Double> minute = Option.option();
   public final Option<Double> second = Option.option();
   public final Option<Double> millis = Option.option();
+  public final Option<String> zoneId = Option.option();
 
-  public TimePeriod() {
+  public CalendarDateFields() {
   }
 
-  public TimePeriod(TimePeriod arg) {
+  public CalendarDateFields(CalendarDateFields arg) {
     this.year.set(arg.year);
     this.month.set(arg.month);
-    this.week.set(arg.week);
     this.day.set(arg.day);
     this.hour.set(arg.hour);
     this.minute.set(arg.minute);
     this.second.set(arg.second);
     this.millis.set(arg.millis);
+    this.zoneId.set(arg.zoneId);
   }
 
-  public TimePeriod year(Double arg) {
+  public CalendarDateFields year(Double arg) {
     this.year.set(arg);
     return this;
   }
 
-  public TimePeriod year(Long arg) {
+  public CalendarDateFields year(Long arg) {
     this.year.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod year(Integer arg) {
+  public CalendarDateFields year(Integer arg) {
     this.year.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod year(Option<Double> arg) {
+  public CalendarDateFields year(Option<Double> arg) {
     this.year.set(arg);
     return this;
   }
 
-  public TimePeriod month(Double arg) {
+  public CalendarDateFields month(Double arg) {
     this.month.set(arg);
     return this;
   }
 
-  public TimePeriod month(Long arg) {
+  public CalendarDateFields month(Long arg) {
     this.month.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod month(Integer arg) {
+  public CalendarDateFields month(Integer arg) {
     this.month.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod month(Option<Double> arg) {
+  public CalendarDateFields month(Option<Double> arg) {
     this.month.set(arg);
     return this;
   }
 
-  public TimePeriod week(Double arg) {
-    this.week.set(arg);
-    return this;
-  }
-
-  public TimePeriod week(Long arg) {
-    this.week.set(arg == null ? null : arg.doubleValue());
-    return this;
-  }
-
-  public TimePeriod week(Integer arg) {
-    this.week.set(arg == null ? null : arg.doubleValue());
-    return this;
-  }
-
-  public TimePeriod week(Option<Double> arg) {
-    this.week.set(arg);
-    return this;
-  }
-
-  public TimePeriod day(Double arg) {
+  public CalendarDateFields day(Double arg) {
     this.day.set(arg);
     return this;
   }
 
-  public TimePeriod day(Long arg) {
+  public CalendarDateFields day(Long arg) {
     this.day.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod day(Integer arg) {
+  public CalendarDateFields day(Integer arg) {
     this.day.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod day(Option<Double> arg) {
+  public CalendarDateFields day(Option<Double> arg) {
     this.day.set(arg);
     return this;
   }
 
-  public TimePeriod hour(Double arg) {
+  public CalendarDateFields hour(Double arg) {
     this.hour.set(arg);
     return this;
   }
 
-  public TimePeriod hour(Long arg) {
+  public CalendarDateFields hour(Long arg) {
     this.hour.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod hour(Integer arg) {
+  public CalendarDateFields hour(Integer arg) {
     this.hour.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod hour(Option<Double> arg) {
+  public CalendarDateFields hour(Option<Double> arg) {
     this.hour.set(arg);
     return this;
   }
 
-  public TimePeriod minute(Double arg) {
+  public CalendarDateFields minute(Double arg) {
     this.minute.set(arg);
     return this;
   }
 
-  public TimePeriod minute(Long arg) {
+  public CalendarDateFields minute(Long arg) {
     this.minute.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod minute(Integer arg) {
+  public CalendarDateFields minute(Integer arg) {
     this.minute.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod minute(Option<Double> arg) {
+  public CalendarDateFields minute(Option<Double> arg) {
     this.minute.set(arg);
     return this;
   }
 
-  public TimePeriod second(Double arg) {
+  public CalendarDateFields second(Double arg) {
     this.second.set(arg);
     return this;
   }
 
-  public TimePeriod second(Long arg) {
+  public CalendarDateFields second(Long arg) {
     this.second.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod second(Integer arg) {
+  public CalendarDateFields second(Integer arg) {
     this.second.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod second(Option<Double> arg) {
+  public CalendarDateFields second(Option<Double> arg) {
     this.second.set(arg);
     return this;
   }
 
-  public TimePeriod millis(Double arg) {
+  public CalendarDateFields millis(Double arg) {
     this.millis.set(arg);
     return this;
   }
 
-  public TimePeriod millis(Long arg) {
+  public CalendarDateFields millis(Long arg) {
     this.millis.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod millis(Integer arg) {
+  public CalendarDateFields millis(Integer arg) {
     this.millis.set(arg == null ? null : arg.doubleValue());
     return this;
   }
 
-  public TimePeriod millis(Option<Double> arg) {
+  public CalendarDateFields millis(Option<Double> arg) {
     this.millis.set(arg);
     return this;
   }
 
-  public static TimePeriod build() {
-    return new TimePeriod();
+  public CalendarDateFields zoneId(String arg) {
+    this.zoneId.set(arg);
+    return this;
   }
 
-  public TimePeriod copy() {
-    return new TimePeriod(this);
+  public CalendarDateFields zoneId(Option<String> arg) {
+    this.zoneId.set(arg);
+    return this;
   }
 
-  public TimePeriod mergeIf(TimePeriod ...args) {
-    TimePeriod o = new TimePeriod(this);
-    for (TimePeriod arg : args) {
+  public static CalendarDateFields build() {
+    return new CalendarDateFields();
+  }
+
+  public CalendarDateFields copy() {
+    return new CalendarDateFields(this);
+  }
+
+  public CalendarDateFields mergeIf(CalendarDateFields ...args) {
+    CalendarDateFields o = new CalendarDateFields(this);
+    for (CalendarDateFields arg : args) {
       o._mergeIf(arg);
     }
     return o;
   }
 
-  protected void _mergeIf(TimePeriod o) {
+  protected void _mergeIf(CalendarDateFields o) {
     this.year.setIf(o.year);
     this.month.setIf(o.month);
-    this.week.setIf(o.week);
     this.day.setIf(o.day);
     this.hour.setIf(o.hour);
     this.minute.setIf(o.minute);
     this.second.setIf(o.second);
     this.millis.setIf(o.millis);
+    this.zoneId.setIf(o.zoneId);
   }
 
-  public TimePeriod merge(TimePeriod ...args) {
-    TimePeriod o = new TimePeriod(this);
-    for (TimePeriod arg : args) {
+  public CalendarDateFields merge(CalendarDateFields ...args) {
+    CalendarDateFields o = new CalendarDateFields(this);
+    for (CalendarDateFields arg : args) {
       o._merge(arg);
     }
     return o;
   }
 
-  protected void _merge(TimePeriod o) {
+  protected void _merge(CalendarDateFields o) {
     this.year.set(o.year);
     this.month.set(o.month);
-    this.week.set(o.week);
     this.day.set(o.day);
     this.hour.set(o.hour);
     this.minute.set(o.minute);
     this.second.set(o.second);
     this.millis.set(o.millis);
+    this.zoneId.set(o.zoneId);
   }
 
 
   @Override
   public String toString() {
-    StringBuilder buf = new StringBuilder("TimePeriod( ");
+    StringBuilder buf = new StringBuilder("CalendarDateFields( ");
     this._tostring(buf);
     return buf.append(')').toString();
   }
@@ -250,9 +240,6 @@ public class TimePeriod {
     }
     if (month.ok()) {
       buf.append("month=").append(month).append(' ');
-    }
-    if (week.ok()) {
-      buf.append("week=").append(week).append(' ');
     }
     if (day.ok()) {
       buf.append("day=").append(day).append(' ');
@@ -268,6 +255,9 @@ public class TimePeriod {
     }
     if (millis.ok()) {
       buf.append("millis=").append(millis).append(' ');
+    }
+    if (zoneId.ok()) {
+      buf.append("zoneId=").append(zoneId).append(' ');
     }
   }
 

@@ -9,6 +9,7 @@ public class RelativeTimeFormatOptions extends RelativeTimeFieldFormatOptions {
 
   public final Option<CalendarType> calendar = Option.option();
   public final Option<Boolean> dayOfWeek = Option.option();
+  public final Option<Boolean> allowWeeks = Option.option();
   public final Option<TimePeriodField> field = Option.option();
 
   public RelativeTimeFormatOptions() {
@@ -18,6 +19,7 @@ public class RelativeTimeFormatOptions extends RelativeTimeFieldFormatOptions {
     super(arg);
     this.calendar.set(arg.calendar);
     this.dayOfWeek.set(arg.dayOfWeek);
+    this.allowWeeks.set(arg.allowWeeks);
     this.field.set(arg.field);
   }
 
@@ -38,6 +40,16 @@ public class RelativeTimeFormatOptions extends RelativeTimeFieldFormatOptions {
 
   public RelativeTimeFormatOptions dayOfWeek(Option<Boolean> arg) {
     this.dayOfWeek.set(arg);
+    return this;
+  }
+
+  public RelativeTimeFormatOptions allowWeeks(Boolean arg) {
+    this.allowWeeks.set(arg);
+    return this;
+  }
+
+  public RelativeTimeFormatOptions allowWeeks(Option<Boolean> arg) {
+    this.allowWeeks.set(arg);
     return this;
   }
 
@@ -210,6 +222,7 @@ public class RelativeTimeFormatOptions extends RelativeTimeFieldFormatOptions {
     super._mergeIf(o);
     this.calendar.setIf(o.calendar);
     this.dayOfWeek.setIf(o.dayOfWeek);
+    this.allowWeeks.setIf(o.allowWeeks);
     this.field.setIf(o.field);
   }
 
@@ -225,6 +238,7 @@ public class RelativeTimeFormatOptions extends RelativeTimeFieldFormatOptions {
     super._merge(o);
     this.calendar.set(o.calendar);
     this.dayOfWeek.set(o.dayOfWeek);
+    this.allowWeeks.set(o.allowWeeks);
     this.field.set(o.field);
   }
 
@@ -243,6 +257,9 @@ public class RelativeTimeFormatOptions extends RelativeTimeFieldFormatOptions {
     }
     if (dayOfWeek.ok()) {
       buf.append("dayOfWeek=").append(dayOfWeek).append(' ');
+    }
+    if (allowWeeks.ok()) {
+      buf.append("allowWeeks=").append(allowWeeks).append(' ');
     }
     if (field.ok()) {
       buf.append("field=").append(field).append(' ');

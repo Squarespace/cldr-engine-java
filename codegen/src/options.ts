@@ -134,6 +134,11 @@ const DateRawFormatOptions = new Option('DateRawFormatOptions')
   .field('context', 'ContextType')
   .field('alt', 'DateFormatAltOptions');
 
+const DateWrapperFormatOptions = new Option('DateWrapperFormatOptions')
+  .field('calendar', 'CalendarType')
+  .field('width', 'FormatWidthType')
+  .field('atTime', 'Boolean');
+
 const DecimalAdjustOptions = new Option('DecimalAdjustOptions')
   .field('round', 'RoundingModeType')
   .field('minimumIntegerDigits', 'Integer')
@@ -195,6 +200,7 @@ const RelativeTimeFormatOptions = new Option(
 )
   .field('calendar', 'CalendarType')
   .field('dayOfWeek', 'Boolean')
+  .field('allowWeeks', 'Boolean')
   .field('field', 'TimePeriodField');
 
 const RelativeTimeFieldFormatOptions = new Option(
@@ -206,15 +212,20 @@ const RelativeTimeFieldFormatOptions = new Option(
   .field('numericOnly', 'Boolean')
   .field('alwaysNow', 'Boolean');
 
-const TimePeriod = new Option('TimePeriod')
+const CalendarDateFields = new Option('CalendarDateFields')
   .field('year', 'Double')
   .field('month', 'Double')
-  .field('week', 'Double')
   .field('day', 'Double')
   .field('hour', 'Double')
   .field('minute', 'Double')
   .field('second', 'Double')
-  .field('millis', 'Double');
+  .field('millis', 'Double')
+  .field('zoneId', 'String');
+
+const TimeStringOptions = new Option('TimeStringOptions')
+  .field('includeZoneId', 'Boolean')
+  .field('includeZoneOffset', 'Boolean')
+  .field('optionalMilliseconds', 'Boolean');
 
 const UnitFormatOptions = new Option('UnitFormatOptions', 'NumberFormatOptions')
   .field('divisor', 'Integer')
@@ -229,7 +240,9 @@ const INDEX = [
   DateFormatOptions,
   DateFormatAltOptions,
   DateRawFormatOptions,
+  DateWrapperFormatOptions,
   DateIntervalFormatOptions,
+  CalendarDateFields,
   DecimalAdjustOptions,
   DecimalFormatOptions,
   DisplayNameOptions,
@@ -240,7 +253,7 @@ const INDEX = [
   Quantity,
   RelativeTimeFormatOptions,
   RelativeTimeFieldFormatOptions,
-  TimePeriod,
+  TimeStringOptions,
   UnitFormatOptions,
 ].reduce((p, c) => {
   p[c.name] = c;

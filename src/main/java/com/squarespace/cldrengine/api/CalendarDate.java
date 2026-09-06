@@ -324,25 +324,25 @@ public abstract class CalendarDate {
   protected abstract long monthStart(long eyear, double month, boolean useMonth);
 
   protected TimePeriodField largestRelativeField(TimePeriod p) {
-    if (p.year.ok() && p.year.get() != 0.0) {
+    if (p.year != 0.0) {
       return TimePeriodField.YEAR;
     }
-    if (p.month.ok() && p.month.get() != 0.0) {
+    if (p.month != 0.0) {
       return TimePeriodField.MONTH;
     }
-    if (p.week.ok() && p.week.get() != 0.0) {
+    if (p.week != 0.0) {
       return TimePeriodField.WEEK;
     }
-    if (p.day.ok() && p.day.get() != 0.0) {
+    if (p.day != 0.0) {
       return TimePeriodField.DAY;
     }
-    if (p.hour.ok() && p.hour.get() != 0.0) {
+    if (p.hour != 0.0) {
       return TimePeriodField.HOUR;
     }
-    if (p.minute.ok() && p.minute.get() != 0.0) {
+    if (p.minute != 0.0) {
       return TimePeriodField.MINUTE;
     }
-    if (p.second.ok() && p.second.get() != 0.0) {
+    if (p.second != 0.0) {
       return TimePeriodField.SECOND;
     }
     return TimePeriodField.MILLIS;
@@ -351,21 +351,21 @@ public abstract class CalendarDate {
   protected double getRelativeField(TimePeriod period, TimePeriodField field) {
     switch (field) {
       case YEAR:
-        return period.year.or(0.0);
+        return period.year;
       case MONTH:
-        return period.month.or(0.0);
+        return period.month;
       case WEEK:
-        return period.week.or(0.0);
+        return period.week;
       case DAY:
-        return period.day.or(0.0);
+        return period.day;
       case HOUR:
-        return period.hour.or(0.0);
+        return period.hour;
       case MINUTE:
-        return period.minute.or(0.0);
+        return period.minute;
       case SECOND:
-        return period.second.or(0.0);
+        return period.second;
       default:
-        return period.millis.or(0.0);
+        return period.millis;
     }
   }
 
@@ -382,12 +382,8 @@ public abstract class CalendarDate {
     return r;
   }
 
-  private Double invert(Option<Double> d) {
-    if (d.ok()) {
-      double v = d.get();
-      return v == 0 ? v : -v;
-    }
-    return null;
+  private double invert(double v) {
+    return v == 0 ? v : -v;
   }
 
   @AllArgsConstructor
@@ -420,13 +416,13 @@ public abstract class CalendarDate {
 
     int mc = this.monthCount();
 
-    double year = span.year.or(0.0);
-    double month = span.month.or(0.0);
-    double day = (span.week.or(0.0) * 7) + span.day.or(0.0);
-    double ms = (span.hour.or(0.0) * CalendarConstants.ONE_HOUR_MS) +
-        (span.minute.or(0.0) * CalendarConstants.ONE_MINUTE_MS) +
-        (span.second.or(0.0) * CalendarConstants.ONE_SECOND_MS) +
-        span.millis.or(0.0);
+    double year = span.year;
+    double month = span.month;
+    double day = (span.week * 7) + span.day;
+    double ms = (span.hour * CalendarConstants.ONE_HOUR_MS) +
+        (span.minute * CalendarConstants.ONE_MINUTE_MS) +
+        (span.second * CalendarConstants.ONE_SECOND_MS) +
+        span.millis;
 
     if (((f & FLAG_YEAR) != 0) && ((f & FLAG_MONTH) != 0)) {
       // Both year and month were requested, so use their integer values.
@@ -642,14 +638,14 @@ public abstract class CalendarDate {
     millis -= second * CalendarConstants.ONE_SECOND_MS;
 
     return TimePeriod.build()
-        .year((double)year)
-        .month((double)month)
-        .week((double)week)
-        .day((double)day)
-        .hour((double)hour)
-        .minute((double)minute)
-        .second((double)second)
-        .millis((double)millis);
+        .year(year)
+        .month(month)
+        .week(week)
+        .day(day)
+        .hour(hour)
+        .minute(minute)
+        .second(second)
+        .millis(millis);
   }
 
   protected int timePeriodFieldFlags(List<TimePeriodField> fields) {
@@ -707,7 +703,7 @@ public abstract class CalendarDate {
     Pair<Long, Double> daysms = this._addTime(fields);
     double _days = daysms._1;
     double _ms = daysms._2;
-    _days += fields.day.or(0.0) + (fields.week.or(0.0) * 7);
+    _days += fields.day + (fields.week * 7);
 
     // YEARS
 
@@ -716,7 +712,7 @@ public abstract class CalendarDate {
     // year and multiply that by the fractional part.
     // Example: In a Gregorian leap year we'll have 366 days. If the fractional
     // year is 0.25 we'll get 91.5 days.
-    Pair<Long, Double> split = splitfrac(fields.year.or(0.0));
+    Pair<Long, Double> split = splitfrac(fields.year);
     year = split._1;
     yearf = split._2;
     year += f[DateField.EXTENDED_YEAR];
@@ -742,7 +738,7 @@ public abstract class CalendarDate {
     // MONTHS
 
     // Get integer and fractional months
-    split = splitfrac((f[DateField.MONTH] - 1) + fields.month.or(0.0));
+    split = splitfrac((f[DateField.MONTH] - 1) + fields.month);
     month = split._1;
     monthf = split._2;
 
@@ -783,10 +779,10 @@ public abstract class CalendarDate {
    */
   protected Pair<Long, Double> _addTime(TimePeriod fields) {
     double msDay = this.fields[DateField.MILLIS_IN_DAY] - this.timeZoneOffset();
-    msDay += (fields.hour.or(0.0) * CalendarConstants.ONE_HOUR_MS) +
-        (fields.minute.or(0.0) * CalendarConstants.ONE_MINUTE_MS) +
-        (fields.second.or(0.0) * CalendarConstants.ONE_SECOND_MS) +
-        fields.millis.or(0.0);
+    msDay += (fields.hour * CalendarConstants.ONE_HOUR_MS) +
+        (fields.minute * CalendarConstants.ONE_MINUTE_MS) +
+        (fields.second * CalendarConstants.ONE_SECOND_MS) +
+        fields.millis;
     long days = (long) Math.floor(msDay / CalendarConstants.ONE_DAY_MS);
     double ms = msDay - (days * CalendarConstants.ONE_DAY_MS);
     return Pair.of(days, ms);

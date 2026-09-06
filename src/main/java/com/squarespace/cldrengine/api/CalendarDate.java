@@ -322,16 +322,56 @@ public abstract class CalendarDate {
   }
 
   /**
-   * Calculate the time period between two dates. Note this returns the
-   * absolute value.
+   * Calculate the period of time (years, months, days, ..) since the given date.
+   *
+   * In a normal call, "other is less-than-or-equal-to this".
+   * If "this is less-than other" we invert the sign of the result.
+   *
+   * For example:
+   *
+   *   "2024-03-03".since("2024-01-30") == "1 month 4 days"
+   *   "2024-01-30".since("2024-03-03") == "-1 month -3 days"
+   *
+   * The durations are not symmetrical due to calendar math, e.g. end-of-month alignment
+   * with months of different lengths.
    */
-  public TimePeriod difference(CalendarDate other, List<TimePeriodField> fields) {
-    Swap swap = this.swap(other);
-    TimePeriod res = this._diff(swap.start, swap.startFields, swap.endFields);
-    if (fields != null) {
-      return this._rollup(res, swap.startFields, swap.endFields, fields);
-    }
-    return res;
+  public TimePeriod since(CalendarDate other, DateDiffOptions options) {
+    return this.invertPeriod(CalendarDifference.difference(this, other, options));
+  }
+
+  /**
+   * Calculate the period of time (years, months, days, ..) until the given date.
+   *
+   * In a normal call, "this is less-than-or-equal-to other".
+   * If "other is less-than this" we invert the sign of the result.
+   *
+   * For example:
+   *
+   *   "2024-01-30".until("2024-03-30") == "1 month 3 days"
+   *   "2024-03-03".until("2024-01-30") == "-1 month -4 days"
+   *
+   * The duration are not symmetrical due to calendar math, e.g. end-of-month alignment
+   * with months of different lengths.
+   */
+  public TimePeriod until(CalendarDate other, DateDiffOptions options) {
+    return CalendarDifference.difference(this, other, options);
+  }
+
+  /**
+   * Calculate the time period between two dates. Note this returns the
+   * absolute value of the difference.
+   */
+  public TimePeriod difference(CalendarDate other, DateDiffOptions options) {
+    TimePeriod result = CalendarDifference.difference(this, other, options);
+    return this.compare(other) == 1 ? this.invertPeriod(result) : result;
+  }
+
+  /**
+   * Calculate the time period between two dates. If 'other' is before this date,
+   * the time period fields will be negative.
+   */
+  public TimePeriod differenceSigned(CalendarDate other, DateDiffOptions options) {
+    return this.until(other, options);
   }
 
   /**

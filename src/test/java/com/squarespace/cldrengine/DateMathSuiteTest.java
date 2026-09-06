@@ -3,7 +3,7 @@ package com.squarespace.cldrengine;
 import static org.testng.Assert.assertEquals;
 
 import java.io.BufferedReader;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.testng.annotations.Test;
@@ -13,6 +13,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.squarespace.cldrengine.api.CalendarDate;
+import com.squarespace.cldrengine.api.DateDiffOptions;
 import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.TimePeriod;
 import com.squarespace.cldrengine.api.TimePeriodField;
@@ -77,8 +78,8 @@ public class DateMathSuiteTest extends CoverageSuite {
           long e2ex = results.get(j + 1).getAsLong();
           TimePeriod d1ex = decodePeriod(results.get(j + 2));
           TimePeriod d2ex = decodePeriod(results.get(j + 3));
-          TimePeriod d1 = start.difference(e1, null);
-          TimePeriod d2 = start.difference(e2, null);
+          TimePeriod d1 = start.difference(e1, DateDiffOptions.build());
+          TimePeriod d2 = start.difference(e2, DateDiffOptions.build());
 
           assertEquals(e1.unixEpoch(), e1ex, date + " " + period + " add");
           assertEquals(e2.unixEpoch(), e2ex, date + " " + period + " subtract");
@@ -87,7 +88,7 @@ public class DateMathSuiteTest extends CoverageSuite {
 
           for (int k = 0; k < FIELDS.length; k++) {
             TimePeriod d3ex = decodePeriod(results.get(j + 4 + k));
-            TimePeriod d3 = start.difference(e1, Arrays.asList(FIELDS[k]));
+            TimePeriod d3 = start.difference(e1, DateDiffOptions.build().fields(Collections.singletonList(FIELDS[k])));
             assertEquals(d3, d3ex,
                 start.unixEpoch() + " " + e1.unixEpoch() + " " + FIELDS[k]);
           }

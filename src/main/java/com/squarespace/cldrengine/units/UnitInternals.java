@@ -91,7 +91,7 @@ public class UnitInternals {
       // Fetch the denominator's unit pattern, strip off the '{0}'
       // and any surrounding whitespace.
       String denom = info.unitPattern.get(bundle, plural1, perunit);
-      denom = denom.replace("\\s*\\{0\\}\\s*", "");
+      denom = denom.replaceFirst("\\s*\\{0\\}\\s*", "");
       T one = renderer.make("per", denom);
 
       // Wrap the numerator and denominator together

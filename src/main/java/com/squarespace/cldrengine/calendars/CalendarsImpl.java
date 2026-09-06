@@ -12,6 +12,7 @@ import java.util.Map;
 import com.squarespace.cldrengine.api.BuddhistDate;
 import com.squarespace.cldrengine.api.Bundle;
 import com.squarespace.cldrengine.api.CalendarDate;
+import com.squarespace.cldrengine.api.CalendarDateFields;
 import com.squarespace.cldrengine.api.CalendarFieldsOptions;
 import com.squarespace.cldrengine.api.CalendarType;
 import com.squarespace.cldrengine.api.Calendars;
@@ -174,6 +175,70 @@ public class CalendarsImpl implements Calendars {
   @Override
   public PersianDate toPersianDate(CalendarDate date) {
     return toPersianDate(date.unixEpoch(), date.timeZoneId());
+  }
+
+  @Override
+  public BuddhistDate newBuddhistDate(CalendarDateFields fields) {
+    return BuddhistDate.fromFields(fields, firstDay, minDays);
+  }
+
+  @Override
+  public GregorianDate newGregorianDate(CalendarDateFields fields) {
+    return GregorianDate.fromFields(fields, firstDay, minDays);
+  }
+
+  @Override
+  public ISO8601Date newISO8601Date(CalendarDateFields fields) {
+    return ISO8601Date.fromFields(fields, firstDay, minDays);
+  }
+
+  @Override
+  public JapaneseDate newJapaneseDate(CalendarDateFields fields) {
+    return JapaneseDate.fromFields(fields, firstDay, minDays);
+  }
+
+  @Override
+  public PersianDate newPersianDate(CalendarDateFields fields) {
+    return PersianDate.fromFields(fields, firstDay, minDays);
+  }
+
+  @Override
+  public GregorianDate now(String zoneId) {
+    return nowGregorian(zoneId);
+  }
+
+  @Override
+  public BuddhistDate nowBuddhist(String zoneId) {
+    return BuddhistDate.fromUnixEpoch(System.currentTimeMillis(), zoneId(zoneId), firstDay, minDays);
+  }
+
+  @Override
+  public GregorianDate nowGregorian(String zoneId) {
+    return GregorianDate.fromUnixEpoch(System.currentTimeMillis(), zoneId(zoneId), firstDay, minDays);
+  }
+
+  @Override
+  public ISO8601Date nowISO8601(String zoneId) {
+    return ISO8601Date.fromUnixEpoch(System.currentTimeMillis(), zoneId(zoneId), firstDay, minDays);
+  }
+
+  @Override
+  public JapaneseDate nowJapanese(String zoneId) {
+    return JapaneseDate.fromUnixEpoch(System.currentTimeMillis(), zoneId(zoneId), firstDay, minDays);
+  }
+
+  @Override
+  public PersianDate nowPersian(String zoneId) {
+    return PersianDate.fromUnixEpoch(System.currentTimeMillis(), zoneId(zoneId), firstDay, minDays);
+  }
+
+  /**
+   * TS {@code zoneId || ''}: a null/undefined zone maps to the empty string,
+   * which the timezone data treats as an invalid/unknown zone, never the
+   * JVM default zone.
+   */
+  private static String zoneId(String zoneId) {
+    return zoneId == null ? "" : zoneId;
   }
 
   /**

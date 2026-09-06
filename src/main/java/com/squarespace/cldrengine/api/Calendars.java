@@ -94,6 +94,61 @@ public interface Calendars {
   PersianDate toPersianDate(CalendarDate date);
 
   /**
+   * Construct a new date in the Buddhist calendar with the given fields.
+   */
+  BuddhistDate newBuddhistDate(CalendarDateFields fields);
+
+  /**
+   * Construct a new date in the Gregorian calendar with the given fields.
+   */
+  GregorianDate newGregorianDate(CalendarDateFields fields);
+
+  /**
+   * Construct a new date in the ISO-8601 calendar with the given fields.
+   */
+  ISO8601Date newISO8601Date(CalendarDateFields fields);
+
+  /**
+   * Construct a new date in the Japanese calendar with the given fields.
+   */
+  JapaneseDate newJapaneseDate(CalendarDateFields fields);
+
+  /**
+   * Construct a new date in the Persian calendar with the given fields.
+   */
+  PersianDate newPersianDate(CalendarDateFields fields);
+
+  /**
+   * Alias for {@code nowGregorian(zoneId)}.
+   */
+  GregorianDate now(String zoneId);
+
+  /**
+   * Construct a new date in the Buddhist calendar representing the current date and time.
+   */
+  BuddhistDate nowBuddhist(String zoneId);
+
+  /**
+   * Construct a new date in the Gregorian calendar representing the current date and time.
+   */
+  GregorianDate nowGregorian(String zoneId);
+
+  /**
+   * Construct a new date in the ISO-8601 calendar representing the current date and time.
+   */
+  ISO8601Date nowISO8601(String zoneId);
+
+  /**
+   * Construct a new date in the Japanese calendar representing the current date and time.
+   */
+  JapaneseDate nowJapanese(String zoneId);
+
+  /**
+   * Construct a new date in the Persian calendar representing the current date and time.
+   */
+  PersianDate nowPersian(String zoneId);
+
+  /**
    * Formats a date-time value to string using a raw date-time pattern.
    *
    * Warning: You should not use this for general formatting.

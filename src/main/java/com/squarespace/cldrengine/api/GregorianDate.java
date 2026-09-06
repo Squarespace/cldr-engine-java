@@ -25,9 +25,8 @@ public class GregorianDate extends CalendarDate {
 
   @Override
   public GregorianDate add(TimePeriod fields) {
-    Pair<Long, Double> result = this._add(fields);
-    return new GregorianDate(CalendarType.GREGORY, this.firstDay, this.minDays)
-        ._initFromJD(result._1, Math.round(result._2), this.timeZoneId());
+    Pair<Long, Long> result = CalendarMath.add(this, fields, (y, m) -> this.monthStart(y, m, false));
+    return this._new()._initFromJD(result._1, result._2, this.timeZoneId());
   }
 
   @Override

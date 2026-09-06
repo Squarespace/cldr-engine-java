@@ -1,5 +1,6 @@
 package com.squarespace.cldrengine.api;
 
+import com.squarespace.cldrengine.internal.CalendarMath;
 import com.squarespace.cldrengine.internal.MathFix;
 import com.squarespace.cldrengine.utils.MathUtil;
 
@@ -20,17 +21,15 @@ public class PersianDate extends CalendarDate {
   }
 
   @Override
-  public CalendarDate add(TimePeriod fields) {
-    Pair<Long, Double> result = this._add(fields);
-    PersianDate d = new PersianDate(this.firstDay, this.minDays);
-    d._initFromJD(result._1, Math.round(result._2), this.timeZoneId());
-    return d;
+  public PersianDate add(TimePeriod fields) {
+    Pair<Long, Long> result = CalendarMath.add(this, fields, (y, m) -> this.monthStart(y, m, false));
+    return this._new()._initFromJD(result._1, result._2, this.timeZoneId());
   }
 
   @Override
-    public CalendarDate subtract(TimePeriod fields) {
-      return this.add(invertPeriod(fields));
-    }
+  public PersianDate subtract(TimePeriod fields) {
+    return this.add(invertPeriod(fields));
+  }
 
   @Override
   public PersianDate set(CalendarDateFields fields) {

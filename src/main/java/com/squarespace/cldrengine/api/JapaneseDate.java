@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.api;
 
+import com.squarespace.cldrengine.internal.CalendarMath;
+
 /**
  * A date in the Japanese Imperial calendar.
  *
@@ -18,10 +20,13 @@ public class JapaneseDate extends GregorianDate {
 
   @Override
   public JapaneseDate add(TimePeriod fields) {
-    Pair<Long, Double> result = this._add(fields);
-    JapaneseDate d = new JapaneseDate(this.firstDay, this.minDays);
-    d._initFromJD(result._1, Math.round(result._2), this.timeZoneId());
-    return d;
+    Pair<Long, Long> result = CalendarMath.add(this, fields, (y, m) -> this.monthStart(y, m, false));
+    return this._new()._initFromJD(result._1, result._2, this.timeZoneId());
+  }
+
+  @Override
+  public JapaneseDate subtract(TimePeriod fields) {
+    return add(invertPeriod(fields));
   }
 
   @Override

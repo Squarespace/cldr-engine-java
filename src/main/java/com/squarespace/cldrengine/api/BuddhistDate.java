@@ -1,5 +1,7 @@
 package com.squarespace.cldrengine.api;
 
+import com.squarespace.cldrengine.internal.CalendarMath;
+
 /**
  * A date in the Buddhist calendar.
  *
@@ -17,9 +19,13 @@ public class BuddhistDate extends GregorianDate {
 
   @Override
   public BuddhistDate add(TimePeriod fields) {
-    Pair<Long, Double> result = this._add(fields);
-    return new BuddhistDate(this.firstDay, this.minDays)
-        ._initFromJD(result._1, Math.round(result._2), this.timeZoneId());
+    Pair<Long, Long> result = CalendarMath.add(this, fields, (y, m) -> this.monthStart(y, m, false));
+    return this._new()._initFromJD(result._1, result._2, this.timeZoneId());
+  }
+
+  @Override
+  public BuddhistDate subtract(TimePeriod fields) {
+    return add(invertPeriod(fields));
   }
 
   @Override

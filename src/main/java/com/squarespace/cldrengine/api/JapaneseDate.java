@@ -25,14 +25,33 @@ public class JapaneseDate extends GregorianDate {
   }
 
   @Override
-  public GregorianDate withZone(String zoneId) {
-    JapaneseDate d = new JapaneseDate(this.firstDay, this.minDays);
-    d._initFromUnixEpoch(this.unixEpoch(), zoneId);
-    return d;
+  public JapaneseDate withZone(String zoneId) {
+    return this._new()._initFromUnixEpoch(this.unixEpoch(), zoneId);
+  }
+
+  /**
+   * Construct a new date from the given fields. Note this is a copy of the
+   * TS 1.15.0 behavior: no ZEROS defaults are merged, so unset fields flow
+   * into the ymdToJD clamps exactly as in TS.
+   */
+  public static JapaneseDate fromFields(CalendarDateFields fields, int firstDay, int minDays) {
+    return new JapaneseDate(firstDay, minDays)._set(fields);
   }
 
   public static JapaneseDate fromUnixEpoch(long epoch, String zoneId, int firstDay, int minDays) {
     return new JapaneseDate(firstDay, minDays)._initFromUnixEpoch(epoch, zoneId);
+  }
+
+  @Override
+  protected JapaneseDate _new() {
+    return new JapaneseDate(this.firstDay, this.minDays);
+  }
+
+  @Override
+  protected JapaneseDate _set(CalendarDateFields f) {
+    // TS japanese.ts casts `_set(...) as JapaneseDate`; `_new()` inside
+    // `_set` dispatches virtually so the result is always a JapaneseDate.
+    return (JapaneseDate) super._set(f);
   }
 
   protected JapaneseDate _initFromUnixEpoch(long epoch, String zoneId) {

@@ -8,6 +8,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+import com.squarespace.cldrengine.calendars.TimeZoneData;
 import com.squarespace.cldrengine.calendars.ZoneInfo;
 import com.squarespace.cldrengine.internal.CalendarMath;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
@@ -41,6 +42,11 @@ public abstract class CalendarDate {
     this.firstDay = firstDay;
     this.minDays = minDays;
 
+    // TS initializes _zoneInfo to the UTC zone in the constructor; this
+    // keeps set()/fields() usable on a date that has not yet been
+    // initialized from an epoch.
+    this.zoneInfo = TimeZoneData.zoneInfoFromUTC("UTC", 0);
+
     // Compute week fields on demand.
     this.fields[DateField.WEEK_OF_YEAR] = NULL;
     this.fields[DateField.YEAR_WOY] = NULL;
@@ -73,7 +79,7 @@ public abstract class CalendarDate {
    * Returns a floating point number representing the real Julian Day, UTC.
    */
   public double julianDay() {
-    double ms = (this.fields[DateField.MILLIS_IN_DAY] + this.zoneInfo.offset) / (double)CalendarConstants.ONE_DAY_MS;
+    double ms = (this.fields[DateField.MILLIS_IN_DAY] - this.zoneInfo.offset) / (double)CalendarConstants.ONE_DAY_MS;
     return (this.fields[DateField.JULIAN_DAY] - 0.5) + ms;
   }
 
@@ -182,6 +188,21 @@ public abstract class CalendarDate {
 
   public long dayOfMonth() {
     return this.fields[DateField.DAY_OF_MONTH];
+  }
+
+  /**
+   * Return all of the date and time field values.
+   */
+  public CalendarDateFields fields() {
+    return CalendarDateFields.build()
+        .year(this.extendedYear())
+        .month(this.month())
+        .day(this.dayOfMonth())
+        .hour(this.hourOfDay())
+        .minute(this.minute())
+        .second(this.second())
+        .millis(this.milliseconds())
+        .zoneId(this.timeZoneId());
   }
 
   public boolean isAM() {
@@ -313,9 +334,128 @@ public abstract class CalendarDate {
     return res;
   }
 
+  /**
+   * Set one or more fields on this date explicitly, and return a new date.
+   *
+   * Note: when setting the 'year' field you must use the "extended year".
+   * For example, the extended year 0 is 1 B.C in the Gregorian calendar.
+   */
+  public abstract CalendarDate set(CalendarDateFields fields);
+
+  /**
+   * Start of date, e.g. {@code date.startOf('day')}.
+   */
+  public CalendarDate startOf(CalendarDateModFields field) {
+    switch (field) {
+      case YEAR:
+        return this.set(CalendarDateFields.build()
+            .month(0).day(0).hour(0).minute(0).second(0).millis(0));
+      case MONTH:
+        return this.set(CalendarDateFields.build()
+            .day(0).hour(0).minute(0).second(0).millis(0));
+      case DAY:
+        return this.set(CalendarDateFields.build()
+            .hour(0).minute(0).second(0).millis(0));
+      case HOUR:
+        return this.set(CalendarDateFields.build()
+            .minute(0).second(0).millis(0));
+      case MINUTE:
+        return this.set(CalendarDateFields.build()
+            .second(0).millis(0));
+      case SECOND:
+        return this.set(CalendarDateFields.build().millis(0));
+      default:
+        throw new IllegalArgumentException("unsupported field: " + field);
+    }
+  }
+
+  /**
+   * End of date, e.g. {@code date.endOf('day')}.
+   */
+  public CalendarDate endOf(CalendarDateModFields field) {
+    switch (field) {
+      case YEAR:
+        return this.set(CalendarDateFields.build()
+            .month(13).day(32).hour(23).minute(59).second(59).millis(999));
+      case MONTH:
+        return this.set(CalendarDateFields.build()
+            .day(32).hour(23).minute(59).second(59).millis(999));
+      case DAY:
+        return this.set(CalendarDateFields.build()
+            .hour(23).minute(59).second(59).millis(999));
+      case HOUR:
+        return this.set(CalendarDateFields.build()
+            .minute(59).second(59).millis(999));
+      case MINUTE:
+        return this.set(CalendarDateFields.build()
+            .second(59).millis(999));
+      case SECOND:
+        return this.set(CalendarDateFields.build().millis(999));
+      default:
+        throw new IllegalArgumentException("unsupported field: " + field);
+    }
+  }
+
+  /**
+   * Rollup just the time fields into number of milliseconds. Assumes all
+   * time fields are defined, otherwise treated as zero.
+   */
+  protected double _timeToMs(CalendarDateFields f) {
+    // TS: (x || 0) then clamp then | 0. Option.or(0.0) mirrors the short-
+    // circuit, the (int) cast mirrors ToInt32 truncation (values are clamped
+    // to the integral range 0-999 so the truncation is exact).
+    double hour = (int)clamp(f.hour.or(0.0), 0, 23);
+    double minute = (int)clamp(f.minute.or(0.0), 0, 59);
+    double second = (int)clamp(f.second.or(0.0), 0, 59);
+    double millis = (int)clamp(f.millis.or(0.0), 0, 999);
+    return (hour * CalendarConstants.ONE_HOUR_MS) +
+        (minute * CalendarConstants.ONE_MINUTE_MS) +
+        (second * CalendarConstants.ONE_SECOND_MS) +
+        millis;
+  }
+
+  private static double clamp(double n, double min, double max) {
+    return Math.min(max, Math.max(min, n));
+  }
+
+  /**
+   * TS object-spread merge over CalendarDateFields: copy base, then apply
+   * each option that is set on {@code over}.
+   */
+  public static CalendarDateFields merge(CalendarDateFields base, CalendarDateFields over) {
+    CalendarDateFields result = base.copy();
+    if (over.year.ok()) {
+      result.year(over.year);
+    }
+    if (over.month.ok()) {
+      result.month(over.month);
+    }
+    if (over.day.ok()) {
+      result.day(over.day);
+    }
+    if (over.hour.ok()) {
+      result.hour(over.hour);
+    }
+    if (over.minute.ok()) {
+      result.minute(over.minute);
+    }
+    if (over.second.ok()) {
+      result.second(over.second);
+    }
+    if (over.millis.ok()) {
+      result.millis(over.millis);
+    }
+    if (over.zoneId.ok()) {
+      result.zoneId(over.zoneId);
+    }
+    return result;
+  }
+
   public abstract CalendarDate add(TimePeriod fields);
   public abstract CalendarDate subtract(TimePeriod fields);
   public abstract CalendarDate withZone(String zoneId);
+
+  protected abstract CalendarDate _new();
 
   protected abstract void initFields(long[] f);
   protected abstract int monthCount();

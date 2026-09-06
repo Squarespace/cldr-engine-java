@@ -7,6 +7,10 @@ package com.squarespace.cldrengine.api;
  */
 public class BuddhistDate extends GregorianDate {
 
+  // TS buddhist.ts ZEROS: defaults applied by fromFields (no zoneId).
+  private static final CalendarDateFields ZEROS = CalendarDateFields.build()
+      .year(1).month(1).day(1).hour(0).minute(0).second(0).millis(0);
+
   protected BuddhistDate(int firstDay, int minDays) {
     super(CalendarType.BUDDHIST, firstDay, minDays);
   }
@@ -23,8 +27,32 @@ public class BuddhistDate extends GregorianDate {
     return this._toString("Buddhist");
   }
 
+  @Override
+  public BuddhistDate withZone(String zoneId) {
+    return this._new()._initFromUnixEpoch(this.unixEpoch(), zoneId);
+  }
+
+  /**
+   * Construct a new date from the given fields.
+   */
+  public static BuddhistDate fromFields(CalendarDateFields fields, int firstDay, int minDays) {
+    return new BuddhistDate(firstDay, minDays)._set(merge(ZEROS, fields));
+  }
+
   public static BuddhistDate fromUnixEpoch(long epoch, String zoneId, int firstDay, int minDays) {
     return new BuddhistDate(firstDay, minDays)._initFromUnixEpoch(epoch, zoneId);
+  }
+
+  @Override
+  protected BuddhistDate _new() {
+    return new BuddhistDate(this.firstDay, this.minDays);
+  }
+
+  @Override
+  protected BuddhistDate _set(CalendarDateFields f) {
+    // TS buddhist.ts casts `_set(...) as BuddhistDate`; `_new()` inside
+    // `_set` dispatches virtually so the result is always a BuddhistDate.
+    return (BuddhistDate) super._set(f);
   }
 
   protected BuddhistDate _initFromUnixEpoch(long epoch, String zoneId) {

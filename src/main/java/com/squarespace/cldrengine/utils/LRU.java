@@ -108,7 +108,7 @@ public class LRU<K, V> {
 
   private Node<K, V> remove(Node<K, V> n) {
     if (n.prev != null) {
-      n.prev.next = n;
+      n.prev.next = n.next;
     }
     if (n.next != null) {
       n.next.prev = n.prev;

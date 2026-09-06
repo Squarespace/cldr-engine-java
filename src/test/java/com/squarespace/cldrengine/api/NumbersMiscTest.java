@@ -54,6 +54,27 @@ public class NumbersMiscTest {
   }
 
   @Test
+  public void testInstanceGetCurrencyForRegionMatchesStatic() {
+    // Regression: the protected INSTANCE method used
+    // CURRENCY_REGIONS.getOrDefault(region, USD), which returned null for
+    // 'ZZ' (the data maps ZZ->XAD but XAD is absent from the CurrencyType
+    // enum, and getOrDefault only substitutes on a MISSING key) while the
+    // TS export resolves both ZZ and missing entries to USD.
+    String[] regions = { "ZZ", "US", "JP", "GB", "XX", "AU" };
+    for (String region : regions) {
+      CurrencyType instance = EN.Numbers.getCurrencyForRegion(region);
+      CurrencyType staticRes = CLDR.getCurrencyForRegion(region);
+      assertEquals(instance, staticRes, "mismatch for region " + region);
+    }
+
+    assertEquals(EN.Numbers.getCurrencyForRegion("ZZ"), CurrencyType.USD);
+    assertEquals(EN.Numbers.getCurrencyForRegion("US"), CurrencyType.USD);
+    assertEquals(EN.Numbers.getCurrencyForRegion("JP"), CurrencyType.JPY);
+    assertEquals(EN.Numbers.getCurrencyForRegion("GB"), CurrencyType.GBP);
+    assertEquals(EN.Numbers.getCurrencyForRegion("XX"), CurrencyType.USD);
+  }
+
+  @Test
   public void testGetCurrencyFractions() {
     // JPY has no explicit fractional digits in the autogen data.
     CurrencyFractions jpy = CLDR.getCurrencyFractions(CurrencyType.JPY);

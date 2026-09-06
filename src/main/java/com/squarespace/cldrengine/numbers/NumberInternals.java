@@ -429,7 +429,7 @@ public class NumberInternals {
   }
 
   protected CurrencyType getCurrencyForRegion(String region) {
-    return CURRENCY_REGIONS.getOrDefault(region, CurrencyType.USD);
+    return NumberInternals.currencyForRegion(region);
   }
 
   /**

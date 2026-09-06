@@ -80,12 +80,13 @@ public abstract class VectorArrowImpl {
       args = new Object[] { key };
     }
     if (args != null) {
+      int last = args.length - 1;
       for (int i = 0; i < args.length; i++) {
         Object arg = args[i];
         KeyIndex<Object> keyset = this.keysets.get(ix);
         int j = keyset.get(arg);
         if (j == -1) {
-          if (i != this.last) {
+          if (i != last) {
             continue;
           }
 

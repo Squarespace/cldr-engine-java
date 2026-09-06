@@ -29,12 +29,20 @@ public class NumberPatternParser {
       char ch = raw.charAt(i);
       switch (ch) {
         case '\'':
-          while (i++ < len) {
+          // Consume the quoted run. Stop at the end of the string rather than
+          // reading one past it, so a trailing unterminated quote cannot throw
+          // StringIndexOutOfBoundsException. TS v1.15.0 instead reads raw[len]
+          // (undefined) and appends the literal text "undefined" to the buffer;
+          // we deliberately treat the terminal quote as the end of the quoted
+          // run (the sane lenient behavior).
+          i++;
+          while (i < len) {
             ch = raw.charAt(i);
             if (ch == '\'') {
               break;
             }
             buf.append(ch);
+            i++;
           }
           break;
 

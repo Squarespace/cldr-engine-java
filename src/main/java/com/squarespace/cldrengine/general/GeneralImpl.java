@@ -22,6 +22,8 @@ import com.squarespace.cldrengine.api.LineOrderType;
 import com.squarespace.cldrengine.api.ListPatternType;
 import com.squarespace.cldrengine.api.MeasurementCategory;
 import com.squarespace.cldrengine.api.MeasurementSystem;
+import com.squarespace.cldrengine.api.MessageFormatter;
+import com.squarespace.cldrengine.api.MessageFormatterOptions;
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.api.RegionIdType;
 import com.squarespace.cldrengine.api.ScriptIdType;
@@ -76,6 +78,17 @@ public class GeneralImpl implements General {
 
   public LanguageTag parseLanguageTag(String tag) {
     return LanguageTagParser.parse(tag);
+  }
+
+  public MessageFormatter messageFormatter() {
+    return messageFormatter(null);
+  }
+
+  public MessageFormatter messageFormatter(MessageFormatterOptions options) {
+    options = (options == null ? MessageFormatterOptions.build() : options.copy());
+    // The plural rules always come from the current bundle's locale.
+    options.plurals(this.bundle.plurals());
+    return new MessageFormatter(options);
   }
 
   public MeasurementSystem measurementSystem() {

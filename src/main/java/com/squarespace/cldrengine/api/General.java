@@ -37,6 +37,16 @@ public interface General {
   LanguageTag parseLanguageTag(String tag);
 
   /**
+   * Returns a message formatter instance for the current locale.
+   */
+  MessageFormatter messageFormatter();
+
+  /**
+   * Returns a message formatter instance for the current locale.
+   */
+  MessageFormatter messageFormatter(MessageFormatterOptions options);
+
+  /**
    * Returns the measurement system in use for the current locale generally.
    */
   MeasurementSystem measurementSystem();

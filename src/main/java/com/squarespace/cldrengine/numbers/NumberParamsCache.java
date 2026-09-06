@@ -21,6 +21,8 @@ import com.squarespace.cldrengine.internal.NumbersSchema;
 import com.squarespace.cldrengine.parsing.NumberPattern;
 import com.squarespace.cldrengine.utils.Cache;
 
+import static com.squarespace.cldrengine.utils.StringUtils.isEmpty;
+
 public class NumberParamsCache {
 
   private static final Map<String, String[]> DECIMAL_NUMBERING_DIGITS = new HashMap<>();
@@ -139,8 +141,8 @@ public class NumberParamsCache {
         ? info.symbols.mapping(bundle)
         : latnSystemInfo.symbols.mapping(bundle);
     String standardRaw = info.decimalFormats.standard.get(bundle);
-    if (standardRaw == null) {
-      latnSystemInfo.decimalFormats.standard.get(bundle);
+    if (isEmpty(standardRaw)) {
+      standardRaw = latnSystemInfo.decimalFormats.standard.get(bundle);
     }
     NumberPattern standard = this.internals.numbers.getNumberPattern(standardRaw, false);
     int minimumGroupingDigits = Integer.parseInt(this.numbers.minimumGroupingDigits.get(bundle), 10);

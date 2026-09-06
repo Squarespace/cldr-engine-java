@@ -198,6 +198,16 @@ public class Decimal {
       return us == -1 ? -1 : 1;
     }
 
+    // Opposite signs were handled above, so u and v share a sign: zero is
+    // never equal to a non-zero value of the same sign, and for negative
+    // values zero sorts after them.
+    if (uz || vz) {
+      if (abs) {
+        return uz ? -1 : 1;
+      }
+      return us == -1 ? (uz ? 1 : -1) : uz ? -1 : 1;
+    }
+
     int ue = u.alignexp();
     int ve = v.alignexp();
     if (ue != ve) {
@@ -273,7 +283,10 @@ public class Decimal {
     if (this.flag != 0) {
       return false;
     }
-    return (this.exp + this.trailingZeros()) >= 0;
+    // Zero with any scale, e.g. "0.00", is exactly zero, which is an integer.
+    // Note: trailingZeros() returns 0 for an all-zero coefficient, so this
+    // check must come before the exponent comparison below.
+    return this.isZero() || (this.exp + this.trailingZeros()) >= 0;
   }
 
   /**
@@ -938,7 +951,10 @@ public class Decimal {
             u.sign == v.sign ? POSITIVE_INFINITY : NEGATIVE_INFINITY;
         }
         if (vinf) {
-          return ZERO;
+          // x / +/-Infinity is zero with the sign of the quotient (IEEE 754 /
+          // ECMAScript div). Return a fresh instance so callers cannot alias
+          // the shared ZERO constant.
+          return new Decimal(u.sign == v.sign ? 1 : -1, 0, new long[] { 0 }, DecimalFlag.NONE);
         }
         if (vzero) {
           return uzero ? NAN : u.sign == 1 ? POSITIVE_INFINITY : NEGATIVE_INFINITY;
@@ -1341,7 +1357,7 @@ public class Decimal {
           if ((flags & ParseFlags.EXP) != 0) {
             return "Extra exponent character at " + i;
           }
-          if (tmp.size() > 0) {
+          if (dig > Constants.RDIGITS) {
             // Exponent is currently limited to the size of Constants.RADIX
             return "Exponent too large";
           }
@@ -1353,11 +1369,16 @@ public class Decimal {
           flags &= ~ParseFlags.SIGN;
 
           // Copy the parsed number to the exponent and reset the digit count.
+          // An exponent of exactly RDIGITS digits has already spilled into
+          // `data` as a full limb (n === 0), so take the value from there and
+          // clear the limbs so the mantissa starts fresh.
+          int expValue = dig == Constants.RDIGITS ? tmp.get(0) : n;
           dig = 0;
-          exp = sign == -1 ? -n : n;
+          exp = sign == -1 ? -expValue : expValue;
           sign = 1;
           n = 0;
           z = 0;
+          tmp.clear();
           break;
 
         case '-':

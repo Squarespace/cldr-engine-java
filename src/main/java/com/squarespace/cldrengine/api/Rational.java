@@ -40,6 +40,22 @@ public class Rational {
     return a.compare(b);
   }
 
+  public Rational add(Rational n, MathContext context) {
+    return new Rational(
+        this.numer.multiply(n.denom, context).add(n.numer.multiply(this.denom, context)),
+        this.denom.multiply(n.denom, context));
+  }
+
+  public Rational subtract(Rational n, MathContext context) {
+    return new Rational(
+        this.numer.multiply(n.denom, context).subtract(n.numer.multiply(this.denom, context)),
+        this.denom.multiply(n.denom, context));
+  }
+
+  public Rational negate() {
+    return new Rational(this.numer.negate(), this.denom);
+  }
+
   public Rational divide(Rational n, MathContext context) {
     return new Rational(
         this.numer.multiply(n.denom, context),

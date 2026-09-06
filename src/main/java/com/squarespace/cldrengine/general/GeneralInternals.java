@@ -73,7 +73,9 @@ public class GeneralInternals {
         title = !StringUtils.isEmpty(flag) && (flag.charAt(0) == 'T');
         break;
       case UI_LIST_OR_MENU:
-        title = !StringUtils.isEmpty(flag) && (flag.charAt(1) == 'T');
+        // TS: flag[1] === 'T' is undefined-safe for 1-char flags; guard the
+        // length here so a 1-char flag cannot throw StringIndexOutOfBounds.
+        title = !StringUtils.isEmpty(flag) && flag.length() > 1 && (flag.charAt(1) == 'T');
         break;
       default:
         break;

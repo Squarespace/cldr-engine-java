@@ -150,18 +150,19 @@ public class CalendarInternals {
     }
     if (cal == null) {
       List<String> prefs = CALENDAR_PREFS.get(bundle.region());
-      if (prefs == null) {
-        prefs = CALENDAR_PREFS.get("001");
-      }
       if (prefs != null) {
         for (String id : prefs) {
+          // The calendar preference data (current as of CLDR 48) will always choose
+          // a calendar that is supported, so the else will never fire.
           cal = this.supportedCalendar(id);
           if (cal != null) {
             return cal;
           }
         }
       }
-      return CalendarType.GREGORY;
+      // Fallback to the World (001) first preference — data-driven, resolves to gregory
+      List<String> world = CALENDAR_PREFS.get("001");
+      return world == null || world.isEmpty() ? null : this.supportedCalendar(world.get(0));
     }
     return cal;
   }

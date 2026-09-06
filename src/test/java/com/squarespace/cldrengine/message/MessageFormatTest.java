@@ -28,7 +28,28 @@ public class MessageFormatTest {
         "{b2 select yes {YES} no {NO} hmm {HMM}} " +
         "{b3 select yes {YES} no {NO} hmm {HMM}}";
     String actual = formatter.format(message, args);
-    assertEquals(actual, "YES NO HMM");
+    // b3 is null, which is treated the same as a missing argument: the
+    // select is not evaluated and the literal reference text is emitted.
+    assertEquals(actual, "YES NO {b3}");
+  }
+
+  @Test
+  public void testMissingArgumentsPassThroughAsLiteralArgumentReferenceText() {
+    // Port of the formatter test added in 739a9ec0.
+    MessageFormatterOptions opts = MessageFormatterOptions.build()
+        .language("en")
+        .region("US");
+
+    MessageFormatter formatter = new MessageFormatter(opts);
+
+    assertEquals(formatter.format("{0}", new MessageArgs()), "{0}");
+    assertEquals(formatter.format("hi {0}!", new MessageArgs()), "hi {0}!");
+    assertEquals(formatter.format("{name}", new MessageArgs()), "{name}");
+    // plural / selectordinal / select are not evaluated for a missing argument
+    assertEquals(formatter.format("{0, plural, other {#}}", new MessageArgs()), "{0}");
+    assertEquals(formatter.format("{count, plural, one {# item} other {# items}}", new MessageArgs()), "{count}");
+    assertEquals(formatter.format("{0, selectordinal, one {#st} other {#th}}", new MessageArgs()), "{0}");
+    assertEquals(formatter.format("{name, select, female {her} other {their}}", new MessageArgs()), "{name}");
   }
 
   @Test

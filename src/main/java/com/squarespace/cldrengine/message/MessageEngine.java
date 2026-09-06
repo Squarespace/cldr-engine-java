@@ -64,7 +64,7 @@ public class MessageEngine {
       case ARG: {
         Object key = ((MessageArgCode)code).arg();
         Object arg = getarg(args, key);
-        this.buf.append(this.converter.asString(arg));
+        this.buf.append(missing(arg) ? argRef(key) : this.converter.asString(arg));
         break;
       }
 
@@ -76,6 +76,10 @@ public class MessageEngine {
       case PLURAL: {
         MessagePluralCode pcode = (MessagePluralCode)code;
         Object arg = getarg(args, pcode.args().get(0));
+        if (missing(arg)) {
+          this.buf.append(argRef(pcode.args().get(0)));
+          break;
+        }
         int offset = pcode.offset();
         Decimal num = this.converter.asDecimal(arg);
         Decimal darg = offset != 0 ? num.subtract(new Decimal(offset)) : num;
@@ -124,6 +128,10 @@ public class MessageEngine {
       case SELECT: {
         MessageSelectCode scode = (MessageSelectCode)code;
         Object arg = getarg(args, scode.args().get(0));
+        if (missing(arg)) {
+          this.buf.append(argRef(scode.args().get(0)));
+          break;
+        }
         String str = this.converter.asString(arg);
 
         MessageCode other = null;
@@ -174,6 +182,26 @@ public class MessageEngine {
       return args.get((String)key);
     }
     return args.get((int)key);
+  }
+
+  /**
+   * An argument is "missing" when it was not provided (or provided as null).
+   *
+   * When a message references a missing argument, ICU passes the argument's
+   * reference text through to the output verbatim, e.g. `{0}` or `{name}`.
+   * This applies to plain arguments as well as plural/select/selectordinal:
+   * the formatter is not evaluated at all. Emitting the reference text (rather
+   * than an empty string or `NaN`) surfaces template/argument mismatches.
+   */
+  private static boolean missing(Object arg) {
+    return arg == null;
+  }
+
+  /**
+   * The literal argument reference text for a missing argument, e.g. `{0}`.
+   */
+  private static String argRef(Object key) {
+    return "{" + key + "}";
   }
 
 }

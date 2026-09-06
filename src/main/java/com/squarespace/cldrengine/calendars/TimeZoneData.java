@@ -12,6 +12,7 @@ import java.util.Set;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.squarespace.cldrengine.api.Pair;
 import com.squarespace.cldrengine.internal.TimeZoneExternalData;
 import com.squarespace.cldrengine.utils.JsonUtils;
 import com.squarespace.cldrengine.utils.Search;
@@ -153,6 +154,23 @@ public class TimeZoneData {
    */
   public static TZInfo fromUTC(String zoneId, long utc) {
     return lookup(zoneId, utc, true);
+  }
+
+  /**
+   * Get the info for a time zone using a local "wall clock" timestamp
+   * for that zone. Returns the resolved UTC timestamp paired with the
+   * timezone info, or null if the zone lookup fails.
+   *
+   * Since daylight savings time can result in a clock being moved backwards,
+   * there is some ambiguity in resolving a wall clock time to the corresponding
+   * UTC time. For example, on November 8 2020 in New York, the time 1:30 AM
+   * occurs twice: once before the timezone boundary of 2:00 AM is reached, and
+   * again after the clock is set back 1 hour to 1:00 AM. This method attempts
+   * to resolve the ambiguity in the most intuitive way.
+   */
+  public static Pair<Long, TZInfo> fromWall(String zoneId, long wall) {
+    ZoneRecord rec = record(zoneId);
+    return rec == null ? null : rec.fromWall(wall);
   }
 
   /**
@@ -414,6 +432,69 @@ public class TimeZoneData {
       int i = Search.binarySearch(this.untils, true, utc);
       int type = i == -1 ? 0 : this.types[i];
       return this.localtime[type];
+    }
+
+    /**
+     * Resolve the zone info using a wall clock timestamp in the given zone.
+     *
+     * We have to determine the nearest DST transition boundary in wall clock
+     * time, and choose one side of the boundary based on whether the clock moved
+     * backwards or forwards, and where our wall time falls relative to
+     * the boundary, or within the transitional gap.
+     */
+    public Pair<Long, TZInfo> fromWall(long wall) {
+      // Find the until one day before our wall time
+      int i = Search.binarySearch(this.untils, true, wall - 86400000);
+      TZInfo r0 = this.localtime[i == -1 ? 0 : this.types[i]];
+      i++;
+
+      // Check if we hit the end of the untils array and return
+      if (i == this.types.length) {
+        return Pair.of(wall - r0.offset, r0);
+      }
+
+      // Get the next until.
+      TZInfo r1 = this.localtime[this.types[i]];
+      long u1 = this.untils[i];
+
+      // Adjust the next until using the prior offset to find the wall clock time of the boundary.
+      //
+      // Example for New York on Mar 8, 2020 with DST boundary at 7:00 AM UTC:
+      //   1:59 AM NY time is UTC 6:59 AM minus 5 hours
+      //
+      // 1 minute later the offset changes to -04:00:
+      //   2:00 AM NY time is UTC 7:00 AM minus 5 hours, so local time becomes 3:00 AM
+      //
+      // Example for New York on Nov 1, 2020 with DST boundary at 7:00 AM UTC:
+      //   1:59 AM NY time is UTC 5:59 AM minus 4 hours
+      //
+      // 1 minute later the offset changes to -05:00:
+      //   2:00 AM NY time is UTC 6:00 AM minus 4 hours, so local time becomes 1:00 AM
+
+      // Wall time instantaneously at zone boundary
+      long w0 = u1 + r0.offset;
+
+      // New wall time after boundary is crossed
+      long w1 = u1 + r1.offset;
+
+      // Wall time is before the gap, return pre-boundary offset
+      if (wall < w0 && wall < w1) {
+        return Pair.of(wall - r0.offset, r0);
+      }
+
+      // When local time jumps forward, the resulting gap contains many "impossible"
+      // times. In our example for New York, Mar 8 2020 at 2:30 AM is invalid.
+      // We return a UTC timestamp and offset that will make the local time 3:30 AM.
+      if (w0 < w1) {
+        // Wall time is either in the gap of impossible times or after the gap.
+        return wall < w1 ? Pair.of(wall - r0.offset, r1) : Pair.of(wall - r1.offset, r1);
+      }
+
+      // When local time jumps backwards, many times occur twice.
+      // In our example for New York, Nov 1 2020, 1:30 AM occurs once as local
+      // time moves towards 2:00 AM, and occurs again after the time has been
+      // moved back to 1:00 AM.
+      return wall < w0 ? Pair.of(wall - r0.offset, r0) : Pair.of(wall - r1.offset, r1);
     }
 
     @Override

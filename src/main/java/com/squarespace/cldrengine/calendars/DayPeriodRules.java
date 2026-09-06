@@ -41,7 +41,10 @@ class DayPeriodRules {
     }
     Rule rule = this.cache.get(raw);
     int i = Search.binarySearch(rule.minutes, true, minutes);
-    return rule.keys[i];
+    // i == -1 when minutes falls below the first dayperiod boundary (e.g. fa
+    // before minute 60). Mirror the TS engine (keys[-1] is undefined), callers
+    // guard on null and fall back to am/pm.
+    return i < 0 ? null : rule.keys[i];
   }
 
   private Rule parse(String raw) {

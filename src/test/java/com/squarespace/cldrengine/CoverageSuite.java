@@ -61,7 +61,7 @@ public class CoverageSuite {
     JsonArray arr = e.getAsJsonArray();
     for (int i = 0; i < arr.size(); i++) {
       JsonElement elem = arr.get(i);
-      T value = e.isJsonNull() ? null : f.apply(elem.getAsJsonObject());
+      T value = elem.isJsonNull() ? null : f.apply(elem.getAsJsonObject());
       results.add(value);
     }
     return results;

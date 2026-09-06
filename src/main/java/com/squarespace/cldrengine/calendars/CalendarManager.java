@@ -10,8 +10,10 @@ import com.squarespace.cldrengine.api.CalendarDate;
 import com.squarespace.cldrengine.api.CalendarType;
 import com.squarespace.cldrengine.api.DateFormatOptions;
 import com.squarespace.cldrengine.api.DateIntervalFormatOptions;
+import com.squarespace.cldrengine.api.Decimal;
 import com.squarespace.cldrengine.api.FormatWidthType;
 import com.squarespace.cldrengine.api.NumberSymbolType;
+import com.squarespace.cldrengine.api.PluralRules;
 import com.squarespace.cldrengine.calendars.DateSkeleton.SkeletonField;
 import com.squarespace.cldrengine.calendars.SkeletonData.Field;
 import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
@@ -111,62 +113,81 @@ class CalendarManager {
       if (isEmpty(skelKey)) {
         return req;
       }
+    }
+
+    // Cache best-fit results per raw skeleton, plus flags for which
+    // standard date/time formats and wrapper are also in play. Mixing
+    // a standard format with a skeleton changes the result for the
+    // same skeleton, so the flags are part of the key. The original
+    // canonical skeleton key collapsed field widths (e.g. 'SS' to 'S'),
+    // which changed the adjusted output, so the raw skeleton is used.
+    //
+    // The resolved pattern also depends on the date for plural-category-
+    // dependent skeletons (e.g. 'yw'/'MMMMW' pick a per-plural-category
+    // pattern -- see CalendarPatterns.getAvailablePattern) and on the
+    // numbering system, since fractional-second adjustment embeds
+    // params.symbols.decimal in the nodes. Both are included in the
+    // cache key.
+    String pluralKey = "";
+    if (req.date == null && skelKey.matches(".*[wW].*")) {
+      PluralRules p = this.bundle.plurals();
+      pluralKey = p.cardinal(new Decimal(date.weekOfMonth())).value() + "\u0001"
+          + p.cardinal(new Decimal(date.weekOfYear())).value();
+    }
+    String cacheKey = skelKey + "\t" + (dateKey == null ? "" : dateKey.value()) + "\t"
+        + (timeKey == null ? "" : timeKey.value()) + "\t" + (wrapKey == null ? "" : wrapKey.value())
+        + "\t" + pluralKey + "\t" + params.numberSystemName.value();
+    DateSkeleton dateSkel = null;
+    CachedSkeletonRequest entry = patterns.getCachedSkeletonRequest(cacheKey);
+    if (entry != null) {
+      // Reuse the previously matched patterns
+      req.date = entry.date;
+      req.time = entry.time;
+      dateSkel = entry.dateSkel;
+    } else {
+      // No cached entry, so parse the skeleton and perform a best-fit
+      // match against all available formats.
 
       // We have a standard date or time pattern along with a skeleton.
       // We split the skeleton into date/time parts, then use the one
-      // that doesn't conflict with the specified standard format
-      query = patterns.parseSkeleton(skelKey);
+      // that doesn't conflict with the specified standard format.
+      if (req.date != null || req.time != null) {
+        query = patterns.parseSkeleton(skelKey);
 
-      // Use the part of the skeleton that does not conflict
-      DateSkeleton time = query.split();
-      if (req.date != null) {
-        query = time;
+        // Use the part of the skeleton that does not conflict
+        DateSkeleton time = query.split();
+        if (req.date != null) {
+          query = time;
+        }
+      } else {
+        // No standard format specified, so just parse the skeleton
+        query = patterns.parseSkeleton(skelKey);
       }
 
-      // Update skeleton key with only the used fields
-      skelKey = query.canonical();
-    } else {
-      // No standard format specified, so just parse the skeleton
-      query = patterns.parseSkeleton(skelKey);
-    }
+      DateSkeleton timeQuery = null;
+      DateSkeleton timeSkel = null;
 
-    // Perform a best-fit match on the skeleton
+      // Check if skeleton specifies date or time fields, or both.
+      if (query.compound()) {
+        // Separate into a date and a time skeleton.
+        timeQuery = query.split();
+        dateSkel = patterns.matchAvailable(query);
+        timeSkel = patterns.matchAvailable(timeQuery);
+      } else if (query.isDate) {
+        dateSkel = patterns.matchAvailable(query);
+      } else {
+        timeQuery = query;
+        timeSkel = patterns.matchAvailable(query);
+      }
 
-    // TODO: skeleton caching disabled for now due to mixed formats
-    // Check if we've cached the patterns for this skeleton before
-    // CachedSkeletonRequest entry = patterns.getCachedSkeletonRequest(skelKey);
-    // if (entry != null) {
-    // req.date = entry.date;
-    // req.time = entry.time;
-    // if (wrapKey == null && entry.dateSkel != null && req.date != null && req.time != null) {
-    // // If wrapper not explicitly requested, select based on skeleton date fields
-    // req.wrapper = this.selectWrapper(patterns, entry.dateSkel, req.date);
-    // }
-    // return req;
-    // }
+      if (dateSkel != null) {
+        req.date = this.getAvailablePattern(patterns, date, query, dateSkel, params);
+      }
+      if (timeQuery != null && timeSkel != null) {
+        req.time = this.getAvailablePattern(patterns, date, timeQuery, timeSkel, params);
+      }
 
-    DateSkeleton timeQuery = null;
-    DateSkeleton dateSkel = null;
-    DateSkeleton timeSkel = null;
-
-    // Check if skeleton specifies date or time fields, or both.
-    if (query.compound()) {
-      // Separate into a date and a time skeleton.
-      timeQuery = query.split();
-      dateSkel = patterns.matchAvailable(query);
-      timeSkel = patterns.matchAvailable(timeQuery);
-    } else if (query.isDate) {
-      dateSkel = patterns.matchAvailable(query);
-    } else {
-      timeQuery = query;
-      timeSkel = patterns.matchAvailable(query);
-    }
-
-    if (dateSkel != null) {
-      req.date = this.getAvailablePattern(patterns, date, query, dateSkel, params);
-    }
-    if (timeQuery != null && timeSkel != null) {
-      req.time = this.getAvailablePattern(patterns, date, timeQuery, timeSkel, params);
+      patterns.setCachedSkeletonRequest(cacheKey, new CachedSkeletonRequest(dateSkel, req.date, req.time));
     }
 
     if (wrapKey == null) {
@@ -177,9 +198,6 @@ class CalendarManager {
       }
     }
 
-    // TODO: skeleton caching disabled for now due to mixed formats
-    // entry = new CachedSkeletonRequest(dateSkel, req.date, req.time);
-    // patterns.setCachedSkeletonRequest(skelKey, entry);
     return req;
   }
 
@@ -399,7 +417,7 @@ class CalendarManager {
         DateTimePattern parsedPattern = this.internals.calendars.parseDatePattern(pattern);
         /* istanbul ignore else */
         if (!parsedPattern.nodes.isEmpty()) {
-          req.range = patterns.adjustPattern(parsedPattern, query, params.symbols.get(NumberSymbolType.DECIMAL));
+          req.range = patterns.adjustPattern(parsedPattern, query, match.skeleton, params.symbols.get(NumberSymbolType.DECIMAL));
         }
       }
     } else {
@@ -523,7 +541,7 @@ class CalendarManager {
       CalendarDate date, DateSkeleton query, DateSkeleton match, NumberParams params) {
     DateTimePattern pattern = patterns.getAvailablePattern(date, match);
     return pattern.nodes.size() == 0 ? null
-        : patterns.adjustPattern(pattern, query, params.symbols.get(NumberSymbolType.DECIMAL));
+        : patterns.adjustPattern(pattern, query, match, params.symbols.get(NumberSymbolType.DECIMAL));
   }
 
   /**

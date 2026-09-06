@@ -20,6 +20,7 @@ import com.squarespace.cldrengine.internal.DateTimePatternFieldType;
 import com.squarespace.cldrengine.internal.Internals;
 import com.squarespace.cldrengine.parsing.DateTimePattern;
 import com.squarespace.cldrengine.utils.JsonUtils;
+import com.squarespace.cldrengine.utils.LRU;
 import com.squarespace.cldrengine.utils.StringUtils;
 
 import lombok.AllArgsConstructor;
@@ -66,7 +67,9 @@ class CalendarPatterns {
 
   private final DateSkeletonParser skeletonParser;
   private final Map<FormatWidthType, String> dateFormats;
+  private final Map<FormatWidthType, String> dateSkeletons;
   private final Map<FormatWidthType, String> timeFormats;
+  private final Map<FormatWidthType, String> timeSkeletons;
   private final Map<FormatWidthType, String> wrapperFormats;
   private final Map<FormatWidthType, String> wrapperFormatsAt;
 
@@ -74,6 +77,7 @@ class CalendarPatterns {
   private final DatePatternMatcher<IntervalSkeleton> intervalMatcher = new DatePatternMatcher<IntervalSkeleton>();
   private final Map<String, Map<DateTimePatternFieldType, String>> rawIntervalFormats;
   private final String intervalFallback;
+  private final LRU<String, CachedSkeletonRequest> skeletonRequestCache = new LRU<>(50);
 
   protected final Bundle bundle;
   protected final Internals internals;
@@ -88,7 +92,9 @@ class CalendarPatterns {
     this.internals = internals;
 
     this.dateFormats = schema.dateFormats.mapping(bundle);
+    this.dateSkeletons = schema.dateSkeletons.mapping(bundle);
     this.timeFormats = schema.timeFormats.mapping(bundle);
+    this.timeSkeletons = schema.timeSkeletons.mapping(bundle);
     this.wrapperFormats = schema.dateTimeFormats.mapping(bundle);
     this.wrapperFormatsAt = schema.dateTimeFormatsAt.mapping(bundle);
     this.skeletonParser = buildSkeletonParser();
@@ -105,6 +111,14 @@ class CalendarPatterns {
 
   public DateSkeleton parseSkeleton(String raw) {
     return this.skeletonParser.parse(raw, false);
+  }
+
+  public CachedSkeletonRequest getCachedSkeletonRequest(String key) {
+    return this.skeletonRequestCache.get(key);
+  }
+
+  public void setCachedSkeletonRequest(String key, CachedSkeletonRequest req) {
+    this.skeletonRequestCache.set(key, req);
   }
 
   /**
@@ -178,8 +192,8 @@ class CalendarPatterns {
     return this.intervalFallback;
   }
 
-  public DateTimePattern adjustPattern(DateTimePattern pattern, DateSkeleton skeleton, String decimal) {
-    return this.availableMatcher.adjust(pattern, skeleton, decimal);
+  public DateTimePattern adjustPattern(DateTimePattern pattern, DateSkeleton skeleton, DateSkeleton matched, String decimal) {
+    return this.availableMatcher.adjust(pattern, skeleton, matched, decimal);
   }
 
   public DateSkeleton matchAvailable(DateSkeleton skeleton) {
@@ -213,8 +227,18 @@ class CalendarPatterns {
 
   protected void buildAvailableMatcher() {
     for (FormatWidthType key : this.dateFormats.keySet()) {
-      this.availableMatcher.add(this.skeletonParser.parse(this.dateFormats.get(key), true), null);
-      this.availableMatcher.add(this.skeletonParser.parse(this.timeFormats.get(key), true), null);
+      DateSkeleton ds = this.skeletonParser.parse(this.dateFormats.get(key), true);
+      String dkey = this.dateSkeletons.get(key);
+      if (dkey != null && dkey.length() > 0) {
+        ds.skeleton = dkey; // CLDR-authoritative key
+      }
+      this.availableMatcher.add(ds, null);
+      DateSkeleton ts = this.skeletonParser.parse(this.timeFormats.get(key), true);
+      String tkey = this.timeSkeletons.get(key);
+      if (tkey != null && tkey.length() > 0) {
+        ts.skeleton = tkey; // CLDR-authoritative key
+      }
+      this.availableMatcher.add(ts, null);
     }
 
     // For the pluralized formats use the 'other' category which will

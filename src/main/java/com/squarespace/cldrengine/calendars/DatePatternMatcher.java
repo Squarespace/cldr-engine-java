@@ -46,20 +46,55 @@ class DatePatternMatcher<T> {
 
     DatePatternMatcherEntry<T> best = null;
     int bestDist = Integer.MAX_VALUE;
+    int bestKind = 0;
     for (DatePatternMatcherEntry<T> entry : this.ENTRIES) {
       int dist = this.getDistance(entry.skeleton, input, 0);
       if (dist < bestDist) {
         best = entry;
         bestDist = dist;
+        bestKind = this.getKindDistance(entry.skeleton, input);
         if (dist == 0) {
           break;
+        }
+      } else if (dist == bestDist) {
+        // Tie on field distance: prefer the candidate that does not
+        // change the width class of a date field (month, year, day).
+        int kind = this.getKindDistance(entry.skeleton, input);
+        if (kind < bestKind) {
+          best = entry;
+          bestKind = kind;
         }
       }
     }
     return best == null ? new DatePatternMatcherEntry<T>(new DateSkeleton(), Optional.empty()) : best;
   }
 
-  public DateTimePattern adjust(DateTimePattern pattern, DateSkeleton skeleton, String decimal) {
+  /**
+   * Secondary comparison value for candidates that tie on getDistance.
+   * Sums the field width differences for the date fields (month, year,
+   * day) that are present in both skeletons.
+   *
+   * ICU's best-fit matching prefers candidates that do not change the
+   * width class of date fields. For input 'yMMMMdE' (long month, short
+   * weekday) this selects the pattern with the long month, adjusting the
+   * weekday width, over the pattern with the abbreviated month, adjusting
+   * the weekday exactly. The adjusted wider pattern carries the literals
+   * (e.g. 'de' in es, 'den' in da) that the narrower pattern lacks, and
+   * keeps a named month where the narrower pattern renders digits.
+   */
+  protected int getKindDistance(DateSkeleton a, DateSkeleton b) {
+    int result = 0;
+    for (Field i : new Field[] { Field.MONTH, Field.YEAR, Field.DAY }) {
+      int atype = a.type[i.ordinal()];
+      int btype = b.type[i.ordinal()];
+      if (atype != 0 && btype != 0) {
+        result += Math.abs(atype - btype);
+      }
+    }
+    return result;
+  }
+
+  public DateTimePattern adjust(DateTimePattern pattern, DateSkeleton skeleton, DateSkeleton matched, String decimal) {
     List<Object> r = new ArrayList<>();
     for (Object node : pattern.nodes) {
       if (node instanceof String) {
@@ -100,6 +135,15 @@ class DatePatternMatcher<T> {
 
       int ptype = p.subfield;
       int stype = skeleton.type[i.ordinal()];
+      // TR35 "Matching Skeletons": when the matched pattern's skeleton
+      // field length equals the requested field length, the pattern's
+      // field length is authoritative (locale data overrides the requested
+      // length). Type equality covers both digit count (numeric) and
+      // width class (named).
+      if (stype != 0 && matched.type[i.ordinal()] == stype) {
+        r.add(n);
+        continue;
+      }
       // Ensure magnitudes are the same
       if ((ptype < 0 && stype < 0) || (ptype > 0 && stype > 0)) {
         SkeletonField info = skeleton.info[i.ordinal()];

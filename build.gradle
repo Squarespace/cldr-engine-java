@@ -145,6 +145,7 @@ task runCodegen(type: YarnTask) {
 
 compileJava.dependsOn 'runCodegen'
 runCodegen.dependsOn 'buildCodegen'
+buildCodegen.dependsOn 'yarnInstall'
 
 java {
   withSourcesJar()

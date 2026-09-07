@@ -2,14 +2,14 @@ package com.squarespace.cldrengine.decimal;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import com.squarespace.cldrengine.api.Part;
 import com.squarespace.cldrengine.utils.StringUtils;
 
 public class PartsDecimalFormatter implements DecimalFormatter<List<Part>> {
 
-  private List<Part> parts = new ArrayList<>();
+  private Part[] parts = new Part[16];
+  private int size = 0;
   private List<String> curr = new ArrayList<>();
   private String decimal;
   private String group;
@@ -21,12 +21,12 @@ public class PartsDecimalFormatter implements DecimalFormatter<List<Part>> {
 
   public void add(String c) {
     if (this.decimal.equals(c)) {
-      this.parts.add(new Part("fraction", this.current()));
-      this.parts.add(new Part("decimal", c));
+      this.addPart(new Part("fraction", this.current()));
+      this.addPart(new Part("decimal", c));
       this.curr = new ArrayList<>();
     } else if (this.group.equals(c)) {
-      this.parts.add(new Part("integer", this.current()));
-      this.parts.add(new Part("group", c));
+      this.addPart(new Part("integer", this.current()));
+      this.addPart(new Part("group", c));
       this.curr = new ArrayList<>();
     } else {
       this.curr.add(c);
@@ -35,14 +35,22 @@ public class PartsDecimalFormatter implements DecimalFormatter<List<Part>> {
 
   public List<Part> render() {
     if (!this.curr.isEmpty()) {
-      this.parts.add(new Part("integer", this.current()));
+      this.addPart(new Part("integer", this.current()));
     }
-    List<Part> copy = new ArrayList<>(this.parts.size());
-    ListIterator<Part> iter = this.parts.listIterator(this.parts.size());
-    while (iter.hasPrevious()) {
-      copy.add(iter.previous());
+    List<Part> copy = new ArrayList<>(this.size);
+    for (int i = this.size - 1; i >= 0; i--) {
+      copy.add(this.parts[i]);
     }
     return copy;
+  }
+
+  private void addPart(Part p) {
+    if (this.size == this.parts.length) {
+      Part[] next = new Part[this.parts.length * 2];
+      System.arraycopy(this.parts, 0, next, 0, this.size);
+      this.parts = next;
+    }
+    this.parts[this.size++] = p;
   }
 
   private String current() {

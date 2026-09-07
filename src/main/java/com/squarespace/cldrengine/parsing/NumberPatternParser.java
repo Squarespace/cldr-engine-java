@@ -153,9 +153,11 @@ public class NumberPatternParser {
   }
 
   private void pushText() {
+    // Reuse the shared buffer: toString() already hands nodes an immutable
+    // copy, so resetting in place avoids allocating one StringBuilder per push.
     if (this.buf.length() > 0) {
       this.curr.nodes.add(this.buf.toString());
-      this.buf = new StringBuilder();
+      this.buf.setLength(0);
     }
   }
 }

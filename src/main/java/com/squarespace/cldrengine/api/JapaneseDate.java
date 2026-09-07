@@ -249,7 +249,7 @@ public class JapaneseDate extends GregorianDate {
       1275, 4, 25, // Kenji
       1278, 2, 29, // Koan
       1288, 4, 28, // Shoo
-      1293, 8, 55, // Einin
+      1293, 8, 5, // Einin
       1299, 4, 25, // Shoan
       1302, 11, 21, // Kengen
       1303, 8, 5, // Kagen

@@ -133,11 +133,6 @@ public class NumberContext {
 
     DecimalAdjustOptions o = this.options;
 
-    // If minInt is not specified in options, always copy from pattern
-    if (!o.minimumIntegerDigits.ok()) {
-      this.minInt = pattern.minInt;
-    }
-
     this.minInt = o.minimumIntegerDigits.or(pattern.minInt);
     this.minFrac = this.currencyDigits == -1 ? pattern.minFrac : this.currencyDigits;
     this.maxFrac = this.currencyDigits == -1 ? pattern.maxFrac : this.currencyDigits;
@@ -153,7 +148,7 @@ public class NumberContext {
     }
 
     if (minFrac != null && minFrac > -1) {
-      this.minFrac = minFrac != null && (maxFrac != null && maxFrac > -1)
+      this.minFrac = (maxFrac != null && maxFrac > -1)
           ? (maxFrac < minFrac ? maxFrac : minFrac) : minFrac;
       if (this.minFrac > this.maxFrac) {
         this.maxFrac = this.minFrac;

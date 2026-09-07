@@ -522,17 +522,19 @@ class CalendarFormatter<T extends CalendarDate> {
     TZC tzc = getTZC(ctx.date.timeZoneOffset());
     StringBuilder fmt = new StringBuilder();
     if (node.width >= 1 && node.width <= 5) {
-      boolean zero = tzc.hours == 0 && tzc.minutes == 0;
-      fmt.append(zero ? '+' : tzc.negative ? '-' : '+');
+      // TR35: the UTC indicator 'Z' is used only when the offset is zero and the
+      // specifier is X* (uppercase) — for every width 1..5. Lowercase 'x' renders
+      // '+00', '+0000', '+00:00', ... instead (never 'Z').
+      if (node.field == 'X' && tzc.offset == 0) {
+        return "Z";
+      }
+      fmt.append(tzc.negative ? '-' : '+');
       fmt.append(_num(ctx, tzc.hours, 2));
       if (node.width == 3 || node.width == 5) {
         fmt.append(':');
       }
       if (node.width != 1 || tzc.minutes > 0) {
         fmt.append(_num(ctx, tzc.minutes, 2));
-      }
-      if (node.field == 'X' && tzc.offset == 0) {
-        fmt.append('Z');
       }
     }
     return fmt.toString();

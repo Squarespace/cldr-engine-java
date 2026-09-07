@@ -61,7 +61,7 @@ class CalendarManager {
         }
       }
       return new GregorianPatterns(bundle, internals, schema.Gregorian);
-    }, 20);
+    }, 200);
   }
 
   public CalendarPatterns getCalendarPatterns(String calendar) {

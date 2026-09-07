@@ -82,7 +82,7 @@ public class NumberInternals {
     this.internals = internals;
     this.currencies = internals.schema.Currencies;
     this.numbers = internals.schema.Numbers;
-    this.numberPatternCache = new Cache<>(NumberPatternParser::parse, 256);
+    this.numberPatternCache = new Cache<>(NumberPatternParser::parse, 200);
   }
 
   public Decimal adjustDecimal(Decimal num, DecimalAdjustOptions options) {

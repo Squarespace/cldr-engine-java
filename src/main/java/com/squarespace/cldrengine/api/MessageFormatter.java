@@ -31,7 +31,7 @@ public class MessageFormatter {
     this.formatters = options.formatters.or(EMPTY);
     this.formatterNames = this.formatters.keySet();
     this.disableEscapes = options.disableEscapes.or(false);
-    this.cache = new Cache<>(this::parse, options.cacheSize.or(256));
+    this.cache = new Cache<>(this::parse, options.cacheSize.or(100));
   }
 
   public String format(String message, MessageArgs args) {

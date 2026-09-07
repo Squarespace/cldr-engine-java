@@ -70,14 +70,14 @@ public class CalendarInternals {
     this.internals = internals;
     this.schema = internals.schema;
     this.dayPeriodRules = new DayPeriodRules();
-    this.patternCache = new Cache<>(DateTimePattern::parse, 1024);
+    this.patternCache = new Cache<>(DateTimePattern::parse, 200);
     this.hourPatternCache = new Cache<>(s -> {
       String[] parts = s.split(";");
       DateTimePattern positive = patternCache.get(parts[0]);
       DateTimePattern negative = patternCache.get(parts[1]);
       return new DateTimePattern[] { positive, negative };
-    }, 50);
-    this.calendarFormatterCache = new Cache<>(this::buildFormatter, 1024);
+    }, 200);
+    this.calendarFormatterCache = new Cache<>(this::buildFormatter, 200);
     this.availableCalendars = new HashSet<>(internals.config.get("calendars"));
   }
 

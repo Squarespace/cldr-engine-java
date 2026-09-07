@@ -28,7 +28,7 @@ class DayPeriodRules {
   private final Cache<Rule> cache;
 
   public DayPeriodRules() {
-    this.cache = new Cache<>(this::parse, 128);
+    this.cache = new Cache<>(this::parse, 200);
   }
 
   public String get(Bundle bundle, long minutes) {

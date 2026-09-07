@@ -41,7 +41,7 @@ public class GeneralInternals {
     this.layout = schema.Layout;
     this.listPatterns = schema.ListPatterns;
     this.names = schema.Names;
-    this.wrapperPatternCache = new Cache<WrapperPattern>(WrapperPattern::parse, 64);
+    this.wrapperPatternCache = new Cache<WrapperPattern>(WrapperPattern::parse, 200);
   }
 
   public CharacterOrderType characterOrder(Bundle bundle) {

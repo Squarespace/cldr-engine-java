@@ -42,8 +42,14 @@ public class DateTimePattern {
       char ch = raw.charAt(i);
       if (inquote) {
         if (ch == '\'') {
-          inquote = false;
-          field = '\0';
+          // TR35: '' inside a quoted section yields a literal apostrophe.
+          if (i + 1 < len && raw.charAt(i + 1) == '\'') {
+            buf.append('\'');
+            i++;
+          } else {
+            inquote = false;
+            field = '\0';
+          }
         } else {
           buf.append(ch);
         }
@@ -74,7 +80,13 @@ public class DateTimePattern {
         }
         field = '\0';
         if (ch == '\'') {
-          inquote = true;
+          // Out-of-quote '' also yields one literal apostrophe (ICU parity).
+          if (i + 1 < len && raw.charAt(i + 1) == '\'') {
+            buf.append('\'');
+            i++;
+          } else {
+            inquote = true;
+          }
         } else {
           buf.append(ch);
         }

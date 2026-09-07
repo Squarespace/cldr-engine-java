@@ -297,6 +297,25 @@ public class Decimal {
   }
 
   /**
+   * Allocation-free equivalent of compare(ONE, true) == -1, i.e. whether the
+   * absolute value of this number is strictly less than one. Unlike an
+   * exponent-based test alone this also returns true for zero, NaN and
+   * negative infinity, matching the reference comparison semantics.
+   */
+  private boolean isAbsLessThanOne() {
+    if (this.flag != 0) {
+      // NaN sorts before every other value; only negative infinity is less
+      // than positive one among the infinities.
+      return this.flag == DecimalFlag.NAN || this.sign == -1;
+    }
+    // For non-zero finite values c * 10^exp is less than one iff exp < 0 and
+    // the coefficient's digit count does not exceed -exp. Note exp + precision
+    // is invariant under trailing-zero stripping, so this matches the aligned
+    // exponent computed by compare() without allocating a copy.
+    return this.isZero() || (this.exp < 0 && this.precision() + this.exp <= 0);
+  }
+
+  /**
    * Adds v.
    */
   public Decimal add(Decimal v) {
@@ -728,7 +747,7 @@ public class Decimal {
     // larger than the integer coefficient we emit leading zeros.
     int _int = (this.data.length == 1 && this.data[0] == 0) ? 1 : this.precision() + exp;
 
-    if (minInt <= 0 && this.compare(ONE, true) == -1) {
+    if (minInt <= 0 && this.isAbsLessThanOne()) {
       // If the number is between 0 and 1 and format requested minimum
       // integer digits of zero, don't emit a leading zero digit.
       _int = 0;

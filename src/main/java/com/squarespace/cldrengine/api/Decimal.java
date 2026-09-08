@@ -532,7 +532,11 @@ public class Decimal {
 
   /**
    * Return a scientific representation of the number,
-   * Decimal coefficient and adjusted exponent.
+   * Decimal coefficient and adjusted exponent, such that
+   * value = coefficient * 10^exponent.
+   *
+   * @param minIntDigits Minimum number of integer digits in
+   *   the coefficient. Must be >= 1; values < 1 are clamped to 1.
    */
   public Scientific scientific(int minIntDigits) {
     if (this.flag != 0) {
@@ -682,6 +686,9 @@ public class Decimal {
 
   /**
    * Format this number to scientific notation as a string.
+   *
+   * @param minIntegers Minimum number of integer digits in the
+   *   coefficient. Must be >= 1; values < 1 are clamped to 1.
    */
   public String toScientificString(int minIntDigits) {
     if (this.flag != 0) {
@@ -710,6 +717,9 @@ public class Decimal {
 
   /**
    * Format this number to scientific notation as an array of parts.
+   *
+   * @param minIntegers Minimum number of integer digits in the
+   *   coefficient. Must be >= 1; values < 1 are clamped to 1.
    */
   public List<Part> toScientificParts(int minIntDigits) {
     if (this.flag != 0) {

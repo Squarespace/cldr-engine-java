@@ -87,6 +87,22 @@ public class DecimalPartsTest {
   }
 
   @Test
+  public void testScientificMinIntDigitsClampedToOne() {
+    // TS parity (66fb1a2a 'minIntDigits < 1 is clamped to 1'): values < 1
+    // are clamped to 1, so minIntDigits 0 or negative behave like 1.
+    assertEquals(sci("1234.5678", 0), sci("1234.5678", 1));
+    assertEquals(sci("1234.5678", -2), sci("1234.5678", 1));
+    assertEquals(sci("1234.5678", 0), "1.2345678E+3");
+
+    Decimal.Scientific s0 = d("1234.5678").scientific(0);
+    Decimal.Scientific s1 = d("1234.5678").scientific(1);
+    assertEquals(s0.coefficient.toString(), s1.coefficient.toString());
+    assertEquals(s0.exponent, s1.exponent);
+
+    assertEquals(d("1234.5678").toScientificParts(0), d("1234.5678").toScientificParts(1));
+  }
+
+  @Test
   public void testToScientificStringFlags() {
     assertEquals(d("nan").toScientificString(), "NaN");
     assertEquals(d("infinity").toScientificString(), "Infinity");

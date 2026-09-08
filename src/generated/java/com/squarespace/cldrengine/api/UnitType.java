@@ -6,11 +6,6 @@ import java.util.Map;
 import lombok.Generated;
 import com.squarespace.cldrengine.internal.StringEnum;
 
-//
-// Backfilled for CLDR 48.2.0: convertUnits defines month-person, week-person,
-// and year-person, which the last full generation predates.
-//
-
 @Generated
 public enum UnitType implements StringEnum<UnitType> {
 

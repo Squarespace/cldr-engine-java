@@ -122,22 +122,22 @@ node {
   version = '20.6.1'
 }
 
-task yarnInstall(type: YarnTask) {
-  args = []
+task pnpmInstallCodegen(type: PnpmTask) {
+  args = ['install']
   execOverrides {
     it.workingDir = 'codegen'
   }
 }
 
-task buildCodegen(type: YarnTask) {
-  args = ['build']
+task buildCodegen(type: PnpmTask) {
+  args = ['run', 'build']
   execOverrides {
     it.workingDir = 'codegen'
   }
 }
 
-task runCodegen(type: YarnTask) {
-  args = ['generate']
+task runCodegen(type: PnpmTask) {
+  args = ['run', 'generate']
   execOverrides {
     it.workingDir = 'codegen'
   }
@@ -145,7 +145,7 @@ task runCodegen(type: YarnTask) {
 
 compileJava.dependsOn 'runCodegen'
 runCodegen.dependsOn 'buildCodegen'
-buildCodegen.dependsOn 'yarnInstall'
+buildCodegen.dependsOn 'pnpmInstallCodegen'
 
 java {
   withSourcesJar()

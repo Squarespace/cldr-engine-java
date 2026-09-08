@@ -25,16 +25,18 @@ jobs:
       with:
         gradle-version: wrapper
 
-    - name: Install Yarn
-      run: npm install -g yarn
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 12.3.4
 
     - name: Generate code and test suite data
       run: |
         cd codegen
-        yarn install --verbose
-        yarn build
-        yarn generate
-        yarn suite
+        pnpm install --frozen-lockfile
+        pnpm build
+        pnpm generate
+        pnpm suite
 
     - name: Gradle build and test
       run: ./gradlew build

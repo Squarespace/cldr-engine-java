@@ -44,11 +44,17 @@ public class UnitConvertSuiteTest extends CoverageSuite {
     factorsets.put("FREQUENCY", new UnitFactors(Factors.FREQUENCY));
     factorsets.put("GRAPHICS_PER", new UnitFactors(Factors.GRAPHICS_PER));
     factorsets.put("GRAPHICS_PIXEL", new UnitFactors(Factors.GRAPHICS_PIXEL));
+    factorsets.put("ILLUMINANCE", new UnitFactors(Factors.ILLUMINANCE));
     factorsets.put("LENGTH", new UnitFactors(Factors.LENGTH));
     factorsets.put("MASS", new UnitFactors(Factors.MASS));
     factorsets.put("POWER", new UnitFactors(Factors.POWER));
     factorsets.put("PRESSURE", new UnitFactors(Factors.PRESSURE));
+    factorsets.put("RADIATION", new UnitFactors(Factors.RADIATION));
+    factorsets.put("RADIOACTIVITY", new UnitFactors(Factors.RADIOACTIVITY));
+    factorsets.put("RATIO", new UnitFactors(Factors.RATIO));
     factorsets.put("SPEED", new UnitFactors(Factors.SPEED));
+    factorsets.put("SUBSTANCE", new UnitFactors(Factors.SUBSTANCE));
+    factorsets.put("TEMPERATURE", new UnitFactors(Factors.TEMPERATURE));
     factorsets.put("TORQUE", new UnitFactors(Factors.TORQUE));
     factorsets.put("VOLUME", new UnitFactors(Factors.VOLUME));
     factorsets.put("VOLUME_UK", new UnitFactors(Factors.VOLUME_UK));

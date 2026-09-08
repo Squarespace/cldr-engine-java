@@ -15,11 +15,17 @@ import {
   FREQUENCY,
   GRAPHICS_PER,
   GRAPHICS_PIXEL,
+  ILLUMINANCE,
   LENGTH,
   MASS,
   POWER,
   PRESSURE,
+  RADIATION,
+  RADIOACTIVITY,
+  RATIO,
   SPEED,
+  SUBSTANCE,
+  TEMPERATURE,
   TORQUE,
   VOLUME,
   VOLUME_UK,
@@ -42,11 +48,17 @@ const FACTORS: { [name: string]: FactorDef[] } = {
   FREQUENCY,
   GRAPHICS_PER,
   GRAPHICS_PIXEL,
+  ILLUMINANCE,
   LENGTH,
   MASS,
   POWER,
   PRESSURE,
+  RADIATION,
+  RADIOACTIVITY,
+  RATIO,
   SPEED,
+  SUBSTANCE,
+  TEMPERATURE,
   TORQUE,
   VOLUME,
   VOLUME_UK,
@@ -60,7 +72,14 @@ const buildUnitConvert = (name: string) => {
     const set = new UnitFactors(factors);
     for (const src of set.units) {
       for (const dst of set.units) {
-        const conv = set.get(src, dst)!;
+        const conv = set.get(src, dst);
+        // Star-shaped factor tables (1.16.0+): a single dimension
+        // constant can contain disconnected components (e.g. steradian
+        // in ANGLE; the self-only ELECTRIC units), so only emit pairs
+        // that are actually convertible.
+        if (!conv) {
+          continue;
+        }
         fs.writeSync(
           fd,
           JSON.stringify({

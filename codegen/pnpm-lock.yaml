@@ -113,35 +113,35 @@ importers:
         specifier: ^6.1.3
         version: 6.2.0(typescript@5.8.3)
       '@phensley/cldr':
-        specifier: file:./post-tag/cldr
-        version: file:post-tag/cldr
+        specifier: 1.16.0
+        version: 1.16.0
       '@phensley/cldr-compiler':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: 1.16.0
+        version: 1.16.0
       '@phensley/cldr-core':
-        specifier: file:./post-tag/cldr-core
-        version: file:post-tag/cldr-core
+        specifier: 1.16.0
+        version: 1.16.0
       '@phensley/cldr-types':
-        specifier: file:./post-tag/cldr-types
-        version: file:post-tag/cldr-types
+        specifier: 1.16.0
+        version: 1.16.0
       '@phensley/language-tag':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: 1.16.0
+        version: 1.16.0
       '@phensley/locale':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: 1.16.0
+        version: 1.16.0
       '@phensley/locale-matcher':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: 1.16.0
+        version: 1.16.0
       '@phensley/plurals':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: 1.16.0
+        version: 1.16.0
       '@phensley/timezone':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: 1.16.0
+        version: 1.16.0
       '@phensley/unit-converter':
-        specifier: 1.15.0
-        version: 1.15.0
+        specifier: 1.16.0
+        version: 1.16.0
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -528,54 +528,48 @@ packages:
     peerDependencies:
       typescript: '>3.0.0'
 
-  '@phensley/cldr-compiler@1.15.0':
-    resolution: {integrity: sha512-mcXNXXPnkiHR0VVMRCwFn5b8DTdUv7JMrDGDzSjnSLn+Z3jpWzGoEFTaZ6Fe/N9RP3FccsPvO1MrJwjEZlECXg==}
+  '@phensley/cldr-compiler@1.16.0':
+    resolution: {integrity: sha512-GxbLmixWs8mWDmiIcSWYYAp8RzrO1DBh9FVQDUz6pRwSWlfxoGQMSuJ3PIMMB9F+IXLkcOsI04K/6tnE0O0nbA==}
     hasBin: true
 
-  '@phensley/cldr-core@1.15.0':
-    resolution: {integrity: sha512-a5gRi+VYOv44qukRDV6Pg67CAFVyYOpprl3wjnteW65JNVa01MW3V9/Z5mmOacJ+S0FS2i+2iSyHWjzs7ALrfg==}
+  '@phensley/cldr-core@1.16.0':
+    resolution: {integrity: sha512-thxKJ4TbRykcx7rFBsOOgTGmI6YHsYXPjlAPjNnVClT4q44dvT3aQnOVWGnUpP13aPXLheXU+f76GKaL88qo5A==}
 
-  '@phensley/cldr-core@file:post-tag/cldr-core':
-    resolution: {directory: post-tag/cldr-core, type: directory}
+  '@phensley/cldr-ext-rbnf@1.16.0':
+    resolution: {integrity: sha512-L8upKgZHmIn+fnOiE1uYHGw+GPSpnzPBT9l3w1FZbbCDln/9lvc48zv/E0ctxL2Zy1/jnMSf/C2uPPY06RBP0w==}
 
-  '@phensley/cldr-ext-rbnf@1.15.0':
-    resolution: {integrity: sha512-FMDpuVCSe4AdKesDmbg/3PhXclsEkYQC5rKC3nN6lPf0mQySXNos8LfP/6uspd/nEi3LE2kxwG5mClurWxoX7g==}
+  '@phensley/cldr-types@1.16.0':
+    resolution: {integrity: sha512-+tBOjCcswGDVxLcXj6mKm1vVm+tquHHw9rh+T5gP3ocWH3ogK3zen8nqte62avyCmrRbd35CTA3Wxikcv790mA==}
 
-  '@phensley/cldr-types@1.15.0':
-    resolution: {integrity: sha512-EZrNSJKH5N9L8TDMvMl1LGMXkuxY63/pjyi2uScRLr0fMkNJtKnYvqxuSKqemLleQxsafBVsZYRwF0kWucmRyw==}
+  '@phensley/cldr-utils@1.16.0':
+    resolution: {integrity: sha512-n8Vq6bL2iJK/xUgzF+In7Aq4PysMcPXZjBWcSG145c4tH/v4dDo7J3DIvwnlysqELHon1Rs5wOTan2bL+OVnHA==}
 
-  '@phensley/cldr-types@file:post-tag/cldr-types':
-    resolution: {directory: post-tag/cldr-types, type: directory}
+  '@phensley/cldr@1.16.0':
+    resolution: {integrity: sha512-iyBXL/HFDdThcOOFwdwdooCVczbW10fZ7Sk/QS0YK2x4HKsnGClAHFhTQT84YzTC1AN7cS7PsixnjcExtq+gKA==}
 
-  '@phensley/cldr-utils@1.15.0':
-    resolution: {integrity: sha512-w+Uhl4bPZT4XmqiHqtMvBaqg57LMVglE1gteB2ope50faNtQO9iLR7DXVhpesEtUv8/B+WiMAKP0UP6W7bdgZA==}
+  '@phensley/decimal@1.16.0':
+    resolution: {integrity: sha512-4zh3A4kMdMrhUq7BeR/1Ey2JGQY1zFNJzLdlrNXiNdpLKWHfxwwKf9hWNGipTS7KVqTJn+r1/Op7WiAFg8ix3w==}
 
-  '@phensley/cldr@file:post-tag/cldr':
-    resolution: {directory: post-tag/cldr, type: directory}
+  '@phensley/language-tag@1.16.0':
+    resolution: {integrity: sha512-bE+oBkJ+sWr7tk5+I3P0TrzaUhSGBD6ltDRZB/jJPX69Th3WPJdZpaOTnuYaECjCLBPcGLIkk4+yThazou2UeA==}
 
-  '@phensley/decimal@1.15.0':
-    resolution: {integrity: sha512-J6/rYAzIlIfIP+EM86/20NZjH3b8RjZgJlhdTPd5BbVl/fKz8mvW8R69bYpH/m/nGm4C+pPbv7taQKqGz6XTBA==}
+  '@phensley/locale-matcher@1.16.0':
+    resolution: {integrity: sha512-4QumuG9+OkyluCaH3aoUE5X02Fgolc/CHAWzqHG+04CctV/y2HAQu8mIs7YlnZxFUuBjCkjXQtsNMEYjXj8ALw==}
 
-  '@phensley/language-tag@1.15.0':
-    resolution: {integrity: sha512-u9vyUlBuQkdcSsFTs6DVQr74q03P4ojuGPFfP6niV8vEOOxlbZ7pBujEDcLJAwbPWmf+ULCK5yYpIaSmjTTAqQ==}
+  '@phensley/locale@1.16.0':
+    resolution: {integrity: sha512-x0iVyZ0SVst5tJ/nAELl8AXXPryE+09ADHoKK656w5WC4HWpWEA9+6wu8uGZxOkgHpQcmjhKTds+Q98tQDw1Uw==}
 
-  '@phensley/locale-matcher@1.15.0':
-    resolution: {integrity: sha512-BmJm/ujwZb1Bv8I9j01o8IU/j6GNReR5JXiAO7/qHn2hzRJZ/nH/YcHlhS+V4x7XMUwXItxzVj7meuFhxQ/wPQ==}
+  '@phensley/messageformat@1.16.0':
+    resolution: {integrity: sha512-aPErabfuRv9RLMpp0OKwBKjaML3g4omy8mttbjaYSuqC+axFDkR4lvKi5lPbFJoFfX2XPIs+ObzGAtXqWXdpzw==}
 
-  '@phensley/locale@1.15.0':
-    resolution: {integrity: sha512-a4rI8Dp9+Wf4mXfKB62qbYiqcfB7pVuzKxjc/JbvuzuYhKsGLXlpXzKgOo7gUCjrw4K9uneL6QS07HxoYoFpSQ==}
+  '@phensley/plurals@1.16.0':
+    resolution: {integrity: sha512-kGaQNJlqyifw0TpHFFx8/RSyLdXtZWKj75n1OhepGYNWaeS2WBG4V3WDatrpS7Y/PqcsYIP6p7E68DQV/sbvdQ==}
 
-  '@phensley/messageformat@1.15.0':
-    resolution: {integrity: sha512-7WTpmuPwQ5VJmgzis+EvcMKfyT3lQdw/Znw1G7bip9+fXZ1k8WeaO4Rb3UXA+hu2b71JuA01GtfW4zAwikWggQ==}
+  '@phensley/timezone@1.16.0':
+    resolution: {integrity: sha512-/x2y5kTa59miuSxLf6aEOLJJaH8riDATnYCSLubrjcA17lU4zvFHWJGXMkHUm1ZzgjIBanrdFH4ls74poycp6w==}
 
-  '@phensley/plurals@1.15.0':
-    resolution: {integrity: sha512-D4ME97E+x+vcL/b2iyD34ayJhHIIX/2Oylzj+6P7dATl0taL1+en8mDIS5VqE7w6zB4QHw30hUreZjpYCXKN5g==}
-
-  '@phensley/timezone@1.15.0':
-    resolution: {integrity: sha512-PZUcZPcotPlQWR+iEBUyltaWCiS8IZ7ummuYMp0XBqZDNMQ2GfFtkJoWYvWphWnYywB/i+7kh9PhpWch7hNq+Q==}
-
-  '@phensley/unit-converter@1.15.0':
-    resolution: {integrity: sha512-28MbfY/4p4Qn/13p971BGGIUx00ZqBEvLqSRsHC1Bw4icbejF8YjGpV4V8v/tjV4/kqVqVPvIxLpoT6fj/U0vQ==}
+  '@phensley/unit-converter@1.16.0':
+    resolution: {integrity: sha512-na2o7kEWy6G1Wa2Jf2DfMC9W1mg1RRYVGNwIOFwknER/diKgUHLnb70flAhipGo0lhx5ldN/lqKMfkbzcDr8oQ==}
 
   '@pkgr/core@0.3.6':
     resolution: {integrity: sha512-SEeaJLb3qBNF/OaXnaR1NmmBbFYk1zC0ZH/52fATcRPLFg/p791YrcyFFy44Bo9sLaGuSuLp5Q6axbb/O+v/RA==}
@@ -2565,14 +2559,14 @@ snapshots:
       esquery: 1.7.0
       typescript: 5.8.3
 
-  '@phensley/cldr-compiler@1.15.0':
+  '@phensley/cldr-compiler@1.16.0':
     dependencies:
-      '@phensley/cldr-core': 1.15.0
-      '@phensley/cldr-ext-rbnf': 1.15.0
-      '@phensley/cldr-types': 1.15.0
-      '@phensley/cldr-utils': 1.15.0
-      '@phensley/decimal': 1.15.0
-      '@phensley/timezone': 1.15.0
+      '@phensley/cldr-core': 1.16.0
+      '@phensley/cldr-ext-rbnf': 1.16.0
+      '@phensley/cldr-types': 1.16.0
+      '@phensley/cldr-utils': 1.16.0
+      '@phensley/decimal': 1.16.0
+      '@phensley/timezone': 1.16.0
       '@prettier/sync': 0.6.1(prettier@3.9.6)
       '@types/node-fetch': 2.6.13
       '@types/yargs': 17.0.35
@@ -2589,99 +2583,82 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@phensley/cldr-core@1.15.0':
+  '@phensley/cldr-core@1.16.0':
     dependencies:
-      '@phensley/cldr-types': 1.15.0
-      '@phensley/cldr-utils': 1.15.0
-      '@phensley/decimal': 1.15.0
-      '@phensley/language-tag': 1.15.0
-      '@phensley/locale': 1.15.0
-      '@phensley/locale-matcher': 1.15.0
-      '@phensley/messageformat': 1.15.0
-      '@phensley/plurals': 1.15.0
-      '@phensley/timezone': 1.15.0
+      '@phensley/cldr-types': 1.16.0
+      '@phensley/cldr-utils': 1.16.0
+      '@phensley/decimal': 1.16.0
+      '@phensley/language-tag': 1.16.0
+      '@phensley/locale': 1.16.0
+      '@phensley/locale-matcher': 1.16.0
+      '@phensley/messageformat': 1.16.0
+      '@phensley/plurals': 1.16.0
+      '@phensley/timezone': 1.16.0
       tslib: 2.8.1
 
-  '@phensley/cldr-core@file:post-tag/cldr-core':
+  '@phensley/cldr-ext-rbnf@1.16.0':
     dependencies:
-      '@phensley/cldr-types': 1.15.0
-      '@phensley/cldr-utils': 1.15.0
-      '@phensley/decimal': 1.15.0
-      '@phensley/language-tag': 1.15.0
-      '@phensley/locale': 1.15.0
-      '@phensley/locale-matcher': 1.15.0
-      '@phensley/messageformat': 1.15.0
-      '@phensley/plurals': 1.15.0
-      '@phensley/timezone': 1.15.0
+      '@phensley/cldr-types': 1.16.0
+      '@phensley/decimal': 1.16.0
+      '@phensley/plurals': 1.16.0
       tslib: 2.8.1
 
-  '@phensley/cldr-ext-rbnf@1.15.0':
-    dependencies:
-      '@phensley/cldr-types': 1.15.0
-      '@phensley/decimal': 1.15.0
-      '@phensley/plurals': 1.15.0
-      tslib: 2.8.1
-
-  '@phensley/cldr-types@1.15.0':
+  '@phensley/cldr-types@1.16.0':
     dependencies:
       tslib: 2.8.1
 
-  '@phensley/cldr-types@file:post-tag/cldr-types':
+  '@phensley/cldr-utils@1.16.0':
     dependencies:
       tslib: 2.8.1
 
-  '@phensley/cldr-utils@1.15.0':
+  '@phensley/cldr@1.16.0':
+    dependencies:
+      '@phensley/cldr-core': 1.16.0
+      '@phensley/cldr-utils': 1.16.0
+      '@phensley/messageformat': 1.16.0
+      tslib: 2.8.1
+
+  '@phensley/decimal@1.16.0':
     dependencies:
       tslib: 2.8.1
 
-  '@phensley/cldr@file:post-tag/cldr':
-    dependencies:
-      '@phensley/cldr-core': 1.15.0
-      '@phensley/cldr-utils': 1.15.0
-      '@phensley/messageformat': 1.15.0
-      tslib: 2.8.1
-
-  '@phensley/decimal@1.15.0':
+  '@phensley/language-tag@1.16.0':
     dependencies:
       tslib: 2.8.1
 
-  '@phensley/language-tag@1.15.0':
+  '@phensley/locale-matcher@1.16.0':
     dependencies:
+      '@phensley/language-tag': 1.16.0
+      '@phensley/locale': 1.16.0
       tslib: 2.8.1
 
-  '@phensley/locale-matcher@1.15.0':
+  '@phensley/locale@1.16.0':
     dependencies:
-      '@phensley/language-tag': 1.15.0
-      '@phensley/locale': 1.15.0
+      '@phensley/language-tag': 1.16.0
       tslib: 2.8.1
 
-  '@phensley/locale@1.15.0':
+  '@phensley/messageformat@1.16.0':
     dependencies:
-      '@phensley/language-tag': 1.15.0
+      '@phensley/cldr-utils': 1.16.0
+      '@phensley/decimal': 1.16.0
+      '@phensley/plurals': 1.16.0
       tslib: 2.8.1
 
-  '@phensley/messageformat@1.15.0':
+  '@phensley/plurals@1.16.0':
     dependencies:
-      '@phensley/cldr-utils': 1.15.0
-      '@phensley/decimal': 1.15.0
-      '@phensley/plurals': 1.15.0
+      '@phensley/decimal': 1.16.0
       tslib: 2.8.1
 
-  '@phensley/plurals@1.15.0':
+  '@phensley/timezone@1.16.0':
     dependencies:
-      '@phensley/decimal': 1.15.0
+      '@phensley/cldr-utils': 1.16.0
       tslib: 2.8.1
 
-  '@phensley/timezone@1.15.0':
+  '@phensley/unit-converter@1.16.0':
     dependencies:
-      '@phensley/cldr-utils': 1.15.0
-      tslib: 2.8.1
-
-  '@phensley/unit-converter@1.15.0':
-    dependencies:
-      '@phensley/cldr-types': 1.15.0
-      '@phensley/cldr-utils': 1.15.0
-      '@phensley/decimal': 1.15.0
+      '@phensley/cldr-types': 1.16.0
+      '@phensley/cldr-utils': 1.16.0
+      '@phensley/decimal': 1.16.0
       tslib: 2.8.1
 
   '@pkgr/core@0.3.6': {}

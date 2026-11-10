@@ -31,9 +31,11 @@ export const DATES: number[] = [
   500000000000000,
 ];
 
+// The expected values come from the npm packages (tzdb 2025b) while the Java side uses the
+// vendored tzdb 2026f data, so avoid zones whose rules changed in between (see vendor/README.md).
 export const ZONES: string[] = [
   'America/Catamarca',
-  'America/Inuvik',
+  'America/Denver',
   'America/New_York',
   'Asia/Tokyo',
   'Australia/Melbourne',

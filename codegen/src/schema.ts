@@ -10,7 +10,7 @@ import { VERSION } from '@phensley/cldr-core/lib/utils/version';
 
 // The raw timezone data must be copied when loaded since it is modified
 // by the library at initialization time
-import * as timezonedataraw from '@phensley/timezone/lib/autogen.zonedata';
+import * as timezonedataraw from './vendor/timezone-zonedata';
 const timezonedata = {
   rawdata: { ...timezonedataraw.rawdata },
 };
@@ -26,7 +26,7 @@ import * as languageTagSubtags from '@phensley/language-tag/lib/autogen.subtags'
 import * as localealiases from '@phensley/locale/lib/autogen.aliases';
 import * as locales from '@phensley/cldr-core/lib/locale/autogen.locales';
 import * as localeSubtags from '@phensley/locale/lib/autogen.subtags';
-import * as metazonedata from '@phensley/cldr-core/lib/systems/calendars/autogen.zonedata';
+import * as metazonedata from './vendor/metazone-zonedata';
 import * as partition from '@phensley/locale-matcher/lib/autogen.partition';
 import * as zonealiases from '@phensley/cldr-core/lib/systems/calendars/autogen.aliases';
 

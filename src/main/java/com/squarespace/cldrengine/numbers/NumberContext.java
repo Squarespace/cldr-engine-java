@@ -112,7 +112,7 @@ public class NumberContext {
       n = n.stripTrailingZeros();
 
       // If user hasn't requested minimum fraction digits, and requested to trim zero fractions,
-      // and the number is an integer, force it to render as a whole nujmber.
+      // and the number is an integer, force it to render as a whole number.
       if (this.options.trimZeroFractions.or(false) && !this.options.minimumFractionDigits.ok() && n.isInteger()) {
         // Trim zeros when whole number display is possible
         n = n.setScale(0, this.roundingMode);

@@ -45,7 +45,7 @@ public class LocaleMatcher {
   }
 
   /**
-   * Find the desired locale that is the closed match to a supported locale, within
+   * Find the desired locale that is the closest match to a supported locale, within
    * the given threshold. Any matches whose distance is greater than or equal to the
    * threshold will be treated as having maximum distance.
    */
@@ -54,7 +54,7 @@ public class LocaleMatcher {
   }
 
   /**
-   * Find the desired locale that is the closed match to a supported locale, within
+   * Find the desired locale that is the closest match to a supported locale, within
    * the given threshold. Any matches whose distance is greater than or equal to the
    * threshold will be treated as having maximum distance.
    */
@@ -64,7 +64,7 @@ public class LocaleMatcher {
   }
 
   /**
-   * Find the desired locale that is the closed match to a supported locale, within
+   * Find the desired locale that is the closest match to a supported locale, within
    * the given threshold. Any matches whose distance is greater than or equal to the
    * threshold will be treated as having maximum distance.
    */
@@ -73,7 +73,7 @@ public class LocaleMatcher {
   }
 
   /**
-   * Find the desired locale that is the closed match to a supported locale, within
+   * Find the desired locale that is the closest match to a supported locale, within
    * the given threshold. Any matches whose distance is greater than or equal to the
    * threshold will be treated as having maximum distance.
    */
@@ -83,7 +83,7 @@ public class LocaleMatcher {
   }
 
   /**
-   * Find the desired locale that is the closed match to a supported locale, within
+   * Find the desired locale that is the closest match to a supported locale, within
    * the given threshold. Any matches whose distance is greater than or equal to the
    * threshold will be treated as having maximum distance.
    */
@@ -92,7 +92,7 @@ public class LocaleMatcher {
   }
 
   /**
-   * Find the desired locale that is the closed match to a supported locale, within
+   * Find the desired locale that is the closest match to a supported locale, within
    * the given threshold. Any matches whose distance is greater than or equal to the
    * threshold will be treated as having maximum distance.
    */
@@ -149,7 +149,7 @@ public class LocaleMatcher {
     this.defaultEntry = this.supported.get(0);
 
     this.supported.sort((Entry a, Entry b) -> {
-      // Keep default tag at the front..
+      // Keep default tag at the front.
       if (a.tag == this.defaultEntry.tag) {
         return -1;
       }
